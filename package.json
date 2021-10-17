@@ -17,6 +17,8 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "dev": "npm run compile:desktop && concurrently -k \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron electron/dist/index.js\"",
+    "compile:desktop": "tsc -p electron/tsconfig.json",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -30,14 +32,10 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "last 1 electron version"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 electron version"
     ]
   },
   "devDependencies": {
