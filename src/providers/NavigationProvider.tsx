@@ -6,8 +6,8 @@ import LoadingPage from '../views/Loading';
 const NavigationProvider: React.FC<{}> = () => {
 	return (
 		<BrowserRouter>
-			<Route path='/login' component={Login} />
-			<Route path='/' component={LoadingPage} />
+			<Route exact path='/' component={LoadingPage} />
+			<Route exact path='/login' component={Login} />
 		</BrowserRouter>
 	);
 };
