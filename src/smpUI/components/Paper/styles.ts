@@ -7,6 +7,7 @@ export default makeStyles((theme: Theme) =>
 			padding: theme.spacing(3),
 			backgroundColor: theme.palette.background.paper,
 			minHeight: '150px',
+			height: '150px',
 			maxWidth: '55%',
 		},
 	})
