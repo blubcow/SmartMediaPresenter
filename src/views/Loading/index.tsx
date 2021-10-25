@@ -16,10 +16,8 @@ const LoadingPage: React.FC<{}> = () => {
 	}, []);
 
 	return (
-		<Page>
-			<Box className={classes.container}>
-				<LoadingIndicatorPaper />
-			</Box>
+		<Page centeredContent>
+			<LoadingIndicatorPaper />
 		</Page>
 	);
 };
