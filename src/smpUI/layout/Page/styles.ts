@@ -8,5 +8,12 @@ export default makeStyles((theme: Theme) =>
 			height: '1px',
 			backgroundColor: theme.palette.background.default,
 		},
+		centeredContentBox: {
+			height: '100%',
+			width: '100%',
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+		},
 	})
 );
