@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Login from '../views/Auth/Login';
-import LoadingPage from '../views/Loading';
+import { Home, Login, Loading } from '../views';
 
 const NavigationProvider: React.FC<{}> = () => {
 	return (
 		<BrowserRouter>
-			<Route exact path='/' component={LoadingPage} />
+			<Route exact path='/' component={Loading} />
 			<Route exact path='/login' component={Login} />
+			<Route exact path='/home' component={Home} />
 		</BrowserRouter>
 	);
 };
