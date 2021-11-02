@@ -11,7 +11,7 @@ const TopBar: React.FC<ITopBarProps> = (props) => {
 	return (
 		<AppBar
 			variant='elevation'
-			position='static'
+			position='sticky'
 			sx={{
 				backgroundColor: 'background.paper',
 				maxHeight: withFixedHeight,
