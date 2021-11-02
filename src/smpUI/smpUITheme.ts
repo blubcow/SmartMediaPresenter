@@ -17,6 +17,7 @@ export const lightTheme = createTheme({
 		divider: '#E1EAEF',
 	},
 	typography: typography,
+	shape: { borderRadius: 20 },
 });
 
 export const darkTheme = createTheme({
@@ -31,4 +32,5 @@ export const darkTheme = createTheme({
 		divider: '#1B1F23',
 	},
 	typography: typography,
+	shape: { borderRadius: 20 },
 });
