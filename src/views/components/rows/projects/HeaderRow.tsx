@@ -8,9 +8,9 @@ const HeaderRow: React.FC<{}> = () => {
 		<BaseRow
 			sx={{
 				bgcolor: 'divider',
-				position: 'sticky',
 			}}
 			title='create a new presentation'
+			rootContainerStyle={{ position: 'sticky', top: 0 }}
 			iconBadge={
 				<IconBadge
 					icon={Add}

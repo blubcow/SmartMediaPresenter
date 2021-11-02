@@ -8,23 +8,26 @@ interface IBaseRowProps extends BoxProps {
 	info?: string;
 	// TODO: create type for IconBadge: "type IconBadgeType = IconBadge" and use this type here rather than the Element type
 	iconBadge: React.ReactNode;
+	rootContainerStyle?: any;
 }
 
 const BaseRow: React.FC<IBaseRowProps> = (props) => {
-	const { title, info, iconBadge: IconBadge } = props;
+	const { title, info, iconBadge: IconBadge, rootContainerStyle } = props;
 	const classes = useStyles();
 
 	return (
-		<Box className={classes.container} clickable {...props}>
-			<Box className={classes.textContainer}>
-				<Text fontWeight='bold'>{title}</Text>
-				{info && (
-					<Text className={classes.infoLabel} variant='body2'>
-						{info}
-					</Text>
-				)}
+		<Box className={classes.root} sx={rootContainerStyle}>
+			<Box className={classes.container} clickable {...props}>
+				<Box className={classes.textContainer}>
+					<Text fontWeight='bold'>{title}</Text>
+					{info && (
+						<Text className={classes.infoLabel} variant='body2'>
+							{info}
+						</Text>
+					)}
+				</Box>
+				{IconBadge}
 			</Box>
-			{IconBadge}
 		</Box>
 	);
 };
