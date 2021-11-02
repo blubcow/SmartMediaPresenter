@@ -1,3 +1,4 @@
+import { Palette } from '@mui/icons-material';
 import { createTheme, ThemeOptions } from '@mui/material';
 
 const typography: ThemeOptions['typography'] = () => ({
@@ -13,6 +14,7 @@ export const lightTheme = createTheme({
 		success: { main: '#2EB67D' },
 		error: { main: '#E01E5A' },
 		warning: { main: '#ECB22E' },
+		divider: '#E1EAEF',
 	},
 	typography: typography,
 });
@@ -26,6 +28,7 @@ export const darkTheme = createTheme({
 		success: { main: '#2EB67D' },
 		error: { main: '#E01E5A' },
 		warning: { main: '#ECB22E' },
+		divider: '#1B1F23',
 	},
 	typography: typography,
 });
