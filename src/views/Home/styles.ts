@@ -9,11 +9,12 @@ export default makeStyles((theme: Theme) =>
 			display: 'flex',
 		},
 		rowsContainer: {
-			height: '100%',
 			flex: 0.3,
-			display: 'flex',
-			flexDirection: 'column',
-			overflow: 'scroll',
+			height: '100%',
+		},
+		rowsScrollingContainer: {
+			height: '100%',
+			overflowY: 'scroll',
 		},
 		previewContainer: {
 			height: '100%',

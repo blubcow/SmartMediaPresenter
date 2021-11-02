@@ -14,7 +14,9 @@ const Home: React.FC<{}> = () => {
 			<Box className={classes.container}>
 				<Divider orientation='vertical' />
 				<Box className={classes.rowsContainer}>
-					<ProjectsHeaderRow />
+					<Box className={classes.rowsScrollingContainer}>
+						<ProjectsHeaderRow />
+					</Box>
 				</Box>
 				<Divider orientation='vertical' />
 				<Box className={classes.previewContainer}></Box>
