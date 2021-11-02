@@ -14,7 +14,14 @@ const Button: React.FC<IButtonProps> = (props) => {
 	const { isLoading = false, minWidth = '150px', variant, color } = props;
 
 	return (
-		<MUIButton style={{ minHeight: '45px', minWidth: minWidth }} {...props}>
+		<MUIButton
+			style={{
+				minHeight: '45px',
+				minWidth: minWidth,
+				fontWeight: variant === 'contained' ? 800 : 500,
+			}}
+			{...props}
+		>
 			{isLoading ? (
 				<LinearProgress
 					color={variant !== 'contained' ? color : 'secondary'}
