@@ -12,11 +12,13 @@ export default makeStyles((theme: Theme) => {
 			flexDirection: 'column',
 		},
 		contentContainer: {
+			height: '0px',
 			flex: 1,
 			width: '100%',
 		},
 		centeredContentBox: {
 			height: '100%',
+			maxHeight: '100%',
 			width: '100%',
 			display: 'flex',
 			justifyContent: 'center',
