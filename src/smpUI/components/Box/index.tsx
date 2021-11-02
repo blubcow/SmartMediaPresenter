@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import { Box as MUIBox, BoxProps, ButtonBase } from '@mui/material';
 
-interface IBoxProps extends BoxProps {
+export interface IBoxProps extends BoxProps {
 	clickable?: boolean;
 }
 
