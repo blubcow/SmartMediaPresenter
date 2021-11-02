@@ -1,12 +1,19 @@
 import { makeStyles, createStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 
-export default makeStyles((theme: Theme) =>
-	createStyles({
+export default makeStyles((theme: Theme) => {
+	console.log(theme.mixins.toolbar.height);
+	return createStyles({
 		root: {
 			minHeight: '100vh',
 			height: '1px',
 			backgroundColor: theme.palette.background.default,
+			display: 'flex',
+			flexDirection: 'column',
+		},
+		contentContainer: {
+			flex: 1,
+			width: '100%',
 		},
 		centeredContentBox: {
 			height: '100%',
@@ -15,5 +22,5 @@ export default makeStyles((theme: Theme) =>
 			justifyContent: 'center',
 			alignItems: 'center',
 		},
-	})
-);
+	});
+});
