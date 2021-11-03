@@ -1,14 +1,13 @@
 import React from 'react';
-import { Box, Text } from '../../../../smpUI/components';
-import { BoxProps } from '@mui/material';
+import { Row, Box, Text } from '../../../../smpUI/components';
+import { IRowProps } from '../../../../smpUI/components/Row';
 import useStyles from './styles';
 
-interface IBaseRowProps extends BoxProps {
-	title: string;
+interface IBaseRowProps extends IRowProps {
+	title?: string;
 	info?: string;
 	// TODO: create type for IconBadge: "type IconBadgeType = IconBadge" and use this type here rather than the Element type
-	iconBadge: React.ReactNode;
-	rootContainerStyle?: any;
+	iconBadge?: React.ReactNode;
 }
 
 const BaseRow: React.FC<IBaseRowProps> = (props) => {
@@ -16,10 +15,10 @@ const BaseRow: React.FC<IBaseRowProps> = (props) => {
 	const classes = useStyles();
 
 	return (
-		<Box className={classes.root} sx={rootContainerStyle}>
+		<Row {...props}>
 			<Box className={classes.container} clickable {...props}>
 				<Box className={classes.textContainer}>
-					<Text fontWeight='bold'>{title}</Text>
+					{title && <Text fontWeight='bold'>{title}</Text>}
 					{info && (
 						<Text className={classes.infoLabel} variant='body2'>
 							{info}
@@ -28,7 +27,7 @@ const BaseRow: React.FC<IBaseRowProps> = (props) => {
 				</Box>
 				{IconBadge}
 			</Box>
-		</Box>
+		</Row>
 	);
 };
 

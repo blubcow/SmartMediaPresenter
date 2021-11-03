@@ -3,9 +3,6 @@ import { Theme } from '@mui/material';
 
 export default makeStyles((theme: Theme) =>
 	createStyles({
-		root: {
-			padding: theme.spacing(1),
-		},
 		container: {
 			height: '135px',
 			display: 'flex',
@@ -13,10 +10,6 @@ export default makeStyles((theme: Theme) =>
 			justifyContent: 'space-between',
 			padding: theme.spacing(5),
 			alignItems: 'center',
-			borderRadius: theme.shape.borderRadius,
-			overflow: 'hidden',
-			border: '1px solid ' + theme.palette.background.paper,
-			filter: `drop-shadow(0 0 0.5rem ${theme.palette.divider})`,
 		},
 		textContainer: {
 			height: '100%',
