@@ -1,12 +1,11 @@
 import React, { PropsWithChildren } from 'react';
 import { Container } from '@mui/material';
 import { Box } from '../../components';
-import { TopBar } from '..';
 import useStyles from './styles';
 
 interface IPageProps {
 	centeredContent?: boolean;
-	TopBar?: React.FC<any>;
+	TopBar?: React.ReactNode;
 }
 
 const Page: React.FC<PropsWithChildren<IPageProps>> = ({
@@ -18,7 +17,7 @@ const Page: React.FC<PropsWithChildren<IPageProps>> = ({
 
 	return (
 		<Box className={classes.root}>
-			{TopBar && <TopBar />}
+			{TopBar}
 			<Container className={classes.contentContainer} maxWidth='xl'>
 				{centeredContent ? (
 					<Box className={classes.centeredContentBox}>{children}</Box>
