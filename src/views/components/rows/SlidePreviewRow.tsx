@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import {
 	MediaLocation,
 	MediaRessource,
@@ -15,20 +15,34 @@ interface ISlidePreviewRowProps extends IRowProps {
 
 const SlidePreviewRow: React.FC<ISlidePreviewRowProps> = (props) => {
 	const { slide, onSelected, selected } = props;
+	const ref = useRef<any>();
+
+	useEffect(() => {
+		console.log(ref);
+		if (
+			selected &&
+			ref.current?.getBoundingClientRect().bottom > window.innerHeight
+		)
+			ref.current?.scrollIntoView({ block: 'end', behavior: 'smooth' });
+	}, [selected]);
+
 	return (
-		<Row
-			{...props}
-			sx={{
-				height: '100px',
-				border: selected ? '2px dashed' : 0,
-				borderColor: 'primary.main',
-			}}
-			onClick={() => {
-				onSelected(slide.id);
-			}}
-		>
-			<PreviewRow height='100%' items={slide.media} />
-		</Row>
+		<>
+			<Row
+				{...props}
+				sx={{
+					height: '100px',
+					border: selected ? '2px dashed' : 0,
+					borderColor: 'primary.main',
+				}}
+				onClick={() => {
+					onSelected(slide.id);
+				}}
+			>
+				<PreviewRow height='100%' items={slide.media} />
+			</Row>
+			<div ref={ref} />
+		</>
 	);
 };
 
