@@ -1,13 +1,17 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { Home, Login, Loading } from '../views';
+import { SMPRoutes } from '../shared/types/routes';
+import { Home, Login, Loading, Edit } from '../views';
+import QuickCreate from '../views/QuickCreate';
 
 const NavigationProvider: React.FC<{}> = () => {
 	return (
 		<BrowserRouter>
-			<Route exact path='/' component={Loading} />
-			<Route exact path='/login' component={Login} />
-			<Route exact path='/home' component={Home} />
+			<Route exact path={SMPRoutes.Loading} component={Loading} />
+			<Route exact path={SMPRoutes.Login} component={Login} />
+			<Route exact path={SMPRoutes.Home} component={Home} />
+			<Route exact path={SMPRoutes.Edit} component={Edit} />
+			<Route exact path={SMPRoutes.QuickCreate} component={QuickCreate} />
 		</BrowserRouter>
 	);
 };
