@@ -18,7 +18,6 @@ const SlidePreviewRow: React.FC<ISlidePreviewRowProps> = (props) => {
 	const ref = useRef<any>();
 
 	useEffect(() => {
-		console.log(ref);
 		if (
 			selected &&
 			ref.current?.getBoundingClientRect().bottom > window.innerHeight
@@ -32,7 +31,7 @@ const SlidePreviewRow: React.FC<ISlidePreviewRowProps> = (props) => {
 				{...props}
 				sx={{
 					height: '100px',
-					border: selected ? '2px dashed' : 0,
+					border: selected ? '2px solid' : 0,
 					borderColor: 'primary.main',
 				}}
 				onClick={() => {
