@@ -14,10 +14,11 @@ import {
 
 interface ICreateProjectModalProps extends IModalProps {
 	createPresentationAction: () => any;
+	enterQuickCreateAction: () => any;
 }
 
 const CreateProjectModal: React.FC<ICreateProjectModalProps> = (props) => {
-	const { createPresentationAction } = props;
+	const { createPresentationAction, enterQuickCreateAction } = props;
 	const classes = useCreateProjectModalStyles();
 
 	return (
@@ -43,7 +44,7 @@ const CreateProjectModal: React.FC<ICreateProjectModalProps> = (props) => {
 					<CreateProjectOption
 						icon={ViewColumn}
 						text='create with QuickCreate'
-						onClick={() => {}}
+						onClick={enterQuickCreateAction}
 					/>
 				</Box>
 			</Box>

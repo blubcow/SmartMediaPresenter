@@ -7,6 +7,7 @@ import useStyles from './styles';
 import { Divider } from '@mui/material';
 import { useStoredPresentations } from '../../hooks/useMainProcessMethods';
 import { useHistory } from 'react-router-dom';
+import { SMPRoutes } from '../../shared/types/routes';
 
 const Home: React.FC<{}> = () => {
 	const classes = useStyles();
@@ -26,8 +27,11 @@ const Home: React.FC<{}> = () => {
 						<ProjectsHeaderRow
 							ceratePresentationAction={() => {
 								createPresentation((id: number) => {
-									history.push(`/edit?id=${id}`);
+									history.push(`${SMPRoutes.Edit}?id=${id}`);
 								});
+							}}
+							enterQuickCreateAction={() => {
+								history.push(SMPRoutes.QuickCreate);
 							}}
 						/>
 						{presentations.map((presentation, i) => (
