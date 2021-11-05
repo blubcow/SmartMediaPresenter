@@ -20,9 +20,8 @@ const MediaDropBox: React.FC<IMediaDropBox> = (props) => {
 			sx={{
 				width: width,
 				aspectRatio: aspectRatio,
-				bgcolor: 'divider',
-				padding: media?.location.local || media?.location.remote ? 0 : 1,
-				margin: media?.location.local || media?.location.remote ? 0 : 0.5,
+				padding: media?.location.local || media?.location.remote ? 0 : 0.5,
+				cursor: 'pointer',
 			}}
 			onDragOver={(e) => {
 				e.preventDefault();
@@ -44,9 +43,18 @@ const MediaDropBox: React.FC<IMediaDropBox> = (props) => {
 					src={media.location.local ?? media.location.remote}
 				/>
 			) : (
-				<Box className={classes.droppingArea}>
-					<Text>drop media here</Text>
-					<Text variant='caption'>or click to choose from file inspector</Text>
+				<Box
+					className={classes.droppingArea}
+					sx={{
+						padding: media?.location.local || media?.location.remote ? 0 : 1,
+					}}
+				>
+					<Box className={classes.droppingAreaFrame}>
+						<Text>drop media here</Text>
+						<Text variant='caption'>
+							or click to choose from file inspector
+						</Text>
+					</Box>
 				</Box>
 			)}
 		</Box>
