@@ -10,6 +10,7 @@ export default makeStyles((theme: Theme) =>
 		},
 		rowsContainer: {
 			flex: 0.3,
+			minWidth: '450px',
 			height: '100%',
 		},
 		rowsScrollingContainer: {
