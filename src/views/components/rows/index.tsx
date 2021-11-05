@@ -1,1 +1,2 @@
-export { default as ProjectsHeaderRow } from './projects/HeaderRow';
+export { default as ProjectsHeaderRow } from './ProjectsHeaderRow';
+export { default as SlidesHeaderRow } from './SlidesHeaderRow';

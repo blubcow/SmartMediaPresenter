@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { IconBadge, Text, Row } from '../../../../smpUI/components';
+import { IconBadge, Text, Row } from '../../../smpUI/components';
 import { Add } from '@mui/icons-material';
-import { CreateProjectModal } from '../../modals';
+import { CreateProjectModal } from '../modals';
 
 interface IHeaderRowProps {
 	ceratePresentationAction: () => any;
