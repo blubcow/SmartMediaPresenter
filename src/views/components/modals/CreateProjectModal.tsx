@@ -12,7 +12,12 @@ import {
 	useCreateProjectOptionStyles,
 } from './styles';
 
-const CreateProjectModal: React.FC<IModalProps> = (props) => {
+interface ICreateProjectModalProps extends IModalProps {
+	createPresentationAction: () => any;
+}
+
+const CreateProjectModal: React.FC<ICreateProjectModalProps> = (props) => {
+	const { createPresentationAction } = props;
 	const classes = useCreateProjectModalStyles();
 
 	return (
@@ -28,7 +33,7 @@ const CreateProjectModal: React.FC<IModalProps> = (props) => {
 					<CreateProjectOption
 						icon={Create}
 						text='create an emtpy project'
-						onClick={() => {}}
+						onClick={createPresentationAction}
 					/>
 					<CreateProjectOption
 						icon={Download}
