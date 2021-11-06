@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, TypographyProps } from '@mui/material';
 import { EditText } from 'react-edit-text';
 import useStyles from './styles';
@@ -22,6 +22,10 @@ const Text: React.FC<ITextProps> = (props) => {
 	);
 	const [isEditing, setIsEditing] = useState<boolean>(false);
 	const classes = useStyles();
+
+	useEffect(() => {
+		setEditableText(`${props.children ?? ''}`);
+	}, [props.children]);
 
 	return (
 		<Typography
