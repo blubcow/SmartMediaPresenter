@@ -3,12 +3,10 @@ import TopBarDisplayingFilename, {
 	ITopBarDisplayingFilenameProps,
 } from '../components/appBars/TopBarDisplayingFilename';
 
-interface IEditTopBarProps extends ITopBarDisplayingFilenameProps {}
+interface IQuickCreateTopBarProps extends ITopBarDisplayingFilenameProps {}
 
-const EditTopBar: React.FC<IEditTopBarProps> = (props) => {
-	const { fileName } = props;
-
+const QuickCreateTopBar: React.FC<IQuickCreateTopBarProps> = (props) => {
 	return <TopBarDisplayingFilename {...props} />;
 };
 
-export default EditTopBar;
+export default QuickCreateTopBar;
