@@ -5,3 +5,7 @@ export enum MainProcessMethodIdentifiers {
 	GetSinglePresentation = 'getSinglePresentation',
 	SaveChangesToPresentation = 'saveChangesToPresentation',
 }
+
+export enum DataTransferIdentifiers {
+	MediaFileInfo = 'mediaFileInfo',
+}
