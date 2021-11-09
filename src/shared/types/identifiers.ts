@@ -4,6 +4,8 @@ export enum MainProcessMethodIdentifiers {
 	GetStoredPresentations = 'getStoredPresentations',
 	GetSinglePresentation = 'getSinglePresentation',
 	SaveChangesToPresentation = 'saveChangesToPresentation',
+	CreateQuickCreatePresentation = 'createPresentationQuickCreate',
+	OpenFileSelectorDialog = 'openFileSelectorDialog',
 }
 
 export enum DataTransferIdentifiers {
