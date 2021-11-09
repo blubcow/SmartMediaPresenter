@@ -11,3 +11,7 @@ export {
 	default as SelectionPicker,
 	SelectionPickerOption,
 } from './SelectionPicker';
+export {
+	default as FloatingButton,
+	FloatingButtonContainer,
+} from './FloatingButton';
