@@ -31,3 +31,15 @@ export interface MediaLocation {
 	local?: string;
 	remote?: string;
 }
+
+export const getEmptySlide = (id?: number): Slide => {
+	return {
+		id: id ?? 0,
+		columns: 2,
+		rows: 1,
+		media: [
+			{ id: 0, location: {} },
+			{ id: 1, location: {} },
+		],
+	};
+};
