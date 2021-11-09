@@ -5,7 +5,7 @@ export default makeStyles((theme: Theme) =>
 	createStyles({
 		container: {
 			height: '100%',
-			flex: 0.7,
+			flex: 0.6,
 			display: 'flex',
 			alignItems: 'center',
 			overflowY: 'scroll',
@@ -25,6 +25,28 @@ export default makeStyles((theme: Theme) =>
 	})
 );
 
+export const useHeaderRowStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			width: '100%',
+			minHeight: '55px',
+			backgroundColor: theme.palette.background.paper,
+			position: 'sticky',
+			top: 0,
+			padding: theme.spacing(2),
+			display: 'flex',
+			alignItems: 'center',
+		},
+		addFiles: {
+			color: theme.palette.text.primary,
+			cursor: 'pointer',
+			'&:hover': {
+				color: theme.palette.text.secondary,
+			},
+		},
+	})
+);
+
 export const useMediaRowStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		container: {
@@ -34,7 +56,7 @@ export const useMediaRowStyles = makeStyles((theme: Theme) =>
 		},
 		row: {
 			maxHeight: '20px',
-			cursor: 'pointer',
+			cursor: 'grab',
 			display: 'flex',
 		},
 		imgContainer: {

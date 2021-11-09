@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { QuickCreateMediaResource } from '../../../shared/types/quickCreate';
 import { Box, Text } from '../../../smpUI/components';
 import { IBoxProps } from '../../../smpUI/components/Box';
-import useStyles, { useMediaRowStyles } from './styles';
+import useStyles from './styles';
 import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
-import { DataTransferIdentifiers } from '../../../shared/types/identifiers';
 import * as path from 'path';
+import HeaderRow from './HeaderRow';
+import MediaRow from './MeidaRow';
 import { allowedFiles } from '../../../shared/types/mediaResources';
 
 interface IQuickCreateMediaDropBoxProps extends IBoxProps {}
@@ -15,12 +16,12 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 ) => {
 	const [files, setFiles] = useState<QuickCreateMediaResource[]>([]);
 	const classes = useStyles();
-	const { getFilesInDir } = useLocalFileSystem();
+	const { getFilesInDir, openFileSelectorDialog } = useLocalFileSystem();
 
 	const onDataDropped = async (event: React.DragEvent<HTMLDivElement>) => {
 		event.preventDefault();
 		const timestamp = Date.now();
-		let newFiles: QuickCreateMediaResource[] = [...files];
+		let newFiles: QuickCreateMediaResource[] = [];
 		await Promise.all(
 			Array.prototype.map.call(event.dataTransfer.files, async (file: File) => {
 				//@ts-ignore
@@ -33,14 +34,35 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 							added: timestamp,
 						});
 				} else {
-					const filesInDir = await getFilesInDir(filePath);
+					const filesInDir: QuickCreateMediaResource[] = await getFilesInDir(
+						filePath
+					);
 					console.log(filesInDir);
 					newFiles = [...newFiles, ...filesInDir];
 				}
 			})
 		);
+		onFilesReceivedMerge(newFiles);
+	};
 
-		setFiles([...newFiles.sort((a, b) => (a.added < b.added ? 1 : -1))]);
+	const onFilesReceivedMerge = (newFiles: QuickCreateMediaResource[]) => {
+		const filteredFiles = newFiles.filter((file) =>
+			allowedFiles.includes(path.extname(file.name))
+		);
+		const filesToInsert = [
+			...files.filter(
+				(file) =>
+					filteredFiles.find(
+						(fileInDir) =>
+							fileInDir.name === file.name &&
+							(fileInDir.location.local === file.location.local ||
+								fileInDir.location.remote === file.location.remote)
+					) === undefined
+			),
+			...filteredFiles,
+		];
+
+		setFiles([...filesToInsert.sort((a, b) => (a.added < b.added ? 1 : -1))]);
 	};
 
 	return (
@@ -58,7 +80,13 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 			}}
 			onDrop={onDataDropped}
 		>
-			<HeaderRow />
+			<HeaderRow
+				addFilesAction={async () => {
+					const files: QuickCreateMediaResource[] =
+						await openFileSelectorDialog();
+					onFilesReceivedMerge(files);
+				}}
+			/>
 			{files.length ? (
 				files.map((file, i) => <MediaRow key={i} id={i} media={files[i]} />)
 			) : (
@@ -66,55 +94,6 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 					<Text variant='h6'>drop media here</Text>
 				</Box>
 			)}
-		</Box>
-	);
-};
-
-const HeaderRow = () => {
-	return (
-		<Box
-			sx={{
-				width: '100%',
-				minHeight: '55px',
-				bgcolor: 'background.paper',
-				position: 'sticky',
-				top: 0,
-			}}
-		></Box>
-	);
-};
-
-const MediaRow = (props: { media: QuickCreateMediaResource; id: number }) => {
-	const { media, id } = props;
-	const classes = useMediaRowStyles();
-
-	return (
-		<Box
-			className={classes.container}
-			sx={{
-				bgcolor: id % 2 ? 'transparent' : 'divider',
-			}}
-		>
-			<Box
-				className={classes.row}
-				draggable
-				onDragStart={(e) => {
-					e.dataTransfer.setData(
-						DataTransferIdentifiers.MediaFileInfo,
-						JSON.stringify(media)
-					);
-				}}
-			>
-				<Box className={classes.imgContainer}>
-					<img
-						className={classes.img}
-						src={media.location.local ?? media.location.remote}
-					/>
-				</Box>
-				<Box className={classes.txtContainer}>
-					<Text>{media.name}</Text>
-				</Box>
-			</Box>
 		</Box>
 	);
 };
