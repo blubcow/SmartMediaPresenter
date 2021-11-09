@@ -27,6 +27,7 @@ const TopBarDisplayingFilename: React.FC<ITopBarDisplayingFilenameProps> = (
 				<Text
 					fontWeight='bold'
 					variant='h5'
+					color='text.primary'
 					editable
 					minLength={3}
 					editableTextDidChange={(_, curr) => {

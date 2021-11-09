@@ -22,7 +22,6 @@ export default makeStyles<Theme>((theme: Theme) =>
 		},
 		img: {
 			width: '100%',
-			height: '100%',
 		},
 	})
 );

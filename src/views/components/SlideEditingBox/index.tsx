@@ -7,11 +7,16 @@ import useStyels from './styles';
 
 interface ISlideEditingBoxProps extends IBoxProps {
 	slide: Slide;
-	didReceiveMediaFile: (file: File, id: number) => void;
+	didReceiveMediaFile?: (file: File, id: number) => void;
+	mediaBoxesCanReceiveMedia?: boolean;
 }
 
 const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
-	const { slide, didReceiveMediaFile } = props;
+	const {
+		slide,
+		didReceiveMediaFile,
+		mediaBoxesCanReceiveMedia = false,
+	} = props;
 	const [media, setMedia] = useState<MediaRessource[]>([...slide.media]);
 	const classes = useStyels();
 
@@ -29,11 +34,12 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 							.map((media, n) => (
 								<MediaDropBox
 									key={`${i}-${n}`}
-									id={i * slide.columns + i}
+									id={media.id}
 									media={media}
 									width={`${100 / slide.columns}%`}
 									aspectRatio='16/9'
 									didReceiveMediaFile={didReceiveMediaFile}
+									canReceiveMedia={mediaBoxesCanReceiveMedia}
 								/>
 							))}
 					</Box>

@@ -11,10 +11,13 @@ interface ISlidePreviewRowProps extends IRowProps {
 	slide: Slide;
 	onSelected: (id: number) => void;
 	selected: boolean;
+	onDragStarted: (slide: Slide) => void;
+	onDraggedOverSwap: (id: number) => void;
 }
 
 const SlidePreviewRow: React.FC<ISlidePreviewRowProps> = (props) => {
-	const { slide, onSelected, selected } = props;
+	const { slide, onSelected, selected, onDragStarted, onDraggedOverSwap } =
+		props;
 	const ref = useRef<any>();
 
 	useEffect(() => {
@@ -29,6 +32,7 @@ const SlidePreviewRow: React.FC<ISlidePreviewRowProps> = (props) => {
 		<>
 			<Row
 				{...props}
+				draggable
 				sx={{
 					height: '100px',
 					border: selected ? '2px solid' : 0,
@@ -36,6 +40,14 @@ const SlidePreviewRow: React.FC<ISlidePreviewRowProps> = (props) => {
 				}}
 				onClick={() => {
 					onSelected(slide.id);
+				}}
+				onDragStart={() => {
+					onDragStarted(slide);
+				}}
+				onDragOver={(e) => {
+					e.preventDefault();
+					// if (e.clientX)
+					onDraggedOverSwap(slide.id);
 				}}
 			>
 				<PreviewRow height='100%' items={slide.media} />
@@ -61,6 +73,7 @@ const ImagePreview = (props: { width: string; location?: MediaLocation }) => {
 		>
 			{location?.local || location?.remote ? (
 				<img
+					draggable={false}
 					src={location?.local ?? location?.remote}
 					style={{ height: '100%', width: '100%' }}
 				/>

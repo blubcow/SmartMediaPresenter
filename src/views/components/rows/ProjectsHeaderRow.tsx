@@ -5,10 +5,11 @@ import { CreateProjectModal } from '../modals';
 
 interface IHeaderRowProps {
 	ceratePresentationAction: () => any;
+	enterQuickCreateAction: () => any;
 }
 
 const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
-	const { ceratePresentationAction } = props;
+	const { ceratePresentationAction, enterQuickCreateAction } = props;
 	const [modalOpened, setModalOpened] = useState<boolean>(false);
 
 	return (
@@ -33,6 +34,7 @@ const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
 				open={modalOpened}
 				onClose={() => setModalOpened(false)}
 				createPresentationAction={ceratePresentationAction}
+				enterQuickCreateAction={enterQuickCreateAction}
 			/>
 		</>
 	);

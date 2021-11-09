@@ -5,14 +5,22 @@ import useStyles from './styles';
 
 interface IMediaDropBox {
 	id: number;
-	didReceiveMediaFile: (file: File, id: number) => void;
+	didReceiveMediaFile?: (file: File, id: number) => void;
 	width: string;
 	aspectRatio: string;
+	canReceiveMedia?: boolean;
 	media?: MediaRessource;
 }
 
 const MediaDropBox: React.FC<IMediaDropBox> = (props) => {
-	const { id, didReceiveMediaFile, width, aspectRatio, media } = props;
+	const {
+		id,
+		didReceiveMediaFile,
+		width,
+		aspectRatio,
+		canReceiveMedia = true,
+		media,
+	} = props;
 	const classes = useStyles();
 
 	return (
@@ -34,7 +42,8 @@ const MediaDropBox: React.FC<IMediaDropBox> = (props) => {
 			}}
 			onDrop={(e) => {
 				e.preventDefault();
-				didReceiveMediaFile(e.dataTransfer.files[0], id);
+				if (didReceiveMediaFile)
+					didReceiveMediaFile(e.dataTransfer.files[0], id);
 			}}
 		>
 			{media?.location.local || media?.location.remote ? (
@@ -49,12 +58,14 @@ const MediaDropBox: React.FC<IMediaDropBox> = (props) => {
 						padding: media?.location.local || media?.location.remote ? 0 : 1,
 					}}
 				>
-					<Box className={classes.droppingAreaFrame}>
-						<Text>drop media here</Text>
-						<Text variant='caption'>
-							or click to choose from file inspector
-						</Text>
-					</Box>
+					{canReceiveMedia && (
+						<Box className={classes.droppingAreaFrame}>
+							<Text>drop media here</Text>
+							<Text variant='caption'>
+								or click to choose from file inspector
+							</Text>
+						</Box>
+					)}
 				</Box>
 			)}
 		</Box>
