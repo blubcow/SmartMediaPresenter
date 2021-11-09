@@ -201,6 +201,8 @@ export const registerMainProcessMethodHandlers = (
 			properties: ['openFile', 'openDirectory'],
 		});
 
+		if (!files || !files.length) return [];
+
 		return await files.reduce(
 			async (prev, file) =>
 				path.extname(file) === ''
