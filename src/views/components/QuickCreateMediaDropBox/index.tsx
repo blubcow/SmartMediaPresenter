@@ -21,18 +21,28 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 	const [searchTerm, setSearchTerm] = useState<string>('');
 	const classes = useStyles();
 	const { getFilesInDir, openFileSelectorDialog } = useLocalFileSystem();
+	const [orderByOptions] = useState<string[]>(['added', 'name']);
+	const [orderByValue, setOrderByValue] = useState<string>(orderByOptions[0]);
+	const [orderOptions] = useState<string[]>(['ascending', 'descending']);
+	const [orderValue, setOrderValue] = useState<string>(orderOptions[0]);
 
 	useEffect(() => {
 		if (!searchTerm.replaceAll(' ', '').length) {
-			setFilteredFiles([...files]);
+			setFilteredFiles([...sortFiles(files)]);
 		} else {
 			setFilteredFiles([
-				...files.filter((file) =>
-					file.name.toLowerCase().includes(searchTerm.toLowerCase())
+				...sortFiles(
+					files.filter((file) =>
+						file.name.toLowerCase().includes(searchTerm.toLowerCase())
+					)
 				),
 			]);
 		}
 	}, [searchTerm, files]);
+
+	useEffect(() => {
+		setFilteredFiles([...sortFiles(filteredFiles)]);
+	}, [orderByValue, orderValue]);
 
 	const onDataDropped = async (event: React.DragEvent<HTMLDivElement>) => {
 		event.preventDefault();
@@ -78,7 +88,20 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 			...filteredFiles,
 		];
 
-		setFiles([...filesToInsert.sort((a, b) => (a.added < b.added ? 1 : -1))]);
+		setFiles([...filesToInsert]);
+	};
+
+	const sortFiles = (files: QuickCreateMediaResource[]) => {
+		const multip = orderValue === 'ascending' ? -1 : 1;
+		return files.sort((a, b) =>
+			orderByValue === 'added'
+				? a.added < b.added
+					? 1 * multip
+					: -1 * multip
+				: a.name < b.name
+				? 1 * multip
+				: -1 * multip
+		);
 	};
 
 	return (
@@ -106,6 +129,12 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 				onSearchTermUpdate={(e) => {
 					setSearchTerm(e.target.value ?? '');
 				}}
+				orderByOptions={orderByOptions}
+				orderByValue={orderByValue}
+				onOrderByChange={(value: string) => setOrderByValue(value)}
+				orderOptions={orderOptions}
+				orderValue={orderValue}
+				onOrderChange={(value: string) => setOrderValue(value)}
 			/>
 			{filteredFiles.length ? (
 				filteredFiles.map((file, i) => <MediaRow key={i} id={i} media={file} />)

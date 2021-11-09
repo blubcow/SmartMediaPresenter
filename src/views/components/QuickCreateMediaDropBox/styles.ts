@@ -45,7 +45,16 @@ export const useHeaderRowStyles = makeStyles((theme: Theme) =>
 			},
 		},
 		searchInput: {
-			maxWidth: '40%',
+			maxWidth: '30%',
+		},
+		orderingContainer: {
+			height: '100%',
+			width: '40%',
+			display: 'flex',
+			justifyContent: 'flex-end',
+		},
+		spacer: {
+			width: theme.spacing(2),
 		},
 	})
 );
