@@ -1,5 +1,4 @@
 import React from 'react';
-import { QuickCreateMediaResource } from '../../../shared/types/quickCreate';
 import { Box, Text } from '../../../smpUI/components';
 import { useHeaderRowStyles } from './styles';
 
