@@ -1,4 +1,3 @@
-import { Palette } from '@mui/icons-material';
 import { createTheme, ThemeOptions } from '@mui/material';
 
 const typography: ThemeOptions['typography'] = () => ({

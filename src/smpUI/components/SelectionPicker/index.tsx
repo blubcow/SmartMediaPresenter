@@ -14,7 +14,7 @@ const SelectionPicker: React.FC<ISelectionPickerProps> = (props) => {
 	const { label } = props;
 
 	return (
-		<FormControl fullWidth>
+		<FormControl>
 			{label && <InputLabel>{label}</InputLabel>}
 			<Select {...props} />
 		</FormControl>

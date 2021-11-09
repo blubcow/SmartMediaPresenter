@@ -2,7 +2,6 @@ import { makeStyles, createStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 
 export default makeStyles((theme: Theme) => {
-	console.log(theme.mixins.toolbar.height);
 	return createStyles({
 		root: {
 			minHeight: '100vh',
