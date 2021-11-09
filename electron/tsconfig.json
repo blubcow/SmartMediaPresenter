@@ -7,12 +7,7 @@
     "outDir": "./dist",
     "baseUrl": "."
   },
-  "include": [
-    "../src/shared",
-
-  ],
   "files": [
-    "index.ts",
-    "methods.ts"
+    "index.ts"
   ]
 }

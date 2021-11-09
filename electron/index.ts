@@ -1,5 +1,6 @@
-import { app, BrowserWindow, IpcRenderer } from 'electron';
+import { app, BrowserWindow, IpcRenderer, ipcMain } from 'electron';
 import * as path from 'path';
+import { registerMainProcessMethodHandlers } from './methods';
 
 let mainWindow: BrowserWindow | null;
 
@@ -36,3 +37,5 @@ declare global {
 		ipcRenderer: IpcRenderer;
 	}
 }
+
+registerMainProcessMethodHandlers(ipcMain, mainWindow);
