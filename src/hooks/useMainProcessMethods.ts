@@ -4,6 +4,7 @@ import {
 	StoredPresentation,
 	StoredPresentations,
 	SinglePresentation,
+	Slide,
 } from '../shared/types/presentation';
 const { ipcRenderer } = window.require('electron');
 
@@ -29,7 +30,24 @@ export const useStoredPresentations = () => {
 			});
 	};
 
-	return { createPresentation, presentations };
+	const createQuickCreatePresentation = (
+		name: string,
+		slides: Slide[],
+		callback: (id: number) => any
+	) => {
+		ipcRenderer
+			.invoke(
+				MainProcessMethodIdentifiers.CreateQuickCreatePresentation,
+				name,
+				slides
+			)
+			.then((r: StoredPresentation) => {
+				setPresentations([...presentations, r]);
+				callback(r.id);
+			});
+	};
+
+	return { createPresentation, createQuickCreatePresentation, presentations };
 };
 
 export const useSinglePresentation = (id: number) => {
@@ -73,5 +91,12 @@ export const useLocalFileSystem = () => {
 		return filesInDir;
 	};
 
-	return { getFilesInDir };
+	const openFileSelectorDialog = async () => {
+		const files = await ipcRenderer.invoke(
+			MainProcessMethodIdentifiers.OpenFileSelectorDialog
+		);
+		return files;
+	};
+
+	return { getFilesInDir, openFileSelectorDialog };
 };
