@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { QuickCreateMediaResource } from '../../../shared/types/quickCreate';
 import { Box, Text } from '../../../smpUI/components';
 import { IBoxProps } from '../../../smpUI/components/Box';
@@ -15,8 +15,24 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 	props
 ) => {
 	const [files, setFiles] = useState<QuickCreateMediaResource[]>([]);
+	const [filteredFiles, setFilteredFiles] = useState<
+		QuickCreateMediaResource[]
+	>([]);
+	const [searchTerm, setSearchTerm] = useState<string>('');
 	const classes = useStyles();
 	const { getFilesInDir, openFileSelectorDialog } = useLocalFileSystem();
+
+	useEffect(() => {
+		if (!searchTerm.replaceAll(' ', '').length) {
+			setFilteredFiles([...files]);
+		} else {
+			setFilteredFiles([
+				...files.filter((file) =>
+					file.name.toLowerCase().includes(searchTerm.toLowerCase())
+				),
+			]);
+		}
+	}, [searchTerm, files]);
 
 	const onDataDropped = async (event: React.DragEvent<HTMLDivElement>) => {
 		event.preventDefault();
@@ -86,12 +102,20 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 						await openFileSelectorDialog();
 					onFilesReceivedMerge(files);
 				}}
+				searchTerm={searchTerm}
+				onSearchTermUpdate={(e) => {
+					setSearchTerm(e.target.value ?? '');
+				}}
 			/>
-			{files.length ? (
-				files.map((file, i) => <MediaRow key={i} id={i} media={files[i]} />)
+			{filteredFiles.length ? (
+				filteredFiles.map((file, i) => <MediaRow key={i} id={i} media={file} />)
 			) : (
 				<Box className={classes.infoText}>
-					<Text variant='h6'>drop media here</Text>
+					<Text variant='h6'>
+						{files.length
+							? "your search didn't yield any results"
+							: 'drop media here'}
+					</Text>
 				</Box>
 			)}
 		</Box>

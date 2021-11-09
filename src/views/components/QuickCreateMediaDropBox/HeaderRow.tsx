@@ -1,13 +1,15 @@
 import React from 'react';
-import { Box, Text } from '../../../smpUI/components';
+import { Box, Text, TextField } from '../../../smpUI/components';
 import { useHeaderRowStyles } from './styles';
 
 interface IHeaderRowProps {
 	addFilesAction: () => void;
+	searchTerm: string;
+	onSearchTermUpdate: (event: React.ChangeEvent<any>) => void;
 }
 
 const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
-	const { addFilesAction } = props;
+	const { addFilesAction, searchTerm, onSearchTermUpdate } = props;
 	const classes = useHeaderRowStyles();
 
 	return (
@@ -15,6 +17,14 @@ const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
 			<Text className={classes.addFiles} onClick={addFilesAction}>
 				add files
 			</Text>
+			<TextField
+				className={classes.searchInput}
+				label='search'
+				value={searchTerm}
+				onChange={(e) => {
+					onSearchTermUpdate(e);
+				}}
+			/>
 		</Box>
 	);
 };

@@ -12,7 +12,6 @@ export default makeStyles((theme: Theme) =>
 			flexDirection: 'column',
 			justifyContent: 'start',
 		},
-
 		infoText: {
 			flex: 1,
 			width: '100%',
@@ -36,6 +35,7 @@ export const useHeaderRowStyles = makeStyles((theme: Theme) =>
 			padding: theme.spacing(2),
 			display: 'flex',
 			alignItems: 'center',
+			justifyContent: 'space-between',
 		},
 		addFiles: {
 			color: theme.palette.text.primary,
@@ -43,6 +43,9 @@ export const useHeaderRowStyles = makeStyles((theme: Theme) =>
 			'&:hover': {
 				color: theme.palette.text.secondary,
 			},
+		},
+		searchInput: {
+			maxWidth: '40%',
 		},
 	})
 );
