@@ -2,15 +2,17 @@ import React from 'react';
 import { Box, Paper } from '../../../smpUI/components';
 import { LinearProgress } from '@mui/material';
 import useStyles from './styles';
+import useThemedLogo from '../../../hooks/useThemedLogo';
 
 const LoadingIndicatorPaper: React.FC<{}> = () => {
 	const classes = useStyles();
+	const logos = useThemedLogo();
 
 	return (
 		<Paper>
 			<Box className={classes.wrapper}>
 				<Box className={classes.container}>
-					<img src='/resources/toolbar-logo-dark.png' className={classes.img} />
+					<img src={logos.toolbarLogo} className={classes.img} />
 					<LinearProgress className={classes.indicator} />
 				</Box>
 			</Box>
