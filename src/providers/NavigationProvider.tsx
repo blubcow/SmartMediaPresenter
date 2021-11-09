@@ -1,8 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { SMPRoutes } from '../shared/types/routes';
-import { Home, Login, Loading, Edit } from '../views';
-import QuickCreate from '../views/QuickCreate';
+import { Home, Login, Loading, Edit, QuickCreate } from '../views';
 
 const NavigationProvider: React.FC<{}> = () => {
 	return (
