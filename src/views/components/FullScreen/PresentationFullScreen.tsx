@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FullScreen } from 'react-full-screen';
 import { Slide } from '../../../shared/types/presentation';
-import { Box, Text } from '../../../smpUI/components';
+import { Box } from '../../../smpUI/components';
 
 interface IPresentationFullScreenProps {
 	handle: any;
@@ -15,6 +15,7 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
 
 	useEffect(() => {
+		console.log(window.innerHeight);
 		const handleKey = (e: KeyboardEvent) => {
 			switch (e.key) {
 				case 'ArrowLeft':
@@ -39,23 +40,37 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 		<FullScreen handle={handle}>
 			<Box
 				sx={{
-					height: '100%',
-					width: '100%',
+					height: `${window.innerHeight}px`,
+					width: '100vw',
 					display: handle.active ? 'flex' : 'none',
 					alignItems: 'center',
+					justifyContent: 'center',
 				}}
 			>
 				{slides[currentSlide].media.map((media, i) => (
 					<Box
 						sx={{
-							width: '50%',
-							aspectRatio: '16/9',
-							padding: 0.1,
+							maxHeight: '100%',
+							maxWidth: '50%',
+							width:
+								media.location.local || media.location.remote
+									? undefined
+									: '50%',
+							aspectRatio:
+								media.location.local || media.location.remote
+									? undefined
+									: '16/9',
+							overflow: 'hidden',
 						}}
 					>
 						{media.location.local || media.location.remote ? (
 							<img
-								style={{ height: '100%', width: '100%' }}
+								style={{
+									maxHeight: `${window.innerHeight}px`,
+									maxWidth: '100%',
+									display: 'block',
+									// transform: 'translate(0, -400px)',
+								}}
 								src={media.location.local ?? media.location.remote}
 							/>
 						) : (
