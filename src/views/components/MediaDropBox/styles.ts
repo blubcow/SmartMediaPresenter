@@ -1,4 +1,4 @@
-import { makeStyles, createStyles, StyledProps } from '@mui/styles';
+import { makeStyles, createStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 
 export default makeStyles<Theme>((theme: Theme) =>

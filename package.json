@@ -29,7 +29,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "dev": "npm run compile:desktop && concurrently -k \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && cd electron/dist && electron .\"",
+    "dev": "npm run compile:desktop && concurrently -k \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && cd electron/dist/electron && electron .\"",
     "compile:desktop": "tsc -p electron/tsconfig.json",
     "start": "react-scripts start",
     "build": "react-scripts build",

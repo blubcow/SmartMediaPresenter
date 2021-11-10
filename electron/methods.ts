@@ -1,14 +1,14 @@
 import { BrowserWindow, dialog, IpcMain } from 'electron';
+import { MainProcessMethodIdentifiers } from '../src/shared/types/identifiers';
+import { allowedFiles } from '../src/shared/types/mediaResources';
 import * as path from 'path';
 import * as fs from 'fs';
-
-const allowedFiles = ['.jpg', '.png', '.mp4'];
 
 export const registerMainProcessMethodHandlers = (
 	ipcMain: IpcMain,
 	mainWindow: BrowserWindow
 ) => {
-	ipcMain.handle('createPresentation', async () => {
+	ipcMain.handle(MainProcessMethodIdentifiers.CreatePresentation, async () => {
 		const path = __dirname + '/store';
 		const file = path + '/presentations.json';
 
@@ -52,33 +52,39 @@ export const registerMainProcessMethodHandlers = (
 		return newPresentation;
 	});
 
-	ipcMain.handle('getStoredPresentations', async () => {
-		const path = __dirname + '/store/presentations.json';
+	ipcMain.handle(
+		MainProcessMethodIdentifiers.GetStoredPresentations,
+		async () => {
+			const path = __dirname + '/store/presentations.json';
 
-		const presentations: any = fs.existsSync(path)
-			? JSON.parse(`${fs.readFileSync(path)}`)
-			: {
-					count: 0,
-					presentations: [],
-			  };
+			const presentations: any = fs.existsSync(path)
+				? JSON.parse(`${fs.readFileSync(path)}`)
+				: {
+						count: 0,
+						presentations: [],
+				  };
 
-		return presentations;
-	});
-
-	ipcMain.handle('getSinglePresentation', async (_, id: number) => {
-		if (typeof id !== 'number') {
-			return;
+			return presentations;
 		}
-
-		const file = JSON.parse(
-			`${fs.readFileSync(__dirname + `/store/${id}.json`)}`
-		);
-
-		return file;
-	});
+	);
 
 	ipcMain.handle(
-		'saveChangesToPresentation',
+		MainProcessMethodIdentifiers.GetSinglePresentation,
+		async (_, id: number) => {
+			if (typeof id !== 'number') {
+				return;
+			}
+
+			const file = JSON.parse(
+				`${fs.readFileSync(__dirname + `/store/${id}.json`)}`
+			);
+
+			return file;
+		}
+	);
+
+	ipcMain.handle(
+		MainProcessMethodIdentifiers.SaveChangesToPresentation,
 		async (_, id: number, file: any) => {
 			const oldFile = JSON.parse(
 				`${fs.readFileSync(__dirname + `/store/${id}.json`)}`
@@ -117,12 +123,15 @@ export const registerMainProcessMethodHandlers = (
 		}
 	);
 
-	ipcMain.handle('loadFilesFromDirectory', async (_, dirPath: string) => {
-		return getFilesInDir(dirPath);
-	});
+	ipcMain.handle(
+		MainProcessMethodIdentifiers.LoadFilesFromDirectory,
+		async (_, dirPath: string) => {
+			return getFilesInDir(dirPath);
+		}
+	);
 
 	ipcMain.handle(
-		'createPresentationQuickCreate',
+		MainProcessMethodIdentifiers.CreateQuickCreatePresentation,
 		async (_, presentationName: string, slides: any[]) => {
 			const path = __dirname + '/store';
 			const file = path + '/presentations.json';
@@ -192,23 +201,26 @@ export const registerMainProcessMethodHandlers = (
 		};
 	};
 
-	ipcMain.handle('openFileSelectorDialog', async () => {
-		const files = dialog.showOpenDialogSync(mainWindow, {
-			filters: [
-				{ name: 'Images', extensions: ['jpg', 'png', 'gif'] },
-				{ name: 'Movies', extensions: ['mkv', 'avi', 'mp4'] },
-			],
-			properties: ['openFile', 'openDirectory'],
-		});
+	ipcMain.handle(
+		MainProcessMethodIdentifiers.OpenFileSelectorDialog,
+		async () => {
+			const files = dialog.showOpenDialogSync(mainWindow, {
+				filters: [
+					{ name: 'Images', extensions: ['jpg', 'png', 'gif'] },
+					{ name: 'Movies', extensions: ['mkv', 'avi', 'mp4'] },
+				],
+				properties: ['openFile', 'openDirectory'],
+			});
 
-		if (!files || !files.length) return [];
+			if (!files || !files.length) return [];
 
-		return await files.reduce(
-			async (prev, file) =>
-				path.extname(file) === ''
-					? [...(await prev), ...(await getFilesInDir(file))]
-					: [...(await prev), getFileFromPath(file)],
-			Promise.resolve([])
-		);
-	});
+			return await files.reduce(
+				async (prev, file) =>
+					path.extname(file) === ''
+						? [...(await prev), ...(await getFilesInDir(file))]
+						: [...(await prev), getFileFromPath(file)],
+				Promise.resolve([])
+			);
+		}
+	);
 };
