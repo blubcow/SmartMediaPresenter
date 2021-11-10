@@ -9,6 +9,9 @@ interface ISlideEditingBoxProps extends IBoxProps {
 	slide: Slide;
 	didReceiveMediaFile?: (file: File, id: number) => void;
 	mediaBoxesCanReceiveMedia?: boolean;
+	activeMedia?: number;
+	onActivateMedia?: (id: number) => void;
+	onSelectedMediaBlur?: () => void;
 }
 
 const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
@@ -16,6 +19,9 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 		slide,
 		didReceiveMediaFile,
 		mediaBoxesCanReceiveMedia = false,
+		activeMedia,
+		onActivateMedia,
+		onSelectedMediaBlur,
 	} = props;
 	const [media, setMedia] = useState<MediaRessource[]>([...slide.media]);
 	const classes = useStyels();
@@ -40,6 +46,13 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 									aspectRatio='16/9'
 									didReceiveMediaFile={didReceiveMediaFile}
 									canReceiveMedia={mediaBoxesCanReceiveMedia}
+									isActive={
+										activeMedia !== undefined && activeMedia! === media.id
+									}
+									onMediaSceletionBlur={onSelectedMediaBlur}
+									activateMedia={(id: number) => {
+										if (onActivateMedia) onActivateMedia(id);
+									}}
 								/>
 							))}
 					</Box>

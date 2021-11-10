@@ -10,6 +10,9 @@ interface IMediaDropBox {
 	aspectRatio: string;
 	canReceiveMedia?: boolean;
 	media?: MediaRessource;
+	isActive?: boolean;
+	activateMedia?: (id: number) => void;
+	onMediaSceletionBlur?: () => void;
 }
 
 const MediaDropBox: React.FC<IMediaDropBox> = (props) => {
@@ -20,6 +23,9 @@ const MediaDropBox: React.FC<IMediaDropBox> = (props) => {
 		aspectRatio,
 		canReceiveMedia = true,
 		media,
+		isActive,
+		activateMedia,
+		onMediaSceletionBlur,
 	} = props;
 	const classes = useStyles();
 
@@ -35,10 +41,14 @@ const MediaDropBox: React.FC<IMediaDropBox> = (props) => {
 						: aspectRatio,
 				padding: media?.location.local || media?.location.remote ? 0 : 0.5,
 				cursor: 'pointer',
-				height: '100%',
+				height:
+					media?.location.local || media?.location.remote ? '100%' : undefined,
+				width:
+					media?.location.local || media?.location.remote ? undefined : '100%',
 				display: 'flex',
 				flexDirection: 'column',
 				justifyContent: 'center',
+				overflow: 'visible',
 			}}
 			onDragOver={(e) => {
 				e.preventDefault();
@@ -57,8 +67,16 @@ const MediaDropBox: React.FC<IMediaDropBox> = (props) => {
 		>
 			{media?.location.local || media?.location.remote ? (
 				<img
-					className={classes.img}
+					className={isActive ? classes.imgSelected : classes.img}
 					src={media.location.local ?? media.location.remote}
+					onClick={() => {
+						if (activateMedia) activateMedia(id);
+					}}
+					onBlur={() => {
+						console.log('onBlur');
+						if (onMediaSceletionBlur) onMediaSceletionBlur();
+					}}
+					tabIndex={id}
 				/>
 			) : (
 				<Box

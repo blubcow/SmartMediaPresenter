@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Page } from '../../smpUI/layout';
 import {
 	Box,
 	Text,
-	IconButton,
 	FloatingButton,
 	FloatingButtonContainer,
 } from '../../smpUI/components';
@@ -13,10 +12,9 @@ import EditTopBar from './EditTopBar';
 import useStyles from './styles';
 import { Divider } from '@mui/material';
 import { MediaRessource, Slide } from '../../shared/types/presentation';
-import { Add, Save, Slideshow } from '@mui/icons-material';
+import { Save, Slideshow } from '@mui/icons-material';
 import PresentationFullScreen from '../components/FullScreen/PresentationFullScreen';
 import { useFullScreenHandle } from 'react-full-screen';
-import { useHistory } from 'react-router-dom';
 import { SlidesHeaderRow, SlidePreviewRow } from '../components/rows';
 import SlideEditingBox from '../components/SlideEditingBox';
 
@@ -31,8 +29,8 @@ const Edit: React.FC<{}> = (props) => {
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
 	const [currentMedia, setCurrentMedia] = useState<MediaRessource[]>([]);
 	const [draggedSlide, setDraggedSlide] = useState<Slide | undefined>();
+	const [activeMedia, setActiveMedia] = useState<number | undefined>(undefined);
 	const handle = useFullScreenHandle();
-	const history = useHistory();
 
 	useEffect(() => {
 		const currentSlides: Slide[] = storedPresentation?.slides ?? [];
@@ -172,6 +170,11 @@ const Edit: React.FC<{}> = (props) => {
 							<SlideEditingBox
 								slide={slides[currentSlide]}
 								didReceiveMediaFile={onFileReceived}
+								activeMedia={activeMedia}
+								onActivateMedia={(id: number) => {
+									setActiveMedia(id);
+								}}
+								onSelectedMediaBlur={() => setActiveMedia(undefined)}
 							/>
 							<Box className={classes.slideCounterContainer}>
 								<Text>{`${currentSlide + 1}/${slides.length}`}</Text>

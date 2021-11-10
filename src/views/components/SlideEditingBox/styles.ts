@@ -9,7 +9,7 @@ export default makeStyles((theme: Theme) =>
 			display: 'flex',
 			justifyContent: 'center',
 			alignItems: 'center',
-			overflow: 'hidden',
+			overflow: 'visible',
 		},
 		mediaContainer: {
 			height: '100%',
