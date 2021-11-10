@@ -26,10 +26,19 @@ const MediaDropBox: React.FC<IMediaDropBox> = (props) => {
 	return (
 		<Box
 			sx={{
-				width: width,
-				aspectRatio: aspectRatio,
+				maxWidth: width,
+				maxHeight:
+					media?.location.local || media?.location.remote ? '100%' : undefined,
+				aspectRatio:
+					media?.location.local || media?.location.remote
+						? undefined
+						: aspectRatio,
 				padding: media?.location.local || media?.location.remote ? 0 : 0.5,
 				cursor: 'pointer',
+				height: '100%',
+				display: 'flex',
+				flexDirection: 'column',
+				justifyContent: 'center',
 			}}
 			onDragOver={(e) => {
 				e.preventDefault();

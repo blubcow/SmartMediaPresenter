@@ -21,7 +21,8 @@ export default makeStyles<Theme>((theme: Theme) =>
 			alignItems: 'center',
 		},
 		img: {
-			width: '100%',
+			maxWidth: '100%',
+			maxHeight: '100%',
 		},
 	})
 );
