@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { i18nNamespace } from '../../../i18n/i18n';
 import { MediaRessource } from '../../../shared/types/presentation';
 import { Box, Text } from '../../../smpUI/components';
 import useStyles from './styles';
@@ -28,6 +30,7 @@ const MediaDropBox: React.FC<IMediaDropBox> = (props) => {
 		onMediaSceletionBlur,
 	} = props;
 	const classes = useStyles();
+	const { t } = useTranslation([i18nNamespace.Presentation]);
 
 	return (
 		<Box
@@ -86,9 +89,9 @@ const MediaDropBox: React.FC<IMediaDropBox> = (props) => {
 				>
 					{canReceiveMedia && (
 						<Box className={classes.droppingAreaFrame}>
-							<Text>drop media here</Text>
+							<Text>{t('dropMediaHere')}</Text>
 							<Text variant='caption'>
-								or click to choose from file inspector
+								{t('orClickToChooseFromFileInspector')}
 							</Text>
 						</Box>
 					)}

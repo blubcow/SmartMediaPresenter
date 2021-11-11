@@ -14,5 +14,6 @@
   "orClickToChooseFromFileInspector": "or click to choose from file inspector",
   "noMedia": "no media",
   "save": "save",
-  "startPresentation": "start presentation"
+  "startPresentation": "start presentation",
+  "noSearchResults": "your search didn't yield any results"
 }

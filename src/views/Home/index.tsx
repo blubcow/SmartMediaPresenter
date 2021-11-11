@@ -8,11 +8,14 @@ import { Divider } from '@mui/material';
 import { useStoredPresentations } from '../../hooks/useMainProcessMethods';
 import { useHistory } from 'react-router-dom';
 import { SMPRoutes } from '../../shared/types/routes';
+import { useTranslation } from 'react-i18next';
+import { i18nNamespace } from '../../i18n/i18n';
 
 const Home: React.FC<{}> = () => {
 	const classes = useStyles();
 	const { presentations, createPresentation } = useStoredPresentations();
 	const history = useHistory();
+	const { t } = useTranslation([i18nNamespace.Presentation]);
 
 	const getFormattedDtate = (date: Date) => {
 		return `${date.getDay()}.${date.getMonth()}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
@@ -37,7 +40,7 @@ const Home: React.FC<{}> = () => {
 						{presentations.map((presentation, i) => (
 							<Row
 								title={presentation.name}
-								info={`last change: ${getFormattedDtate(
+								info={`${t('lastChange')}: ${getFormattedDtate(
 									new Date(presentation.created)
 								)}`}
 								rootContainerStyle={{ zIndex: 0 }}

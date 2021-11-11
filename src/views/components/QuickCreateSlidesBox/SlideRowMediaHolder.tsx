@@ -1,4 +1,6 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { i18nNamespace } from '../../../i18n/i18n';
 import { DataTransferIdentifiers } from '../../../shared/types/identifiers';
 import { QuickCreateMediaResource } from '../../../shared/types/quickCreate';
 import { Box, Text } from '../../../smpUI/components';
@@ -14,6 +16,7 @@ interface ISlideRowMediaHolder {
 const SlideRowMediaHolder: React.FC<ISlideRowMediaHolder> = (props) => {
 	const { id, src, width, onMediaReceived } = props;
 	const classes = useSlideRowMediaHolderStyles();
+	const { t } = useTranslation([i18nNamespace.Presentation]);
 
 	return (
 		<Box
@@ -54,7 +57,7 @@ const SlideRowMediaHolder: React.FC<ISlideRowMediaHolder> = (props) => {
 			) : (
 				<Box className={classes.noMediaPresentContainer}>
 					<Box className={classes.noMediaPresentIndicatorBox}>
-						<Text variant='caption'>drop media here</Text>
+						<Text variant='caption'>{t('dropMediaHere')}</Text>
 					</Box>
 				</Box>
 			)}

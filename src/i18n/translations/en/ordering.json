@@ -2,5 +2,6 @@
   "added": "added",
   "name": "name",
   "ascending": "ascending",
-  "descending": "descending"
+  "descending": "descending",
+  "orderBy": "order by"
 }

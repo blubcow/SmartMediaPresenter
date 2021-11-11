@@ -20,6 +20,7 @@ export const useCreateProjectModalStyles = makeStyles((theme: Theme) =>
 export const useCreateProjectOptionStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		containter: {
+			width: '200px',
 			display: 'flex',
 			flexDirection: 'column',
 			alignItems: 'center',

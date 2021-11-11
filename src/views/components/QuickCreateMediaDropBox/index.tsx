@@ -8,6 +8,8 @@ import * as path from 'path';
 import HeaderRow from './HeaderRow';
 import MediaRow from './MeidaRow';
 import { allowedFiles } from '../../../shared/types/mediaResources';
+import { useTranslation } from 'react-i18next';
+import { i18nNamespace } from '../../../i18n/i18n';
 
 interface IQuickCreateMediaDropBoxProps extends IBoxProps {}
 
@@ -21,9 +23,19 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 	const [searchTerm, setSearchTerm] = useState<string>('');
 	const classes = useStyles();
 	const { getFilesInDir, openFileSelectorDialog } = useLocalFileSystem();
-	const [orderByOptions] = useState<string[]>(['added', 'name']);
+	const { t } = useTranslation([
+		i18nNamespace.Presentation,
+		i18nNamespace.Ordering,
+	]);
+	const [orderByOptions] = useState<string[]>([
+		t('ordering:added'),
+		t('ordering:name'),
+	]);
 	const [orderByValue, setOrderByValue] = useState<string>(orderByOptions[0]);
-	const [orderOptions] = useState<string[]>(['ascending', 'descending']);
+	const [orderOptions] = useState<string[]>([
+		t('ordering:ascending'),
+		t('ordering:descending'),
+	]);
 	const [orderValue, setOrderValue] = useState<string>(orderOptions[0]);
 
 	useEffect(() => {
@@ -92,9 +104,9 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 	};
 
 	const sortFiles = (files: QuickCreateMediaResource[]) => {
-		const multip = orderValue === 'ascending' ? -1 : 1;
+		const multip = orderValue === t('ordering:asceding') ? -1 : 1;
 		return files.sort((a, b) =>
-			orderByValue === 'added'
+			orderByValue === t('ordering:added')
 				? a.added < b.added
 					? 1 * multip
 					: -1 * multip
@@ -141,9 +153,7 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 			) : (
 				<Box className={classes.infoText}>
 					<Text variant='h6'>
-						{files.length
-							? "your search didn't yield any results"
-							: 'drop media here'}
+						{files.length ? t('noSearchResults') : t('dropMediaHere')}
 					</Text>
 				</Box>
 			)}

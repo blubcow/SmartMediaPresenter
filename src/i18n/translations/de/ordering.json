@@ -2,5 +2,6 @@
   "added": "hinzugefügt",
   "name": "Name",
   "ascending": "aufsteingend",
-  "descending": "absteigend"
+  "descending": "absteigend",
+  "orderBy": "sortieren nach"
 }

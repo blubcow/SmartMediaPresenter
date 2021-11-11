@@ -1,4 +1,6 @@
 import React, { useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { i18nNamespace } from '../../../i18n/i18n';
 import {
 	MediaLocation,
 	MediaRessource,
@@ -59,6 +61,7 @@ const SlidePreviewRow: React.FC<ISlidePreviewRowProps> = (props) => {
 
 const ImagePreview = (props: { width: string; location?: MediaLocation }) => {
 	const { width, location } = props;
+	const { t } = useTranslation([i18nNamespace.Presentation]);
 
 	return (
 		<Box
@@ -88,7 +91,7 @@ const ImagePreview = (props: { width: string; location?: MediaLocation }) => {
 						alignItems: 'center',
 					}}
 				>
-					<Text variant='caption'>no media</Text>
+					<Text variant='caption'>{t('noMedia')}</Text>
 				</Box>
 			)}
 		</Box>

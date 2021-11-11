@@ -4,9 +4,12 @@ import LoginPaper from '../components/LoginPaper';
 import { Box, Button } from '../../smpUI/components';
 import useStyles from './styles';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { i18nNamespace } from '../../i18n/i18n';
 
 const Login: React.FC<{}> = () => {
 	const classes = useStyles();
+	const { t } = useTranslation([i18nNamespace.Auth]);
 
 	return (
 		<Page centeredContent>
@@ -14,7 +17,7 @@ const Login: React.FC<{}> = () => {
 				<LoginPaper />
 				<Box className={classes.skipLoginButtonContainer}>
 					<Link to='/home' style={{ textDecoration: 'none' }}>
-						<Button color='warning'>skip login</Button>
+						<Button color='warning'>{t('skipLogin')}</Button>
 					</Link>
 				</Box>
 			</Box>

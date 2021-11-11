@@ -17,6 +17,8 @@ import PresentationFullScreen from '../components/FullScreen/PresentationFullScr
 import { useFullScreenHandle } from 'react-full-screen';
 import { SlidesHeaderRow, SlidePreviewRow } from '../components/rows';
 import SlideEditingBox from '../components/SlideEditingBox';
+import { useTranslation } from 'react-i18next';
+import { i18nNamespace } from '../../i18n/i18n';
 
 const Edit: React.FC<{}> = (props) => {
 	const [id, setId] = useState<string>('');
@@ -31,6 +33,7 @@ const Edit: React.FC<{}> = (props) => {
 	const [draggedSlide, setDraggedSlide] = useState<Slide | undefined>();
 	const [activeMedia, setActiveMedia] = useState<number | undefined>(undefined);
 	const handle = useFullScreenHandle();
+	const { t } = useTranslation([i18nNamespace.Presentation]);
 
 	useEffect(() => {
 		const currentSlides: Slide[] = storedPresentation?.slides ?? [];
@@ -95,7 +98,7 @@ const Edit: React.FC<{}> = (props) => {
 					}}
 				>
 					<Save sx={{ mr: 1 }} />
-					save
+					{t('save')}
 				</FloatingButton>
 				<FloatingButton
 					variant='extended'
@@ -103,7 +106,7 @@ const Edit: React.FC<{}> = (props) => {
 					onClick={handle.enter}
 				>
 					<Slideshow sx={{ mr: 1 }} />
-					start presentation
+					{t('startPresentation')}
 				</FloatingButton>
 			</FloatingButtonContainer>
 			<Box className={classes.container}>

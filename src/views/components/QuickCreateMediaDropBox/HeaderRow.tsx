@@ -1,5 +1,7 @@
 import { SelectChangeEvent } from '@mui/material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { i18nNamespace } from '../../../i18n/i18n';
 import {
 	Box,
 	Text,
@@ -34,16 +36,20 @@ const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
 		onOrderChange,
 	} = props;
 	const classes = useHeaderRowStyles();
+	const { t } = useTranslation([
+		i18nNamespace.Presentation,
+		i18nNamespace.Ordering,
+	]);
 
 	return (
 		<Box className={classes.container}>
 			<Text className={classes.addFiles} onClick={addFilesAction}>
-				add files
+				{t('addFiles')}
 			</Text>
 
 			<TextField
 				className={classes.searchInput}
-				label='search'
+				label={t('search')}
 				value={searchTerm}
 				onChange={(e) => {
 					onSearchTermUpdate(e);
@@ -52,7 +58,7 @@ const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
 
 			<Box className={classes.orderingContainer}>
 				<SelectionPicker
-					label='order by'
+					label={t('ordering:orderBy')}
 					value={orderByValue}
 					onChange={(e) => {
 						onOrderByChange((e.target.value as string) ?? '');

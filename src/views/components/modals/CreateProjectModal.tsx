@@ -11,6 +11,8 @@ import {
 	useCreateProjectModalStyles,
 	useCreateProjectOptionStyles,
 } from './styles';
+import { useTranslation } from 'react-i18next';
+import { i18nNamespace } from '../../../i18n/i18n';
 
 interface ICreateProjectModalProps extends IModalProps {
 	createPresentationAction: () => any;
@@ -20,30 +22,31 @@ interface ICreateProjectModalProps extends IModalProps {
 const CreateProjectModal: React.FC<ICreateProjectModalProps> = (props) => {
 	const { createPresentationAction, enterQuickCreateAction } = props;
 	const classes = useCreateProjectModalStyles();
+	const { t } = useTranslation([i18nNamespace.Presentation]);
 
 	return (
 		<Modal {...props}>
 			<Box className={classes.containter}>
 				<Text variant='h4' fontWeight={700}>
-					create a new project
+					{t('createNewPresentation')}
 				</Text>
 				<Text variant='body1' sx={{ color: 'text.secondary' }}>
-					choose an option
+					{t('chooseOption')}
 				</Text>
 				<Box className={classes.optionsContainer}>
 					<CreateProjectOption
 						icon={Create}
-						text='create an emtpy project'
+						text={t('createEmtpyPresentation')}
 						onClick={createPresentationAction}
 					/>
 					<CreateProjectOption
 						icon={Download}
-						text='import an existing project'
+						text={t('importExistingPresentation')}
 						onClick={() => {}}
 					/>
 					<CreateProjectOption
 						icon={ViewColumn}
-						text='create with QuickCreate'
+						text={t('createWithQuickCreate')}
 						onClick={enterQuickCreateAction}
 					/>
 				</Box>
