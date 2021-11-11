@@ -1,0 +1,18 @@
+{
+  "createNewPresentation": "eine neue Präsentation erstellen",
+  "presnentation": "Präsentation",
+  "lastChange": "letzte Änderung",
+  "chooseOption": "wähle eine Option",
+  "createEmtpyPresentation": "eine leere Präsentation erstellen",
+  "importExistingPresentation": "eine existierende Präsentation importieren",
+  "createWithQuickCreate": "mit QuickCreate erstellen",
+  "createPresentation": "Präsentation erstellen ",
+  "addNewSlide": "neue Folie hinzufügen",
+  "addFiles": "Dateien hinzufügen",
+  "search": "Suche",
+  "dropMediaHere": "Medien hier ablegen",
+  "orClickToChooseFromFileInspector": "oder klicken Sie zur Auswahl im Dateiinspektor",
+  "noMedia": "keine Medien",
+  "save": "speichern",
+  "startPresentation": "Präsentation starten"
+}

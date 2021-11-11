@@ -1,0 +1,18 @@
+{
+  "createNewPresentation": "create a new presentation",
+  "presnentation": "presnentation",
+  "lastChange": "last change",
+  "chooseOption": "choose an option",
+  "createEmtpyPresentation": "create an emtpy presentation",
+  "importExistingPresentation": "import an existing presentation",
+  "createWithQuickCreate": "create with QuickCreate",
+  "createPresentation": "create presentation",
+  "addNewSlide": "add new slide",
+  "addFiles": "add files",
+  "search": "search",
+  "dropMediaHere": "drop media here",
+  "orClickToChooseFromFileInspector": "or click to choose from file inspector",
+  "noMedia": "no media",
+  "save": "save",
+  "startPresentation": "start presentation"
+}
