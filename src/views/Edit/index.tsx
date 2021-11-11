@@ -175,6 +175,7 @@ const Edit: React.FC<{}> = (props) => {
 									setActiveMedia(id);
 								}}
 								onSelectedMediaBlur={() => setActiveMedia(undefined)}
+								mediaBoxesCanReceiveMedia
 							/>
 							<Box className={classes.slideCounterContainer}>
 								<Text>{`${currentSlide + 1}/${slides.length}`}</Text>

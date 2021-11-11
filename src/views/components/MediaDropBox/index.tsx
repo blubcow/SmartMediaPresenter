@@ -73,7 +73,6 @@ const MediaDropBox: React.FC<IMediaDropBox> = (props) => {
 						if (activateMedia) activateMedia(id);
 					}}
 					onBlur={() => {
-						console.log('onBlur');
 						if (onMediaSceletionBlur) onMediaSceletionBlur();
 					}}
 					tabIndex={id}
