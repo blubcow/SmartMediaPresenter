@@ -11,6 +11,7 @@ import { allowedFiles } from '../../../shared/types/mediaResources';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import MediaDropBoxIndicator from '../MediaDropBoxIndicator';
+import { useHeldKeys } from '../../../hooks/useHeldKeys';
 
 interface IQuickCreateMediaDropBoxProps extends IBoxProps {}
 
@@ -22,6 +23,7 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 		QuickCreateMediaResource[]
 	>([]);
 	const [searchTerm, setSearchTerm] = useState<string>('');
+	const [selectedRows, setSelectedRows] = useState<number[]>([]);
 	const classes = useStyles();
 	const { getFilesInDir, openFileSelectorDialog } = useLocalFileSystem();
 	const { t } = useTranslation([
@@ -38,6 +40,7 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 		t('ordering:descending'),
 	]);
 	const [orderValue, setOrderValue] = useState<string>(orderOptions[0]);
+	const { shift } = useHeldKeys();
 
 	useEffect(() => {
 		if (!searchTerm.replaceAll(' ', '').length) {
@@ -105,13 +108,13 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 	};
 
 	const sortFiles = (files: QuickCreateMediaResource[]) => {
-		const multip = orderValue === t('ordering:asceding') ? -1 : 1;
+		const multip = orderValue === t('ordering:ascending') ? -1 : 1;
 		return files.sort((a, b) =>
 			orderByValue === t('ordering:added')
 				? a.added < b.added
 					? 1 * multip
 					: -1 * multip
-				: a.name < b.name
+				: a.name > b.name
 				? 1 * multip
 				: -1 * multip
 		);
@@ -150,7 +153,37 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 				onOrderChange={(value: string) => setOrderValue(value)}
 			/>
 			{filteredFiles.length ? (
-				filteredFiles.map((file, i) => <MediaRow key={i} id={i} media={file} />)
+				filteredFiles.map((file, i) => (
+					<MediaRow
+						key={i}
+						id={i}
+						media={file}
+						onSelection={() => {
+							if (shift) {
+								const highestIndex = Math.max(...selectedRows);
+								const lowestIndex = Math.min(...selectedRows);
+
+								if (!(i > highestIndex || i < lowestIndex)) return;
+								const start = i > highestIndex ? highestIndex : i;
+								const end = i > highestIndex ? i + 1 : lowestIndex;
+								console.log(start, end);
+								const selectAllRowBetween = Array.from(
+									{ length: end - start },
+									(_, index) => start + index
+								);
+								console.log(selectAllRowBetween);
+								setSelectedRows([...selectedRows, ...selectAllRowBetween]);
+							} else {
+								setSelectedRows([i]);
+							}
+						}}
+						selected={selectedRows.includes(i)}
+						onBlur={() => {
+							if (shift) return;
+							setSelectedRows([]);
+						}}
+					/>
+				))
 			) : files.length ? (
 				<Box className={classes.infoText}>
 					<Text variant='h6'>{t('noSearchResults')}</Text>

@@ -15,7 +15,6 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
 
 	useEffect(() => {
-		console.log(window.innerHeight);
 		const handleKey = (e: KeyboardEvent) => {
 			switch (e.key) {
 				case 'ArrowLeft':

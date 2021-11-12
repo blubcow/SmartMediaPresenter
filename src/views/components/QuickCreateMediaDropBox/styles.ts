@@ -65,6 +65,9 @@ export const useMediaRowStyles = makeStyles((theme: Theme) =>
 			width: '100%',
 			padding: theme.spacing(1),
 			display: 'flex',
+			'&:focus': {
+				outline: 'none',
+			},
 		},
 		row: {
 			maxHeight: '20px',

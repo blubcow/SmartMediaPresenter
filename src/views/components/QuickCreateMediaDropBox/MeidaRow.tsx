@@ -7,18 +7,24 @@ import { useMediaRowStyles } from './styles';
 interface IMediaRowProps {
 	media: QuickCreateMediaResource;
 	id: number;
+	onSelection: () => void;
+	selected: boolean;
+	onBlur: () => void;
 }
 
 const MediaRow: React.FC<IMediaRowProps> = (props) => {
-	const { media, id } = props;
+	const { media, id, onSelection, selected, onBlur } = props;
 	const classes = useMediaRowStyles();
 
 	return (
 		<Box
 			className={classes.container}
 			sx={{
-				bgcolor: id % 2 ? 'transparent' : 'divider',
+				bgcolor: selected ? 'primary.main' : id % 2 ? 'transparent' : 'divider',
 			}}
+			onClick={onSelection}
+			onBlur={onBlur}
+			tabIndex={-1}
 		>
 			<Box
 				className={classes.row}
