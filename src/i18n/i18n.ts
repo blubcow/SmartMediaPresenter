@@ -14,8 +14,7 @@ export enum i18nNamespace {
 }
 
 i18n.use(initReactI18next).init({
-	// lng: navigator.language.split('_')[0],
-	lng: 'de',
+	lng: navigator.language.split('_')[0],
 	fallbackLng: 'en',
 	ns: [i18nNamespace.Auth, i18nNamespace.Ordering, i18nNamespace.Presentation],
 	resources: {

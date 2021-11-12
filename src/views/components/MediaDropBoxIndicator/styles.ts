@@ -5,11 +5,12 @@ export default makeStyles<Theme>((theme: Theme) =>
 	createStyles({
 		droppingArea: {
 			height: '100%',
+			width: '100%',
 			display: 'flex',
 			flexDirection: 'column',
 			justifyContent: 'center',
 			alignItems: 'center',
-			backgroundColor: theme.palette.divider,
+			padding: theme.spacing(1),
 		},
 		droppingAreaFrame: {
 			height: '100%',
@@ -19,20 +20,6 @@ export default makeStyles<Theme>((theme: Theme) =>
 			flexDirection: 'column',
 			justifyContent: 'center',
 			alignItems: 'center',
-		},
-		img: {
-			maxWidth: '100%',
-			maxHeight: '100%',
-			zIndex: 1,
-			outlineWidth: '0px',
-		},
-		imgSelected: {
-			maxWidth: '100%',
-			maxHeight: '100%',
-			zIndex: 2,
-			outlineColor: theme.palette.primary.main,
-			outline: '3px solid',
-			overflow: 'overlay',
 		},
 	})
 );

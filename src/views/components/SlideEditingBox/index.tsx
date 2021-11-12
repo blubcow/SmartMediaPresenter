@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box } from '../../.././smpUI/components';
 import { MediaRessource, Slide } from '../../../shared/types/presentation';
 import { IBoxProps } from '../../../smpUI/components/Box';
-import MediaDropBox from '../MediaDropBox';
+import MediaBox from '../MediaBox';
 import useStyels from './styles';
 
 interface ISlideEditingBoxProps extends IBoxProps {
@@ -38,7 +38,7 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 						{[...media]
 							.splice(i * slide.columns, i * slide.columns + slide.columns)
 							.map((media, n) => (
-								<MediaDropBox
+								<MediaBox
 									key={`${i}-${n}`}
 									id={media.id}
 									media={media}
@@ -49,7 +49,7 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 									isActive={
 										activeMedia !== undefined && activeMedia! === media.id
 									}
-									onMediaSceletionBlur={onSelectedMediaBlur}
+									onMediaSelectionBlur={onSelectedMediaBlur}
 									activateMedia={(id: number) => {
 										if (onActivateMedia) onActivateMedia(id);
 									}}

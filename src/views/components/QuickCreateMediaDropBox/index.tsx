@@ -10,6 +10,7 @@ import MediaRow from './MeidaRow';
 import { allowedFiles } from '../../../shared/types/mediaResources';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
+import MediaDropBoxIndicator from '../MediaDropBoxIndicator';
 
 interface IQuickCreateMediaDropBoxProps extends IBoxProps {}
 
@@ -150,12 +151,12 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 			/>
 			{filteredFiles.length ? (
 				filteredFiles.map((file, i) => <MediaRow key={i} id={i} media={file} />)
-			) : (
+			) : files.length ? (
 				<Box className={classes.infoText}>
-					<Text variant='h6'>
-						{files.length ? t('noSearchResults') : t('dropMediaHere')}
-					</Text>
+					<Text variant='h6'>{t('noSearchResults')}</Text>
 				</Box>
+			) : (
+				<MediaDropBoxIndicator />
 			)}
 		</Box>
 	);

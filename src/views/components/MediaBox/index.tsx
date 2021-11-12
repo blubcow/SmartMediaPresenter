@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { MediaRessource } from '../../../shared/types/presentation';
-import { Box, Text } from '../../../smpUI/components';
+import { Box } from '../../../smpUI/components';
+import MediaDropBoxIndicator from '../MediaDropBoxIndicator';
 import useStyles from './styles';
 
-interface IMediaDropBox {
+interface IMediaBox {
 	id: number;
-	didReceiveMediaFile?: (file: File, id: number) => void;
 	width: string;
 	aspectRatio: string;
 	canReceiveMedia?: boolean;
 	media?: MediaRessource;
 	isActive?: boolean;
 	activateMedia?: (id: number) => void;
-	onMediaSceletionBlur?: () => void;
+	onMediaSelectionBlur?: () => void;
+	didReceiveMediaFile?: (file: File, id: number) => void;
 }
 
-const MediaDropBox: React.FC<IMediaDropBox> = (props) => {
+const MediaBox: React.FC<IMediaBox> = (props) => {
 	const {
 		id,
 		didReceiveMediaFile,
@@ -27,7 +28,7 @@ const MediaDropBox: React.FC<IMediaDropBox> = (props) => {
 		media,
 		isActive,
 		activateMedia,
-		onMediaSceletionBlur,
+		onMediaSelectionBlur,
 	} = props;
 	const classes = useStyles();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
@@ -64,7 +65,7 @@ const MediaDropBox: React.FC<IMediaDropBox> = (props) => {
 			}}
 			onDrop={(e) => {
 				e.preventDefault();
-				if (didReceiveMediaFile)
+				if (didReceiveMediaFile && canReceiveMedia)
 					didReceiveMediaFile(e.dataTransfer.files[0], id);
 			}}
 		>
@@ -76,29 +77,20 @@ const MediaDropBox: React.FC<IMediaDropBox> = (props) => {
 						if (activateMedia) activateMedia(id);
 					}}
 					onBlur={() => {
-						if (onMediaSceletionBlur) onMediaSceletionBlur();
+						if (onMediaSelectionBlur) onMediaSelectionBlur();
 					}}
 					tabIndex={id}
 				/>
+			) : canReceiveMedia ? (
+				<MediaDropBoxIndicator
+					canTapToOpenFileInspector
+					sx={{ bgcolor: 'divider' }}
+				/>
 			) : (
-				<Box
-					className={classes.droppingArea}
-					sx={{
-						padding: media?.location.local || media?.location.remote ? 0 : 1,
-					}}
-				>
-					{canReceiveMedia && (
-						<Box className={classes.droppingAreaFrame}>
-							<Text>{t('dropMediaHere')}</Text>
-							<Text variant='caption'>
-								{t('orClickToChooseFromFileInspector')}
-							</Text>
-						</Box>
-					)}
-				</Box>
+				<Box sx={{ height: '100%', width: '100%', bgcolor: 'divider' }} />
 			)}
 		</Box>
 	);
 };
 
-export default MediaDropBox;
+export default MediaBox;
