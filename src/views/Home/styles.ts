@@ -21,6 +21,13 @@ export default makeStyles((theme: Theme) =>
 			height: '100%',
 			flex: 0.7,
 		},
+		noPresentationSelectedContainer: {
+			height: '100%',
+			width: '100%',
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+		},
 	})
 );
 

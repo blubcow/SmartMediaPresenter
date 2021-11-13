@@ -6,7 +6,9 @@ import useStyles from './styles';
 interface IFloatingButtonProps extends FabProps {}
 
 const FloatingButton: React.FC<IFloatingButtonProps> = (props) => {
-	return <Fab {...props} sx={{ ml: 3, ...props.sx }} size='small' />;
+	return (
+		<Fab {...props} sx={{ ml: 3, padding: 2.5, ...props.sx }} size='small' />
+	);
 };
 
 export const FloatingButtonContainer: React.FC<PropsWithChildren<{}>> = (

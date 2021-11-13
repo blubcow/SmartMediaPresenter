@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Page } from '../../smpUI/layout';
 import HomeTopBar from './HomeTopBar';
-import { Box, Row } from '../../smpUI/components';
+import { Box, Row, Text } from '../../smpUI/components';
 import { ProjectsHeaderRow } from '../components/rows';
 import useStyles from './styles';
 import { Divider } from '@mui/material';
@@ -10,12 +10,31 @@ import { useHistory } from 'react-router-dom';
 import { SMPRoutes } from '../../shared/types/routes';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
+import { SinglePresentation } from '../../shared/types/presentation';
+import PresentationPreview from '../components/PresentationPreview';
 
 const Home: React.FC<{}> = () => {
 	const classes = useStyles();
-	const { presentations, createPresentation } = useStoredPresentations();
+	const { presentations, createPresentation, retrieveSinglePresentationOnce } =
+		useStoredPresentations();
 	const history = useHistory();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
+	const [currentPresentation, setCurrentPresentation] = useState<
+		number | undefined
+	>();
+	const [presentationPreview, setPresentationPreview] = useState<
+		SinglePresentation | undefined
+	>();
+
+	useEffect(() => {
+		if (currentPresentation === undefined) {
+			setPresentationPreview(undefined);
+		} else {
+			retrieveSinglePresentationOnce(currentPresentation, (presentation) => {
+				setPresentationPreview(presentation);
+			});
+		}
+	}, [currentPresentation]);
 
 	const getFormattedDtate = (date: Date) => {
 		return `${date.getDay()}.${date.getMonth()}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
@@ -46,14 +65,26 @@ const Home: React.FC<{}> = () => {
 								rootContainerStyle={{ zIndex: 0 }}
 								key={i}
 								onClick={() => {
-									history.push(`/edit?id=${presentation.id}`);
+									setCurrentPresentation(presentation.id);
+									// history.push(`/edit?id=${presentation.id}`);
 								}}
 							/>
 						))}
 					</Box>
 				</Box>
 				<Divider orientation='vertical' />
-				<Box className={classes.previewContainer}></Box>
+				<Box className={classes.previewContainer}>
+					{currentPresentation !== undefined ? (
+						<PresentationPreview
+							presentation={presentationPreview}
+							id={currentPresentation}
+						/>
+					) : (
+						<Box className={classes.noPresentationSelectedContainer}>
+							<Text variant='h5'>{t('noPresentationSelected')}</Text>
+						</Box>
+					)}
+				</Box>
 				<Divider orientation='vertical' />
 			</Box>
 		</Page>
