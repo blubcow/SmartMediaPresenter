@@ -21,6 +21,17 @@ export const useStoredPresentations = () => {
 			});
 	}, []);
 
+	const retrieveSinglePresentationOnce = (
+		id: number,
+		callback: (presentation: SinglePresentation) => void
+	) => {
+		ipcRenderer
+			.invoke(MainProcessMethodIdentifiers.GetSinglePresentation, id)
+			.then((r: SinglePresentation) => {
+				callback(r);
+			});
+	};
+
 	const createPresentation = (callback: (id: number) => any) => {
 		ipcRenderer
 			.invoke(MainProcessMethodIdentifiers.CreatePresentation)
@@ -47,7 +58,12 @@ export const useStoredPresentations = () => {
 			});
 	};
 
-	return { createPresentation, createQuickCreatePresentation, presentations };
+	return {
+		retrieveSinglePresentationOnce,
+		createPresentation,
+		createQuickCreatePresentation,
+		presentations,
+	};
 };
 
 export const useSinglePresentation = (id: number) => {
