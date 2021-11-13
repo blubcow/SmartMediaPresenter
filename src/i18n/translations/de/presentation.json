@@ -14,6 +14,10 @@
   "orClickToChooseFromFileInspector": "oder klicken um Dateien zu wählen",
   "noMedia": "keine Medien",
   "save": "speichern",
-  "startPresentation": "Präsentation starten",
-  "noSearchResults": "die Suche hat keine Ergebnisse gebracht"
+  "startPresentation": "präsentieren",
+  "eidt": "bearbeiten",
+  "delete": "löschen",
+  "noSearchResults": "die Suche hat keine Ergebnisse gebracht",
+  "noPresentationSelected": "keine Präsentation ausgewählt",
+  "presentationIsEmpty": "diese Präsentation ist leer"
 }

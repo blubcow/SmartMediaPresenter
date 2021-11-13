@@ -14,6 +14,10 @@
   "orClickToChooseFromFileInspector": "or click to choose from file inspector",
   "noMedia": "no media",
   "save": "save",
-  "startPresentation": "start presentation",
-  "noSearchResults": "your search didn't yield any results"
+  "startPresentation": "present",
+  "eidt": "edit",
+  "delete": "delete",
+  "noSearchResults": "your search didn't yield any results",
+  "noPresentationSelected": "no presentation selected",
+  "presentationIsEmpty": "this presenentation is empty"
 }
