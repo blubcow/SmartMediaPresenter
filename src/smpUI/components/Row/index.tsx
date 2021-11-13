@@ -10,6 +10,7 @@ export interface IRowProps extends IBoxProps {
 	// TODO: create type for IconBadge: "type IconBadgeType = IconBadge" and use this type here rather than the Element type
 	iconBadge?: React.ReactNode;
 	height?: string;
+	selected?: boolean;
 }
 
 const Row: React.FC<IRowProps> = (props) => {
@@ -19,6 +20,7 @@ const Row: React.FC<IRowProps> = (props) => {
 		iconBadge: IconBadge,
 		rootContainerStyle,
 		height = '135px',
+		selected = false,
 	} = props;
 	const classes = useStyles();
 
@@ -27,7 +29,13 @@ const Row: React.FC<IRowProps> = (props) => {
 			<Box
 				className={classes.container}
 				{...props}
-				sx={{ height: height, ...props.style, ...props.sx }}
+				sx={{
+					height: height,
+					outlineStyle: 'solid',
+					outlineWidth: selected ? '2px' : '0',
+					...props.style,
+					...props.sx,
+				}}
 			>
 				{title || info || IconBadge ? (
 					<Box className={classes.baseContainer}>

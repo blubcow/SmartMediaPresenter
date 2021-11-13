@@ -68,6 +68,7 @@ const Home: React.FC<{}> = () => {
 									setCurrentPresentation(presentation.id);
 									// history.push(`/edit?id=${presentation.id}`);
 								}}
+								selected={presentation.id === currentPresentation}
 							/>
 						))}
 					</Box>

@@ -11,6 +11,7 @@ export default makeStyles((theme: Theme) =>
 			overflow: 'hidden',
 			border: '1px solid ' + theme.palette.background.paper,
 			filter: `drop-shadow(0 0 0.5rem ${theme.palette.divider})`,
+			outlineColor: theme.palette.primary.main,
 		},
 		baseContainer: {
 			height: '100%',
