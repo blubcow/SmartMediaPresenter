@@ -51,6 +51,7 @@ export const useSlideRowStyles = makeStyles((theme: Theme) =>
 			display: 'flex',
 			backgroundColor: theme.palette.divider,
 			marginTop: theme.spacing(1),
+			outlineColor: theme.palette.primary.main,
 		},
 	})
 );

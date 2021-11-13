@@ -12,7 +12,6 @@ import { IRowProps } from '../../../smpUI/components/Row';
 interface ISlidePreviewRowProps extends IRowProps {
 	slide: Slide;
 	onSelected: (id: number) => void;
-	selected: boolean;
 	onDragStarted: (slide: Slide) => void;
 	onDraggedOverSwap: (id: number) => void;
 }
@@ -37,8 +36,6 @@ const SlidePreviewRow: React.FC<ISlidePreviewRowProps> = (props) => {
 				draggable
 				sx={{
 					height: '100px',
-					border: selected ? '2px solid' : 0,
-					borderColor: 'primary.main',
 				}}
 				onClick={() => {
 					onSelected(slide.id);

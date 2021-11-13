@@ -18,11 +18,11 @@ const SlideRow = (props: {
 		<Box
 			className={classes.container}
 			sx={{
-				border: active ? '1px solid' : 'none',
+				outlineStyle: 'solid',
+				outlineWidth: active ? '2px' : '0',
 				minHeight: `${60 * slide.rows}px`,
 				maxHeight: `${60 * slide.rows}px`,
 				height: `${60 * slide.rows}px`,
-				borderColor: 'primary.main',
 			}}
 			onClick={onClick}
 		>
