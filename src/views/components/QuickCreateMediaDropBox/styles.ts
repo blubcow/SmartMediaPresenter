@@ -69,6 +69,18 @@ export const useMediaRowStyles = makeStyles((theme: Theme) =>
 				outline: 'none',
 			},
 		},
+		selected: {
+			width: 'auto',
+			padding: theme.spacing(1),
+			display: 'flex',
+			overflow: 'hidden',
+			'&:focus': {
+				outline: 'none',
+			},
+			'&:dragging': {
+				backgroundColor: 'red',
+			},
+		},
 		row: {
 			maxHeight: '20px',
 			cursor: 'grab',

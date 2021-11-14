@@ -18,18 +18,23 @@ const MediaRow: React.FC<IMediaRowProps> = (props) => {
 
 	return (
 		<Box
-			className={classes.container}
+			className={selected ? classes.selected : classes.container}
 			sx={{
 				bgcolor: selected ? 'primary.main' : id % 2 ? 'transparent' : 'divider',
 			}}
 			onClick={onSelection}
-			onBlur={onBlur}
+			onBlur={(e) => {
+				if (e.relatedTarget?.className.split(' ')[0] !== classes.selected)
+					onBlur();
+			}}
 			tabIndex={-1}
+			draggable={selected}
 		>
 			<Box
 				className={classes.row}
 				draggable
 				onDragStart={(e) => {
+					e.dataTransfer.setDragImage(new Image(0, 0), 0, 0);
 					e.dataTransfer.setData(
 						DataTransferIdentifiers.MediaFileInfo,
 						JSON.stringify(media)
