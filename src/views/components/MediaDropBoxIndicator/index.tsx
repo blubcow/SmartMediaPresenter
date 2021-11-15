@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { Box, Text } from '../../../smpUI/components';
@@ -20,19 +20,28 @@ const MediaDropBoxIndicator: React.FC<IMediaDropBoxIndicatorProps> = (
 		labelSize,
 		canTapToOpenFileInspector = false,
 	} = props;
+	const [draggedOver, setDraggedOver] = useState<boolean>(false);
 	const classes = useStyles();
 
 	return (
 		<Box className={classes.droppingArea} {...props}>
-			<Box className={classes.droppingAreaFrame}>
+			<Box
+				className={classes.droppingAreaFrame}
+				onDragEnter={() => setDraggedOver(true)}
+				onDragLeave={() => setDraggedOver(false)}
+				sx={{ borderColor: draggedOver ? 'primary.main' : 'background.paper' }}
+			>
 				<Text
+					className={classes.text}
 					variant={labelSize ?? canTapToOpenFileInspector ? 'body1' : 'h5'}
 					textAlign='center'
 				>
 					{label}
 				</Text>
 				{canTapToOpenFileInspector && (
-					<Text variant='caption'>{t('orClickToChooseFromFileInspector')}</Text>
+					<Text className={classes.text} variant='caption'>
+						{t('orClickToChooseFromFileInspector')}
+					</Text>
 				)}
 			</Box>
 		</Box>

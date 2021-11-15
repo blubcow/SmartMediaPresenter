@@ -22,5 +22,8 @@ export default makeStyles<Theme>((theme: Theme) =>
 			alignItems: 'center',
 			padding: theme.spacing(1),
 		},
+		text: {
+			pointerEvents: 'none',
+		},
 	})
 );
