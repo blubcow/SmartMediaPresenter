@@ -19,5 +19,6 @@
   "delete": "löschen",
   "noSearchResults": "die Suche hat keine Ergebnisse gebracht",
   "noPresentationSelected": "keine Präsentation ausgewählt",
-  "presentationIsEmpty": "diese Präsentation ist leer"
+  "presentationIsEmpty": "diese Präsentation ist leer",
+  "dropToFillColumn": "Medien ablegen um Spalte zu füllen"
 }

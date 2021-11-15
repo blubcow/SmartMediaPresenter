@@ -19,5 +19,6 @@
   "delete": "delete",
   "noSearchResults": "your search didn't yield any results",
   "noPresentationSelected": "no presentation selected",
-  "presentationIsEmpty": "this presenentation is empty"
+  "presentationIsEmpty": "this presenentation is empty",
+  "dropToFillColumn": "drop media to fill column"
 }
