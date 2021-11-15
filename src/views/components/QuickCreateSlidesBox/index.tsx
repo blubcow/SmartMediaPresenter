@@ -1,21 +1,64 @@
 import React, { useState } from 'react';
-import { Slide, MediaRessource } from '../../../shared/types/presentation';
+import {
+	Slide,
+	MediaRessource,
+	getEmptySlide,
+} from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
 import SlideEditingBox from '../SlideEditingBox';
 import useStyles from './styles';
 import HeaderRow from './HeaderRow';
 import SlideRow from './SlideRow';
+import MultiInsertion from './MultiInsertion';
+import { QuickCreateMediaResource } from '../../../shared/types/quickCreate';
 
 interface IQuickCreateSlidesBoxProps {
 	slides: Slide[];
 	onSlidesDidChange: (newSlides: Slide[]) => void;
+	multiInsertionEnabled: boolean;
 }
 
 const QuickCreateSlidesBox: React.FC<IQuickCreateSlidesBoxProps> = (props) => {
-	const { slides, onSlidesDidChange } = props;
+	const { slides, onSlidesDidChange, multiInsertionEnabled } = props;
 
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
 	const classes = useStyles();
+
+	const fillColumnWithDroppedMedia = (
+		column: number,
+		event: React.DragEvent<HTMLDivElement>
+	) => {
+		const slidesForInsert = [...slides];
+		const droppedMedia: QuickCreateMediaResource[] = JSON.parse(
+			event.dataTransfer.getData('multi')
+		);
+		droppedMedia.forEach((droppedMedia) => {
+			const slideToInsertIndex = slidesForInsert.findIndex((slide) => {
+				const media = slide.media.find((media) => media.id === column);
+				return !media || (!media.location.local && !media.location.remote);
+			});
+			if (slideToInsertIndex !== -1) {
+				slidesForInsert[slideToInsertIndex] = {
+					...slidesForInsert[slideToInsertIndex],
+				};
+				slidesForInsert[slideToInsertIndex].media = [
+					...slidesForInsert[slideToInsertIndex].media,
+				];
+				slidesForInsert[slideToInsertIndex].media[column] = {
+					...slidesForInsert[slideToInsertIndex].media[column],
+					location: droppedMedia.location,
+				};
+			} else {
+				const slide = getEmptySlide();
+				slide.id = slidesForInsert.length;
+				slide.media[column] = { id: column, location: droppedMedia.location };
+				slidesForInsert.push(slide);
+			}
+			onSlidesDidChange(
+				[...slidesForInsert].sort((a, b) => (a.id > b.id ? 1 : -1))
+			);
+		});
+	};
 
 	return (
 		<Box className={classes.container}>
@@ -39,42 +82,51 @@ const QuickCreateSlidesBox: React.FC<IQuickCreateSlidesBoxProps> = (props) => {
 						setCurrentSlide(slides.length);
 					}}
 				/>
-				{slides.map((slide) => (
-					<SlideRow
-						key={slide.id}
-						slide={slide}
-						active={currentSlide === slide.id}
-						onClick={() => {
-							setCurrentSlide(slide.id);
-						}}
-						onMediaReceived={(
-							slideId: number,
-							mediaId: number,
-							path: string
-						) => {
-							const currentMedia = slides[slideId].media.filter(
-								(media) => media.id !== mediaId
-							);
-							const newMedia: MediaRessource[] = [
-								...currentMedia,
-								{ id: mediaId, location: { local: path } },
-							];
-							const slide: Slide = {
-								id: slideId,
-								rows: 1,
-								columns: 2,
-								media: [...newMedia].sort((a, b) => (a.id > b.id ? 1 : -1)),
-							};
-
-							const newSlides = slides.filter((slide) => slide.id !== slideId);
-
-							onSlidesDidChange(
-								[...newSlides, slide].sort((a, b) => (a.id > b.id ? 1 : -1))
-							);
-							console.log(slides);
-						}}
+				{multiInsertionEnabled ? (
+					<MultiInsertion
+						onMediaReceived={(col, event) =>
+							fillColumnWithDroppedMedia(col, event)
+						}
 					/>
-				))}
+				) : (
+					slides.map((slide) => (
+						<SlideRow
+							key={slide.id}
+							slide={slide}
+							active={currentSlide === slide.id}
+							onClick={() => {
+								setCurrentSlide(slide.id);
+							}}
+							onMediaReceived={(
+								slideId: number,
+								mediaId: number,
+								path: string
+							) => {
+								const currentMedia = slides[slideId].media.filter(
+									(media) => media.id !== mediaId
+								);
+								const newMedia: MediaRessource[] = [
+									...currentMedia,
+									{ id: mediaId, location: { local: path } },
+								];
+								const slide: Slide = {
+									id: slideId,
+									rows: 1,
+									columns: 2,
+									media: [...newMedia].sort((a, b) => (a.id > b.id ? 1 : -1)),
+								};
+
+								const newSlides = slides.filter(
+									(slide) => slide.id !== slideId
+								);
+
+								onSlidesDidChange(
+									[...newSlides, slide].sort((a, b) => (a.id > b.id ? 1 : -1))
+								);
+							}}
+						/>
+					))
+				)}
 			</Box>
 		</Box>
 	);

@@ -88,3 +88,18 @@ export const useSlideRowMediaHolderStyles = makeStyles((theme: Theme) =>
 		},
 	})
 );
+
+export const useMultiInsertionStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			height: '100%',
+			width: '100%',
+			display: 'flex',
+		},
+		insertionColumn: {
+			height: '100%',
+			width: '50%',
+			padding: theme.spacing(1),
+		},
+	})
+);

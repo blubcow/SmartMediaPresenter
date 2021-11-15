@@ -70,15 +70,12 @@ export const useMediaRowStyles = makeStyles((theme: Theme) =>
 			},
 		},
 		selected: {
-			width: 'auto',
+			width: '100%',
 			padding: theme.spacing(1),
 			display: 'flex',
 			overflow: 'hidden',
 			'&:focus': {
 				outline: 'none',
-			},
-			'&:dragging': {
-				backgroundColor: 'red',
 			},
 		},
 		row: {

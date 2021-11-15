@@ -12,12 +12,17 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import MediaDropBoxIndicator from '../MediaDropBoxIndicator';
 import { useHeldKeys } from '../../../hooks/useHeldKeys';
+import { DataTransferIdentifiers } from '../../../shared/types/identifiers';
 
-interface IQuickCreateMediaDropBoxProps extends IBoxProps {}
+interface IQuickCreateMediaDropBoxProps extends IBoxProps {
+	onSelectedMediaChanged: (selectedMedia: QuickCreateMediaResource[]) => void;
+}
 
 const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 	props
 ) => {
+	const { onSelectedMediaChanged } = props;
+
 	const [files, setFiles] = useState<QuickCreateMediaResource[]>([]);
 	const [filteredFiles, setFilteredFiles] = useState<
 		QuickCreateMediaResource[]
@@ -41,6 +46,12 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 	]);
 	const [orderValue, setOrderValue] = useState<string>(orderOptions[0]);
 	const { shift } = useHeldKeys();
+
+	useEffect(() => {
+		onSelectedMediaChanged(
+			filteredFiles.filter((_, index) => selectedRows.includes(index))
+		);
+	}, [selectedRows]);
 
 	useEffect(() => {
 		if (!searchTerm.replaceAll(' ', '').length) {
@@ -79,7 +90,6 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 					const filesInDir: QuickCreateMediaResource[] = await getFilesInDir(
 						filePath
 					);
-					console.log(filesInDir);
 					newFiles = [...newFiles, ...filesInDir];
 				}
 			})
@@ -166,12 +176,11 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 								if (!(i > highestIndex || i < lowestIndex)) return;
 								const start = i > highestIndex ? highestIndex : i;
 								const end = i > highestIndex ? i + 1 : lowestIndex;
-								console.log(start, end);
 								const selectAllRowBetween = Array.from(
 									{ length: end - start },
 									(_, index) => start + index
 								);
-								console.log(selectAllRowBetween);
+
 								setSelectedRows([...selectedRows, ...selectAllRowBetween]);
 							} else {
 								setSelectedRows([i]);
@@ -181,6 +190,23 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 						onBlur={() => {
 							if (shift) return;
 							setSelectedRows([]);
+						}}
+						onDragStart={(e) => {
+							if (selectedRows.length > 1) {
+								e.dataTransfer.setData(
+									DataTransferIdentifiers.MultipleMediaFileInfo,
+									JSON.stringify(
+										filteredFiles.filter((_, index) =>
+											selectedRows.includes(index)
+										)
+									)
+								);
+							} else {
+								e.dataTransfer.setData(
+									DataTransferIdentifiers.MediaFileInfo,
+									JSON.stringify(file)
+								);
+							}
 						}}
 					/>
 				))

@@ -10,6 +10,7 @@ import { getEmptySlide, Slide } from '../../shared/types/presentation';
 import { SMPRoutes } from '../../shared/types/routes';
 import { useHistory } from 'react-router-dom';
 import { useStoredPresentations } from '../../hooks/useMainProcessMethods';
+import { QuickCreateMediaResource } from '../../shared/types/quickCreate';
 
 const QuickCreate: React.FC<{}> = () => {
 	const history = useHistory();
@@ -18,6 +19,9 @@ const QuickCreate: React.FC<{}> = () => {
 	const [presentationName, setPresentationName] = useState<string>(
 		'QuickCreate-Presentation'
 	);
+	const [selectedMedia, setSelectedMedia] = useState<
+		QuickCreateMediaResource[]
+	>([]);
 	const classes = useStyles();
 
 	return (
@@ -40,10 +44,16 @@ const QuickCreate: React.FC<{}> = () => {
 					slides={slides}
 					onSlidesDidChange={(newSlides: Slide[]) => {
 						setSlides([...newSlides]);
+						setSelectedMedia([]);
 					}}
+					multiInsertionEnabled={selectedMedia.length > 1}
 				/>
 				<Divider orientation='vertical' />
-				<QuickCreateMediaDropBox />
+				<QuickCreateMediaDropBox
+					onSelectedMediaChanged={(media) => {
+						setSelectedMedia([...media]);
+					}}
+				/>
 				<Divider orientation='vertical' />
 			</Box>
 		</Page>

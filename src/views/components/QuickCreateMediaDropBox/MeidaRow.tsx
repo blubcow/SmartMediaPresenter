@@ -10,10 +10,11 @@ interface IMediaRowProps {
 	onSelection: () => void;
 	selected: boolean;
 	onBlur: () => void;
+	onDragStart: (e: React.DragEvent<HTMLDivElement>) => void;
 }
 
 const MediaRow: React.FC<IMediaRowProps> = (props) => {
-	const { media, id, onSelection, selected, onBlur } = props;
+	const { media, id, onSelection, selected, onBlur, onDragStart } = props;
 	const classes = useMediaRowStyles();
 
 	return (
@@ -29,18 +30,9 @@ const MediaRow: React.FC<IMediaRowProps> = (props) => {
 			}}
 			tabIndex={-1}
 			draggable={selected}
+			onDragStart={onDragStart}
 		>
-			<Box
-				className={classes.row}
-				draggable
-				onDragStart={(e) => {
-					e.dataTransfer.setDragImage(new Image(0, 0), 0, 0);
-					e.dataTransfer.setData(
-						DataTransferIdentifiers.MediaFileInfo,
-						JSON.stringify(media)
-					);
-				}}
-			>
+			<Box className={classes.row} draggable onDragStart={onDragStart}>
 				<Box className={classes.imgContainer}>
 					<img
 						className={classes.img}
