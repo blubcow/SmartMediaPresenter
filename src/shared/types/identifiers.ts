@@ -10,4 +10,5 @@ export enum MainProcessMethodIdentifiers {
 
 export enum DataTransferIdentifiers {
 	MediaFileInfo = 'mediaFileInfo',
+	MultipleMediaFileInfo = 'mulitipleMediaFileInfo',
 }

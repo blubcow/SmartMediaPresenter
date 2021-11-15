@@ -19,9 +19,8 @@ const QuickCreate: React.FC<{}> = () => {
 	const [presentationName, setPresentationName] = useState<string>(
 		'QuickCreate-Presentation'
 	);
-	const [selectedMedia, setSelectedMedia] = useState<
-		QuickCreateMediaResource[]
-	>([]);
+	const [selectedRows, setSelectedRows] = useState<number[]>([]);
+	const [initialSelectedRows, setInitialSelectedRows] = useState<number[]>([]);
 	const classes = useStyles();
 
 	return (
@@ -44,15 +43,17 @@ const QuickCreate: React.FC<{}> = () => {
 					slides={slides}
 					onSlidesDidChange={(newSlides: Slide[]) => {
 						setSlides([...newSlides]);
-						setSelectedMedia([]);
+						setSelectedRows([]);
 					}}
-					multiInsertionEnabled={selectedMedia.length > 1}
+					multiInsertionEnabled={selectedRows.length > 1}
 				/>
 				<Divider orientation='vertical' />
 				<QuickCreateMediaDropBox
-					onSelectedMediaChanged={(media) => {
-						setSelectedMedia([...media]);
+					onSelectedMediaChanged={(rows) => {
+						setSelectedRows([...rows]);
 					}}
+					selectedRows={selectedRows}
+					clearSelectedRows={() => setSelectedRows([])}
 				/>
 				<Divider orientation='vertical' />
 			</Box>

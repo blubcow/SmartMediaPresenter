@@ -15,20 +15,21 @@ import { useHeldKeys } from '../../../hooks/useHeldKeys';
 import { DataTransferIdentifiers } from '../../../shared/types/identifiers';
 
 interface IQuickCreateMediaDropBoxProps extends IBoxProps {
-	onSelectedMediaChanged: (selectedMedia: QuickCreateMediaResource[]) => void;
+	selectedRows: number[];
+	clearSelectedRows: () => void;
+	onSelectedMediaChanged: (rows: number[]) => void;
 }
 
 const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 	props
 ) => {
-	const { onSelectedMediaChanged } = props;
+	const { onSelectedMediaChanged, selectedRows, clearSelectedRows } = props;
 
 	const [files, setFiles] = useState<QuickCreateMediaResource[]>([]);
 	const [filteredFiles, setFilteredFiles] = useState<
 		QuickCreateMediaResource[]
 	>([]);
 	const [searchTerm, setSearchTerm] = useState<string>('');
-	const [selectedRows, setSelectedRows] = useState<number[]>([]);
 	const classes = useStyles();
 	const { getFilesInDir, openFileSelectorDialog } = useLocalFileSystem();
 	const { t } = useTranslation([
@@ -46,12 +47,6 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 	]);
 	const [orderValue, setOrderValue] = useState<string>(orderOptions[0]);
 	const { shift } = useHeldKeys();
-
-	useEffect(() => {
-		onSelectedMediaChanged(
-			filteredFiles.filter((_, index) => selectedRows.includes(index))
-		);
-	}, [selectedRows]);
 
 	useEffect(() => {
 		if (!searchTerm.replaceAll(' ', '').length) {
@@ -181,15 +176,18 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 									(_, index) => start + index
 								);
 
-								setSelectedRows([...selectedRows, ...selectAllRowBetween]);
+								onSelectedMediaChanged([
+									...selectedRows,
+									...selectAllRowBetween,
+								]);
 							} else {
-								setSelectedRows([i]);
+								onSelectedMediaChanged([i]);
 							}
 						}}
 						selected={selectedRows.includes(i)}
 						onBlur={() => {
 							if (shift) return;
-							setSelectedRows([]);
+							clearSelectedRows();
 						}}
 						onDragStart={(e) => {
 							if (selectedRows.length > 1) {

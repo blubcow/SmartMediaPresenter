@@ -11,6 +11,7 @@ import HeaderRow from './HeaderRow';
 import SlideRow from './SlideRow';
 import MultiInsertion from './MultiInsertion';
 import { QuickCreateMediaResource } from '../../../shared/types/quickCreate';
+import { DataTransferIdentifiers } from '../../../shared/types/identifiers';
 
 interface IQuickCreateSlidesBoxProps {
 	slides: Slide[];
@@ -30,7 +31,7 @@ const QuickCreateSlidesBox: React.FC<IQuickCreateSlidesBoxProps> = (props) => {
 	) => {
 		const slidesForInsert = [...slides];
 		const droppedMedia: QuickCreateMediaResource[] = JSON.parse(
-			event.dataTransfer.getData('multi')
+			event.dataTransfer.getData(DataTransferIdentifiers.MultipleMediaFileInfo)
 		);
 		droppedMedia.forEach((droppedMedia) => {
 			const slideToInsertIndex = slidesForInsert.findIndex((slide) => {
