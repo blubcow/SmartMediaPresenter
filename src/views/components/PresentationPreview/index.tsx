@@ -16,6 +16,7 @@ import {
 	Delete,
 	ArrowLeft,
 	ArrowRight,
+	SaveAlt,
 } from '@mui/icons-material';
 import { useHistory } from 'react-router-dom';
 import { SMPRoutes } from '../../../shared/types/routes';
@@ -54,6 +55,12 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 					<Edit sx={{ mr: 1 }} />
 					{t('edit')}
 				</FloatingButton>
+				{presentation && presentation.slides.length > 0 && (
+					<FloatingButton variant='extended' color='primary'>
+						<SaveAlt sx={{ mr: 1 }} />
+						{t('export')}
+					</FloatingButton>
+				)}
 				<FloatingButton variant='extended' color='secondary'>
 					<Delete sx={{ mr: 1 }} />
 					{t('delete')}
