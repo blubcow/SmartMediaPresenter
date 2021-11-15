@@ -7,20 +7,29 @@ import useStyles from './styles';
 
 interface IMediaDropBoxIndicatorProps extends IBoxProps {
 	canTapToOpenFileInspector?: boolean;
+	label?: string;
+	labelSize?: 'h5' | 'h6' | 'body1';
 }
 
 const MediaDropBoxIndicator: React.FC<IMediaDropBoxIndicatorProps> = (
 	props
 ) => {
-	const { canTapToOpenFileInspector = false } = props;
-	const classes = useStyles();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
+	const {
+		label = `${t('dropMediaHere')}`,
+		labelSize,
+		canTapToOpenFileInspector = false,
+	} = props;
+	const classes = useStyles();
 
 	return (
 		<Box className={classes.droppingArea} {...props}>
 			<Box className={classes.droppingAreaFrame}>
-				<Text variant={canTapToOpenFileInspector ? 'body1' : 'h5'}>
-					{t('dropMediaHere')}
+				<Text
+					variant={labelSize ?? canTapToOpenFileInspector ? 'body1' : 'h5'}
+					textAlign='center'
+				>
+					{label}
 				</Text>
 				{canTapToOpenFileInspector && (
 					<Text variant='caption'>{t('orClickToChooseFromFileInspector')}</Text>
