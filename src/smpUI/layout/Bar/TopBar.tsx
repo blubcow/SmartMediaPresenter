@@ -4,7 +4,7 @@ import { IconButton } from '../../components';
 import { ArrowBackIosNew } from '@mui/icons-material';
 import { useHistory } from 'react-router-dom';
 
-interface ITopBarProps extends AppBarProps {
+export interface ITopBarProps extends AppBarProps {
 	withFixedHeight?: string;
 	canGoBack?: boolean;
 }
