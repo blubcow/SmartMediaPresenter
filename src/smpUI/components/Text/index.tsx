@@ -3,7 +3,7 @@ import { Typography, TypographyProps } from '@mui/material';
 import { EditText } from 'react-edit-text';
 import useStyles from './styles';
 
-interface ITextProps extends TypographyProps {
+export interface ITextProps extends TypographyProps {
 	editable?: boolean;
 	editableTextDidChange?: (prev: string, cur: string) => void;
 	minLength?: number;
