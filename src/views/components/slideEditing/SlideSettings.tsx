@@ -6,7 +6,7 @@ import ChangeBackgroundColorButton from './ChangeBackgroundColorButton';
 import EditPresentationFrame from './EditPresentationFrame';
 import EditThemeButton from './EditThemeButton';
 import RemoveButton from './RemoveButton';
-import { useSlideSettingsStyles } from './styles';
+import { useSettingsContainerStyles } from './styles';
 
 interface ISlideSettingsProps {
 	settings?: SlideSettingsType;
@@ -15,7 +15,7 @@ interface ISlideSettingsProps {
 
 const SlideSettings: React.FC<ISlideSettingsProps> = (props) => {
 	const { settings, slideColorDidChange } = props;
-	const classes = useSlideSettingsStyles();
+	const classes = useSettingsContainerStyles();
 
 	return (
 		<Box className={classes.container}>

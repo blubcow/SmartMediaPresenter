@@ -27,5 +27,10 @@
   "editTheme": "Theme bearbeiten",
   "changeSlideColor": "Folienfarbe ändern",
   "addTxt": "Text hinzufügen",
-  "editPresFrame": "Presentation Frame anpassen"
+  "editPresFrame": "Presentation Frame anpassen",
+  "move": "bewegen",
+  "rotate": "drehen",
+  "scale": "skalieren",
+  "crop": "zuschneiden",
+  "imgManipulation": "Bild bearbeiten"
 }

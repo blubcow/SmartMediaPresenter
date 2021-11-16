@@ -5,7 +5,7 @@ export default makeStyles((theme: Theme) =>
 	createStyles({
 		card: {
 			height: '100px',
-			width: '75px',
+			width: '95px',
 			backgroundColor: theme.palette.background.paper,
 			borderRadius: theme.shape.borderRadius,
 			cursor: 'pointer',
@@ -41,7 +41,7 @@ export default makeStyles((theme: Theme) =>
 	})
 );
 
-export const useSlideSettingsStyles = makeStyles((theme: Theme) =>
+export const useSettingsContainerStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		container: {
 			width: '100%',

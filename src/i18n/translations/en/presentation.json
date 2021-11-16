@@ -27,5 +27,10 @@
   "editTheme": "edit theme",
   "changeSlideColor": "change slide color",
   "addTxt": "add text",
-  "editPresFrame": "edit presentation frame"
+  "editPresFrame": "edit presentation frame",
+  "move": "move",
+  "rotate": "rotate",
+  "scale": "scale",
+  "crop": "crop",
+  "imgManipulation": "image manipulation"
 }

@@ -4,7 +4,6 @@ import { Box } from '../../smpUI/components';
 import TopBarDisplayingFilename, {
 	ITopBarDisplayingFilenameProps,
 } from '../components/appBars/TopBarDisplayingFilename';
-import RemoveButton from '../components/slideEditing/RemoveButton';
 import SlideSettings from '../components/slideEditing/SlideSettings';
 
 interface IEditTopBarProps extends ITopBarDisplayingFilenameProps {

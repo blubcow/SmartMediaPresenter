@@ -30,6 +30,30 @@ export interface SlideSettings {
 export interface MediaRessource {
 	id: number;
 	location: MediaLocation;
+	settings?: Partial<MediaSettings>;
+}
+
+export interface MediaSettings {
+	transformation: MediaTransformation;
+	scaling: MediaScaleing;
+	rotation: number;
+	brightness: number;
+	saturation: number;
+	hue: number;
+	contrast: number;
+	grayScale: number;
+	sepia: number;
+	blur: number;
+}
+
+export interface MediaTransformation {
+	x: number;
+	y: number;
+}
+
+export interface MediaScaleing {
+	x: number;
+	y: number;
 }
 
 export interface MediaLocation {
