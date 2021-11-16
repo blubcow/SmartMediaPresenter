@@ -22,5 +22,9 @@
   "noPresentationSelected": "keine Präsentation ausgewählt",
   "presentationIsEmpty": "diese Präsentation ist leer",
   "dropToFillColumn": "Medien ablegen um Spalte zu füllen",
-  "slides": "Folien"
+  "slides": "Folien",
+  "remove": "entfernen",
+  "editTheme": "Theme bearbeiten",
+  "changeSlideColor": "Folienfarbe ändern",
+  "addTxt": "Text hinzufügen"
 }

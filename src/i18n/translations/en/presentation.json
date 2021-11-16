@@ -22,5 +22,9 @@
   "noPresentationSelected": "no presentation selected",
   "presentationIsEmpty": "this presenentation is empty",
   "dropToFillColumn": "drop media to fill column",
-  "slides": "slides"
+  "slides": "slides",
+  "remove": "remove",
+  "editTheme": "edit theme",
+  "changeSlideColor": "change slide color",
+  "addTxt": "add text"
 }
