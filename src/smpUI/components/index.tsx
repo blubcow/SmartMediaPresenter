@@ -15,3 +15,4 @@ export {
 	default as FloatingButton,
 	FloatingButtonContainer,
 } from './FloatingButton';
+export { default as Card } from './Card';
