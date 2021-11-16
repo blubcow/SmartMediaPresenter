@@ -21,5 +21,6 @@
   "noSearchResults": "die Suche hat keine Ergebnisse gebracht",
   "noPresentationSelected": "keine Präsentation ausgewählt",
   "presentationIsEmpty": "diese Präsentation ist leer",
-  "dropToFillColumn": "Medien ablegen um Spalte zu füllen"
+  "dropToFillColumn": "Medien ablegen um Spalte zu füllen",
+  "slides": "Folien"
 }

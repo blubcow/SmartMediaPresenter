@@ -23,5 +23,8 @@ export default makeStyles((theme: Theme) =>
 			display: 'flex',
 			alignItems: 'center',
 		},
+		slidesCounterContainer: {
+			marginLeft: theme.spacing(1),
+		},
 	})
 );

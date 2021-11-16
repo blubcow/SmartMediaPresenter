@@ -69,7 +69,6 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 			<Box className={classes.topContainer}>
 				<Text variant='h4'>{presentation?.name}</Text>
 			</Box>
-
 			{presentation ? (
 				presentation.slides.length ? (
 					<Preview slide={presentation.slides[currentSlide]} />
@@ -104,6 +103,13 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 						>
 							<ArrowRight />
 						</FloatingButton>
+						{presentation && presentation.slides.length > 0 && (
+							<Box className={classes.slidesCounterContainer}>
+								<Text variant='body1'>{`${presentation.slides.length} ${t(
+									'slides'
+								)}`}</Text>
+							</Box>
+						)}
 					</>
 				)}
 			</Box>
