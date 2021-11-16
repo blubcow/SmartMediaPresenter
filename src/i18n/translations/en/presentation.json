@@ -26,5 +26,6 @@
   "remove": "remove",
   "editTheme": "edit theme",
   "changeSlideColor": "change slide color",
-  "addTxt": "add text"
+  "addTxt": "add text",
+  "editPresFrame": "edit presentation frame"
 }

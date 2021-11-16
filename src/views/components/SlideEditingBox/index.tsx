@@ -31,7 +31,10 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 	}, [slide]);
 
 	return (
-		<Box className={classes.container} sx={{ bgcolor: 'black' }}>
+		<Box
+			className={classes.container}
+			sx={{ bgcolor: slide.settings?.color ?? '#000' }}
+		>
 			<Box className={classes.mediaContainer}>
 				{Array.apply(null, Array(slide.rows)).map((_, i) => (
 					<Box key={i} className={classes.rowContainer}>

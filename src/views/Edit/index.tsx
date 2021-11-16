@@ -29,6 +29,7 @@ const Edit: React.FC<{}> = (props) => {
 	const classes = useStyles();
 	const [slides, setSlides] = useState<Slide[]>([]);
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
+
 	const [currentMedia, setCurrentMedia] = useState<MediaRessource[]>([]);
 	const [draggedSlide, setDraggedSlide] = useState<Slide | undefined>();
 	const [activeMedia, setActiveMedia] = useState<number | undefined>(undefined);
@@ -82,7 +83,27 @@ const Edit: React.FC<{}> = (props) => {
 	};
 
 	return (
-		<Page TopBar={<EditTopBar fileName={storedPresentation?.name} />}>
+		<Page
+			TopBar={
+				<EditTopBar
+					fileName={storedPresentation?.name}
+					currentSlideSettings={
+						slides[currentSlide] ? slides[currentSlide].settings : undefined
+					}
+					slideSettingsDidChange={(settings) => {
+						const slide = { ...slides[currentSlide] };
+						const newSettings = { ...slide.settings, ...settings };
+						slide.settings = newSettings;
+						const newSlides = slides.filter(
+							(slide) => slide.id !== currentSlide
+						);
+						setSlides(
+							[...newSlides, slide].sort((a, b) => (a.id > b.id ? 1 : -1))
+						);
+					}}
+				/>
+			}
+		>
 			{slides.length > 0 && slides[0].media.length > 0 && (
 				<PresentationFullScreen handle={handle} slides={slides} />
 			)}

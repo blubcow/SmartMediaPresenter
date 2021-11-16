@@ -1,19 +1,33 @@
 import React from 'react';
+import { SlideSettings as SlideSettingsType } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
 import AddTextButton from './AddTextButton';
 import ChangeBackgroundColorButton from './ChangeBackgroundColorButton';
+import EditPresentationFrame from './EditPresentationFrame';
 import EditThemeButton from './EditThemeButton';
 import RemoveButton from './RemoveButton';
 import { useSlideSettingsStyles } from './styles';
 
-const SlideSettings: React.FC<{}> = () => {
+interface ISlideSettingsProps {
+	settings?: SlideSettingsType;
+	slideColorDidChange: (color: string) => void;
+}
+
+const SlideSettings: React.FC<ISlideSettingsProps> = (props) => {
+	const { settings, slideColorDidChange } = props;
 	const classes = useSlideSettingsStyles();
 
 	return (
 		<Box className={classes.container}>
+			<EditPresentationFrame selected={false} />
+			<Box className={classes.spacer} />
 			<AddTextButton selected={false} />
 			<Box className={classes.spacer} />
-			<ChangeBackgroundColorButton backgroundColor='#000' selected={false} />
+			<ChangeBackgroundColorButton
+				backgroundColor={settings?.color ?? '#000'}
+				selected={false}
+				onSlideColorChanged={slideColorDidChange}
+			/>
 			<Box className={classes.spacer} />
 			<EditThemeButton selected={false} />
 			<Box className={classes.spacer} />

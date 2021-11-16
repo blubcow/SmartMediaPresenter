@@ -65,8 +65,8 @@ export interface PhotoshopPickerStylesProps {
 				onChange={({ hex }) => {
 					setColor(hex);
 				}}
-				onAccept={({ hex }) => {
-					onColorPicked(hex);
+				onAccept={() => {
+					onColorPicked(color);
 				}}
 				onCancel={onCancel}
 			/>
