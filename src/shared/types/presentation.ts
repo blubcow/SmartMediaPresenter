@@ -20,6 +20,11 @@ export interface Slide {
 	rows: number;
 	columns: number;
 	media: MediaRessource[];
+	settings?: SlideSettings;
+}
+
+export interface SlideSettings {
+	color?: string;
 }
 
 export interface MediaRessource {
