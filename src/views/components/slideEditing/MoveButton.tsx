@@ -32,7 +32,10 @@ const MoveButton: React.FC<IMoveButtonProps> = (props) => {
 					/>
 				}
 				secondaryNode={<EditButtonLabel>{t('move')}</EditButtonLabel>}
-				onClick={() => setOpenModal(true)}
+				onClick={() => {
+					setMoveValue({ x: undefined, y: undefined });
+					setOpenModal(true);
+				}}
 				{...props}
 			/>
 			<MediaEditingModal
@@ -64,7 +67,10 @@ const MoveButton: React.FC<IMoveButtonProps> = (props) => {
 							value={moveValue.x}
 							sx={{ width: '30%' }}
 							onChange={(e) => {
-								setMoveValue({ ...moveValue, x: parseInt(e.target.value) });
+								const val =
+									e.target.value === '-' ? -0 : parseInt(e.target.value);
+
+								setMoveValue({ ...moveValue, x: isNaN(val) ? undefined : val });
 							}}
 						/>
 						<TextField
@@ -72,7 +78,9 @@ const MoveButton: React.FC<IMoveButtonProps> = (props) => {
 							value={moveValue.y}
 							sx={{ width: '30%' }}
 							onChange={(e) => {
-								setMoveValue({ ...moveValue, y: parseInt(e.target.value) });
+								const val =
+									e.target.value === '-' ? -0 : parseInt(e.target.value);
+								setMoveValue({ ...moveValue, y: isNaN(val) ? undefined : val });
 							}}
 						/>
 					</Box>
