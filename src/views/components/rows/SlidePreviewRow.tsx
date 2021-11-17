@@ -75,7 +75,7 @@ const ImagePreview = (props: { width: string; location?: MediaLocation }) => {
 				<img
 					draggable={false}
 					src={location?.local ?? location?.remote}
-					style={{ height: '100%', width: '100%' }}
+					style={{ height: '100%', width: '100%', objectFit: 'cover' }}
 				/>
 			) : (
 				<Box

@@ -82,3 +82,26 @@ export const useImageManipulationControlsStyles = makeStyles((theme: Theme) =>
 		},
 	})
 );
+
+export const useMediaEditingModalStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			height: '100%',
+			width: '450px',
+			padding: theme.spacing(2),
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'space-between',
+			alignItems: 'center',
+		},
+		contentContainer: {
+			marginTop: theme.spacing(3),
+			marginBottom: theme.spacing(3),
+		},
+		btnContainer: {
+			width: '100%',
+			display: 'flex',
+			justifyContent: 'space-between',
+		},
+	})
+);

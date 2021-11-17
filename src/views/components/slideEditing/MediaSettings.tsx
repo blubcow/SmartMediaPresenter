@@ -23,7 +23,11 @@ const MediaSettings: React.FC<IMediaSettingsProps> = (props) => {
 
 	return (
 		<Box className={classes.container}>
-			<MoveButton selected={false} />
+			<MoveButton
+				selected={false}
+				mediaResource={media}
+				onMediaSettingsChanged={onSettingsChanged}
+			/>
 			<Box className={classes.spacer} />
 			<ScaleButton selected={false} />
 			<Box className={classes.spacer} />

@@ -108,6 +108,7 @@ const Edit: React.FC<{}> = (props) => {
 					}
 					mediaSettingsDidChange={(settings) => {
 						if (activeMedia === undefined) return;
+						console.log(settings);
 						const media = {
 							...slides[currentSlide].media[activeMedia],
 							settings: settings,

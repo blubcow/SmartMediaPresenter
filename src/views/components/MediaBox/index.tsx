@@ -86,6 +86,13 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 					}}
 					tabIndex={id}
 					style={{
+						transform: `translate(${
+							media?.settings?.transformation?.x ?? 0
+						}px, ${media?.settings?.transformation?.y ?? 0}px) scale(${
+							media?.settings?.scaling?.x ?? 1
+						}, ${media?.settings?.scaling?.y ?? 1}) rotate(${
+							media.settings?.rotation ?? 0
+						}deg)`,
 						filter: `brightness(${
 							media.settings?.brightness ?? 100
 						}%) contrast(${media.settings?.contrast ?? 100}%) saturate(${
