@@ -44,6 +44,9 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 					display: handle.active ? 'flex' : 'none',
 					alignItems: 'center',
 					justifyContent: 'center',
+					bgcolor: slides[currentSlide]
+						? slides[currentSlide].settings?.color ?? '#000'
+						: '#000',
 				}}
 			>
 				{slides[currentSlide].media.map((media, i) => (
@@ -59,7 +62,6 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 								media.location.local || media.location.remote
 									? undefined
 									: '16/9',
-							overflow: 'hidden',
 						}}
 					>
 						{media.location.local || media.location.remote ? (
@@ -68,6 +70,13 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 									maxHeight: `${window.innerHeight}px`,
 									maxWidth: '100%',
 									display: 'block',
+									transform: `translate(${
+										media?.settings?.transformation?.x ?? 0
+									}px, ${media?.settings?.transformation?.y ?? 0}px) scale(${
+										media?.settings?.scaling?.x ?? 1
+									}, ${media?.settings?.scaling?.y ?? 1}) rotate(${
+										media.settings?.rotation ?? 0
+									}deg)`,
 									filter: `brightness(${
 										media.settings?.brightness ?? 100
 									}%) contrast(${media.settings?.contrast ?? 100}%) saturate(${

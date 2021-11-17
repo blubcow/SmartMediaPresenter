@@ -9,6 +9,7 @@ export default makeStyles((theme: Theme) => {
 			backgroundColor: theme.palette.background.default,
 			display: 'flex',
 			flexDirection: 'column',
+			overflow: 'hidden',
 		},
 		contentContainer: {
 			height: '0px',

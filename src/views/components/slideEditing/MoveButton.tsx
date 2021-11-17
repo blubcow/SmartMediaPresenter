@@ -21,7 +21,10 @@ const MoveButton: React.FC<IMoveButtonProps> = (props) => {
 	const { mediaResource, onMediaSettingsChanged } = props;
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const [openModal, setOpenModal] = useState<boolean>(false);
-	const [moveValue, setMoveValue] = useState<{ x?: number; y?: number }>({});
+	const [moveValue, setMoveValue] = useState<{ x: string; y: string }>({
+		x: '',
+		y: '',
+	});
 
 	return (
 		<>
@@ -33,7 +36,7 @@ const MoveButton: React.FC<IMoveButtonProps> = (props) => {
 				}
 				secondaryNode={<EditButtonLabel>{t('move')}</EditButtonLabel>}
 				onClick={() => {
-					setMoveValue({ x: undefined, y: undefined });
+					setMoveValue({ x: '', y: '' });
 					setOpenModal(true);
 				}}
 				{...props}
@@ -45,15 +48,19 @@ const MoveButton: React.FC<IMoveButtonProps> = (props) => {
 					const prevTransformation = mediaResource?.settings
 						?.transformation ?? { x: 0, y: 0 };
 					const currentTransformation = {
-						x: moveValue.x ?? 0,
-						y: moveValue.y ?? 0,
+						x: parseInt(moveValue.x ?? 0),
+						y: parseInt(moveValue.y ?? 0),
 					};
 
 					onMediaSettingsChanged({
 						...mediaResource?.settings,
 						transformation: {
-							x: (prevTransformation.x ?? 0) + currentTransformation.x,
-							y: (prevTransformation.y ?? 0) + currentTransformation.y,
+							x: isNaN(currentTransformation.x)
+								? prevTransformation.x ?? 0
+								: (prevTransformation.x ?? 0) + currentTransformation.x,
+							y: isNaN(currentTransformation.y)
+								? prevTransformation.y ?? 0
+								: (prevTransformation.y ?? 0) - currentTransformation.y,
 						},
 					});
 					setOpenModal(false);
@@ -67,10 +74,7 @@ const MoveButton: React.FC<IMoveButtonProps> = (props) => {
 							value={moveValue.x}
 							sx={{ width: '30%' }}
 							onChange={(e) => {
-								const val =
-									e.target.value === '-' ? -0 : parseInt(e.target.value);
-
-								setMoveValue({ ...moveValue, x: isNaN(val) ? undefined : val });
+								setMoveValue({ ...moveValue, x: e.target.value });
 							}}
 						/>
 						<TextField
@@ -78,9 +82,7 @@ const MoveButton: React.FC<IMoveButtonProps> = (props) => {
 							value={moveValue.y}
 							sx={{ width: '30%' }}
 							onChange={(e) => {
-								const val =
-									e.target.value === '-' ? -0 : parseInt(e.target.value);
-								setMoveValue({ ...moveValue, y: isNaN(val) ? undefined : val });
+								setMoveValue({ ...moveValue, y: e.target.value });
 							}}
 						/>
 					</Box>

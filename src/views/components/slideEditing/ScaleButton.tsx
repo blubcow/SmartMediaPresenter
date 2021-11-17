@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import EditingButton, { IEditingButtonProps } from './EditingButton';
 import { AspectRatio } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
@@ -21,12 +21,17 @@ interface IScaleButtonProps
 const ScaleButton: React.FC<IScaleButtonProps> = (props) => {
 	const { mediaResource, onMediaSettingsChanged } = props;
 	const [openModal, setOpenModal] = useState<boolean>(false);
-	const [scaleValue, setScaleValue] = useState<{ x: number; y: number }>({
-		x: 1,
-		y: 1,
+	const [scaleValue, setScaleValue] = useState<{ x: string; y: string }>({
+		x: '1',
+		y: '1',
 	});
 	const [uniformScaling, setUniformScaling] = useState<boolean>(true);
 	const { t } = useTranslation([i18nNamespace.Presentation]);
+
+	useEffect(() => {
+		if (uniformScaling) setScaleValue({ ...scaleValue, y: scaleValue.x });
+	}, [uniformScaling]);
+
 	return (
 		<>
 			<EditingButton
@@ -36,7 +41,10 @@ const ScaleButton: React.FC<IScaleButtonProps> = (props) => {
 					/>
 				}
 				secondaryNode={<EditButtonLabel>{t('scale')}</EditButtonLabel>}
-				onClick={() => setOpenModal(true)}
+				onClick={() => {
+					setOpenModal(true);
+					setScaleValue({ x: '1', y: '1' });
+				}}
 				{...props}
 			/>
 			<MediaEditingModal
@@ -48,18 +56,23 @@ const ScaleButton: React.FC<IScaleButtonProps> = (props) => {
 						y: 1,
 					};
 					const currentTransformation = {
-						x: scaleValue.x ?? 1,
-						y: scaleValue.y ?? 1,
+						x: parseFloat(scaleValue.x ?? 1),
+						y: parseFloat(scaleValue.y ?? 1),
 					};
 
 					onMediaSettingsChanged({
 						...mediaResource?.settings,
 						scaling: {
-							x: (prevTransformation.x ?? 1) * currentTransformation.x,
-							y: (prevTransformation.y ?? 1) * currentTransformation.y,
+							x: isNaN(currentTransformation.x)
+								? prevTransformation.x ?? 1
+								: (prevTransformation.x ?? 1) * currentTransformation.x,
+							y: isNaN(currentTransformation.y)
+								? prevTransformation.y ?? 1
+								: (prevTransformation.y ?? 1) * currentTransformation.y,
 						},
 					});
 					setOpenModal(false);
+					setScaleValue({ x: '', y: '' });
 				}}
 				onCancel={() => setOpenModal(false)}
 				onClose={() => setOpenModal(false)}
@@ -108,12 +121,11 @@ const ScaleButton: React.FC<IScaleButtonProps> = (props) => {
 								value={scaleValue.x}
 								sx={{ width: '30%' }}
 								onChange={(e) => {
-									const val =
-										e.target.value === '-' ? -0 : parseFloat(e.target.value);
+									const val = e.target.value;
 
 									setScaleValue({
-										x: isNaN(val) ? 1 : val,
-										y: uniformScaling ? (isNaN(val) ? 1 : val) : scaleValue.y,
+										x: val,
+										y: uniformScaling ? val : scaleValue.y,
 									});
 								}}
 							/>
@@ -122,11 +134,10 @@ const ScaleButton: React.FC<IScaleButtonProps> = (props) => {
 								value={scaleValue.y}
 								sx={{ width: '30%' }}
 								onChange={(e) => {
-									const val =
-										e.target.value === '-' ? -0 : parseFloat(e.target.value);
+									const val = e.target.value;
 									setScaleValue({
-										y: isNaN(val) ? 1 : val,
-										x: uniformScaling ? (isNaN(val) ? 1 : val) : scaleValue.x,
+										y: val,
+										x: uniformScaling ? val : scaleValue.x,
 									});
 								}}
 							/>
