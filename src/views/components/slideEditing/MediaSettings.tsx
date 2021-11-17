@@ -1,5 +1,8 @@
 import React from 'react';
-import { SlideSettings as SlideSettingsType } from '../../../shared/types/presentation';
+import {
+	MediaRessource,
+	MediaSettings as MediaSettingsType,
+} from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
 import CropButton from './CropButton';
 import ImageManipulationButton from './ImageManipulationButton';
@@ -10,11 +13,12 @@ import ScaleButton from './ScaleButton';
 import { useSettingsContainerStyles } from './styles';
 
 interface IMediaSettingsProps {
-	settings?: SlideSettingsType;
+	media?: MediaRessource;
+	onSettingsChanged: (settings: Partial<MediaSettingsType>) => void;
 }
 
 const MediaSettings: React.FC<IMediaSettingsProps> = (props) => {
-	const { settings } = props;
+	const { media, onSettingsChanged } = props;
 	const classes = useSettingsContainerStyles();
 
 	return (
@@ -27,7 +31,11 @@ const MediaSettings: React.FC<IMediaSettingsProps> = (props) => {
 			<Box className={classes.spacer} />
 			<CropButton selected={false} />
 			<Box className={classes.spacer} />
-			<ImageManipulationButton selected={false} />
+			<ImageManipulationButton
+				selected={false}
+				mediaResource={media}
+				onMediaSettingsChanged={onSettingsChanged}
+			/>
 			<Box className={classes.spacer} />
 			<RemoveButton />
 		</Box>

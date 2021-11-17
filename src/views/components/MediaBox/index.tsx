@@ -76,10 +76,26 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 					onClick={() => {
 						if (activateMedia) activateMedia(id);
 					}}
-					onBlur={() => {
+					onBlur={(e) => {
+						// TODO: take focus if the condition matches
+						if (e.relatedTarget?.id === 'mediaOrSlideEditing') {
+							// e.target.focus();
+							return;
+						}
 						if (onMediaSelectionBlur) onMediaSelectionBlur();
 					}}
 					tabIndex={id}
+					style={{
+						filter: `brightness(${
+							media.settings?.brightness ?? 100
+						}%) contrast(${media.settings?.contrast ?? 100}%) saturate(${
+							media.settings?.saturation ?? 100
+						}%) grayscale(${media.settings?.grayScale ?? 0}%) sepia(${
+							media.settings?.sepia ?? 0
+						}%) hue-rotate(${media.settings?.hue ?? 0}deg) blur(${
+							media.settings?.blur ?? 0
+						}px)`,
+					}}
 				/>
 			) : canReceiveMedia ? (
 				<MediaDropBoxIndicator

@@ -3,7 +3,7 @@ import { Theme } from '@mui/material';
 
 export default makeStyles((theme: Theme) =>
 	createStyles({
-		card: {
+		editingCard: {
 			height: '100px',
 			width: '95px',
 			backgroundColor: theme.palette.background.paper,
@@ -50,6 +50,35 @@ export const useSettingsContainerStyles = makeStyles((theme: Theme) =>
 		},
 		spacer: {
 			width: theme.spacing(2),
+		},
+	})
+);
+
+export const useImageManipulationControlsStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			height: '100%',
+			width: '500px',
+			display: 'flex',
+			flexDirection: 'column',
+			alignItems: 'center',
+			padding: theme.spacing(3),
+		},
+		img: {
+			marginTop: theme.spacing(3),
+			maxHeight: '200px',
+			maxWidth: '100%',
+		},
+		optionContainer: {
+			width: '100%',
+		},
+		slider: {
+			width: '100%',
+		},
+		btnContainer: {
+			width: '100%',
+			display: 'flex',
+			justifyContent: 'space-between',
 		},
 	})
 );

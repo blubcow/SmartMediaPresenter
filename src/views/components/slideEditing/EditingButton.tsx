@@ -16,13 +16,13 @@ const EditingButton: React.FC<IEditingButtonProps> = (props) => {
 
 	return (
 		<Card
-			className={classes.card}
+			className={classes.editingCard}
 			variant='elevation'
 			elevation={10}
 			sx={{ outlineWidth: selected ? '2px' : 0 }}
 			{...props}
 		>
-			<ButtonBase className={classes.container}>
+			<ButtonBase className={classes.container} id='mediaOrSlideEditing'>
 				<Box className={classes.iconContainer}>{icon}</Box>
 				<Box className={classes.secondaryContainer}>{secondaryNode}</Box>
 			</ButtonBase>

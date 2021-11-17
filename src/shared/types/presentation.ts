@@ -56,6 +56,14 @@ export interface MediaScaleing {
 	y: number;
 }
 
+export interface ImageManipulationEntity {
+	name: string;
+	property: string;
+	range: { from: number; to: number };
+	value: number;
+	unit: '%' | 'px' | 'deg';
+}
+
 export interface MediaLocation {
 	local?: string;
 	remote?: string;

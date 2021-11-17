@@ -8,13 +8,15 @@ export default makeStyles<Theme>((theme: Theme) =>
 			maxHeight: '100%',
 			zIndex: 1,
 			outlineWidth: '0px',
+			backgroundColor: 'divider',
+			position: 'relative',
 		},
 		imgSelected: {
 			maxWidth: '100%',
 			maxHeight: '100%',
 			zIndex: 2,
-			outlineColor: theme.palette.primary.main,
-			outline: '3px solid',
+			outlineColor: 'white',
+			outline: '3px dashed',
 			overflow: 'overlay',
 		},
 	})

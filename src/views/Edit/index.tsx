@@ -101,6 +101,36 @@ const Edit: React.FC<{}> = (props) => {
 							[...newSlides, slide].sort((a, b) => (a.id > b.id ? 1 : -1))
 						);
 					}}
+					selectedMedia={
+						slides[currentSlide] && activeMedia !== undefined
+							? slides[currentSlide].media[activeMedia]
+							: undefined
+					}
+					mediaSettingsDidChange={(settings) => {
+						if (activeMedia === undefined) return;
+						const media = {
+							...slides[currentSlide].media[activeMedia],
+							settings: settings,
+						};
+
+						const currentMedia = slides[currentSlide].media.filter(
+							(media) => media.id !== activeMedia
+						);
+						const newMedia: MediaRessource[] = [...currentMedia, media];
+						const slide: Slide = {
+							...slides[currentSlide],
+							media: [...newMedia].sort((a, b) => (a.id > b.id ? 1 : -1)),
+						};
+
+						const newSlides = slides.filter(
+							(slide) => slide.id !== currentSlide
+						);
+
+						setSlides(
+							[...newSlides, slide].sort((a, b) => (a.id > b.id ? 1 : -1))
+						);
+						setCurrentMedia([...newMedia]);
+					}}
 				/>
 			}
 		>

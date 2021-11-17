@@ -68,7 +68,15 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 									maxHeight: `${window.innerHeight}px`,
 									maxWidth: '100%',
 									display: 'block',
-									// transform: 'translate(0, -400px)',
+									filter: `brightness(${
+										media.settings?.brightness ?? 100
+									}%) contrast(${media.settings?.contrast ?? 100}%) saturate(${
+										media.settings?.saturation ?? 100
+									}%) grayscale(${media.settings?.grayScale ?? 0}%) sepia(${
+										media.settings?.sepia ?? 0
+									}%) hue-rotate(${media.settings?.hue ?? 0}deg) blur(${
+										media.settings?.blur ?? 0
+									}px)`,
 								}}
 								src={media.location.local ?? media.location.remote}
 							/>
