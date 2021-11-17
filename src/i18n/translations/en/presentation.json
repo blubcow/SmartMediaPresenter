@@ -32,5 +32,14 @@
   "rotate": "rotate",
   "scale": "scale",
   "crop": "crop",
-  "imgManipulation": "image manipulation"
+  "imgManipulation": "image manipulation",
+  "brightness": "brightness",
+  "contrast": "contrast",
+  "saturation": "saturation",
+  "hue": "hue",
+  "grayscale": "grayscale",
+  "blur": "blur",
+  "sepia": "sepia",
+  "cancel": "cancel",
+  "confrim": "confrim"
 }

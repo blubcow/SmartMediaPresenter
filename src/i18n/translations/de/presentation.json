@@ -32,5 +32,14 @@
   "rotate": "drehen",
   "scale": "skalieren",
   "crop": "zuschneiden",
-  "imgManipulation": "Bild bearbeiten"
+  "imgManipulation": "Bild bearbeiten",
+  "brightness": "Helligkeit",
+  "contrast": "Kontrast",
+  "saturation": "Sättigung",
+  "hue": "Farbton",
+  "grayscale": "Graustufen",
+  "blur": "Unschärfe",
+  "sepia": "Sepia",
+  "cancel": "abbrechen",
+  "confrim": "bestätigen"
 }
