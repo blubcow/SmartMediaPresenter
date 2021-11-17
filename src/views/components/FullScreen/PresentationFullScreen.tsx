@@ -39,7 +39,8 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 		<FullScreen handle={handle}>
 			<Box
 				sx={{
-					height: `${window.innerHeight}px`,
+					// height: `${window.innerHeight}px`,
+					height: '100%',
 					width: '100vw',
 					display: handle.active ? 'flex' : 'none',
 					alignItems: 'center',

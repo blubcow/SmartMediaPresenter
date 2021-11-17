@@ -21,6 +21,8 @@ import {
 import { useHistory } from 'react-router-dom';
 import { SMPRoutes } from '../../../shared/types/routes';
 import { CircularProgress } from '@mui/material';
+import PresentationFullScreen from '../FullScreen/PresentationFullScreen';
+import { useFullScreenHandle } from 'react-full-screen';
 
 interface IPresentationPreviewProps {
 	presentation?: SinglePresentation;
@@ -31,6 +33,7 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 	const { presentation, id } = props;
 
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
+	const handle = useFullScreenHandle();
 
 	const classes = useStyles();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
@@ -38,9 +41,16 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 
 	return (
 		<Box className={classes.container}>
+			{presentation && presentation.slides && (
+				<PresentationFullScreen handle={handle} slides={presentation?.slides} />
+			)}
 			<FloatingButtonContainer>
 				{presentation && presentation.slides.length > 0 && (
-					<FloatingButton variant='extended' color='primary'>
+					<FloatingButton
+						variant='extended'
+						color='primary'
+						onClick={() => handle.enter()}
+					>
 						<Slideshow sx={{ mr: 1 }} />
 						{t('startPresentation')}
 					</FloatingButton>
