@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { DataTransferIdentifiers } from '../../../shared/types/identifiers';
-import { QuickCreateMediaResource } from '../../../shared/types/quickCreate';
+import { QuickCreateMediaResource } from '../../../shared/types/quickCreateMode';
 import { Box, Text } from '../../../smpUI/components';
 import { useSlideRowMediaHolderStyles } from './styles';
 

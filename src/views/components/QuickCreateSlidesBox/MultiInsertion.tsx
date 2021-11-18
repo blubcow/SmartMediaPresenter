@@ -4,7 +4,6 @@ import { useMultiInsertionStyles } from './styles';
 import MediaDropBoxIndicator from '../MediaDropBoxIndicator';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
-import { QuickCreateMediaResource } from '../../../shared/types/quickCreate';
 
 interface IMultiInsertionProps {
 	onMediaReceived: (

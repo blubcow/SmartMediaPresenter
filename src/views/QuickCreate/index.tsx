@@ -10,7 +10,6 @@ import { getEmptySlide, Slide } from '../../shared/types/presentation';
 import { SMPRoutes } from '../../shared/types/routes';
 import { useHistory } from 'react-router-dom';
 import { useStoredPresentations } from '../../hooks/useMainProcessMethods';
-import { QuickCreateMediaResource } from '../../shared/types/quickCreate';
 
 const QuickCreate: React.FC<{}> = () => {
 	const history = useHistory();
@@ -20,7 +19,6 @@ const QuickCreate: React.FC<{}> = () => {
 		'QuickCreate-Presentation'
 	);
 	const [selectedRows, setSelectedRows] = useState<number[]>([]);
-	const [initialSelectedRows, setInitialSelectedRows] = useState<number[]>([]);
 	const classes = useStyles();
 
 	return (

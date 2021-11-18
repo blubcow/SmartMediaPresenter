@@ -1,6 +1,6 @@
 import React from 'react';
 import { DataTransferIdentifiers } from '../../../shared/types/identifiers';
-import { QuickCreateMediaResource } from '../../../shared/types/quickCreate';
+import { QuickCreateMediaResource } from '../../../shared/types/quickCreateMode';
 import { Box, Text } from '../../../smpUI/components';
 import { useMediaRowStyles } from './styles';
 

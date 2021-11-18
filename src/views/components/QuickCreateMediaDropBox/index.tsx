@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { QuickCreateMediaResource } from '../../../shared/types/quickCreate';
+import { QuickCreateMediaResource } from '../../../shared/types/quickCreateMode';
 import { Box, Text } from '../../../smpUI/components';
 import { IBoxProps } from '../../../smpUI/components/Box';
 import useStyles from './styles';
