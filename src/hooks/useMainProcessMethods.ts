@@ -25,6 +25,7 @@ export const useStoredPresentations = () => {
 		id: number,
 		callback: (presentation: SinglePresentation) => void
 	) => {
+		if (isNaN(id)) return;
 		ipcRenderer
 			.invoke(MainProcessMethodIdentifiers.GetSinglePresentation, id)
 			.then((r: SinglePresentation) => {
@@ -72,7 +73,7 @@ export const useSinglePresentation = (id: number) => {
 		useState<SinglePresentation>();
 
 	useEffect(() => {
-		if (id === NaN) {
+		if (isNaN(id)) {
 			return;
 		}
 		setId(id);

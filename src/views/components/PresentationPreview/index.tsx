@@ -102,9 +102,9 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 						<FloatingButton
 							sx={{
 								opacity:
-									currentSlide == presentation!.slides.length - 1 ? 0 : 1,
+									currentSlide === presentation!.slides.length - 1 ? 0 : 1,
 							}}
-							disabled={currentSlide == presentation!.slides.length - 1}
+							disabled={currentSlide === presentation!.slides.length - 1}
 							onClick={() => {
 								setCurrentSlide((curr) =>
 									Math.min(currentSlide + 1, presentation!.slides.length - 1)

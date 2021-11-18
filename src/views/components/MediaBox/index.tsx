@@ -1,6 +1,4 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../i18n/i18n';
 import { MediaRessource } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
 import MediaDropBoxIndicator from '../MediaDropBoxIndicator';
@@ -31,7 +29,6 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 		onMediaSelectionBlur,
 	} = props;
 	const classes = useStyles();
-	const { t } = useTranslation([i18nNamespace.Presentation]);
 
 	return (
 		<Box
@@ -103,6 +100,7 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 							media.settings?.blur ?? 0
 						}px)`,
 					}}
+					alt='presentation-media'
 				/>
 			) : canReceiveMedia ? (
 				<MediaDropBoxIndicator

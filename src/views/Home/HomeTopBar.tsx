@@ -13,7 +13,7 @@ const HomeTopBar: React.FC<{}> = () => {
 		<TopBar>
 			<Box className={classes.contaiener}>
 				<Box className={classes.logoContainer}>
-					<img className={classes.img} src={toolbarLogo} />
+					<img className={classes.img} src={toolbarLogo} alt='SMP-Logo' />
 				</Box>
 				<Box>
 					<MenuButton />

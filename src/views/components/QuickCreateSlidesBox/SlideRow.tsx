@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text } from '../../../smpUI/components';
+import { Box } from '../../../smpUI/components';
 import { useSlideRowStyles } from './styles';
 import { Slide } from '../../../shared/types/presentation';
 import SlideRowMediaHolder from './SlideRowMediaHolder';

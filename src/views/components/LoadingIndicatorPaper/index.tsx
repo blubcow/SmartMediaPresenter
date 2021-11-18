@@ -12,7 +12,7 @@ const LoadingIndicatorPaper: React.FC<{}> = () => {
 		<Paper>
 			<Box className={classes.wrapper}>
 				<Box className={classes.container}>
-					<img src={logos.toolbarLogo} className={classes.img} />
+					<img src={logos.toolbarLogo} className={classes.img} alt='SMP-Logo' />
 					<LinearProgress className={classes.indicator} />
 				</Box>
 			</Box>

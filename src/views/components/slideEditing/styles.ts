@@ -11,7 +11,7 @@ export default makeStyles((theme: Theme) =>
 			cursor: 'pointer',
 			outlineColor: theme.palette.primary.main,
 			outlineStyle: 'solid',
-			['&:hover']: {
+			'&:hover': {
 				backgroundColor: theme.palette.divider,
 			},
 		},

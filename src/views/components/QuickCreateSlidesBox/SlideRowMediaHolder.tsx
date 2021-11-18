@@ -47,7 +47,7 @@ const SlideRowMediaHolder: React.FC<ISlideRowMediaHolder> = (props) => {
 		>
 			{src ? (
 				<Box className={classes.mediaPresentContainer}>
-					<img src={src} className={classes.mediaPresentImg} />
+					<img src={src} className={classes.mediaPresentImg} alt='media' />
 					<Text overflow='hidden' textOverflow='ellipsis' variant='caption'>
 						{src.split('/').pop()}
 					</Text>

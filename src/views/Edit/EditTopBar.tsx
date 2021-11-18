@@ -21,7 +21,6 @@ interface IEditTopBarProps extends ITopBarDisplayingFilenameProps {
 const EditTopBar: React.FC<IEditTopBarProps> = (props) => {
 	const {
 		currentSlideSettings,
-		fileName,
 		slideSettingsDidChange,
 		selectedMedia,
 		mediaSettingsDidChange,

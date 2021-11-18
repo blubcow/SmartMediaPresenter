@@ -137,6 +137,7 @@ const ImageManipulationControls: React.FC<IImageManipulationControlsProps> = (
 				style={{
 					filter: filter,
 				}}
+				alt='media'
 			/>
 			{options.map((option, index) => (
 				<Box key={index} className={classes.optionContainer}>

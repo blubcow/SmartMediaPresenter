@@ -89,6 +89,7 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 									}px)`,
 								}}
 								src={media.location.local ?? media.location.remote}
+								alt='presentation-media'
 							/>
 						) : (
 							<Box sx={{ height: '100%', width: '100%', bgcolor: 'divider' }} />
@@ -99,7 +100,5 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 		</FullScreen>
 	);
 };
-
-const MediaHolder = (props: { url: string }) => {};
 
 export default PresentationFullScreen;

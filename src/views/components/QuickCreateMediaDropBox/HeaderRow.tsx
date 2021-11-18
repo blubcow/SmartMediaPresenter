@@ -1,4 +1,3 @@
-import { SelectChangeEvent } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';

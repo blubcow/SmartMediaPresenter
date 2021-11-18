@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import { MediaRessource } from '../../../shared/types/presentation';
 import { Box, Button, Text, Modal } from '../../../smpUI/components';
 import { IModalProps } from '../../../smpUI/components/Modal';
 import { useMediaEditingModalStyles } from './styles';

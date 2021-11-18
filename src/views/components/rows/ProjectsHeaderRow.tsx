@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IconBadge, Text, Row } from '../../../smpUI/components';
+import { IconBadge, Row } from '../../../smpUI/components';
 import { Add } from '@mui/icons-material';
 import { CreateProjectModal } from '../modals';
 import { useTranslation } from 'react-i18next';

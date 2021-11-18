@@ -16,7 +16,7 @@ const LoginPaper: React.FC<{}> = () => {
 	return (
 		<Paper>
 			<Box className={classes.container}>
-				<img src={logo.logo} className={classes.img} />
+				<img src={logo.logo} className={classes.img} alt='SMP-Logo' />
 				<Text variant='h4' fontWeight='bold'>
 					{t('login')}
 				</Text>
