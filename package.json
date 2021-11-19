@@ -22,6 +22,7 @@
     "react-edit-text": "^4.2.0",
     "react-full-screen": "^1.1.0",
     "react-i18next": "^11.13.0",
+    "react-lazy-load-image-component": "^1.5.1",
     "react-redux": "^7.2.5",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
@@ -54,6 +55,7 @@
   "devDependencies": {
     "@types/react-color": "^3.0.6",
     "@types/react-edit-text": "^4.0.1",
+    "@types/react-lazy-load-image-component": "^1.5.2",
     "@types/react-redux": "^7.1.20",
     "@types/react-router-dom": "^5.3.1",
     "@types/redux": "^3.6.0",
