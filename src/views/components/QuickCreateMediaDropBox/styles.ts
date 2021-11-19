@@ -28,7 +28,7 @@ export const useHeaderRowStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		container: {
 			width: '100%',
-			minHeight: '55px',
+			minHeight: '95px',
 			backgroundColor: theme.palette.background.paper,
 			position: 'sticky',
 			top: 0,
@@ -73,7 +73,6 @@ export const useMediaRowStyles = makeStyles((theme: Theme) =>
 			width: '100%',
 			padding: theme.spacing(1),
 			display: 'flex',
-			overflow: 'hidden',
 			'&:focus': {
 				outline: 'none',
 			},
