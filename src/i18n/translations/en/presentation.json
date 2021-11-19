@@ -16,7 +16,7 @@
   "save": "save",
   "export": "export",
   "startPresentation": "present",
-  "eidt": "edit",
+  "edit": "edit",
   "delete": "delete",
   "noSearchResults": "your search didn't yield any results",
   "noPresentationSelected": "no presentation selected",
