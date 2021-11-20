@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { SinglePresentation, Slide } from '../../../shared/types/presentation';
@@ -23,6 +23,7 @@ import { SMPRoutes } from '../../../shared/types/routes';
 import { CircularProgress } from '@mui/material';
 import PresentationFullScreen from '../FullScreen/PresentationFullScreen';
 import { useFullScreenHandle } from 'react-full-screen';
+import usePresentationMediaCache from '../../../hooks/usePresentationMediaCache';
 
 interface IPresentationPreviewProps {
 	presentation?: SinglePresentation;
@@ -31,6 +32,7 @@ interface IPresentationPreviewProps {
 
 const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 	const { presentation, id } = props;
+	const { isLoading, setPresentation } = usePresentationMediaCache();
 
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
 	const handle = useFullScreenHandle();
@@ -38,6 +40,10 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 	const classes = useStyles();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const history = useHistory();
+
+	useEffect(() => {
+		setPresentation(presentation);
+	}, [presentation, setPresentation]);
 
 	return (
 		<Box className={classes.container}>
@@ -81,12 +87,16 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 			</Box>
 			{presentation ? (
 				presentation.slides.length ? (
-					<Preview slide={presentation.slides[currentSlide]} />
+					isLoading ? (
+						<CircularProgress variant='indeterminate' />
+					) : (
+						<Preview slide={presentation.slides[currentSlide]} />
+					)
 				) : (
 					<Text variant='h6'>{t('presentationIsEmpty')}</Text>
 				)
 			) : (
-				<CircularProgress variant='indeterminate' />
+				<></>
 			)}
 
 			<Box className={classes.bottomContainer}>
