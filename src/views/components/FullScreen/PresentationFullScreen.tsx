@@ -50,52 +50,57 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 						: '#000',
 				}}
 			>
-				{slides[currentSlide].media.map((media, i) => (
-					<Box
-						sx={{
-							maxHeight: '100%',
-							maxWidth: '50%',
-							width:
-								media.location.local || media.location.remote
-									? undefined
-									: '50%',
-							aspectRatio:
-								media.location.local || media.location.remote
-									? undefined
-									: '16/9',
-						}}
-					>
-						{media.location.local || media.location.remote ? (
-							<img
-								style={{
-									maxHeight: `${window.innerHeight}px`,
-									maxWidth: '100%',
-									display: 'block',
-									transform: `translate(${
-										media?.settings?.transformation?.x ?? 0
-									}px, ${media?.settings?.transformation?.y ?? 0}px) scale(${
-										media?.settings?.scaling?.x ?? 1
-									}, ${media?.settings?.scaling?.y ?? 1}) rotate(${
-										media.settings?.rotation ?? 0
-									}deg)`,
-									filter: `brightness(${
-										media.settings?.brightness ?? 100
-									}%) contrast(${media.settings?.contrast ?? 100}%) saturate(${
-										media.settings?.saturation ?? 100
-									}%) grayscale(${media.settings?.grayScale ?? 0}%) sepia(${
-										media.settings?.sepia ?? 0
-									}%) hue-rotate(${media.settings?.hue ?? 0}deg) blur(${
-										media.settings?.blur ?? 0
-									}px)`,
-								}}
-								src={media.location.local ?? media.location.remote}
-								alt='presentation-media'
-							/>
-						) : (
-							<Box sx={{ height: '100%', width: '100%', bgcolor: 'divider' }} />
-						)}
-					</Box>
-				))}
+				{slides[currentSlide] &&
+					slides[currentSlide].media.map((media, i) => (
+						<Box
+							sx={{
+								maxHeight: '100%',
+								maxWidth: '50%',
+								width:
+									media.location.local || media.location.remote
+										? undefined
+										: '50%',
+								aspectRatio:
+									media.location.local || media.location.remote
+										? undefined
+										: '16/9',
+							}}
+						>
+							{media.location.local || media.location.remote ? (
+								<img
+									style={{
+										maxHeight: `${window.innerHeight}px`,
+										maxWidth: '100%',
+										display: 'block',
+										transform: `translate(${
+											media?.settings?.transformation?.x ?? 0
+										}px, ${media?.settings?.transformation?.y ?? 0}px) scale(${
+											media?.settings?.scaling?.x ?? 1
+										}, ${media?.settings?.scaling?.y ?? 1}) rotate(${
+											media.settings?.rotation ?? 0
+										}deg)`,
+										filter: `brightness(${
+											media.settings?.brightness ?? 100
+										}%) contrast(${
+											media.settings?.contrast ?? 100
+										}%) saturate(${
+											media.settings?.saturation ?? 100
+										}%) grayscale(${media.settings?.grayScale ?? 0}%) sepia(${
+											media.settings?.sepia ?? 0
+										}%) hue-rotate(${media.settings?.hue ?? 0}deg) blur(${
+											media.settings?.blur ?? 0
+										}px)`,
+									}}
+									src={media.location.local ?? media.location.remote}
+									alt='presentation-media'
+								/>
+							) : (
+								<Box
+									sx={{ height: '100%', width: '100%', bgcolor: 'divider' }}
+								/>
+							)}
+						</Box>
+					))}
 			</Box>
 		</FullScreen>
 	);

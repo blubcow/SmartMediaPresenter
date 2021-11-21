@@ -26,5 +26,16 @@ export default makeStyles((theme: Theme) =>
 		slidesCounterContainer: {
 			marginLeft: theme.spacing(1),
 		},
+		loadingContainer: {
+			display: 'flex',
+			width: '100%',
+			aspectRatio: '16/9',
+			flexDirection: 'column',
+			justifyContent: 'center',
+			alignItems: 'center',
+		},
+		fetchingSpinner: {
+			marginBottom: theme.spacing(1),
+		},
 	})
 );

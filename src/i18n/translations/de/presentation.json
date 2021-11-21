@@ -41,5 +41,6 @@
   "blur": "Unschärfe",
   "sepia": "Sepia",
   "cancel": "abbrechen",
-  "confrim": "bestätigen"
+  "confrim": "bestätigen",
+  "fetchingMedia": "Medien werden geladen"
 }

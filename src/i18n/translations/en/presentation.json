@@ -41,5 +41,6 @@
   "blur": "blur",
   "sepia": "sepia",
   "cancel": "cancel",
-  "confrim": "confrim"
+  "confrim": "confrim",
+  "fetchingMedia": "fetching media"
 }

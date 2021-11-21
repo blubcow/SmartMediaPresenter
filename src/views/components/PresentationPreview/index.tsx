@@ -47,11 +47,17 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 
 	return (
 		<Box className={classes.container}>
-			{presentation && presentation.slides && (
-				<PresentationFullScreen handle={handle} slides={presentation?.slides} />
-			)}
+			{presentation &&
+				presentation.slides &&
+				presentation.slides.length > 0 &&
+				!isLoading && (
+					<PresentationFullScreen
+						handle={handle}
+						slides={presentation?.slides}
+					/>
+				)}
 			<FloatingButtonContainer>
-				{presentation && presentation.slides.length > 0 && (
+				{presentation && presentation.slides.length > 0 && !isLoading && (
 					<FloatingButton
 						variant='extended'
 						color='primary'
@@ -88,7 +94,13 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 			{presentation ? (
 				presentation.slides.length ? (
 					isLoading ? (
-						<CircularProgress variant='indeterminate' />
+						<Box className={classes.loadingContainer}>
+							<CircularProgress
+								className={classes.fetchingSpinner}
+								variant='indeterminate'
+							/>
+							<Text>{t('fetchingMedia')}</Text>
+						</Box>
 					) : (
 						<Preview slide={presentation.slides[currentSlide]} />
 					)
