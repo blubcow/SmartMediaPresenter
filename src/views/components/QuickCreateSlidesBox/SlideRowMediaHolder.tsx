@@ -5,6 +5,7 @@ import { DataTransferIdentifiers } from '../../../shared/types/identifiers';
 import { QuickCreateMediaResource } from '../../../shared/types/quickCreateMode';
 import { Box, Text } from '../../../smpUI/components';
 import { useSlideRowMediaHolderStyles } from './styles';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface ISlideRowMediaHolder {
 	id: number;
@@ -47,7 +48,11 @@ const SlideRowMediaHolder: React.FC<ISlideRowMediaHolder> = (props) => {
 		>
 			{src ? (
 				<Box className={classes.mediaPresentContainer}>
-					<img src={src} className={classes.mediaPresentImg} alt='media' />
+					<LazyLoadImage
+						src={src}
+						className={classes.mediaPresentImg}
+						alt='media'
+					/>
 					<Text overflow='hidden' textOverflow='ellipsis' variant='caption'>
 						{src.split('/').pop()}
 					</Text>

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { QuickCreateMediaResource } from '../../../shared/types/quickCreateMode';
 import { Box, Text } from '../../../smpUI/components';
 import { useMediaRowStyles } from './styles';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface IMediaRowProps {
 	media: QuickCreateMediaResource;
@@ -15,9 +16,11 @@ interface IMediaRowProps {
 const MediaRow: React.FC<IMediaRowProps> = (props) => {
 	const { media, id, onSelection, selected, onBlur, onDragStart } = props;
 	const classes = useMediaRowStyles();
+	const scrollingContainerRef = useRef();
 
 	return (
 		<Box
+			ref={scrollingContainerRef}
 			className={selected ? classes.selected : classes.container}
 			sx={{
 				bgcolor: selected ? 'primary.main' : id % 2 ? 'transparent' : 'divider',
@@ -33,10 +36,11 @@ const MediaRow: React.FC<IMediaRowProps> = (props) => {
 		>
 			<Box className={classes.row} draggable onDragStart={onDragStart}>
 				<Box className={classes.imgContainer}>
-					<img
+					<LazyLoadImage
 						className={classes.img}
 						src={media.location.local ?? media.location.remote}
 						alt='media'
+						effect='blur'
 					/>
 				</Box>
 				<Box className={classes.txtContainer}>
