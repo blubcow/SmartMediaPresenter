@@ -5,25 +5,27 @@ export interface IBoxProps extends BoxProps {
 	clickable?: boolean;
 }
 
-const Box: React.FC<PropsWithChildren<IBoxProps>> = (props) => {
-	const { clickable = false } = props;
+const Box: React.FC<PropsWithChildren<IBoxProps>> = React.forwardRef(
+	(props, ref) => {
+		const { clickable = false } = props;
 
-	return (
-		<MUIBox {...props}>
-			{clickable && (
-				<ButtonBase
-					style={{
-						height: '100%',
-						width: '100%',
-						position: 'absolute',
-						top: 0,
-						left: 0,
-					}}
-				/>
-			)}
-			{props.children}
-		</MUIBox>
-	);
-};
+		return (
+			<MUIBox {...props} ref={ref}>
+				{clickable && (
+					<ButtonBase
+						style={{
+							height: '100%',
+							width: '100%',
+							position: 'absolute',
+							top: 0,
+							left: 0,
+						}}
+					/>
+				)}
+				{props.children}
+			</MUIBox>
+		);
+	}
+);
 
 export default Box;
