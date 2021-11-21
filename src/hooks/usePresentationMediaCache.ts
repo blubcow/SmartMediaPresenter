@@ -14,6 +14,7 @@ const usePresentationMediaCache = (presentation?: SinglePresentation) => {
 
 	const cacheMedia = async () => {
 		setIsLoading(true);
+		setImgs([]);
 
 		if (!pres) return;
 
