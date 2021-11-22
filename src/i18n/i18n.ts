@@ -11,6 +11,7 @@ export enum i18nNamespace {
 	Auth = 'auth',
 	Ordering = 'ordering',
 	Presentation = 'presentation',
+	Alert = 'alert',
 }
 
 i18n.use(initReactI18next).init({
