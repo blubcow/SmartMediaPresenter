@@ -23,7 +23,7 @@ import { SlidesHeaderRow, SlidePreviewRow } from '../components/rows';
 import SlideEditingBox from '../components/SlideEditingBox';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { width } from '@mui/system';
+import { SavedPresentationSuccess } from '../components/Alerts/SavedPresentation';
 
 const Edit: React.FC<{}> = (props) => {
 	const [id, setId] = useState<string>('');
@@ -42,6 +42,10 @@ const Edit: React.FC<{}> = (props) => {
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const [slideEditingBoxDimensions, setSlideEditingBoxDimensions] =
 		useState<Dimensions>({ width: 0, height: 0 });
+	const [
+		savedPresentationSuccessAlertOpen,
+		setSavedPresentationSuccessAlertOpen,
+	] = useState<boolean>(false);
 
 	useEffect(() => {
 		const currentSlides: Slide[] = storedPresentation?.slides ?? [];
@@ -142,6 +146,10 @@ const Edit: React.FC<{}> = (props) => {
 				/>
 			}
 		>
+			<SavedPresentationSuccess
+				open={savedPresentationSuccessAlertOpen}
+				onClose={() => setSavedPresentationSuccessAlertOpen(false)}
+			/>
 			{slides.length > 0 && slides[0].media.length > 0 && (
 				<PresentationFullScreen handle={handle} slides={slides} />
 			)}
@@ -154,6 +162,8 @@ const Edit: React.FC<{}> = (props) => {
 							name: storedPresentation?.name,
 							slides: slides,
 						});
+						// TODO: evalute wheter or not saving was successful and show accroding alert
+						setSavedPresentationSuccessAlertOpen(true);
 					}}
 				>
 					<Save sx={{ mr: 1 }} />
