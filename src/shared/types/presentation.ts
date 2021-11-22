@@ -34,7 +34,7 @@ export interface MediaRessource {
 }
 
 export interface MediaSettings {
-	transformation: MediaTransformation;
+	translation: MediaTranslation;
 	scaling: MediaScaleing;
 	rotation: number;
 	brightness: number;
@@ -44,11 +44,6 @@ export interface MediaSettings {
 	grayScale: number;
 	sepia: number;
 	blur: number;
-}
-
-export interface MediaTransformation {
-	x: number;
-	y: number;
 }
 
 export interface MediaScaleing {
@@ -80,3 +75,14 @@ export const getEmptySlide = (id?: number): Slide => {
 		],
 	};
 };
+
+export interface MediaTranslation {
+	rel: { width: number; height: number };
+	x: number;
+	y: number;
+}
+
+export interface Dimensions {
+	height: number;
+	width: number;
+}

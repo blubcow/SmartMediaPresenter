@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Box } from '../../.././smpUI/components';
-import { MediaRessource, Slide } from '../../../shared/types/presentation';
+import {
+	Dimensions,
+	MediaRessource,
+	Slide,
+} from '../../../shared/types/presentation';
 import { IBoxProps } from '../../../smpUI/components/Box';
 import MediaBox from '../MediaBox';
 import useStyels from './styles';
@@ -12,6 +16,7 @@ interface ISlideEditingBoxProps extends IBoxProps {
 	activeMedia?: number;
 	onActivateMedia?: (id: number) => void;
 	onSelectedMediaBlur?: () => void;
+	onSizeChanged?: (width: number, height: number) => void;
 }
 
 const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
@@ -22,9 +27,32 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 		activeMedia,
 		onActivateMedia,
 		onSelectedMediaBlur,
+		onSizeChanged,
 	} = props;
 	const [media, setMedia] = useState<MediaRessource[]>([...slide.media]);
+	const [size, setSize] = useState<Dimensions>({ height: 0, width: 0 });
+	const containerRef = useRef<any>();
+
+	const passSizeUpdate = () => {
+		const height = containerRef.current?.clientHeight ?? 0;
+		const width = containerRef.current?.clientWidth ?? 0;
+		if (onSizeChanged) onSizeChanged(width, height);
+		setSize({ height: height, width: width });
+	};
+	const [sizeObserver] = useState<ResizeObserver>(
+		new ResizeObserver(passSizeUpdate)
+	);
 	const classes = useStyels();
+
+	useEffect(() => {
+		if (containerRef.current === undefined) return;
+		sizeObserver.observe(containerRef.current);
+
+		return () => {
+			// if (containerRef.current !== undefined)
+			// sizeObserver.unobserve(containerRef.current);
+		};
+	}, [containerRef.current]);
 
 	useEffect(() => {
 		setMedia([...slide.media]);
@@ -32,6 +60,7 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 
 	return (
 		<Box
+			ref={containerRef}
 			className={classes.container}
 			sx={{ bgcolor: slide.settings?.color ?? '#000' }}
 		>
@@ -56,6 +85,7 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 									activateMedia={(id: number) => {
 										if (onActivateMedia) onActivateMedia(id);
 									}}
+									slideEditingBoxDimensions={size}
 								/>
 							))}
 					</Box>

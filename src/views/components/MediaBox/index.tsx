@@ -1,5 +1,5 @@
 import React from 'react';
-import { MediaRessource } from '../../../shared/types/presentation';
+import { Dimensions, MediaRessource } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
 import MediaDropBoxIndicator from '../MediaDropBoxIndicator';
 import useStyles from './styles';
@@ -14,6 +14,7 @@ interface IMediaBox {
 	activateMedia?: (id: number) => void;
 	onMediaSelectionBlur?: () => void;
 	didReceiveMediaFile?: (file: File, id: number) => void;
+	slideEditingBoxDimensions?: Dimensions;
 }
 
 const MediaBox: React.FC<IMediaBox> = (props) => {
@@ -27,6 +28,7 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 		isActive,
 		activateMedia,
 		onMediaSelectionBlur,
+		slideEditingBoxDimensions,
 	} = props;
 	const classes = useStyles();
 
@@ -84,12 +86,16 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 					tabIndex={id}
 					style={{
 						transform: `translate(${
-							media?.settings?.transformation?.x ?? 0
-						}px, ${media?.settings?.transformation?.y ?? 0}px) scale(${
-							media?.settings?.scaling?.x ?? 1
-						}, ${media?.settings?.scaling?.y ?? 1}) rotate(${
-							media.settings?.rotation ?? 0
-						}deg)`,
+							((slideEditingBoxDimensions?.width ?? 0) /
+								(media?.settings?.translation?.rel?.width ?? 1)) *
+							(media?.settings?.translation?.x ?? 0)
+						}px, ${
+							((slideEditingBoxDimensions?.height ?? 0) /
+								(media?.settings?.translation?.rel?.height ?? 1)) *
+							(media?.settings?.translation?.y ?? 0)
+						}px) scale(${media?.settings?.scaling?.x ?? 1}, ${
+							media?.settings?.scaling?.y ?? 1
+						}) rotate(${media.settings?.rotation ?? 0}deg)`,
 						filter: `brightness(${
 							media.settings?.brightness ?? 100
 						}%) contrast(${media.settings?.contrast ?? 100}%) saturate(${

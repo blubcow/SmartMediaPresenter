@@ -7,6 +7,7 @@ import EditButtonLabel from './EditButtonLabel';
 import MediaEditingModal from './MediaEditingModal';
 import { Box, TextField } from '../../../smpUI/components';
 import {
+	Dimensions,
 	MediaRessource,
 	MediaSettings,
 } from '../../../shared/types/presentation';
@@ -15,10 +16,12 @@ interface IMoveButtonProps
 	extends Omit<IEditingButtonProps, 'icon' | 'secondaryNode'> {
 	mediaResource?: MediaRessource;
 	onMediaSettingsChanged: (settings: Partial<MediaSettings>) => void;
+	slideEditingBoxDimensions: Dimensions;
 }
 
 const MoveButton: React.FC<IMoveButtonProps> = (props) => {
-	const { mediaResource, onMediaSettingsChanged } = props;
+	const { mediaResource, onMediaSettingsChanged, slideEditingBoxDimensions } =
+		props;
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const [openModal, setOpenModal] = useState<boolean>(false);
 	const [moveValue, setMoveValue] = useState<{ x: string; y: string }>({
@@ -45,8 +48,18 @@ const MoveButton: React.FC<IMoveButtonProps> = (props) => {
 				title={t('move')}
 				open={openModal}
 				onEditingFinished={() => {
-					const prevTransformation = mediaResource?.settings
-						?.transformation ?? { x: 0, y: 0 };
+					const heightDivider =
+						slideEditingBoxDimensions.height /
+						(mediaResource?.settings?.translation?.rel.height ??
+							slideEditingBoxDimensions.height);
+					const widthDivider =
+						slideEditingBoxDimensions.width /
+						(mediaResource?.settings?.translation?.rel.width ??
+							slideEditingBoxDimensions.width);
+					const prevTransformation = {
+						x: (mediaResource?.settings?.translation?.x ?? 0) * widthDivider,
+						y: (mediaResource?.settings?.translation?.y ?? 0) * heightDivider,
+					};
 					const currentTransformation = {
 						x: parseInt(moveValue.x ?? 0),
 						y: parseInt(moveValue.y ?? 0),
@@ -54,7 +67,8 @@ const MoveButton: React.FC<IMoveButtonProps> = (props) => {
 
 					onMediaSettingsChanged({
 						...mediaResource?.settings,
-						transformation: {
+						translation: {
+							rel: { ...slideEditingBoxDimensions },
 							x: isNaN(currentTransformation.x)
 								? prevTransformation.x ?? 0
 								: (prevTransformation.x ?? 0) + currentTransformation.x,

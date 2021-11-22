@@ -11,7 +11,11 @@ import { useSinglePresentation } from '../../hooks/useMainProcessMethods';
 import EditTopBar from './EditTopBar';
 import useStyles from './styles';
 import { Divider } from '@mui/material';
-import { MediaRessource, Slide } from '../../shared/types/presentation';
+import {
+	Dimensions,
+	MediaRessource,
+	Slide,
+} from '../../shared/types/presentation';
 import { Save, Slideshow } from '@mui/icons-material';
 import PresentationFullScreen from '../components/FullScreen/PresentationFullScreen';
 import { useFullScreenHandle } from 'react-full-screen';
@@ -19,6 +23,7 @@ import { SlidesHeaderRow, SlidePreviewRow } from '../components/rows';
 import SlideEditingBox from '../components/SlideEditingBox';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
+import { width } from '@mui/system';
 
 const Edit: React.FC<{}> = (props) => {
 	const [id, setId] = useState<string>('');
@@ -35,6 +40,8 @@ const Edit: React.FC<{}> = (props) => {
 	const [activeMedia, setActiveMedia] = useState<number | undefined>(undefined);
 	const handle = useFullScreenHandle();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
+	const [slideEditingBoxDimensions, setSlideEditingBoxDimensions] =
+		useState<Dimensions>({ width: 0, height: 0 });
 
 	useEffect(() => {
 		const currentSlides: Slide[] = storedPresentation?.slides ?? [];
@@ -131,6 +138,7 @@ const Edit: React.FC<{}> = (props) => {
 						);
 						setCurrentMedia([...newMedia]);
 					}}
+					slideEditingBoxDimension={slideEditingBoxDimensions}
 				/>
 			}
 		>
@@ -230,7 +238,14 @@ const Edit: React.FC<{}> = (props) => {
 								}}
 								onSelectedMediaBlur={() => setActiveMedia(undefined)}
 								mediaBoxesCanReceiveMedia
+								onSizeChanged={(width: number, height: number) => {
+									setSlideEditingBoxDimensions({
+										width: width,
+										height: height,
+									});
+								}}
 							/>
+
 							<Box className={classes.slideCounterContainer}>
 								<Text>{`${currentSlide + 1}/${slides.length}`}</Text>
 							</Box>

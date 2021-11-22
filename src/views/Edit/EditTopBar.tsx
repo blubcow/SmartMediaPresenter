@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+	Dimensions,
 	MediaRessource,
 	MediaSettings as MediaSettingsType,
 	SlideSettings as SlideSettingsType,
@@ -16,6 +17,7 @@ interface IEditTopBarProps extends ITopBarDisplayingFilenameProps {
 	slideSettingsDidChange: (settings: SlideSettingsType) => void;
 	selectedMedia?: MediaRessource;
 	mediaSettingsDidChange: (settings: Partial<MediaSettingsType>) => void;
+	slideEditingBoxDimension: Dimensions;
 }
 
 const EditTopBar: React.FC<IEditTopBarProps> = (props) => {
@@ -24,6 +26,7 @@ const EditTopBar: React.FC<IEditTopBarProps> = (props) => {
 		slideSettingsDidChange,
 		selectedMedia,
 		mediaSettingsDidChange,
+		slideEditingBoxDimension,
 	} = props;
 
 	return (
@@ -33,6 +36,7 @@ const EditTopBar: React.FC<IEditTopBarProps> = (props) => {
 					<MediaSettings
 						media={selectedMedia}
 						onSettingsChanged={mediaSettingsDidChange}
+						slideMediaBoxDimensions={slideEditingBoxDimension}
 					/>
 				) : (
 					<SlideSettings

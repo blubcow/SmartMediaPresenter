@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+	Dimensions,
 	MediaRessource,
 	MediaSettings as MediaSettingsType,
 } from '../../../shared/types/presentation';
@@ -15,10 +16,11 @@ import { useSettingsContainerStyles } from './styles';
 interface IMediaSettingsProps {
 	media?: MediaRessource;
 	onSettingsChanged: (settings: Partial<MediaSettingsType>) => void;
+	slideMediaBoxDimensions: Dimensions;
 }
 
 const MediaSettings: React.FC<IMediaSettingsProps> = (props) => {
-	const { media, onSettingsChanged } = props;
+	const { media, onSettingsChanged, slideMediaBoxDimensions } = props;
 	const classes = useSettingsContainerStyles();
 
 	return (
@@ -27,6 +29,7 @@ const MediaSettings: React.FC<IMediaSettingsProps> = (props) => {
 				selected={false}
 				mediaResource={media}
 				onMediaSettingsChanged={onSettingsChanged}
+				slideEditingBoxDimensions={slideMediaBoxDimensions}
 			/>
 			<Box className={classes.spacer} />
 			<ScaleButton

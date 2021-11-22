@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { FullScreen } from 'react-full-screen';
-import { Slide } from '../../../shared/types/presentation';
+import { Dimensions, Slide } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
 
 interface IPresentationFullScreenProps {
@@ -13,6 +13,24 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 ) => {
 	const { handle, slides } = props;
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
+	const [presentationBoxSize, setPresentationBoxSize] = useState<Dimensions>({
+		height: 0,
+		width: 0,
+	});
+	const presentationBoxRef = useRef<any>();
+	const [sizeObserver] = useState<ResizeObserver>(
+		new ResizeObserver(() => {
+			setPresentationBoxSize({
+				height: presentationBoxRef.current?.clientHeight ?? 0,
+				width: presentationBoxRef.current?.clientWidth ?? 0,
+			});
+		})
+	);
+
+	useEffect(() => {
+		if (presentationBoxRef.current !== undefined)
+			sizeObserver.observe(presentationBoxRef.current);
+	}, [presentationBoxRef.current]);
 
 	useEffect(() => {
 		const handleKey = (e: KeyboardEvent) => {
@@ -73,12 +91,16 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 										maxWidth: '100%',
 										display: 'block',
 										transform: `translate(${
-											media?.settings?.transformation?.x ?? 0
-										}px, ${media?.settings?.transformation?.y ?? 0}px) scale(${
-											media?.settings?.scaling?.x ?? 1
-										}, ${media?.settings?.scaling?.y ?? 1}) rotate(${
-											media.settings?.rotation ?? 0
-										}deg)`,
+											(presentationBoxSize.width /
+												(media?.settings?.translation?.rel.width ?? 1)) *
+											(media?.settings?.translation?.x ?? 0)
+										}px, ${
+											(presentationBoxSize.height /
+												(media?.settings?.translation?.rel.height ?? 1)) *
+											(media?.settings?.translation?.y ?? 0)
+										}px) scale(${media?.settings?.scaling?.x ?? 1}, ${
+											media?.settings?.scaling?.y ?? 1
+										}) rotate(${media.settings?.rotation ?? 0}deg)`,
 										filter: `brightness(${
 											media.settings?.brightness ?? 100
 										}%) contrast(${
