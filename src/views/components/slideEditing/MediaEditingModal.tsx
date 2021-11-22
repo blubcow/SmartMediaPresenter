@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { Box, Button, Text, Modal } from '../../../smpUI/components';
 import { IModalProps } from '../../../smpUI/components/Modal';
 import { useMediaEditingModalStyles } from './styles';
@@ -16,6 +16,28 @@ const MediaEditingModal: React.FC<IMediaEditingModalProps> = (props) => {
 	const { title, onEditingFinished, onCancel, content } = props;
 	const classes = useMediaEditingModalStyles();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
+
+	useEffect(() => {
+		const handleKey = (e: KeyboardEvent) => {
+			switch (e.key) {
+				case 'Enter':
+					onEditingFinished();
+					break;
+				default:
+					break;
+			}
+		};
+
+		if (!props.open) {
+			document.removeEventListener('keypress', handleKey);
+			return;
+		}
+
+		document.addEventListener('keypress', handleKey);
+		return () => {
+			document.removeEventListener('keypress', handleKey);
+		};
+	}, [onEditingFinished, props.open]);
 
 	return (
 		<Modal {...props}>

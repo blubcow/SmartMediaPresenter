@@ -77,6 +77,7 @@ const MoveButton: React.FC<IMoveButtonProps> = (props) => {
 								: (prevTransformation.y ?? 0) - currentTransformation.y,
 						},
 					});
+
 					setOpenModal(false);
 				}}
 				onCancel={() => setOpenModal(false)}
