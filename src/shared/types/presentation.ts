@@ -25,6 +25,7 @@ export interface Slide {
 
 export interface SlideSettings {
 	color?: string;
+	presentationFrame?: PresentationFrameSettings;
 }
 
 export interface MediaRessource {
@@ -85,4 +86,11 @@ export interface MediaTranslation {
 export interface Dimensions {
 	height: number;
 	width: number;
+}
+
+export interface PresentationFrameSettings {
+	rel: Dimensions;
+	top: number;
+	left: number;
+	size: Dimensions;
 }
