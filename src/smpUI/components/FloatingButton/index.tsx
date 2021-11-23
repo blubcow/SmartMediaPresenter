@@ -7,7 +7,11 @@ interface IFloatingButtonProps extends FabProps {}
 
 const FloatingButton: React.FC<IFloatingButtonProps> = (props) => {
 	return (
-		<Fab {...props} sx={{ ml: 3, padding: 2.5, ...props.sx }} size='small' />
+		<Fab
+			{...props}
+			sx={{ ml: 3, padding: 2.5, zIndex: 100, ...props.sx }}
+			size='small'
+		/>
 	);
 };
 
