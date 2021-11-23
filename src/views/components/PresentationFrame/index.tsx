@@ -47,6 +47,11 @@ const PresentationFrame: React.FC<IPresentationFrameProps> = (props) => {
 	>();
 
 	useEffect(() => {
+		setEditingSettings(settings);
+		setCurrentSettings(settings);
+	}, [settings]);
+
+	useEffect(() => {
 		setHeightMultiplier(parentSize.height / (editingSettings?.rel.height ?? 1));
 		setWidthMultiplier(parentSize.width / (editingSettings?.rel.width ?? 1));
 	}, [parentSize, editingSettings?.rel]);
@@ -71,7 +76,7 @@ const PresentationFrame: React.FC<IPresentationFrameProps> = (props) => {
 				: newSettings.left;
 		newSettings.right =
 			activePosition.horizontal === 'right'
-				? Math.max(0, newSettings.left + x)
+				? Math.max(0, newSettings.right + x)
 				: newSettings.right;
 		newSettings.bottom =
 			activePosition.vertical === 'bottom'
@@ -98,7 +103,7 @@ const PresentationFrame: React.FC<IPresentationFrameProps> = (props) => {
 				top: `${heightMultiplier * (editingSettings?.top ?? 0)}px`,
 				left: `${widthMultiplier * (editingSettings?.left ?? 0)}px`,
 				right: `${widthMultiplier * (editingSettings?.right ?? 0)}px`,
-				bottom: `${widthMultiplier * (editingSettings?.bottom ?? 0)}px`,
+				bottom: `${heightMultiplier * (editingSettings?.bottom ?? 0)}px`,
 			}}
 		>
 			<Box
@@ -114,6 +119,16 @@ const PresentationFrame: React.FC<IPresentationFrameProps> = (props) => {
 					setCurrentSettings(
 						editingSettings ? { ...editingSettings } : undefined
 					);
+					if (onPresentationFrameChanged && editingSettings)
+						onPresentationFrameChanged(editingSettings);
+				}}
+				onMouseLeave={() => {
+					setActivePosition(undefined);
+					setCurrentSettings(
+						editingSettings ? { ...editingSettings } : undefined
+					);
+					if (onPresentationFrameChanged && editingSettings)
+						onPresentationFrameChanged(editingSettings);
 				}}
 				onMouseMove={(e) => {
 					if (activePosition)

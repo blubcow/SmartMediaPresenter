@@ -22,6 +22,7 @@ const MediaEditingModal: React.FC<IMediaEditingModalProps> = (props) => {
 			switch (e.key) {
 				case 'Enter':
 					onEditingFinished();
+					document.removeEventListener('keypress', handleKey);
 					break;
 				default:
 					break;

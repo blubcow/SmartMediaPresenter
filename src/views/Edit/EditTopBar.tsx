@@ -18,6 +18,8 @@ interface IEditTopBarProps extends ITopBarDisplayingFilenameProps {
 	selectedMedia?: MediaRessource;
 	mediaSettingsDidChange: (settings: Partial<MediaSettingsType>) => void;
 	slideEditingBoxDimension: Dimensions;
+	presentationFrameEditingEnabled: boolean;
+	onEditPresentationFrameClicked: () => void;
 }
 
 const EditTopBar: React.FC<IEditTopBarProps> = (props) => {
@@ -27,6 +29,8 @@ const EditTopBar: React.FC<IEditTopBarProps> = (props) => {
 		selectedMedia,
 		mediaSettingsDidChange,
 		slideEditingBoxDimension,
+		presentationFrameEditingEnabled,
+		onEditPresentationFrameClicked,
 	} = props;
 
 	return (
@@ -44,6 +48,8 @@ const EditTopBar: React.FC<IEditTopBarProps> = (props) => {
 						slideColorDidChange={(color) => {
 							slideSettingsDidChange({ ...currentSlideSettings, color: color });
 						}}
+						presentationFrameEditingEnabled={presentationFrameEditingEnabled}
+						onEditPresentationFrameClicked={onEditPresentationFrameClicked}
 					/>
 				)}
 			</Box>

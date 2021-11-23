@@ -14,9 +14,11 @@ import { Divider } from '@mui/material';
 import {
 	Dimensions,
 	MediaRessource,
+	PresentationFrameSettings,
 	Slide,
+	SlideSettings,
 } from '../../shared/types/presentation';
-import { Save, Slideshow } from '@mui/icons-material';
+import { Save, Slideshow, Check, Close } from '@mui/icons-material';
 import PresentationFullScreen from '../components/FullScreen/PresentationFullScreen';
 import { useFullScreenHandle } from 'react-full-screen';
 import { SlidesHeaderRow, SlidePreviewRow } from '../components/rows';
@@ -46,6 +48,12 @@ const Edit: React.FC<{}> = (props) => {
 		savedPresentationSuccessAlertOpen,
 		setSavedPresentationSuccessAlertOpen,
 	] = useState<boolean>(false);
+	const [presentationFrameEditingEnabled, setPresentationFrameEditingEnabled] =
+		useState<boolean>(false);
+	const [
+		currentPresentationFrameSettings,
+		setCurrentPresentationFrameSettings,
+	] = useState<PresentationFrameSettings | undefined>();
 
 	useEffect(() => {
 		const currentSlides: Slide[] = storedPresentation?.slides ?? [];
@@ -93,6 +101,14 @@ const Edit: React.FC<{}> = (props) => {
 		setCurrentMedia([...newMedia]);
 	};
 
+	const updateSlideSettings = (settings: SlideSettings) => {
+		const slide = { ...slides[currentSlide] };
+		const newSettings = { ...slide.settings, ...settings };
+		slide.settings = newSettings;
+		const newSlides = slides.filter((slide) => slide.id !== currentSlide);
+		setSlides([...newSlides, slide].sort((a, b) => (a.id > b.id ? 1 : -1)));
+	};
+
 	return (
 		<Page
 			TopBar={
@@ -102,15 +118,7 @@ const Edit: React.FC<{}> = (props) => {
 						slides[currentSlide] ? slides[currentSlide].settings : undefined
 					}
 					slideSettingsDidChange={(settings) => {
-						const slide = { ...slides[currentSlide] };
-						const newSettings = { ...slide.settings, ...settings };
-						slide.settings = newSettings;
-						const newSlides = slides.filter(
-							(slide) => slide.id !== currentSlide
-						);
-						setSlides(
-							[...newSlides, slide].sort((a, b) => (a.id > b.id ? 1 : -1))
-						);
+						updateSlideSettings(settings);
 					}}
 					selectedMedia={
 						slides[currentSlide] && activeMedia !== undefined
@@ -143,6 +151,10 @@ const Edit: React.FC<{}> = (props) => {
 						setCurrentMedia([...newMedia]);
 					}}
 					slideEditingBoxDimension={slideEditingBoxDimensions}
+					presentationFrameEditingEnabled={presentationFrameEditingEnabled}
+					onEditPresentationFrameClicked={() => {
+						setPresentationFrameEditingEnabled(true);
+					}}
 				/>
 			}
 		>
@@ -154,29 +166,62 @@ const Edit: React.FC<{}> = (props) => {
 				<PresentationFullScreen handle={handle} slides={slides} />
 			)}
 			<FloatingButtonContainer>
-				<FloatingButton
-					variant='extended'
-					color='primary'
-					onClick={() => {
-						saveChanges({
-							name: storedPresentation?.name,
-							slides: slides,
-						});
-						// TODO: evalute wheter or not saving was successful and show accroding alert
-						setSavedPresentationSuccessAlertOpen(true);
-					}}
-				>
-					<Save sx={{ mr: 1 }} />
-					{t('save')}
-				</FloatingButton>
-				<FloatingButton
-					variant='extended'
-					color='primary'
-					onClick={handle.enter}
-				>
-					<Slideshow sx={{ mr: 1 }} />
-					{t('startPresentation')}
-				</FloatingButton>
+				{presentationFrameEditingEnabled ? (
+					<>
+						<FloatingButton
+							variant='extended'
+							color='primary'
+							onClick={() => {
+								updateSlideSettings({
+									presentationFrame: currentPresentationFrameSettings,
+								});
+								setPresentationFrameEditingEnabled(false);
+							}}
+						>
+							<Check sx={{ mr: 1 }} />
+							{t('confirm')}
+						</FloatingButton>
+						<FloatingButton
+							variant='extended'
+							color='secondary'
+							onClick={() => {
+								setCurrentPresentationFrameSettings(
+									slides[currentSlide].settings?.presentationFrame
+								);
+								setPresentationFrameEditingEnabled(false);
+							}}
+						>
+							<Close sx={{ mr: 1 }} />
+							{t('cancel')}
+						</FloatingButton>
+					</>
+				) : (
+					<>
+						<FloatingButton
+							variant='extended'
+							color='primary'
+							onClick={() => {
+								saveChanges({
+									name: storedPresentation?.name,
+									slides: slides,
+								});
+								// TODO: evalute wheter or not saving was successful and show accroding alert
+								setSavedPresentationSuccessAlertOpen(true);
+							}}
+						>
+							<Save sx={{ mr: 1 }} />
+							{t('save')}
+						</FloatingButton>
+						<FloatingButton
+							variant='extended'
+							color='primary'
+							onClick={handle.enter}
+						>
+							<Slideshow sx={{ mr: 1 }} />
+							{t('startPresentation')}
+						</FloatingButton>
+					</>
+				)}
 			</FloatingButtonContainer>
 			<Box className={classes.container}>
 				<Divider orientation='vertical' />
@@ -254,8 +299,16 @@ const Edit: React.FC<{}> = (props) => {
 										height: height,
 									});
 								}}
+								presentationFrameEditingEnabled={
+									presentationFrameEditingEnabled
+								}
+								onPresentationFrameUpdated={(presentationFrame) => {
+									setCurrentPresentationFrameSettings({ ...presentationFrame });
+								}}
+								overflowEnabled={
+									presentationFrameEditingEnabled || activeMedia !== undefined
+								}
 							/>
-
 							<Box className={classes.slideCounterContainer}>
 								<Text>{`${currentSlide + 1}/${slides.length}`}</Text>
 							</Box>

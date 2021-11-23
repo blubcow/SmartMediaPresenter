@@ -3,10 +3,12 @@ import { Box } from '../../.././smpUI/components';
 import {
 	Dimensions,
 	MediaRessource,
+	PresentationFrameSettings,
 	Slide,
 } from '../../../shared/types/presentation';
 import { IBoxProps } from '../../../smpUI/components/Box';
 import MediaBox from '../MediaBox';
+import PresentationFrame from '../PresentationFrame';
 import useStyels from './styles';
 
 interface ISlideEditingBoxProps extends IBoxProps {
@@ -17,6 +19,11 @@ interface ISlideEditingBoxProps extends IBoxProps {
 	onActivateMedia?: (id: number) => void;
 	onSelectedMediaBlur?: () => void;
 	onSizeChanged?: (width: number, height: number) => void;
+	presentationFrameEditingEnabled?: boolean;
+	onPresentationFrameUpdated?: (
+		presentationFrame: PresentationFrameSettings
+	) => void;
+	overflowEnabled?: boolean;
 }
 
 const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
@@ -28,6 +35,9 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 		onActivateMedia,
 		onSelectedMediaBlur,
 		onSizeChanged,
+		presentationFrameEditingEnabled,
+		onPresentationFrameUpdated,
+		overflowEnabled = false,
 	} = props;
 	const [media, setMedia] = useState<MediaRessource[]>([...slide.media]);
 	const [size, setSize] = useState<Dimensions>({ height: 0, width: 0 });
@@ -62,8 +72,21 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 		<Box
 			ref={containerRef}
 			className={classes.container}
-			sx={{ bgcolor: slide.settings?.color ?? '#000' }}
+			sx={{
+				bgcolor: slide.settings?.color ?? '#000',
+				overflow: overflowEnabled ? 'visible' : 'hidden',
+			}}
 		>
+			{presentationFrameEditingEnabled !== undefined && (
+				<PresentationFrame
+					isEditing={presentationFrameEditingEnabled}
+					isHidden={overflowEnabled && !presentationFrameEditingEnabled}
+					parentSize={size}
+					outlineColor={slide.settings?.color ?? '#000'}
+					settings={slide.settings?.presentationFrame}
+					onPresentationFrameChanged={onPresentationFrameUpdated}
+				/>
+			)}
 			<Box className={classes.mediaContainer}>
 				{Array.apply(null, Array(slide.rows)).map((_, i) => (
 					<Box key={i} className={classes.rowContainer}>
