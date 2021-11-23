@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { FullScreen } from 'react-full-screen';
 import { Dimensions, Slide } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
+import PresentationFrame from '../PresentationFrame';
+import SlideEditingBox from '../SlideEditingBox';
 
 interface IPresentationFullScreenProps {
 	handle: any;
@@ -56,6 +58,7 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 	return (
 		<FullScreen handle={handle}>
 			<Box
+				ref={presentationBoxRef}
 				sx={{
 					// height: `${window.innerHeight}px`,
 					height: '100%',
@@ -68,61 +71,10 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 						: '#000',
 				}}
 			>
-				{slides[currentSlide] &&
-					slides[currentSlide].media.map((media, i) => (
-						<Box
-							sx={{
-								maxHeight: '100%',
-								maxWidth: '50%',
-								width:
-									media.location.local || media.location.remote
-										? undefined
-										: '50%',
-								aspectRatio:
-									media.location.local || media.location.remote
-										? undefined
-										: '16/9',
-							}}
-						>
-							{media.location.local || media.location.remote ? (
-								<img
-									style={{
-										maxHeight: `${window.innerHeight}px`,
-										maxWidth: '100%',
-										display: 'block',
-										transform: `translate(${
-											(presentationBoxSize.width /
-												(media?.settings?.translation?.rel.width ?? 1)) *
-											(media?.settings?.translation?.x ?? 0)
-										}px, ${
-											(presentationBoxSize.height /
-												(media?.settings?.translation?.rel.height ?? 1)) *
-											(media?.settings?.translation?.y ?? 0)
-										}px) scale(${media?.settings?.scaling?.x ?? 1}, ${
-											media?.settings?.scaling?.y ?? 1
-										}) rotate(${media.settings?.rotation ?? 0}deg)`,
-										filter: `brightness(${
-											media.settings?.brightness ?? 100
-										}%) contrast(${
-											media.settings?.contrast ?? 100
-										}%) saturate(${
-											media.settings?.saturation ?? 100
-										}%) grayscale(${media.settings?.grayScale ?? 0}%) sepia(${
-											media.settings?.sepia ?? 0
-										}%) hue-rotate(${media.settings?.hue ?? 0}deg) blur(${
-											media.settings?.blur ?? 0
-										}px)`,
-									}}
-									src={media.location.local ?? media.location.remote}
-									alt='presentation-media'
-								/>
-							) : (
-								<Box
-									sx={{ height: '100%', width: '100%', bgcolor: 'divider' }}
-								/>
-							)}
-						</Box>
-					))}
+				<SlideEditingBox
+					slide={slides[currentSlide]}
+					presentationFrameEditingEnabled={false}
+				/>
 			</Box>
 		</FullScreen>
 	);
