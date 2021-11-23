@@ -92,5 +92,6 @@ export interface PresentationFrameSettings {
 	rel: Dimensions;
 	top: number;
 	left: number;
-	size: Dimensions;
+	right: number;
+	bottom: number;
 }
