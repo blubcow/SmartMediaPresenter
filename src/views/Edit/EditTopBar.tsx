@@ -48,6 +48,9 @@ const EditTopBar: React.FC<IEditTopBarProps> = (props) => {
 						slideColorDidChange={(color) => {
 							slideSettingsDidChange({ ...currentSlideSettings, color: color });
 						}}
+						onSlideSettingsChanged={(settings) => {
+							slideSettingsDidChange({ ...currentSlideSettings, ...settings });
+						}}
 						presentationFrameEditingEnabled={presentationFrameEditingEnabled}
 						onEditPresentationFrameClicked={onEditPresentationFrameClicked}
 					/>
