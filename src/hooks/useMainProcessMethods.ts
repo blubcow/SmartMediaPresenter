@@ -117,3 +117,40 @@ export const useLocalFileSystem = () => {
 
 	return { getFilesInDir, openFileSelectorDialog };
 };
+
+export const useDisplays = () => {
+	const displaysAvailable = async () => {
+		return await ipcRenderer.invoke(
+			MainProcessMethodIdentifiers.DisplaysAvailable
+		);
+	};
+
+	const startPresentationMode = async () => {
+		ipcRenderer.invoke(MainProcessMethodIdentifiers.StartPresenterMode);
+	};
+
+	return { displaysAvailable, startPresentationMode };
+};
+
+export const usePresentationMode = () => {
+	const [state, setState] = useState<any>({ slide: 0 });
+
+	useEffect(() => {
+		ipcRenderer.on(
+			MainProcessMethodIdentifiers.PresenterModeUpdateNotification,
+			(event: any, slide: number) => {
+				setState({ slide: slide });
+			}
+		);
+	}, []);
+
+	const nextSlide = () => {
+		ipcRenderer.invoke(MainProcessMethodIdentifiers.NextSlideTrigger);
+	};
+
+	const previousSlide = () => {
+		ipcRenderer.invoke(MainProcessMethodIdentifiers.PreviousSlideTrigger);
+	};
+
+	return { state, nextSlide, previousSlide };
+};
