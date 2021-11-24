@@ -4,4 +4,5 @@ export enum SMPRoutes {
 	Home = '/home',
 	Edit = '/edit',
 	QuickCreate = '/quickcreate',
+	PresentationModeSlides = '/pres',
 }

@@ -6,6 +6,11 @@ export enum MainProcessMethodIdentifiers {
 	SaveChangesToPresentation = 'saveChangesToPresentation',
 	CreateQuickCreatePresentation = 'createPresentationQuickCreate',
 	OpenFileSelectorDialog = 'openFileSelectorDialog',
+	DisplaysAvailable = 'displaysAvailable',
+	StartPresenterMode = 'startPresenterMode',
+	NextSlideTrigger = 'nextSlideTrigger',
+	PreviousSlideTrigger = 'previousSlideTrigger',
+	PresenterModeUpdateNotification = 'presenterModeUpdate',
 }
 
 export enum DataTransferIdentifiers {
