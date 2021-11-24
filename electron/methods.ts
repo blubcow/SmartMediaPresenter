@@ -231,26 +231,31 @@ export const registerMainProcessMethodHandlers = (
 		return await screen.getAllDisplays().length;
 	});
 
-	ipcMain.handle(MainProcessMethodIdentifiers.StartPresenterMode, async () => {
-		slide = 0;
-		if ((await screen.getAllDisplays().length) === 1) return;
-		const display = screen.getAllDisplays()[1];
+	ipcMain.handle(
+		MainProcessMethodIdentifiers.StartPresenterMode,
+		async (_, id: number) => {
+			slide = 0;
+			if ((await screen.getAllDisplays().length) === 1) return;
+			const display = screen.getAllDisplays()[1];
 
-		const presentation = new BrowserWindow({
-			x: display.bounds.x + 50,
-			y: display.bounds.y + 50,
-			webPreferences: {
-				// preload: __dirname + '/../preload.js',
-				nodeIntegration: true,
-				contextIsolation: false,
-				webSecurity: false,
-			},
-		});
-		presentation.webContents.openDevTools();
-		presentation.loadURL('http://localhost:3000/pres');
-		presentation.maximize();
-		windows.push(presentation);
-	});
+			const presentation = new BrowserWindow({
+				x: display.bounds.x + 50,
+				y: display.bounds.y + 50,
+				fullscreen: true,
+				webPreferences: {
+					// preload: __dirname + '/../preload.js',
+					nodeIntegration: true,
+					contextIsolation: false,
+					webSecurity: false,
+				},
+			});
+			// presentation.webContents.openDevTools();
+			presentation.loadURL(`http://localhost:3000/pres?id=${id}`);
+			presentation.maximize();
+			windows.push(presentation);
+			mainWindow.focus();
+		}
+	);
 
 	ipcMain.handle(MainProcessMethodIdentifiers.NextSlideTrigger, async () => {
 		slide += 1;

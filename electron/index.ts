@@ -21,7 +21,7 @@ const createWindow = () => {
 		: 'http://localhost:3000';
 	mainWindow.loadURL(appLocation);
 
-	mainWindow.webContents.openDevTools();
+	// mainWindow.webContents.openDevTools();
 
 	mainWindow.maximize();
 
