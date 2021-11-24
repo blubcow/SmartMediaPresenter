@@ -28,6 +28,8 @@ const createWindow = () => {
 	mainWindow.on('closed', () => {
 		mainWindow = null;
 	});
+
+	registerMainProcessMethodHandlers(ipcMain, mainWindow);
 };
 
 app.on('ready', createWindow);
@@ -37,5 +39,3 @@ declare global {
 		ipcRenderer: IpcRenderer;
 	}
 }
-
-registerMainProcessMethodHandlers(ipcMain, mainWindow);

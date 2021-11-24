@@ -1,4 +1,4 @@
-import { BrowserWindow, dialog, IpcMain } from 'electron';
+import { BrowserWindow, dialog, IpcMain, screen } from 'electron';
 import { MainProcessMethodIdentifiers } from '../src/shared/types/identifiers';
 import { allowedFiles } from '../src/shared/types/mediaResources';
 import * as path from 'path';
@@ -8,6 +8,9 @@ export const registerMainProcessMethodHandlers = (
 	ipcMain: IpcMain,
 	mainWindow: BrowserWindow
 ) => {
+	const windows: BrowserWindow[] = [mainWindow];
+	let slide = 0;
+
 	ipcMain.handle(MainProcessMethodIdentifiers.CreatePresentation, async () => {
 		const path = __dirname + '/store';
 		const file = path + '/presentations.json';
@@ -220,6 +223,54 @@ export const registerMainProcessMethodHandlers = (
 						? [...(await prev), ...(await getFilesInDir(file))]
 						: [...(await prev), getFileFromPath(file)],
 				Promise.resolve([])
+			);
+		}
+	);
+
+	ipcMain.handle(MainProcessMethodIdentifiers.DisplaysAvailable, async () => {
+		return await screen.getAllDisplays().length;
+	});
+
+	ipcMain.handle(MainProcessMethodIdentifiers.StartPresenterMode, async () => {
+		slide = 0;
+		if ((await screen.getAllDisplays().length) === 1) return;
+		const display = screen.getAllDisplays()[1];
+
+		const presentation = new BrowserWindow({
+			x: display.bounds.x + 50,
+			y: display.bounds.y + 50,
+			webPreferences: {
+				// preload: __dirname + '/../preload.js',
+				nodeIntegration: true,
+				contextIsolation: false,
+				webSecurity: false,
+			},
+		});
+		presentation.webContents.openDevTools();
+		presentation.loadURL('http://localhost:3000/pres');
+		presentation.maximize();
+		windows.push(presentation);
+	});
+
+	ipcMain.handle(MainProcessMethodIdentifiers.NextSlideTrigger, async () => {
+		slide += 1;
+		windows.forEach((win) =>
+			win.webContents.send(
+				MainProcessMethodIdentifiers.PresenterModeUpdateNotification,
+				slide
+			)
+		);
+	});
+
+	ipcMain.handle(
+		MainProcessMethodIdentifiers.PreviousSlideTrigger,
+		async () => {
+			slide -= 1;
+			windows.forEach((win) =>
+				win.webContents.send(
+					MainProcessMethodIdentifiers.PresenterModeUpdateNotification,
+					slide
+				)
 			);
 		}
 	);
