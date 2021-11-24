@@ -125,8 +125,8 @@ export const useDisplays = () => {
 		);
 	};
 
-	const startPresentationMode = async () => {
-		ipcRenderer.invoke(MainProcessMethodIdentifiers.StartPresenterMode);
+	const startPresentationMode = async (id: number) => {
+		ipcRenderer.invoke(MainProcessMethodIdentifiers.StartPresenterMode, id);
 	};
 
 	return { displaysAvailable, startPresentationMode };
