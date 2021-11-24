@@ -1,9 +1,17 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { SMPRoutes } from '../shared/types/routes';
-import { Home, Login, Loading, Edit, QuickCreate } from '../views';
+import {
+	Home,
+	Login,
+	Loading,
+	Edit,
+	QuickCreate,
+	PresentationMode,
+	Pres,
+} from '../views';
 
-const NavigationProvider: React.FC<{}> = () => {
+const NavigationProvider: React.FC<{}> = (props) => {
 	return (
 		<BrowserRouter>
 			<Route exact path={SMPRoutes.Loading} component={Loading} />
@@ -11,6 +19,7 @@ const NavigationProvider: React.FC<{}> = () => {
 			<Route exact path={SMPRoutes.Home} component={Home} />
 			<Route exact path={SMPRoutes.Edit} component={Edit} />
 			<Route exact path={SMPRoutes.QuickCreate} component={QuickCreate} />
+			<Route exact path={SMPRoutes.PresentationModeSlides} component={Pres} />
 		</BrowserRouter>
 	);
 };

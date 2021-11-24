@@ -22,6 +22,7 @@ const ResizingAnchor: React.FC<IResizingAnchorProps> = (props) => {
 
 	return (
 		<Box
+			draggable={false}
 			onMouseDown={(e) => {
 				onMouseDown(e, position);
 			}}

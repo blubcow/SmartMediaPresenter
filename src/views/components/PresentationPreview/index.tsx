@@ -24,6 +24,8 @@ import { CircularProgress } from '@mui/material';
 import PresentationFullScreen from '../FullScreen/PresentationFullScreen';
 import { useFullScreenHandle } from 'react-full-screen';
 import usePresentationMediaCache from '../../../hooks/usePresentationMediaCache';
+import { useDisplays } from '../../../hooks/useMainProcessMethods';
+import PresentationMode from '../../PresentationMode';
 
 interface IPresentationPreviewProps {
 	presentation?: SinglePresentation;
@@ -36,9 +38,12 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
 	const handle = useFullScreenHandle();
+	const presentationModeHandle = useFullScreenHandle();
 
 	const classes = useStyles();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
+	const { displaysAvailable, startPresentationMode } = useDisplays();
+
 	const history = useHistory();
 
 	useEffect(() => {
@@ -51,17 +56,31 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 				presentation.slides &&
 				presentation.slides.length > 0 &&
 				!isLoading && (
-					<PresentationFullScreen
-						handle={handle}
-						slides={presentation?.slides}
-					/>
+					<>
+						<PresentationFullScreen
+							handle={handle}
+							slides={presentation?.slides}
+						/>
+						<PresentationMode
+							handle={presentationModeHandle}
+							presentation={presentation}
+						/>
+					</>
 				)}
 			<FloatingButtonContainer>
 				{presentation && presentation.slides.length > 0 && !isLoading && (
 					<FloatingButton
 						variant='extended'
 						color='primary'
-						onClick={() => handle.enter()}
+						onClick={async () => {
+							const c = await displaysAvailable();
+							if (c > 1) {
+								startPresentationMode(id);
+								presentationModeHandle.enter();
+							} else {
+								handle.enter();
+							}
+						}}
 					>
 						<Slideshow sx={{ mr: 1 }} />
 						{t('startPresentation')}
@@ -156,7 +175,9 @@ interface IPreviewProps {
 const Preview: React.FC<IPreviewProps> = (props) => {
 	const { slide } = props;
 
-	return <SlideEditingBox slide={slide} />;
+	return (
+		<SlideEditingBox slide={slide} presentationFrameEditingEnabled={false} />
+	);
 };
 
 export default PresentationPreview;

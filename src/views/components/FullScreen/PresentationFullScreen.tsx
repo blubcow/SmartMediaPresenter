@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import { FullScreen } from 'react-full-screen';
 import { Dimensions, Slide } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
-import PresentationFrame from '../PresentationFrame';
 import SlideEditingBox from '../SlideEditingBox';
 
 interface IPresentationFullScreenProps {
