@@ -42,5 +42,13 @@
   "sepia": "Sepia",
   "cancel": "abbrechen",
   "confrim": "bestätigen",
-  "fetchingMedia": "Medien werden geladen"
+  "fetchingMedia": "Medien werden geladen",
+  "addNotes": "Notizen hinzufügen",
+  "notes": "Notizen",
+  "typeNotesHere": "schreiben sie hier Ihre Notizen",
+  "next": "weiter",
+  "back": "zurück",
+  "presentationTime": "Präsentations Zeit",
+  "slideTime": "Folien Zeit",
+  "of": "von"
 }

@@ -42,5 +42,14 @@
   "sepia": "sepia",
   "cancel": "cancel",
   "confrim": "confrim",
-  "fetchingMedia": "fetching media"
+  "fetchingMedia": "fetching media",
+  "addNotes": "add notes",
+  "notes": "Notes",
+  "typeNotesHere": "type your notes here",
+  "next": "next",
+  "back": "back",
+  "presentationTime": "Presentation Time",
+  "slideTime": "Slide Time",
+  "of": "of",
+  "slide": "slide"
 }
