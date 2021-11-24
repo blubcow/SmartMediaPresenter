@@ -26,6 +26,7 @@ export interface Slide {
 export interface SlideSettings {
 	color?: string;
 	presentationFrame?: PresentationFrameSettings;
+	notes?: string;
 }
 
 export interface MediaRessource {
