@@ -64,7 +64,7 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 			}}
 			onDrop={(e) => {
 				e.preventDefault();
-				if (didReceiveMediaFile && canReceiveMedia)
+				if (didReceiveMediaFile && canReceiveMedia && e.dataTransfer.files[0])
 					didReceiveMediaFile(e.dataTransfer.files[0], id);
 			}}
 		>
@@ -72,6 +72,7 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 				<img
 					className={isActive ? classes.imgSelected : classes.img}
 					src={media.location.local ?? media.location.remote}
+					draggable={false}
 					onClick={() => {
 						if (activateMedia) activateMedia(id);
 					}}
