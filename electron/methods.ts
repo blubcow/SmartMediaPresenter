@@ -9,7 +9,6 @@ export const registerMainProcessMethodHandlers = (
 	mainWindow: BrowserWindow
 ) => {
 	const windows: BrowserWindow[] = [mainWindow];
-	let slide = 0;
 
 	ipcMain.handle(MainProcessMethodIdentifiers.CreatePresentation, async () => {
 		const path = __dirname + '/store';
@@ -234,7 +233,6 @@ export const registerMainProcessMethodHandlers = (
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.StartPresenterMode,
 		async (_, id: number) => {
-			slide = 0;
 			if ((await screen.getAllDisplays().length) === 1) return;
 			const display = screen.getAllDisplays()[1];
 
@@ -253,30 +251,38 @@ export const registerMainProcessMethodHandlers = (
 			presentation.loadURL(`http://localhost:3000/pres?id=${id}`);
 			presentation.maximize();
 			windows.push(presentation);
-			mainWindow.focus();
+
+			setTimeout(() => {
+				mainWindow.focus();
+			}, 2500);
 		}
 	);
 
+	ipcMain.handle(MainProcessMethodIdentifiers.EndPresenterMode, async () => {
+		const w = windows.pop();
+		w.close();
+	});
+
 	ipcMain.handle(MainProcessMethodIdentifiers.NextSlideTrigger, async () => {
-		slide += 1;
 		windows.forEach((win) =>
 			win.webContents.send(
 				MainProcessMethodIdentifiers.PresenterModeUpdateNotification,
-				slide
+				1
 			)
 		);
+		return;
 	});
 
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.PreviousSlideTrigger,
 		async () => {
-			slide -= 1;
 			windows.forEach((win) =>
 				win.webContents.send(
 					MainProcessMethodIdentifiers.PresenterModeUpdateNotification,
-					slide
+					-1
 				)
 			);
+			return;
 		}
 	);
 };
