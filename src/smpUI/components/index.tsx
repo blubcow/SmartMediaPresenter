@@ -19,3 +19,4 @@ export { default as Card } from './Card';
 export { default as Drawer } from './Drawer';
 export { default as Slider } from './Slider';
 export { default as Snackbar } from './Snackbar';
+export { default as TextArea } from './TextArea';
