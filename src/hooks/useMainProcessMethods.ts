@@ -133,24 +133,34 @@ export const useDisplays = () => {
 };
 
 export const usePresentationMode = () => {
-	const [state, setState] = useState<any>({ slide: 0 });
+	const [slideNumber, setSlide] = useState<number>(0);
+	const [nextSlide] = useState<() => void>(() => () => {
+		ipcRenderer.invoke(MainProcessMethodIdentifiers.NextSlideTrigger);
+	});
+	const [previousSlide] = useState<() => void>(() => () => {
+		ipcRenderer.invoke(MainProcessMethodIdentifiers.PreviousSlideTrigger);
+	});
 
 	useEffect(() => {
 		ipcRenderer.on(
 			MainProcessMethodIdentifiers.PresenterModeUpdateNotification,
 			(event: any, slide: number) => {
-				setState({ slide: slide });
+				setSlide((curr) => curr + slide);
 			}
 		);
+		return () => {
+			ipcRenderer.removeAllListeners();
+		};
 	}, []);
 
-	const nextSlide = () => {
-		ipcRenderer.invoke(MainProcessMethodIdentifiers.NextSlideTrigger);
+	const terminatePresentationMode = () => {
+		ipcRenderer.invoke(MainProcessMethodIdentifiers.EndPresenterMode);
 	};
 
-	const previousSlide = () => {
-		ipcRenderer.invoke(MainProcessMethodIdentifiers.PreviousSlideTrigger);
+	return {
+		slideNumber,
+		nextSlide,
+		previousSlide,
+		terminatePresentationMode,
 	};
-
-	return { state, nextSlide, previousSlide };
 };
