@@ -11,6 +11,7 @@ export enum MainProcessMethodIdentifiers {
 	NextSlideTrigger = 'nextSlideTrigger',
 	PreviousSlideTrigger = 'previousSlideTrigger',
 	PresenterModeUpdateNotification = 'presenterModeUpdate',
+	EndPresenterMode = 'endPresenterMode',
 }
 
 export enum DataTransferIdentifiers {
