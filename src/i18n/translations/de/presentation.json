@@ -50,5 +50,7 @@
   "back": "zurück",
   "presentationTime": "Präsentations Zeit",
   "slideTime": "Folien Zeit",
-  "of": "von"
+  "of": "von",
+  "slide": "Folie",
+  "preview": "Vorschau"
 }
