@@ -49,7 +49,7 @@ export const useHeaderRowStyles = makeStyles((theme: Theme) =>
 		},
 		orderingContainer: {
 			height: '100%',
-			width: '40%',
+			width: '30%',
 			display: 'flex',
 			justifyContent: 'flex-end',
 		},

@@ -46,6 +46,7 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 		t('ordering:descending'),
 	]);
 	const [orderValue, setOrderValue] = useState<string>(orderOptions[0]);
+	const [mediaPreviewEnabled, setMediaPreviewEnabled] = useState<boolean>(true);
 	const { shift } = useHeldKeys();
 
 	useEffect(() => {
@@ -156,6 +157,10 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 				orderOptions={orderOptions}
 				orderValue={orderValue}
 				onOrderChange={(value: string) => setOrderValue(value)}
+				mediaPreviewEnabled={mediaPreviewEnabled}
+				onMediaPreviewEnabledDidChange={(enabled) => {
+					setMediaPreviewEnabled(enabled);
+				}}
 			/>
 			{filteredFiles.length ? (
 				filteredFiles.map((file, i) => (
@@ -206,6 +211,7 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 								);
 							}
 						}}
+						previewEnabled={mediaPreviewEnabled}
 					/>
 				))
 			) : files.length ? (

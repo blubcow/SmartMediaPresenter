@@ -11,10 +11,19 @@ interface IMediaRowProps {
 	selected: boolean;
 	onBlur: () => void;
 	onDragStart: (e: React.DragEvent<HTMLDivElement>) => void;
+	previewEnabled: boolean;
 }
 
 const MediaRow: React.FC<IMediaRowProps> = (props) => {
-	const { media, id, onSelection, selected, onBlur, onDragStart } = props;
+	const {
+		media,
+		id,
+		onSelection,
+		selected,
+		onBlur,
+		onDragStart,
+		previewEnabled,
+	} = props;
 	const classes = useMediaRowStyles();
 	const scrollingContainerRef = useRef();
 
@@ -35,14 +44,17 @@ const MediaRow: React.FC<IMediaRowProps> = (props) => {
 			onDragStart={onDragStart}
 		>
 			<Box className={classes.row} draggable onDragStart={onDragStart}>
-				<Box className={classes.imgContainer}>
-					<LazyLoadImage
-						className={classes.img}
-						src={media.location.local ?? media.location.remote}
-						alt='media'
-						effect='blur'
-					/>
-				</Box>
+				{previewEnabled && (
+					<Box className={classes.imgContainer}>
+						<LazyLoadImage
+							className={classes.img}
+							src={media.location.local ?? media.location.remote}
+							alt='media'
+							effect='blur'
+						/>
+					</Box>
+				)}
+
 				<Box className={classes.txtContainer}>
 					<Text>{media.name}</Text>
 				</Box>

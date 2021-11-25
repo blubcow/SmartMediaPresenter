@@ -1,3 +1,4 @@
+import { on } from 'events';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
@@ -7,6 +8,7 @@ import {
 	TextField,
 	SelectionPickerOption,
 	SelectionPicker,
+	Switch,
 } from '../../../smpUI/components';
 import { useHeaderRowStyles } from './styles';
 
@@ -20,6 +22,8 @@ interface IHeaderRowProps {
 	orderOptions: string[];
 	orderValue: string;
 	onOrderChange: (value: string) => void;
+	mediaPreviewEnabled: boolean;
+	onMediaPreviewEnabledDidChange: (enabled: boolean) => void;
 }
 
 const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
@@ -33,6 +37,8 @@ const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
 		orderOptions,
 		orderValue,
 		onOrderChange,
+		mediaPreviewEnabled,
+		onMediaPreviewEnabledDidChange,
 	} = props;
 	const classes = useHeaderRowStyles();
 	const { t } = useTranslation([
@@ -45,6 +51,18 @@ const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
 			<Text className={classes.addFiles} onClick={addFilesAction}>
 				{t('addFiles')}
 			</Text>
+
+			<Box
+				sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+			>
+				<Text variant='caption'>{t('preview')}</Text>
+				<Switch
+					checked={mediaPreviewEnabled}
+					onChange={(e) => {
+						onMediaPreviewEnabledDidChange(e.target.checked);
+					}}
+				/>
+			</Box>
 
 			<TextField
 				className={classes.searchInput}
