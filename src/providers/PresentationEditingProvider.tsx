@@ -4,7 +4,7 @@ import presentationEditingReducer, {
 } from '../reducers/PresentationEditingReducer';
 import { SinglePresentation } from '../shared/types/presentation';
 
-export const PresentationEditingContext = createContext(undefined);
+export const PresentationEditingContext = createContext({});
 
 interface IPresentationEditingProviderProps {
 	initialPresentation: SinglePresentation;
@@ -19,7 +19,7 @@ const PresentationEditingProvider: React.FC<
 	);
 
 	return (
-		<PresentationEditingContext.Provider value={undefined}>
+		<PresentationEditingContext.Provider value={{ state, dispatch }}>
 			{children}
 		</PresentationEditingContext.Provider>
 	);
