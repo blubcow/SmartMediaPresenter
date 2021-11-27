@@ -1,17 +1,21 @@
 import { SinglePresentation } from '../shared/types/presentation';
 
-enum ActionIdentifier {
+export enum ActionIdentifier {
 	editingMediaStarted = 'ems',
-	editingMediaEnded = 'eme',
+	editingSlideStated = 'ess',
+	editingPresentationFrameStarted = 'epfs',
+	editingTextStarted = 'ets',
 }
 
-interface Action {
+export interface Action {
 	type: ActionIdentifier;
 	settings?: Partial<PresentationEditingSettings>;
 }
 
-interface PresentationEditingSettings {
-	isEditingMedia: boolean;
+export type EditingControls = 'slide' | 'media' | 'presentationFrame' | 'text';
+
+export interface PresentationEditingSettings {
+	editingControls: EditingControls;
 	presentation: SinglePresentation;
 	initialPresentation: SinglePresentation;
 }
@@ -19,12 +23,16 @@ interface PresentationEditingSettings {
 const presentationEditingReducer = (
 	state: PresentationEditingSettings,
 	action: Action
-) => {
+): PresentationEditingSettings => {
 	switch (action.type) {
 		case ActionIdentifier.editingMediaStarted:
-			return { ...state, isEditingMedia: true };
-		case ActionIdentifier.editingMediaEnded:
-			return { ...state, isEditingMedia: false };
+			return { ...state, editingControls: 'media' };
+		case ActionIdentifier.editingSlideStated:
+			return { ...state, editingControls: 'slide' };
+		case ActionIdentifier.editingPresentationFrameStarted:
+			return { ...state, editingControls: 'presentationFrame' };
+		case ActionIdentifier.editingTextStarted:
+			return { ...state, editingControls: 'text' };
 		default:
 			return state;
 	}
@@ -34,7 +42,7 @@ export const getInitialState = (
 	presentation: SinglePresentation
 ): PresentationEditingSettings => {
 	return {
-		isEditingMedia: false,
+		editingControls: 'slide',
 		presentation: presentation,
 		initialPresentation: presentation,
 	};
