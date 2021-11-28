@@ -11,15 +11,16 @@ import {
 	MediaSettings,
 } from '../../../shared/types/presentation';
 import { Link, LinkOff } from '@mui/icons-material';
+import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
+import { ActionIdentifier } from '../../../reducers/PresentationEditingReducer';
 
-interface IScaleButtonProps
-	extends Omit<IEditingButtonProps, 'icon' | 'secondaryNode'> {
-	mediaResource?: MediaRessource;
-	onMediaSettingsChanged: (settings: Partial<MediaSettings>) => void;
-}
+interface IScaleButtonProps {}
 
 const ScaleButton: React.FC<IScaleButtonProps> = (props) => {
-	const { mediaResource, onMediaSettingsChanged } = props;
+	const { state, dispatch } = usePresentationEditingContext();
+	const { presentation, currentSlide, activeMedia } = state;
+	const mediaResource: MediaRessource =
+		presentation.slides[currentSlide].media[activeMedia ?? 0];
 	const [openModal, setOpenModal] = useState<boolean>(false);
 	const [scaleValue, setScaleValue] = useState<{ x: string; y: string }>({
 		x: '1',
@@ -35,6 +36,7 @@ const ScaleButton: React.FC<IScaleButtonProps> = (props) => {
 	return (
 		<>
 			<EditingButton
+				selected={openModal}
 				icon={
 					<AspectRatio
 						sx={{ color: 'text.primary', height: '100%', width: '100%' }}
@@ -51,6 +53,8 @@ const ScaleButton: React.FC<IScaleButtonProps> = (props) => {
 				title={t('scale')}
 				open={openModal}
 				onEditingFinished={() => {
+					if (activeMedia === undefined) return;
+
 					const prevTransformation = mediaResource?.settings?.scaling ?? {
 						x: 1,
 						y: 1,
@@ -60,17 +64,24 @@ const ScaleButton: React.FC<IScaleButtonProps> = (props) => {
 						y: parseFloat(scaleValue.y ?? 1),
 					};
 
-					onMediaSettingsChanged({
-						...mediaResource?.settings,
-						scaling: {
-							x: isNaN(currentTransformation.x)
-								? prevTransformation.x ?? 1
-								: (prevTransformation.x ?? 1) * currentTransformation.x,
-							y: isNaN(currentTransformation.y)
-								? prevTransformation.y ?? 1
-								: (prevTransformation.y ?? 1) * currentTransformation.y,
-						},
+					const mediaSettings = { ...mediaResource.settings };
+					mediaSettings.scaling = {
+						x: isNaN(currentTransformation.x)
+							? prevTransformation.x ?? 1
+							: (prevTransformation.x ?? 1) * currentTransformation.x,
+						y: isNaN(currentTransformation.y)
+							? prevTransformation.y ?? 1
+							: (prevTransformation.y ?? 1) * currentTransformation.y,
+					};
+
+					const newPresentation = { ...presentation };
+					newPresentation.slides[currentSlide].media[activeMedia].settings =
+						mediaSettings;
+					dispatch({
+						type: ActionIdentifier.presentationSettingsUpdated,
+						payload: { presentation: newPresentation },
 					});
+
 					setOpenModal(false);
 					setScaleValue({ x: '', y: '' });
 				}}

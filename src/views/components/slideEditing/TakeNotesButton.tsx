@@ -6,26 +6,24 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
 import { SlideSettings } from '../../../shared/types/presentation';
+import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
+import { ActionIdentifier } from '../../../reducers/PresentationEditingReducer';
 
-interface ITakeNotesButtonProps
-	extends Omit<IEditingButtonProps, 'icon' | 'secondaryNode'> {
-	initialNotes?: string;
-	onSlideSettingsChanged: (settings: Partial<SlideSettings>) => void;
-}
+interface ITakeNotesButtonProps {}
 
 const TakeNotesButton: React.FC<ITakeNotesButtonProps> = (props) => {
-	const { initialNotes, onSlideSettingsChanged } = props;
+	const { state, dispatch } = usePresentationEditingContext();
+	const { presentation, currentSlide } = state;
 	const [openDrawer, setOpenDrawer] = useState<boolean>(false);
 	const { t } = useTranslation([i18nNamespace.Presentation]);
-	const [notes, setNotes] = useState<string | undefined>(initialNotes);
-
-	useEffect(() => {
-		setNotes(initialNotes);
-	}, [initialNotes]);
+	const [notes, setNotes] = useState<string | undefined>(
+		presentation.slides[currentSlide].settings?.notes
+	);
 
 	return (
 		<React.Fragment>
 			<EditingButton
+				selected={openDrawer}
 				icon={
 					<Notes
 						sx={{ color: 'text.primary', height: '100%', width: '100%' }}
@@ -62,7 +60,7 @@ const TakeNotesButton: React.FC<ITakeNotesButtonProps> = (props) => {
 								variant='contained'
 								color='secondary'
 								onClick={() => {
-									setNotes(initialNotes);
+									setNotes(presentation.slides[currentSlide].settings?.notes);
 									setOpenDrawer(false);
 								}}
 							>
@@ -74,7 +72,16 @@ const TakeNotesButton: React.FC<ITakeNotesButtonProps> = (props) => {
 								variant='contained'
 								color='primary'
 								onClick={() => {
-									onSlideSettingsChanged({ notes: notes });
+									let newPresentation = { ...presentation };
+									const settings = {
+										...newPresentation.slides[currentSlide].settings,
+										notes: notes,
+									};
+									presentation.slides[currentSlide].settings = settings;
+									dispatch({
+										type: ActionIdentifier.presentationSettingsUpdated,
+										payload: { presentation: newPresentation },
+									});
 									setOpenDrawer(false);
 								}}
 							>

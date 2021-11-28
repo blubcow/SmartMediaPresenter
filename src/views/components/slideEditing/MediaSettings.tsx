@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-	Dimensions,
-	MediaRessource,
-	MediaSettings as MediaSettingsType,
-} from '../../../shared/types/presentation';
+import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import { Box } from '../../../smpUI/components';
 import CropButton from './CropButton';
 import ImageManipulationButton from './ImageManipulationButton';
@@ -13,44 +9,23 @@ import RotateButton from './RotateButton';
 import ScaleButton from './ScaleButton';
 import { useSettingsContainerStyles } from './styles';
 
-interface IMediaSettingsProps {
-	media?: MediaRessource;
-	onSettingsChanged: (settings: Partial<MediaSettingsType>) => void;
-	slideMediaBoxDimensions: Dimensions;
-}
+interface IMediaSettingsProps {}
 
 const MediaSettings: React.FC<IMediaSettingsProps> = (props) => {
-	const { media, onSettingsChanged, slideMediaBoxDimensions } = props;
+	const { state } = usePresentationEditingContext();
 	const classes = useSettingsContainerStyles();
 
 	return (
 		<Box className={classes.container}>
-			<MoveButton
-				selected={false}
-				mediaResource={media}
-				onMediaSettingsChanged={onSettingsChanged}
-				slideEditingBoxDimensions={slideMediaBoxDimensions}
-			/>
+			<MoveButton />
 			<Box className={classes.spacer} />
-			<ScaleButton
-				mediaResource={media}
-				onMediaSettingsChanged={onSettingsChanged}
-				selected={false}
-			/>
+			<ScaleButton />
 			<Box className={classes.spacer} />
-			<RotateButton
-				mediaResource={media}
-				onMediaSettingsChanged={onSettingsChanged}
-				selected={false}
-			/>
+			<RotateButton />
 			<Box className={classes.spacer} />
 			<CropButton selected={false} />
 			<Box className={classes.spacer} />
-			<ImageManipulationButton
-				selected={false}
-				mediaResource={media}
-				onMediaSettingsChanged={onSettingsChanged}
-			/>
+			<ImageManipulationButton />
 			<Box className={classes.spacer} />
 			<RemoveButton />
 		</Box>

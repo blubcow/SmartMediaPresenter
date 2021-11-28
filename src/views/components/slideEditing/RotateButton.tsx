@@ -10,21 +10,23 @@ import {
 	MediaRessource,
 	MediaSettings,
 } from '../../../shared/types/presentation';
+import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
+import { ActionIdentifier } from '../../../reducers/PresentationEditingReducer';
 
-interface IRotateButtonProps
-	extends Omit<IEditingButtonProps, 'icon' | 'secondaryNode'> {
-	mediaResource?: MediaRessource;
-	onMediaSettingsChanged: (settings: Partial<MediaSettings>) => void;
-}
+interface IRotateButtonProps {}
 
 const RotateButton: React.FC<IRotateButtonProps> = (props) => {
-	const { mediaResource, onMediaSettingsChanged } = props;
+	const { state, dispatch } = usePresentationEditingContext();
+	const { presentation, currentSlide, activeMedia } = state;
+	const mediaResource: MediaRessource =
+		presentation.slides[currentSlide].media[activeMedia ?? 0];
 	const [openModal, setOpenModal] = useState<boolean>(false);
 	const [rotationValue, setRotationValue] = useState<string>('');
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	return (
 		<>
 			<EditingButton
+				selected={openModal}
 				icon={
 					<Rotate90DegreesCcw
 						sx={{ color: 'text.primary', height: '100%', width: '100%' }}
@@ -41,15 +43,23 @@ const RotateButton: React.FC<IRotateButtonProps> = (props) => {
 				title={t('rotate')}
 				open={openModal}
 				onEditingFinished={() => {
+					if (activeMedia === undefined) return;
+
 					const prevTransformation = mediaResource?.settings?.rotation ?? 0;
 					const currentTransformation = parseFloat(rotationValue);
 
-					onMediaSettingsChanged({
-						...mediaResource?.settings,
-						rotation: isNaN(currentTransformation)
-							? prevTransformation
-							: currentTransformation + (prevTransformation % 360),
+					const mediaSettings = { ...mediaResource.settings };
+					mediaSettings.rotation = isNaN(currentTransformation)
+						? prevTransformation
+						: currentTransformation + (prevTransformation % 360);
+					const newPresentation = { ...presentation };
+					newPresentation.slides[currentSlide].media[activeMedia].settings =
+						mediaSettings;
+					dispatch({
+						type: ActionIdentifier.presentationSettingsUpdated,
+						payload: { presentation: newPresentation },
 					});
+
 					setOpenModal(false);
 				}}
 				onCancel={() => setOpenModal(false)}

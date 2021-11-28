@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Box } from '../../.././smpUI/components';
+import { Box } from '../../../smpUI/components';
 import {
 	Dimensions,
 	MediaRessource,
@@ -11,7 +11,7 @@ import MediaBox from '../MediaBox';
 import PresentationFrame from '../PresentationFrame';
 import useStyels from './styles';
 
-interface ISlideEditingBoxProps extends IBoxProps {
+export interface ISlideBoxProps extends IBoxProps {
 	slide: Slide;
 	didReceiveMediaFile?: (file: File, id: number) => void;
 	mediaBoxesCanReceiveMedia?: boolean;
@@ -20,13 +20,10 @@ interface ISlideEditingBoxProps extends IBoxProps {
 	onSelectedMediaBlur?: () => void;
 	onSizeChanged?: (width: number, height: number) => void;
 	presentationFrameEditingEnabled?: boolean;
-	onPresentationFrameUpdated?: (
-		presentationFrame: PresentationFrameSettings
-	) => void;
 	overflowEnabled?: boolean;
 }
 
-const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
+const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 	const {
 		slide,
 		didReceiveMediaFile,
@@ -36,7 +33,6 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 		onSelectedMediaBlur,
 		onSizeChanged,
 		presentationFrameEditingEnabled,
-		onPresentationFrameUpdated,
 		overflowEnabled = false,
 	} = props;
 	const [media, setMedia] = useState<MediaRessource[]>([...slide.media]);
@@ -46,6 +42,7 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 	const passSizeUpdate = () => {
 		const height = containerRef.current?.clientHeight ?? 0;
 		const width = containerRef.current?.clientWidth ?? 0;
+
 		if (onSizeChanged) onSizeChanged(width, height);
 		setSize({ height: height, width: width });
 	};
@@ -84,7 +81,6 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 					parentSize={size}
 					outlineColor={slide.settings?.color ?? '#000'}
 					settings={slide.settings?.presentationFrame}
-					onPresentationFrameChanged={onPresentationFrameUpdated}
 				/>
 			)}
 			<Box className={classes.mediaContainer}>

@@ -5,21 +5,23 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
 import ColorPicker from '../ColorPicker';
+import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
+import { ActionIdentifier } from '../../../reducers/PresentationEditingReducer';
 
-interface IChangeBackgroundColorButtonProps
-	extends Omit<IEditingButtonProps, 'icon' | 'secondaryNode'> {
-	backgroundColor: string;
-	onSlideColorChanged: (color: string) => void;
-}
+interface IChangeBackgroundColorButtonProps {}
 
 const ChangeBackgroundColorButton: React.FC<IChangeBackgroundColorButtonProps> =
 	(props) => {
-		const { backgroundColor, onSlideColorChanged } = props;
+		const { state, dispatch } = usePresentationEditingContext();
+		const { presentation, currentSlide } = state;
+		const backgroundColor =
+			presentation.slides[currentSlide].settings?.color ?? '#000';
 		const [colorPickerOpen, setColorPickerOpen] = useState<boolean>(false);
 		const { t } = useTranslation([i18nNamespace.Presentation]);
 		return (
 			<>
 				<EditingButton
+					selected={colorPickerOpen}
 					icon={<BackgroundColorIcon color={backgroundColor} />}
 					secondaryNode={
 						<EditButtonLabel>{t('changeSlideColor')}</EditButtonLabel>
@@ -37,7 +39,16 @@ const ChangeBackgroundColorButton: React.FC<IChangeBackgroundColorButtonProps> =
 					open={colorPickerOpen}
 					initialColor={backgroundColor}
 					onColorPicked={(color) => {
-						onSlideColorChanged(color);
+						let newPresentation = { ...presentation };
+						const settings = {
+							...newPresentation.slides[currentSlide].settings,
+							color: color,
+						};
+						presentation.slides[currentSlide].settings = settings;
+						dispatch({
+							type: ActionIdentifier.presentationSettingsUpdated,
+							payload: { presentation: newPresentation },
+						});
 						setColorPickerOpen(false);
 					}}
 					onCancel={() => {

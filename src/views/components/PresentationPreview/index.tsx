@@ -8,7 +8,7 @@ import {
 	FloatingButtonContainer,
 	Text,
 } from '../../../smpUI/components';
-import SlideEditingBox from '../SlideEditingBox';
+import SlideBox from '../SlideBox';
 import useStyles from './styles';
 import {
 	Edit,
@@ -175,9 +175,7 @@ interface IPreviewProps {
 const Preview: React.FC<IPreviewProps> = (props) => {
 	const { slide } = props;
 
-	return (
-		<SlideEditingBox slide={slide} presentationFrameEditingEnabled={false} />
-	);
+	return <SlideBox slide={slide} presentationFrameEditingEnabled={false} />;
 };
 
 export default PresentationPreview;

@@ -11,22 +11,24 @@ import {
 	MediaRessource,
 	MediaSettings,
 } from '../../../shared/types/presentation';
+import { ActionIdentifier } from '../../../reducers/PresentationEditingReducer';
+import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 
-interface IImageManipulationButtonProps
-	extends Omit<IEditingButtonProps, 'icon' | 'secondaryNode'> {
-	mediaResource?: MediaRessource;
-	onMediaSettingsChanged: (settings: Partial<MediaSettings>) => void;
-}
+interface IImageManipulationButtonProps {}
 
 const ImageManipulationButton: React.FC<IImageManipulationButtonProps> = (
 	props
 ) => {
-	const { mediaResource, onMediaSettingsChanged } = props;
+	const { state, dispatch } = usePresentationEditingContext();
+	const { presentation, currentSlide, activeMedia } = state;
+	const mediaResource: MediaRessource =
+		presentation.slides[currentSlide].media[activeMedia ?? 0];
 	const [openDrawer, setOpenDrawer] = useState<boolean>(false);
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	return (
 		<React.Fragment>
 			<EditingButton
+				selected={openDrawer}
 				icon={
 					<Tune sx={{ color: 'text.primary', height: '100%', width: '100%' }} />
 				}
@@ -42,7 +44,17 @@ const ImageManipulationButton: React.FC<IImageManipulationButtonProps> = (
 					media={mediaResource}
 					onCancel={() => setOpenDrawer(false)}
 					onConfrim={(media) => {
-						onMediaSettingsChanged({ ...media.settings });
+						if (activeMedia === undefined) return;
+
+						const mediaSettings = { ...media.settings };
+						const newPresentation = { ...presentation };
+						newPresentation.slides[currentSlide].media[activeMedia].settings =
+							mediaSettings;
+						dispatch({
+							type: ActionIdentifier.presentationSettingsUpdated,
+							payload: { presentation: newPresentation },
+						});
+
 						setOpenDrawer(false);
 					}}
 				/>

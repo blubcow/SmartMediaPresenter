@@ -11,17 +11,17 @@ import {
 	MediaRessource,
 	MediaSettings,
 } from '../../../shared/types/presentation';
+import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
+import { ActionIdentifier } from '../../../reducers/PresentationEditingReducer';
 
-interface IMoveButtonProps
-	extends Omit<IEditingButtonProps, 'icon' | 'secondaryNode'> {
-	mediaResource?: MediaRessource;
-	onMediaSettingsChanged: (settings: Partial<MediaSettings>) => void;
-	slideEditingBoxDimensions: Dimensions;
-}
+interface IMoveButtonProps {}
 
 const MoveButton: React.FC<IMoveButtonProps> = (props) => {
-	const { mediaResource, onMediaSettingsChanged, slideEditingBoxDimensions } =
-		props;
+	const { state, dispatch } = usePresentationEditingContext();
+	const { editingBoxDimensions, presentation, currentSlide, activeMedia } =
+		state;
+	const mediaResource: MediaRessource =
+		presentation.slides[currentSlide].media[activeMedia ?? 0];
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const [openModal, setOpenModal] = useState<boolean>(false);
 	const [moveValue, setMoveValue] = useState<{ x: string; y: string }>({
@@ -31,7 +31,10 @@ const MoveButton: React.FC<IMoveButtonProps> = (props) => {
 
 	return (
 		<>
+			{editingBoxDimensions.height}
+			{mediaResource?.settings?.translation?.rel.height ?? 0}
 			<EditingButton
+				selected={openModal}
 				icon={
 					<Transform
 						sx={{ color: 'text.primary', height: '100%', width: '100%' }}
@@ -48,14 +51,15 @@ const MoveButton: React.FC<IMoveButtonProps> = (props) => {
 				title={t('move')}
 				open={openModal}
 				onEditingFinished={() => {
+					if (activeMedia === undefined) return;
 					const heightDivider =
-						slideEditingBoxDimensions.height /
+						editingBoxDimensions.height /
 						(mediaResource?.settings?.translation?.rel.height ??
-							slideEditingBoxDimensions.height);
+							editingBoxDimensions.height);
 					const widthDivider =
-						slideEditingBoxDimensions.width /
+						editingBoxDimensions.width /
 						(mediaResource?.settings?.translation?.rel.width ??
-							slideEditingBoxDimensions.width);
+							editingBoxDimensions.width);
 					const prevTransformation = {
 						x: (mediaResource?.settings?.translation?.x ?? 0) * widthDivider,
 						y: (mediaResource?.settings?.translation?.y ?? 0) * heightDivider,
@@ -65,17 +69,22 @@ const MoveButton: React.FC<IMoveButtonProps> = (props) => {
 						y: parseInt(moveValue.y ?? 0),
 					};
 
-					onMediaSettingsChanged({
-						...mediaResource?.settings,
-						translation: {
-							rel: { ...slideEditingBoxDimensions },
-							x: isNaN(currentTransformation.x)
-								? prevTransformation.x ?? 0
-								: (prevTransformation.x ?? 0) + currentTransformation.x,
-							y: isNaN(currentTransformation.y)
-								? prevTransformation.y ?? 0
-								: (prevTransformation.y ?? 0) - currentTransformation.y,
-						},
+					const mediaSettings = { ...mediaResource.settings };
+					mediaSettings.translation = {
+						rel: { ...editingBoxDimensions },
+						x: isNaN(currentTransformation.x)
+							? prevTransformation.x ?? 0
+							: (prevTransformation.x ?? 0) + currentTransformation.x,
+						y: isNaN(currentTransformation.y)
+							? prevTransformation.y ?? 0
+							: (prevTransformation.y ?? 0) - currentTransformation.y,
+					};
+					const newPresentation = { ...presentation };
+					newPresentation.slides[currentSlide].media[activeMedia].settings =
+						mediaSettings;
+					dispatch({
+						type: ActionIdentifier.presentationSettingsUpdated,
+						payload: { presentation: newPresentation },
 					});
 
 					setOpenModal(false);

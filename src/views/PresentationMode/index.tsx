@@ -3,7 +3,7 @@ import { usePresentationMode } from '../../hooks/useMainProcessMethods';
 import { Box, Text, Button } from '../../smpUI/components';
 import { FullScreen } from 'react-full-screen';
 import { SinglePresentation } from '../../shared/types/presentation';
-import SlideEditingBox from '../components/SlideEditingBox';
+import SlideBox from '../components/SlideBox';
 import { Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
@@ -96,7 +96,7 @@ const Content = ({ presentation }: { presentation: SinglePresentation }) => {
 		<Box className={classes.container}>
 			<Box className={classes.upperBox}>
 				<Box className={classes.upperLeftBox}>
-					<SlideEditingBox
+					<SlideBox
 						slide={presentation.slides[slideNumber]}
 						presentationFrameEditingEnabled={false}
 					/>

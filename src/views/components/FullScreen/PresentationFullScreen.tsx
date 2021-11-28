@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { FullScreen } from 'react-full-screen';
 import { Dimensions, Slide } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
-import SlideEditingBox from '../SlideEditingBox';
+import SlideBox from '../SlideBox';
 
 interface IPresentationFullScreenProps {
 	handle: any;
@@ -70,7 +70,7 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 						: '#000',
 				}}
 			>
-				<SlideEditingBox
+				<SlideBox
 					slide={slides[currentSlide]}
 					presentationFrameEditingEnabled={false}
 				/>

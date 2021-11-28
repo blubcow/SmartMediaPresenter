@@ -9,44 +9,20 @@ import RemoveButton from './RemoveButton';
 import TakeNotesButton from './TakeNotesButton';
 import { useSettingsContainerStyles } from './styles';
 
-interface ISlideSettingsProps {
-	settings?: SlideSettingsType;
-	slideColorDidChange: (color: string) => void;
-	presentationFrameEditingEnabled: boolean;
-	onEditPresentationFrameClicked: () => void;
-	onSlideSettingsChanged: (settings: Partial<SlideSettingsType>) => void;
-}
+interface ISlideSettingsProps {}
 
-const SlideSettings: React.FC<ISlideSettingsProps> = (props) => {
-	const {
-		settings,
-		slideColorDidChange,
-		presentationFrameEditingEnabled,
-		onEditPresentationFrameClicked,
-		onSlideSettingsChanged,
-	} = props;
+const SlideSettings: React.FC<ISlideSettingsProps> = () => {
 	const classes = useSettingsContainerStyles();
 
 	return (
 		<Box className={classes.container}>
-			<TakeNotesButton
-				initialNotes={settings?.notes}
-				selected={false}
-				onSlideSettingsChanged={onSlideSettingsChanged}
-			/>
+			<TakeNotesButton />
 			<Box className={classes.spacer} />
-			<EditPresentationFrame
-				selected={presentationFrameEditingEnabled}
-				onClick={onEditPresentationFrameClicked}
-			/>
+			<EditPresentationFrame />
 			<Box className={classes.spacer} />
 			<AddTextButton selected={false} />
 			<Box className={classes.spacer} />
-			<ChangeBackgroundColorButton
-				backgroundColor={settings?.color ?? '#000'}
-				selected={false}
-				onSlideColorChanged={slideColorDidChange}
-			/>
+			<ChangeBackgroundColorButton />
 			<Box className={classes.spacer} />
 			<EditThemeButton selected={false} />
 			<Box className={classes.spacer} />

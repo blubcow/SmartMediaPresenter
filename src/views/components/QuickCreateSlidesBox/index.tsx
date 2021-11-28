@@ -5,7 +5,7 @@ import {
 	getEmptySlide,
 } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
-import SlideEditingBox from '../SlideEditingBox';
+import SlideBox from '../SlideBox';
 import useStyles from './styles';
 import HeaderRow from './HeaderRow';
 import SlideRow from './SlideRow';
@@ -63,7 +63,7 @@ const QuickCreateSlidesBox: React.FC<IQuickCreateSlidesBoxProps> = (props) => {
 
 	return (
 		<Box className={classes.container}>
-			<SlideEditingBox
+			<SlideBox
 				className={classes.previewContainer}
 				slide={slides[currentSlide]}
 			/>

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
+import { ActionIdentifier } from '../../../reducers/PresentationEditingReducer';
 import {
 	Dimensions,
 	PresentationFrameSettings,
@@ -12,9 +14,6 @@ interface IPresentationFrameProps {
 	parentSize: Dimensions;
 	settings?: PresentationFrameSettings;
 	outlineColor: string;
-	onPresentationFrameChanged?: (
-		presentationFrame: PresentationFrameSettings
-	) => void;
 }
 
 const PresentationFrame: React.FC<IPresentationFrameProps> = (props) => {
@@ -24,7 +23,6 @@ const PresentationFrame: React.FC<IPresentationFrameProps> = (props) => {
 		parentSize,
 		settings,
 		outlineColor,
-		onPresentationFrameChanged,
 	} = props;
 	const [heightMultiplier, setHeightMultiplier] = useState<number>(
 		parentSize.height / (settings?.rel.height ?? 1)
@@ -45,6 +43,7 @@ const PresentationFrame: React.FC<IPresentationFrameProps> = (props) => {
 	const [activePosition, setActivePosition] = useState<
 		AnchorPosition | undefined
 	>();
+	const { dispatch } = usePresentationEditingContext();
 
 	useEffect(() => {
 		setEditingSettings(settings);
@@ -119,16 +118,22 @@ const PresentationFrame: React.FC<IPresentationFrameProps> = (props) => {
 					setCurrentSettings(
 						editingSettings ? { ...editingSettings } : undefined
 					);
-					if (onPresentationFrameChanged && editingSettings)
-						onPresentationFrameChanged(editingSettings);
+					if (editingSettings)
+						dispatch({
+							type: ActionIdentifier.presentationFrameUpdated,
+							payload: { presentationFrameUpdatedSettings: editingSettings },
+						});
 				}}
 				onMouseLeave={() => {
 					setActivePosition(undefined);
 					setCurrentSettings(
 						editingSettings ? { ...editingSettings } : undefined
 					);
-					if (onPresentationFrameChanged && editingSettings)
-						onPresentationFrameChanged(editingSettings);
+					if (editingSettings)
+						dispatch({
+							type: ActionIdentifier.presentationFrameUpdated,
+							payload: { presentationFrameUpdatedSettings: editingSettings },
+						});
 				}}
 				onMouseMove={(e) => {
 					if (activePosition)

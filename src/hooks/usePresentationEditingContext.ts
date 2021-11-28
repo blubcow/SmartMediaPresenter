@@ -1,5 +1,9 @@
-import { useContext } from 'react';
+import { useContext, Dispatch } from 'react';
 import { PresentationEditingContext } from '../providers/PresentationEditingProvider';
+import {
+	PresentationEditingSettings,
+	Action,
+} from '../reducers/PresentationEditingReducer';
 
 const usePresentationEditingContext = () => {
 	const context = useContext(PresentationEditingContext);
@@ -8,7 +12,10 @@ const usePresentationEditingContext = () => {
 			'usePresentationEditing hook has to be called inside of an PresentationEditingProvider!'
 		);
 
-	return context;
+	return context as {
+		state: PresentationEditingSettings;
+		dispatch: Dispatch<Action>;
+	};
 };
 
 export default usePresentationEditingContext;

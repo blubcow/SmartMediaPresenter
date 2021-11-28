@@ -1,4 +1,5 @@
 import React from 'react';
+import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import {
 	Dimensions,
 	MediaRessource,
@@ -12,49 +13,16 @@ import TopBarDisplayingFilename, {
 import MediaSettings from '../components/slideEditing/MediaSettings';
 import SlideSettings from '../components/slideEditing/SlideSettings';
 
-interface IEditTopBarProps extends ITopBarDisplayingFilenameProps {
-	currentSlideSettings?: SlideSettingsType;
-	slideSettingsDidChange: (settings: SlideSettingsType) => void;
-	selectedMedia?: MediaRessource;
-	mediaSettingsDidChange: (settings: Partial<MediaSettingsType>) => void;
-	slideEditingBoxDimension: Dimensions;
-	presentationFrameEditingEnabled: boolean;
-	onEditPresentationFrameClicked: () => void;
-}
+interface IEditTopBarProps extends ITopBarDisplayingFilenameProps {}
 
 const EditTopBar: React.FC<IEditTopBarProps> = (props) => {
-	const {
-		currentSlideSettings,
-		slideSettingsDidChange,
-		selectedMedia,
-		mediaSettingsDidChange,
-		slideEditingBoxDimension,
-		presentationFrameEditingEnabled,
-		onEditPresentationFrameClicked,
-	} = props;
+	const { state } = usePresentationEditingContext();
+	const { editingControls } = state;
 
 	return (
 		<TopBarDisplayingFilename {...props} withFixedHeight={'120px'}>
 			<Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
-				{selectedMedia ? (
-					<MediaSettings
-						media={selectedMedia}
-						onSettingsChanged={mediaSettingsDidChange}
-						slideMediaBoxDimensions={slideEditingBoxDimension}
-					/>
-				) : (
-					<SlideSettings
-						settings={currentSlideSettings}
-						slideColorDidChange={(color) => {
-							slideSettingsDidChange({ ...currentSlideSettings, color: color });
-						}}
-						onSlideSettingsChanged={(settings) => {
-							slideSettingsDidChange({ ...currentSlideSettings, ...settings });
-						}}
-						presentationFrameEditingEnabled={presentationFrameEditingEnabled}
-						onEditPresentationFrameClicked={onEditPresentationFrameClicked}
-					/>
-				)}
+				{editingControls === 'media' ? <MediaSettings /> : <SlideSettings />}
 			</Box>
 		</TopBarDisplayingFilename>
 	);
