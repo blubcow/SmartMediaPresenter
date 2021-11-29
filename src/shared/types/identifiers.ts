@@ -13,8 +13,3 @@ export enum MainProcessMethodIdentifiers {
 	PresenterModeUpdateNotification = 'presenterModeUpdate',
 	EndPresenterMode = 'endPresenterMode',
 }
-
-export enum DataTransferIdentifiers {
-	MediaFileInfo = 'mediaFileInfo',
-	MultipleMediaFileInfo = 'mulitipleMediaFileInfo',
-}

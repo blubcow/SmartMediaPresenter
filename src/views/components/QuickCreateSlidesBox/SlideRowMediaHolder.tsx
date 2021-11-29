@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
-import { DataTransferIdentifiers } from '../../../shared/types/identifiers';
-import { QuickCreateMediaResource } from '../../../shared/types/quickCreateMode';
+import { DataTransferIdentifiers } from '../../../types/identifiers';
+import { QuickCreateMediaResource } from '../../../types/quickCreateMode';
 import { Box, Text } from '../../../smpUI/components';
 import { useSlideRowMediaHolderStyles } from './styles';
 import { LazyLoadImage } from 'react-lazy-load-image-component';

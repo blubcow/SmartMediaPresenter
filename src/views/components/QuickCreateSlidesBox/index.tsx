@@ -10,8 +10,8 @@ import useStyles from './styles';
 import HeaderRow from './HeaderRow';
 import SlideRow from './SlideRow';
 import MultiInsertion from './MultiInsertion';
-import { QuickCreateMediaResource } from '../../../shared/types/quickCreateMode';
-import { DataTransferIdentifiers } from '../../../shared/types/identifiers';
+import { QuickCreateMediaResource } from '../../../types/quickCreateMode';
+import { DataTransferIdentifiers } from '../../../types/identifiers';
 
 interface IQuickCreateSlidesBoxProps {
 	slides: Slide[];

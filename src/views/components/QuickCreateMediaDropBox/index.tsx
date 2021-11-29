@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { QuickCreateMediaResource } from '../../../shared/types/quickCreateMode';
+import { QuickCreateMediaResource } from '../../../types/quickCreateMode';
 import { Box, Text } from '../../../smpUI/components';
 import { IBoxProps } from '../../../smpUI/components/Box';
 import useStyles from './styles';
@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import MediaDropBoxIndicator from '../MediaDropBoxIndicator';
 import { useHeldKeys } from '../../../hooks/useHeldKeys';
-import { DataTransferIdentifiers } from '../../../shared/types/identifiers';
+import { DataTransferIdentifiers } from '../../../types/identifiers';
 
 interface IQuickCreateMediaDropBoxProps extends IBoxProps {
 	selectedRows: number[];
