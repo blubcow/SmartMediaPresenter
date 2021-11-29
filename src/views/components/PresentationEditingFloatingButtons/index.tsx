@@ -72,6 +72,10 @@ const PresentationEditingFloatingButtons: React.FC<IPresentationEditingFloatingB
 							color='secondary'
 							onClick={() => {
 								dispatch({
+									type: PresentationEditingActionIdentifiers.presentationFrameUpdated,
+									payload: { presentationFrameUpdatedSettings: undefined },
+								});
+								dispatch({
 									type: PresentationEditingActionIdentifiers.editingSlideStated,
 								});
 							}}

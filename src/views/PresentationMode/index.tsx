@@ -105,7 +105,6 @@ const Content = ({ presentation }: { presentation: SinglePresentation }) => {
 						<Button
 							variant='contained'
 							onClick={() => {
-								console.log(slideNumber);
 								if (slideNumber > 0) previousSlide();
 							}}
 						>
@@ -119,7 +118,6 @@ const Content = ({ presentation }: { presentation: SinglePresentation }) => {
 						<Button
 							variant='contained'
 							onClick={() => {
-								console.log(slideNumber);
 								if (slideNumber < presentation.slides.length - 1) nextSlide();
 							}}
 						>

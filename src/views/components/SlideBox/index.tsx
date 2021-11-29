@@ -3,7 +3,6 @@ import { Box } from '../../../smpUI/components';
 import {
 	Dimensions,
 	MediaRessource,
-	PresentationFrameSettings,
 	Slide,
 } from '../../../shared/types/presentation';
 import { IBoxProps } from '../../../smpUI/components/Box';

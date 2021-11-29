@@ -10,6 +10,7 @@ export default makeStyles<Theme>((theme: Theme) =>
 			outlineWidth: '0px',
 			backgroundColor: 'divider',
 			position: 'relative',
+			userSelect: 'none',
 		},
 		imgSelected: {
 			maxWidth: '100%',
@@ -18,6 +19,7 @@ export default makeStyles<Theme>((theme: Theme) =>
 			outlineColor: 'white',
 			outline: '3px dashed',
 			overflow: 'overlay',
+			userSelect: 'none',
 		},
 	})
 );

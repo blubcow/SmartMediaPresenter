@@ -39,6 +39,7 @@ const ResizingAnchor: React.FC<IResizingAnchorProps> = (props) => {
 				right: position.horizontal === 'right' ? '-7.5px' : undefined,
 				bottom: position.vertical === 'bottom' ? '-7.5px' : undefined,
 			}}
+			onClick={(e) => e.stopPropagation()}
 		/>
 	);
 };

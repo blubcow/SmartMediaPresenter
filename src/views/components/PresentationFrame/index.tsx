@@ -51,9 +51,44 @@ const PresentationFrame: React.FC<IPresentationFrameProps> = (props) => {
 	}, [settings]);
 
 	useEffect(() => {
-		setHeightMultiplier(parentSize.height / (editingSettings?.rel.height ?? 1));
-		setWidthMultiplier(parentSize.width / (editingSettings?.rel.width ?? 1));
-	}, [parentSize, editingSettings?.rel]);
+		setHeightMultiplier(parentSize.height / (settings?.rel.height ?? 1));
+		setWidthMultiplier(parentSize.width / (settings?.rel.width ?? 1));
+	}, [parentSize, settings?.rel]);
+
+	useEffect(() => {
+		setEditingSettings({
+			rel: { ...parentSize },
+			top: heightMultiplier * (settings?.top ?? 0),
+			left: widthMultiplier * (settings?.left ?? 0),
+			right: widthMultiplier * (settings?.right ?? 0),
+			bottom: heightMultiplier * (settings?.bottom ?? 0),
+		});
+		setCurrentSettings({ ...editingSettings! });
+	}, [isEditing, heightMultiplier, widthMultiplier, parentSize]);
+
+	useEffect(() => {
+		if (!activePosition) return;
+		const handleMove = (e: MouseEvent) => {
+			if (activePosition)
+				onDrag(initialPosition.x - e.pageX, initialPosition.y - e.pageY);
+		};
+		const handleUp = () => {
+			setActivePosition(undefined);
+			setCurrentSettings(editingSettings ? { ...editingSettings } : undefined);
+			if (editingSettings)
+				dispatch({
+					type: PresentationEditingActionIdentifiers.presentationFrameUpdated,
+					payload: { presentationFrameUpdatedSettings: editingSettings },
+				});
+		};
+		document.addEventListener('mousemove', handleMove);
+		document.addEventListener('mouseup', handleUp);
+
+		return () => {
+			document.removeEventListener('mousemove', handleMove);
+			document.removeEventListener('mouseup', handleUp);
+		};
+	}, [activePosition, initialPosition, dispatch, editingSettings]);
 
 	const onDrag = (x: number, y: number) => {
 		if (!activePosition) return;
@@ -99,11 +134,28 @@ const PresentationFrame: React.FC<IPresentationFrameProps> = (props) => {
 				outlineColor: isEditing ? 'yellow' : outlineColor,
 				pointerEvents: isEditing ? 'initial' : 'none',
 				cursor: 'grab',
-				top: `${heightMultiplier * (editingSettings?.top ?? 0)}px`,
-				left: `${widthMultiplier * (editingSettings?.left ?? 0)}px`,
-				right: `${widthMultiplier * (editingSettings?.right ?? 0)}px`,
-				bottom: `${heightMultiplier * (editingSettings?.bottom ?? 0)}px`,
+				top: `${
+					isEditing
+						? editingSettings?.top ?? 0
+						: heightMultiplier * (settings?.top ?? 0)
+				}px`,
+				left: `${
+					isEditing
+						? editingSettings?.left ?? 0
+						: widthMultiplier * (settings?.left ?? 0)
+				}px`,
+				right: `${
+					isEditing
+						? editingSettings?.right ?? 0
+						: widthMultiplier * (settings?.right ?? 0)
+				}px`,
+				bottom: `${
+					isEditing
+						? editingSettings?.bottom ?? 0
+						: heightMultiplier * (settings?.bottom ?? 0)
+				}px`,
 			}}
+			onClick={(e) => e.stopPropagation()}
 		>
 			<Box
 				sx={{
@@ -112,32 +164,6 @@ const PresentationFrame: React.FC<IPresentationFrameProps> = (props) => {
 					width: '100%',
 					pointerEvents: isEditing ? 'initial' : 'none',
 					position: 'relative',
-				}}
-				onMouseUp={() => {
-					setActivePosition(undefined);
-					setCurrentSettings(
-						editingSettings ? { ...editingSettings } : undefined
-					);
-					if (editingSettings)
-						dispatch({
-							type: PresentationEditingActionIdentifiers.presentationFrameUpdated,
-							payload: { presentationFrameUpdatedSettings: editingSettings },
-						});
-				}}
-				onMouseLeave={() => {
-					setActivePosition(undefined);
-					setCurrentSettings(
-						editingSettings ? { ...editingSettings } : undefined
-					);
-					if (editingSettings)
-						dispatch({
-							type: PresentationEditingActionIdentifiers.presentationFrameUpdated,
-							payload: { presentationFrameUpdatedSettings: editingSettings },
-						});
-				}}
-				onMouseMove={(e) => {
-					if (activePosition)
-						onDrag(initialPosition.x - e.pageX, initialPosition.y - e.pageY);
 				}}
 			>
 				<ResizingAnchor
