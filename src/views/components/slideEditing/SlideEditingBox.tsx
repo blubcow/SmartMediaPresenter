@@ -66,6 +66,11 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 						type: PresentationEditingActionIdentifiers.editingSlideStated,
 					})
 				}
+				onSlideBackgroundClicked={() =>
+					dispatch({
+						type: PresentationEditingActionIdentifiers.editingSlideStated,
+					})
+				}
 				mediaBoxesCanReceiveMedia
 				onSizeChanged={(width: number, height: number) => {
 					dispatch({

@@ -18,6 +18,7 @@ export interface ISlideBoxProps extends IBoxProps {
 	activeMedia?: number;
 	onActivateMedia?: (id: number) => void;
 	onSelectedMediaBlur?: () => void;
+	onSlideBackgroundClicked?: () => void;
 	onSizeChanged?: (width: number, height: number) => void;
 	presentationFrameEditingEnabled?: boolean;
 	overflowEnabled?: boolean;
@@ -31,6 +32,7 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 		activeMedia,
 		onActivateMedia,
 		onSelectedMediaBlur,
+		onSlideBackgroundClicked,
 		onSizeChanged,
 		presentationFrameEditingEnabled,
 		overflowEnabled = false,
@@ -73,6 +75,7 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 				bgcolor: slide.settings?.color ?? '#000',
 				overflow: overflowEnabled ? 'visible' : 'hidden',
 			}}
+			onClick={onSlideBackgroundClicked}
 		>
 			{presentationFrameEditingEnabled !== undefined && (
 				<PresentationFrame

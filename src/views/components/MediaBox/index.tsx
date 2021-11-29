@@ -73,7 +73,8 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 					className={isActive ? classes.imgSelected : classes.img}
 					src={media.location.local ?? media.location.remote}
 					draggable={false}
-					onClick={() => {
+					onClick={(e) => {
+						e.stopPropagation();
 						if (activateMedia) activateMedia(id);
 					}}
 					onBlur={(e) => {
