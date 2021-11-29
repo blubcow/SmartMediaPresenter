@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	FloatingButtonContainer,
 	FloatingButton,
@@ -21,14 +21,50 @@ const PresentationEditingFloatingButtons: React.FC<IPresentationEditingFloatingB
 	(props) => {
 		const { onSave } = props;
 		const { state, dispatch } = usePresentationEditingContext();
-		const { presentation, currentSlide, presentationFrameUpdatedSettings } =
-			state;
+		const {
+			editingControls,
+			presentation,
+			currentSlide,
+			presentationFrameUpdatedSettings,
+		} = state;
 		const { t } = useTranslation([i18nNamespace.Presentation]);
 		const [
 			savedPresentationSuccessAlertOpen,
 			setSavedPresentationSuccessAlertOpen,
 		] = useState<boolean>(false);
 		const handle = useFullScreenHandle();
+
+		const confirmPresentationFrameChanges = () => {
+			const settings = {
+				...presentation.slides[currentSlide].settings,
+			};
+			settings.presentationFrame = presentationFrameUpdatedSettings;
+			const newPresentation = { ...presentation };
+			newPresentation.slides[currentSlide].settings = settings;
+			dispatch({
+				type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+				payload: { presentation: newPresentation },
+			});
+			dispatch({
+				type: PresentationEditingActionIdentifiers.editingSlideStated,
+			});
+		};
+
+		useEffect(() => {
+			if (editingControls !== 'presentationFrame') return;
+			const handleEnter = (e: KeyboardEvent) => {
+				if (e.key === 'Enter') confirmPresentationFrameChanges();
+			};
+			document.addEventListener('keydown', handleEnter);
+
+			return () => document.removeEventListener('keydown', handleEnter);
+		}, [
+			presentation,
+			currentSlide,
+			presentationFrameUpdatedSettings,
+			dispatch,
+			editingControls,
+		]);
 
 		return (
 			<FloatingButtonContainer>
@@ -48,21 +84,7 @@ const PresentationEditingFloatingButtons: React.FC<IPresentationEditingFloatingB
 						<FloatingButton
 							variant='extended'
 							color='primary'
-							onClick={() => {
-								const settings = {
-									...presentation.slides[currentSlide].settings,
-								};
-								settings.presentationFrame = presentationFrameUpdatedSettings;
-								const newPresentation = { ...presentation };
-								newPresentation.slides[currentSlide].settings = settings;
-								dispatch({
-									type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
-									payload: { presentation: newPresentation },
-								});
-								dispatch({
-									type: PresentationEditingActionIdentifiers.editingSlideStated,
-								});
-							}}
+							onClick={confirmPresentationFrameChanges}
 						>
 							<Check sx={{ mr: 1 }} />
 							{t('confirm')}
