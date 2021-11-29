@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { ActionIdentifier } from '../../../reducers/PresentationEditingReducer';
+import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import { getEmptySlide, Slide } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
 import { SlidePreviewRow, SlidesHeaderRow } from '../rows';
@@ -24,28 +24,25 @@ const PresentationEditingPreviewRows: React.FC<IPresentationEditingPreviewRows> 
 							const newPresentation = { ...presentation };
 							newPresentation.slides.push(newSlide);
 							dispatch({
-								type: ActionIdentifier.presentationSettingsUpdated,
+								type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 								payload: { presentation: newPresentation },
 							});
 							dispatch({
-								type: ActionIdentifier.changeCurrentSlide,
+								type: PresentationEditingActionIdentifiers.changeCurrentSlide,
 								payload: { currentSlide: newSlide.id },
 							});
 						}}
 					/>
-					{presentation.slides.map((slide, i) => (
+					{presentation.slides.map((slide: Slide, i: number) => (
 						<SlidePreviewRow
 							key={i}
-							slide={presentation.slides[i]}
+							slide={slide}
 							selected={currentSlide === i}
 							onSelected={(id: number) => {
 								dispatch({
-									type: ActionIdentifier.changeCurrentSlide,
+									type: PresentationEditingActionIdentifiers.changeCurrentSlide,
 									payload: { currentSlide: id },
 								});
-								const newMedia = presentation.slides.find(
-									(slide) => slide.id === id
-								)?.media;
 							}}
 							onDragStarted={(slide: Slide) => {
 								setDraggedSlide(slide);
@@ -55,7 +52,7 @@ const PresentationEditingPreviewRows: React.FC<IPresentationEditingPreviewRows> 
 								const draggedId = draggedSlide.id;
 								setDraggedSlide({ ...draggedSlide!, id: slideId });
 								const newSlides = presentation.slides
-									.map((slide) => ({
+									.map((slide: Slide) => ({
 										...slide,
 										id:
 											slide.id === slideId
@@ -64,11 +61,11 @@ const PresentationEditingPreviewRows: React.FC<IPresentationEditingPreviewRows> 
 												? slideId
 												: slide.id,
 									}))
-									.sort((a, b) => (a.id > b.id ? 1 : -1));
+									.sort((a: Slide, b: Slide) => (a.id > b.id ? 1 : -1));
 								const newPresentation = { ...presentation };
 								newPresentation.slides = newSlides;
 								dispatch({
-									type: ActionIdentifier.presentationSettingsUpdated,
+									type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 									payload: { presentation: newPresentation },
 								});
 							}}

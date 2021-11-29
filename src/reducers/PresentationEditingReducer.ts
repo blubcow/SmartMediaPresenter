@@ -1,83 +1,56 @@
+import { SinglePresentation } from '../shared/types/presentation';
+import { PresentationEditingActionIdentifiers as ActionIdentifiers } from '../types/identifiers';
 import {
-	Dimensions,
-	PresentationFrameSettings,
-	SinglePresentation,
-} from '../shared/types/presentation';
-
-export enum ActionIdentifier {
-	editingMediaStarted = 'ems',
-	editingSlideStated = 'ess',
-	editingPresentationFrameStarted = 'epfs',
-	editingTextStarted = 'ets',
-	changeCurrentSlide = 'ccs',
-	presentationSettingsUpdated = 'psu',
-	editingBoxDimensionsUpdated = 'ebdu',
-	presentationFrameUpdated = 'pfu',
-}
-
-export interface Action {
-	type: ActionIdentifier;
-	payload?: Partial<PresentationEditingSettings>;
-}
-
-export type EditingControls = 'slide' | 'media' | 'presentationFrame' | 'text';
-
-export interface PresentationEditingSettings {
-	editingControls: EditingControls;
-	currentSlide: number;
-	activeMedia?: number;
-	editingBoxDimensions: Dimensions;
-	presentationFrameUpdatedSettings?: PresentationFrameSettings;
-	presentation: SinglePresentation;
-	initialPresentation: SinglePresentation;
-}
+	PresentationEditingAction,
+	PresentationEditingSettings,
+} from '../types/state';
 
 const presentationEditingReducer = (
 	state: PresentationEditingSettings,
-	action: Action
+	action: PresentationEditingAction
 ): PresentationEditingSettings => {
 	switch (action.type) {
-		case ActionIdentifier.editingMediaStarted:
+		case ActionIdentifiers.editingMediaStarted:
 			return {
 				...state,
 				editingControls: 'media',
 				activeMedia: action.payload?.activeMedia ?? state.activeMedia,
 			};
-		case ActionIdentifier.editingSlideStated:
+		case ActionIdentifiers.editingSlideStated:
 			return {
 				...state,
 				editingControls: 'slide',
 				activeMedia: undefined,
 			};
-		case ActionIdentifier.editingPresentationFrameStarted:
+		case ActionIdentifiers.editingPresentationFrameStarted:
 			return {
 				...state,
 				editingControls: 'presentationFrame',
 				activeMedia: undefined,
 			};
-		case ActionIdentifier.editingTextStarted:
+		case ActionIdentifiers.editingTextStarted:
 			return {
 				...state,
 				editingControls: 'text',
 				activeMedia: undefined,
 			};
-		case ActionIdentifier.changeCurrentSlide:
+		case ActionIdentifiers.changeCurrentSlide:
 			return {
 				...state,
 				currentSlide: action.payload?.currentSlide ?? state.currentSlide,
 			};
-		case ActionIdentifier.presentationSettingsUpdated:
+		case ActionIdentifiers.presentationSettingsUpdated:
 			return {
 				...state,
 				presentation: action.payload?.presentation ?? state.presentation,
 			};
-		case ActionIdentifier.editingBoxDimensionsUpdated:
+		case ActionIdentifiers.editingBoxDimensionsUpdated:
 			return {
 				...state,
 				editingBoxDimensions:
 					action.payload?.editingBoxDimensions ?? state.editingBoxDimensions,
 			};
-		case ActionIdentifier.presentationFrameUpdated:
+		case ActionIdentifiers.presentationFrameUpdated:
 			return {
 				...state,
 				presentationFrameUpdatedSettings:

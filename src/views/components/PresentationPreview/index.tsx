@@ -19,7 +19,7 @@ import {
 	SaveAlt,
 } from '@mui/icons-material';
 import { useHistory } from 'react-router-dom';
-import { SMPRoutes } from '../../../shared/types/routes';
+import { SMPRoutes } from '../../../types/routes';
 import { CircularProgress } from '@mui/material';
 import PresentationFullScreen from '../FullScreen/PresentationFullScreen';
 import { useFullScreenHandle } from 'react-full-screen';

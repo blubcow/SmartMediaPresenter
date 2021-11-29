@@ -6,13 +6,10 @@ import { i18nNamespace } from '../../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
 import { Box, TextField, Card } from '../../../smpUI/components';
 import MediaEditingModal from './MediaEditingModal';
-import {
-	MediaRessource,
-	MediaSettings,
-} from '../../../shared/types/presentation';
+import { MediaRessource } from '../../../shared/types/presentation';
 import { Link, LinkOff } from '@mui/icons-material';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { ActionIdentifier } from '../../../reducers/PresentationEditingReducer';
+import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 
 interface IScaleButtonProps {}
 
@@ -78,7 +75,7 @@ const ScaleButton: React.FC<IScaleButtonProps> = (props) => {
 					newPresentation.slides[currentSlide].media[activeMedia].settings =
 						mediaSettings;
 					dispatch({
-						type: ActionIdentifier.presentationSettingsUpdated,
+						type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 						payload: { presentation: newPresentation },
 					});
 

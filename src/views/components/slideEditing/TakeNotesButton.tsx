@@ -5,9 +5,8 @@ import { Notes } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
-import { SlideSettings } from '../../../shared/types/presentation';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { ActionIdentifier } from '../../../reducers/PresentationEditingReducer';
+import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 
 interface ITakeNotesButtonProps {}
 
@@ -79,7 +78,7 @@ const TakeNotesButton: React.FC<ITakeNotesButtonProps> = (props) => {
 									};
 									presentation.slides[currentSlide].settings = settings;
 									dispatch({
-										type: ActionIdentifier.presentationSettingsUpdated,
+										type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 										payload: { presentation: newPresentation },
 									});
 									setOpenDrawer(false);

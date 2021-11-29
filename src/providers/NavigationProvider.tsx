@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { SMPRoutes } from '../shared/types/routes';
+import { SMPRoutes } from '../types/routes';
 import { Home, Login, Loading, Edit, QuickCreate, Pres } from '../views';
 
 const NavigationProvider: React.FC<{}> = (props) => {

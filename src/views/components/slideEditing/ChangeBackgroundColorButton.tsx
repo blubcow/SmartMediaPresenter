@@ -6,7 +6,7 @@ import { i18nNamespace } from '../../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
 import ColorPicker from '../ColorPicker';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { ActionIdentifier } from '../../../reducers/PresentationEditingReducer';
+import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 
 interface IChangeBackgroundColorButtonProps {}
 
@@ -46,7 +46,7 @@ const ChangeBackgroundColorButton: React.FC<IChangeBackgroundColorButtonProps> =
 						};
 						presentation.slides[currentSlide].settings = settings;
 						dispatch({
-							type: ActionIdentifier.presentationSettingsUpdated,
+							type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 							payload: { presentation: newPresentation },
 						});
 						setColorPickerOpen(false);

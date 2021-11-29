@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Text } from '../../../smpUI/components';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { ActionIdentifier } from '../../../reducers/PresentationEditingReducer';
+import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import { MediaRessource, Slide } from '../../../shared/types/presentation';
 import SlideBox from '../SlideBox';
 
@@ -21,7 +21,7 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 		// @ts-ignore: path available trough electron
 		const url = 'file://' + file.path;
 		const currentMedia = presentation.slides[currentSlide].media.filter(
-			(media) => media.id !== id
+			(media: MediaRessource) => media.id !== id
 		);
 		const newMedia: MediaRessource[] = [
 			...currentMedia,
@@ -35,11 +35,11 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 		};
 
 		const newSlides = presentation.slides.filter(
-			(slide) => slide.id !== currentSlide
+			(slide: Slide) => slide.id !== currentSlide
 		);
 
 		dispatch({
-			type: ActionIdentifier.presentationSettingsUpdated,
+			type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 			payload: {
 				presentation: {
 					...presentation,
@@ -57,19 +57,19 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 				activeMedia={activeMedia}
 				onActivateMedia={(id: number) => {
 					dispatch({
-						type: ActionIdentifier.editingMediaStarted,
+						type: PresentationEditingActionIdentifiers.editingMediaStarted,
 						payload: { activeMedia: id },
 					});
 				}}
 				onSelectedMediaBlur={() =>
 					dispatch({
-						type: ActionIdentifier.editingSlideStated,
+						type: PresentationEditingActionIdentifiers.editingSlideStated,
 					})
 				}
 				mediaBoxesCanReceiveMedia
 				onSizeChanged={(width: number, height: number) => {
 					dispatch({
-						type: ActionIdentifier.editingBoxDimensionsUpdated,
+						type: PresentationEditingActionIdentifiers.editingBoxDimensionsUpdated,
 						payload: { editingBoxDimensions: { width: width, height: height } },
 					});
 				}}

@@ -1,4 +1,4 @@
-import { MediaLocation } from './presentation';
+import { MediaLocation } from '../shared/types/presentation';
 
 export interface QuickCreateMediaResource {
 	name: string;

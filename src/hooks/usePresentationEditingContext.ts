@@ -2,8 +2,8 @@ import { useContext, Dispatch } from 'react';
 import { PresentationEditingContext } from '../providers/PresentationEditingProvider';
 import {
 	PresentationEditingSettings,
-	Action,
-} from '../reducers/PresentationEditingReducer';
+	PresentationEditingAction,
+} from '../types/state';
 
 const usePresentationEditingContext = () => {
 	const context = useContext(PresentationEditingContext);
@@ -14,7 +14,7 @@ const usePresentationEditingContext = () => {
 
 	return context as {
 		state: PresentationEditingSettings;
-		dispatch: Dispatch<Action>;
+		dispatch: Dispatch<PresentationEditingAction>;
 	};
 };
 

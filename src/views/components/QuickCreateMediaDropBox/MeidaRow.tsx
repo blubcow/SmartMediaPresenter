@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { QuickCreateMediaResource } from '../../../shared/types/quickCreateMode';
+import { QuickCreateMediaResource } from '../../../types/quickCreateMode';
 import { Box, Text } from '../../../smpUI/components';
 import { useMediaRowStyles } from './styles';
 import { LazyLoadImage } from 'react-lazy-load-image-component';

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { ActionIdentifier } from '../../../reducers/PresentationEditingReducer';
+import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import {
 	Dimensions,
 	PresentationFrameSettings,
@@ -120,7 +120,7 @@ const PresentationFrame: React.FC<IPresentationFrameProps> = (props) => {
 					);
 					if (editingSettings)
 						dispatch({
-							type: ActionIdentifier.presentationFrameUpdated,
+							type: PresentationEditingActionIdentifiers.presentationFrameUpdated,
 							payload: { presentationFrameUpdatedSettings: editingSettings },
 						});
 				}}
@@ -131,7 +131,7 @@ const PresentationFrame: React.FC<IPresentationFrameProps> = (props) => {
 					);
 					if (editingSettings)
 						dispatch({
-							type: ActionIdentifier.presentationFrameUpdated,
+							type: PresentationEditingActionIdentifiers.presentationFrameUpdated,
 							payload: { presentationFrameUpdatedSettings: editingSettings },
 						});
 				}}

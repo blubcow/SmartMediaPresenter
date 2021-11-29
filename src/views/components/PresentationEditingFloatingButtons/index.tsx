@@ -7,7 +7,7 @@ import { Check, Close, Save, Slideshow } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import { i18nNamespace } from '../../../i18n/i18n';
-import { ActionIdentifier } from '../../../reducers/PresentationEditingReducer';
+import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import { SavedPresentationSuccess } from '../Alerts/SavedPresentation';
 import PresentationFullScreen from '../FullScreen/PresentationFullScreen';
 import { useFullScreenHandle } from 'react-full-screen';
@@ -56,10 +56,12 @@ const PresentationEditingFloatingButtons: React.FC<IPresentationEditingFloatingB
 								const newPresentation = { ...presentation };
 								newPresentation.slides[currentSlide].settings = settings;
 								dispatch({
-									type: ActionIdentifier.presentationSettingsUpdated,
+									type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 									payload: { presentation: newPresentation },
 								});
-								dispatch({ type: ActionIdentifier.editingSlideStated });
+								dispatch({
+									type: PresentationEditingActionIdentifiers.editingSlideStated,
+								});
 							}}
 						>
 							<Check sx={{ mr: 1 }} />
@@ -69,7 +71,9 @@ const PresentationEditingFloatingButtons: React.FC<IPresentationEditingFloatingB
 							variant='extended'
 							color='secondary'
 							onClick={() => {
-								dispatch({ type: ActionIdentifier.editingSlideStated });
+								dispatch({
+									type: PresentationEditingActionIdentifiers.editingSlideStated,
+								});
 							}}
 						>
 							<Close sx={{ mr: 1 }} />

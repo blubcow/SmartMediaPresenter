@@ -11,7 +11,7 @@ import {
 	MediaRessource,
 	MediaSettings,
 } from '../../../shared/types/presentation';
-import { ActionIdentifier } from '../../../reducers/PresentationEditingReducer';
+import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 
 interface IImageManipulationButtonProps {}
@@ -51,7 +51,7 @@ const ImageManipulationButton: React.FC<IImageManipulationButtonProps> = (
 						newPresentation.slides[currentSlide].media[activeMedia].settings =
 							mediaSettings;
 						dispatch({
-							type: ActionIdentifier.presentationSettingsUpdated,
+							type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 							payload: { presentation: newPresentation },
 						});
 

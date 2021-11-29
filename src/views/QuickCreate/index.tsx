@@ -7,7 +7,7 @@ import { Divider } from '@mui/material';
 import QuickCreateMediaDropBox from '../components/QuickCreateMediaDropBox';
 import QuickCreateSlidesBox from '../components/QuickCreateSlidesBox';
 import { getEmptySlide, Slide } from '../../shared/types/presentation';
-import { SMPRoutes } from '../../shared/types/routes';
+import { SMPRoutes } from '../../types/routes';
 import { useHistory } from 'react-router-dom';
 import { useStoredPresentations } from '../../hooks/useMainProcessMethods';
 

@@ -7,7 +7,7 @@ import useStyles from './styles';
 import { Divider } from '@mui/material';
 import { useStoredPresentations } from '../../hooks/useMainProcessMethods';
 import { useHistory } from 'react-router-dom';
-import { SMPRoutes } from '../../shared/types/routes';
+import { SMPRoutes } from '../../types/routes';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { SinglePresentation } from '../../shared/types/presentation';

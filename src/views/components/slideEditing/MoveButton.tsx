@@ -12,7 +12,7 @@ import {
 	MediaSettings,
 } from '../../../shared/types/presentation';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { ActionIdentifier } from '../../../reducers/PresentationEditingReducer';
+import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 
 interface IMoveButtonProps {}
 
@@ -31,8 +31,6 @@ const MoveButton: React.FC<IMoveButtonProps> = (props) => {
 
 	return (
 		<>
-			{editingBoxDimensions.height}
-			{mediaResource?.settings?.translation?.rel.height ?? 0}
 			<EditingButton
 				selected={openModal}
 				icon={
@@ -83,7 +81,7 @@ const MoveButton: React.FC<IMoveButtonProps> = (props) => {
 					newPresentation.slides[currentSlide].media[activeMedia].settings =
 						mediaSettings;
 					dispatch({
-						type: ActionIdentifier.presentationSettingsUpdated,
+						type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 						payload: { presentation: newPresentation },
 					});
 
