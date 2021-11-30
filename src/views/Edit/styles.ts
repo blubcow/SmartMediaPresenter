@@ -16,5 +16,12 @@ export default makeStyles((theme: Theme) =>
 			justifyContent: 'center',
 			alignItems: 'center',
 		},
+		loadingContainer: {
+			height: '100vh',
+			width: '100vw',
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+		},
 	})
 );

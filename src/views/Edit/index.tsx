@@ -10,6 +10,7 @@ import SlideEditingBox from '../components/slideEditing/SlideEditingBox';
 import PresentationEditingProvider from '../../providers/PresentationEditingProvider';
 import PresentationEditingFloatingButtons from '../components/PresentationEditingFloatingButtons';
 import PresentationEditingPreviewRows from '../components/PresentationEditingPreviewRows';
+import LoadingIndicatorPaper from '../components/LoadingIndicatorPaper';
 
 const Edit: React.FC<{}> = (props) => {
 	const [id, setId] = useState<string>('');
@@ -44,7 +45,9 @@ const Edit: React.FC<{}> = (props) => {
 			</Page>
 		</PresentationEditingProvider>
 	) : (
-		<>loading</>
+		<Box className={classes.loadingContainer}>
+			<LoadingIndicatorPaper />
+		</Box>
 	);
 };
 
