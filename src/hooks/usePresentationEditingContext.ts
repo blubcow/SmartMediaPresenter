@@ -1,4 +1,3 @@
-import { access } from 'fs';
 import { useContext, Dispatch } from 'react';
 import { PresentationEditingContext } from '../providers/PresentationEditingProvider';
 import { MediaRessource } from '../shared/types/presentation';
