@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Text } from '../../../smpUI/components';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
@@ -12,8 +12,8 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 	const { state, dispatch, dispatchMediaTranslationTransformation } =
 		usePresentationEditingContext();
 	const { presentation, currentSlide, activeMedia, editingControls } = state;
-
 	const { shift } = useHeldKeys();
+	const [dragToSwapId, setDragToSwapId] = useState<number | undefined>();
 
 	useEffect(() => {
 		if (activeMedia === undefined) return;
@@ -104,6 +104,35 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 				overflowEnabled={
 					editingControls === 'presentationFrame' || editingControls === 'media'
 				}
+				dragToSwapEnabled={
+					editingControls === 'slide' || editingControls === 'media'
+				}
+				onDragToSwapStarted={(id) => {
+					setDragToSwapId(id);
+				}}
+				onSwapped={(id) => {
+					if (dragToSwapId === undefined) return;
+					const media: MediaRessource[] = [
+						...presentation.slides[currentSlide].media,
+					]
+						.map((media) => ({
+							...media,
+							id:
+								media.id === id
+									? dragToSwapId
+									: media.id === dragToSwapId
+									? id
+									: media.id,
+						}))
+						.sort((a, b) => (a.id > b.id ? 1 : -1));
+
+					const newPresentation = { ...presentation };
+					newPresentation.slides[currentSlide].media = media;
+					dispatch({
+						type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+						payload: { presentation: newPresentation },
+					});
+				}}
 			/>
 			<Box sx={{ width: '100%', paddingLeft: 1 }}>
 				<Text>{`${currentSlide + 1}/${presentation.slides.length}`}</Text>

@@ -21,6 +21,9 @@ export interface ISlideBoxProps extends IBoxProps {
 	onSizeChanged?: (width: number, height: number) => void;
 	presentationFrameEditingEnabled?: boolean;
 	overflowEnabled?: boolean;
+	dragToSwapEnabled?: boolean;
+	onDragToSwapStarted?: (id: number) => void;
+	onSwapped?: (id: number) => void;
 }
 
 const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
@@ -35,6 +38,9 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 		onSizeChanged,
 		presentationFrameEditingEnabled,
 		overflowEnabled = false,
+		dragToSwapEnabled = false,
+		onDragToSwapStarted,
+		onSwapped,
 	} = props;
 	const [media, setMedia] = useState<MediaRessource[]>([...slide.media]);
 	const [size, setSize] = useState<Dimensions>({ height: 0, width: 0 });
@@ -88,7 +94,7 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 			<Box className={classes.mediaContainer}>
 				{Array.apply(null, Array(slide.rows)).map((_, i) => (
 					<Box key={i} className={classes.rowContainer}>
-						{[...media]
+						{[...slide.media]
 							.splice(i * slide.columns, i * slide.columns + slide.columns)
 							.map((media, n) => (
 								<MediaBox
@@ -107,6 +113,9 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 										if (onActivateMedia) onActivateMedia(id);
 									}}
 									slideEditingBoxDimensions={size}
+									draggable={dragToSwapEnabled}
+									onDragStarted={onDragToSwapStarted}
+									onDrop={onSwapped}
 								/>
 							))}
 					</Box>

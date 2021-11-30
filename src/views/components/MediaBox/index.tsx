@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Dimensions, MediaRessource } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
 import MediaDropBoxIndicator from '../MediaDropBoxIndicator';
@@ -15,6 +15,9 @@ interface IMediaBox {
 	onMediaSelectionBlur?: () => void;
 	didReceiveMediaFile?: (file: File, id: number) => void;
 	slideEditingBoxDimensions?: Dimensions;
+	draggable: boolean;
+	onDragStarted?: (id: number) => void;
+	onDrop?: (id: number) => void;
 }
 
 const MediaBox: React.FC<IMediaBox> = (props) => {
@@ -29,8 +32,12 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 		activateMedia,
 		onMediaSelectionBlur,
 		slideEditingBoxDimensions,
+		draggable,
+		onDragStarted,
+		onDrop,
 	} = props;
 	const classes = useStyles();
+	const imgRef = useRef<any>();
 
 	return (
 		<Box
@@ -66,10 +73,23 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 				e.preventDefault();
 				if (didReceiveMediaFile && canReceiveMedia && e.dataTransfer.files[0])
 					didReceiveMediaFile(e.dataTransfer.files[0], id);
+				else if (onDrop) onDrop(id);
+			}}
+			draggable={draggable}
+			onDragStart={(e) => {
+				if (onDragStarted) {
+					e.dataTransfer.setDragImage(
+						imgRef.current,
+						imgRef.current.offsetWidth / 2,
+						imgRef.current.offsetHeight / 2
+					);
+					onDragStarted(id);
+				}
 			}}
 		>
 			{media?.location.local || media?.location.remote ? (
 				<img
+					ref={imgRef}
 					className={isActive ? classes.imgSelected : classes.img}
 					src={media.location.local ?? media.location.remote}
 					draggable={false}
