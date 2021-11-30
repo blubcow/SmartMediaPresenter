@@ -1,5 +1,4 @@
 import React from 'react';
-import { SlideSettings as SlideSettingsType } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
 import AddTextButton from './AddTextButton';
 import ChangeBackgroundColorButton from './ChangeBackgroundColorButton';

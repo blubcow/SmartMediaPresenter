@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import EditingButton, { IEditingButtonProps } from './EditingButton';
+import EditingButton from './EditingButton';
 import { AspectRatio } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';

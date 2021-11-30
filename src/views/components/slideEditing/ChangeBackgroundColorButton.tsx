@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box } from '../../../smpUI/components';
-import EditingButton, { IEditingButtonProps } from './EditingButton';
+import EditingButton from './EditingButton';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';

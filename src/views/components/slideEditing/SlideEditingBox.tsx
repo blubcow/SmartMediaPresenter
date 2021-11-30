@@ -1,21 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Text } from '../../../smpUI/components';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import { MediaRessource, Slide } from '../../../shared/types/presentation';
 import SlideBox from '../SlideBox';
+import { useHeldKeys } from '../../../hooks/useHeldKeys';
 
 interface ISlideEditingBoxProps {}
 
 const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
-	const { state, dispatch } = usePresentationEditingContext();
-	const {
-		presentation,
+	const { state, dispatch, dispatchMediaTranslationTransformation } =
+		usePresentationEditingContext();
+	const { presentation, currentSlide, activeMedia, editingControls } = state;
+
+	const { shift } = useHeldKeys();
+
+	useEffect(() => {
+		if (activeMedia === undefined) return;
+
+		const handleKeyPress = (e: KeyboardEvent) => {
+			dispatchMediaTranslationTransformation(
+				(e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0) *
+					(shift ? 5 : 1),
+				(e.key === 'ArrowUp' ? 1 : e.key === 'ArrowDown' ? -1 : 0) *
+					(shift ? 5 : 1)
+			);
+		};
+
+		document.addEventListener('keydown', handleKeyPress);
+
+		return () => document.removeEventListener('keydown', handleKeyPress);
+	}, [
 		currentSlide,
 		activeMedia,
-		editingControls,
-		editingBoxDimensions,
-	} = state;
+		presentation.slides[currentSlide].media,
+		shift,
+	]);
 
 	const onFileReceived = (file: File, id: number) => {
 		// @ts-ignore: path available trough electron

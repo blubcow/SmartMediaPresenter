@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import EditingButton, { IEditingButtonProps } from './EditingButton';
+import React, { useState } from 'react';
+import EditingButton from './EditingButton';
 import { Box, Button, Drawer, Text, TextArea } from '../../../smpUI/components';
 import { Notes } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
