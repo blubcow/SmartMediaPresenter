@@ -7,6 +7,9 @@ import EditThemeButton from './EditThemeButton';
 import RemoveButton from './RemoveButton';
 import TakeNotesButton from './TakeNotesButton';
 import { useSettingsContainerStyles } from './styles';
+import SlideFormatButton from './SlideFormatButton';
+import AudioButton from './AudioButton';
+import AutoPlaybackButton from './AutoPlaybackButton';
 
 interface ISlideSettingsProps {}
 
@@ -15,11 +18,17 @@ const SlideSettings: React.FC<ISlideSettingsProps> = () => {
 
 	return (
 		<Box className={classes.container}>
+			<AutoPlaybackButton />
+			<Box className={classes.spacer} />
+			<AudioButton />
+			<Box className={classes.spacer} />
 			<TakeNotesButton />
 			<Box className={classes.spacer} />
 			<EditPresentationFrame />
 			<Box className={classes.spacer} />
 			<AddTextButton selected={false} />
+			<Box className={classes.spacer} />
+			<SlideFormatButton />
 			<Box className={classes.spacer} />
 			<ChangeBackgroundColorButton />
 			<Box className={classes.spacer} />
