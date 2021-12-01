@@ -2,7 +2,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { DataTransferIdentifiers } from '../../../types/identifiers';
-import { QuickCreateMediaResource } from '../../../types/quickCreateMode';
 import { Box, Text } from '../../../smpUI/components';
 import { useSlideRowMediaHolderStyles } from './styles';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -37,9 +36,18 @@ const SlideRowMediaHolder: React.FC<ISlideRowMediaHolder> = (props) => {
 			onDrop={(e) => {
 				e.preventDefault();
 
-				const media: QuickCreateMediaResource = JSON.parse(
-					e.dataTransfer.getData(DataTransferIdentifiers.MediaFileInfo)
-				);
+				let media;
+				if (e.dataTransfer.getData(DataTransferIdentifiers.MediaFileInfo)) {
+					media = JSON.parse(
+						e.dataTransfer.getData(DataTransferIdentifiers.MediaFileInfo)
+					);
+				} else {
+					media = {
+						// @ts-ignore
+						location: { local: 'file:///' + e.dataTransfer.files[0].path },
+					};
+				}
+
 				onMediaReceived(
 					id,
 					media.location.local ?? media.location.remote ?? ''

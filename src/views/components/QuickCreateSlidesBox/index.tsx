@@ -30,9 +30,22 @@ const QuickCreateSlidesBox: React.FC<IQuickCreateSlidesBoxProps> = (props) => {
 		event: React.DragEvent<HTMLDivElement>
 	) => {
 		const slidesForInsert = [...slides];
-		const droppedMedia: QuickCreateMediaResource[] = JSON.parse(
+		let droppedMedia: any[];
+
+		if (
 			event.dataTransfer.getData(DataTransferIdentifiers.MultipleMediaFileInfo)
-		);
+		) {
+			droppedMedia = JSON.parse(
+				event.dataTransfer.getData(
+					DataTransferIdentifiers.MultipleMediaFileInfo
+				)
+			);
+		} else {
+			droppedMedia = Array.from(event.dataTransfer.files).map((file) => ({
+				// @ts-ignore
+				location: { local: 'file:///' + file.path },
+			}));
+		}
 		droppedMedia.forEach((droppedMedia) => {
 			const slideToInsertIndex = slidesForInsert.findIndex((slide) => {
 				const media = slide.media.find((media) => media.id === column);
