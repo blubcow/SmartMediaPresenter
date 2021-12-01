@@ -52,5 +52,8 @@
   "slideTime": "Folien Zeit",
   "of": "von",
   "slide": "Folie",
-  "preview": "Vorschau"
+  "preview": "Vorschau",
+  "changeFormat": "Format ändern",
+  "addAudio": "Audio hinzufügen",
+  "autoPlayback": "automatische Wiedergabe"
 }

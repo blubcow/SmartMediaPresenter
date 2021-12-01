@@ -52,5 +52,8 @@
   "slideTime": "Slide Time",
   "of": "of",
   "slide": "slide",
-  "preview": "preview"
+  "preview": "preview",
+  "changeFormat": "change format",
+  "addAudio": "add audio",
+  "autoPlayback": "auto playback"
 }
