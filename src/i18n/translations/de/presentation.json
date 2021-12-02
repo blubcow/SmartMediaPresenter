@@ -55,5 +55,7 @@
   "preview": "Vorschau",
   "changeFormat": "Format ändern",
   "addAudio": "Audio hinzufügen",
-  "autoPlayback": "automatische Wiedergabe"
+  "autoPlayback": "automatische Wiedergabe",
+  "importAudio": "Audio Datei importieren",
+  "recordAudio": "Audio aufnehmen"
 }

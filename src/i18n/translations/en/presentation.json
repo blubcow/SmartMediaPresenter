@@ -55,5 +55,7 @@
   "preview": "preview",
   "changeFormat": "change format",
   "addAudio": "add audio",
-  "autoPlayback": "auto playback"
+  "autoPlayback": "auto playback",
+  "importAudio": "import audio file",
+  "recordAudio": "record audio"
 }
