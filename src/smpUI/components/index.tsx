@@ -21,3 +21,4 @@ export { default as Slider } from './Slider';
 export { default as Snackbar } from './Snackbar';
 export { default as TextArea } from './TextArea';
 export { default as Switch } from './Switch';
+export { default as Popover } from './Popover';
