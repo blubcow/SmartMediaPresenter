@@ -38,7 +38,9 @@ const PresentationEditingFloatingButtons: React.FC<IPresentationEditingFloatingB
 			const settings = {
 				...presentation.slides[currentSlide].settings,
 			};
-			settings.presentationFrame = presentationFrameUpdatedSettings;
+			settings.presentationFrame =
+				presentationFrameUpdatedSettings ??
+				presentation.slides[currentSlide].settings?.presentationFrame;
 			const newPresentation = { ...presentation };
 			newPresentation.slides[currentSlide].settings = settings;
 			dispatch({
