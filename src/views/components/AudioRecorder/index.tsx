@@ -23,6 +23,7 @@ const AudioRecorder: React.FC<IAudioRecorderProps> = (props) => {
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 
 	const [recording, setRecording] = useState<boolean>(false);
+	const [stopRecording, setStopRecording] = useState<() => void>();
 	const [timer, setTimer] = useState<number>(0);
 
 	useEffect(() => {
@@ -33,12 +34,19 @@ const AudioRecorder: React.FC<IAudioRecorderProps> = (props) => {
 		return () => clearInterval(timer);
 	}, [recording]);
 
+	useEffect(() => {
+		return () => {
+			if (recording && stopRecording) stopRecording();
+		};
+	}, []);
+
 	return (
 		<ReactMediaRecorder
 			{...props}
 			video={false}
 			audio
 			onStop={async (_, blob) => {
+				if (recording) return;
 				const buffer = Buffer.from(await blob.arrayBuffer());
 				const filePath = await storeAudio(presId, buffer);
 				onRecordingReceived(filePath);
@@ -57,6 +65,7 @@ const AudioRecorder: React.FC<IAudioRecorderProps> = (props) => {
 								if (!recording) {
 									setRecording(true);
 									startRecording();
+									setStopRecording(stopRecording);
 								} else {
 									setRecording(false);
 									stopRecording();
