@@ -9,6 +9,7 @@ import { useAudioButtonStyles } from './styles';
 import OptionContent from './audioComponents/OptionContent';
 import RecordAudioContent from './audioComponents/RecordAudioContent';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
+import AudioPlaybackContent from './audioComponents/AudioPlaybackContent';
 
 interface IAudioButtonProps {}
 
@@ -56,7 +57,7 @@ const AudioButton: React.FC<IAudioButtonProps> = (props) => {
 				anchorEl={anchorElement}
 			>
 				{presentation.slides[currentSlide].audio ? (
-					<></>
+					<AudioPlaybackContent />
 				) : recordAudioSelected ? (
 					<RecordAudioContent />
 				) : (

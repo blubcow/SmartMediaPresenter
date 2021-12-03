@@ -26,3 +26,34 @@ export const useOptionRowStyles = makeStyles((theme: Theme) =>
 		},
 	})
 );
+
+export const useAudioPlaybackContentStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			padding: theme.spacing(2),
+		},
+		upperContainer: { display: 'flex', justifyContent: 'space-between' },
+		removeBtnContainer: {
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+		},
+		lowerContainer: {
+			display: 'flex',
+			justifyContent: 'center',
+			paddingTop: theme.spacing(2),
+		},
+		lowerContent: {
+			display: 'flex',
+			alignItems: 'center',
+		},
+		playBtnContainer: {
+			paddingRight: theme.spacing(1),
+		},
+		timerContainer: {
+			display: 'flex',
+			justifyContent: 'center',
+			width: '60px',
+		},
+	})
+);
