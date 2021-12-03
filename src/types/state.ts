@@ -19,6 +19,7 @@ export interface PresentationEditingSettings {
 	presentationFrameUpdatedSettings?: PresentationFrameSettings;
 	presentation: SinglePresentation;
 	initialPresentation: SinglePresentation;
+	presentationId: number;
 }
 
 export interface PresentationEditingAction {

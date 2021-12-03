@@ -62,6 +62,7 @@ const presentationEditingReducer = (
 };
 
 export const getInitialState = (
+	presentationId: number,
 	presentation: SinglePresentation
 ): PresentationEditingSettings => {
 	return {
@@ -70,6 +71,7 @@ export const getInitialState = (
 		editingBoxDimensions: { height: 0, width: 0 },
 		presentation: presentation,
 		initialPresentation: presentation,
+		presentationId: presentationId,
 	};
 };
 

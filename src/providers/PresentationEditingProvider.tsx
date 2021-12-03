@@ -10,17 +10,18 @@ import {
 export const PresentationEditingContext = createContext({});
 
 interface IPresentationEditingProviderProps {
+	presentationId: number;
 	initialPresentation: SinglePresentation;
 }
 
 const PresentationEditingProvider: React.FC<
 	PropsWithChildren<IPresentationEditingProviderProps>
-> = ({ initialPresentation, children }) => {
+> = ({ presentationId, initialPresentation, children }) => {
 	if (!initialPresentation.slides.length)
 		initialPresentation.slides = [getEmptySlide(0)];
 	const [state, dispatch] = useReducer(
 		presentationEditingReducer,
-		getInitialState(initialPresentation)
+		getInitialState(presentationId, initialPresentation)
 	);
 
 	return (

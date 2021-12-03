@@ -26,7 +26,10 @@ const Edit: React.FC<{}> = (props) => {
 	}, [location.search]);
 
 	return storedPresentation ? (
-		<PresentationEditingProvider initialPresentation={storedPresentation}>
+		<PresentationEditingProvider
+			presentationId={parseInt(id)}
+			initialPresentation={storedPresentation}
+		>
 			<Page TopBar={<EditTopBar fileName={storedPresentation?.name} />}>
 				<PresentationEditingFloatingButtons
 					onSave={(pres) => {
