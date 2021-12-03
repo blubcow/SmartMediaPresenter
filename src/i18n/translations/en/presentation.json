@@ -57,5 +57,7 @@
   "addAudio": "add audio",
   "autoPlayback": "auto playback",
   "importAudio": "import audio file",
-  "recordAudio": "record audio"
+  "recordAudio": "record audio",
+  "startRecording": "start recording",
+  "stopRecording": "stop recording"
 }

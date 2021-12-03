@@ -57,5 +57,7 @@
   "addAudio": "Audio hinzufügen",
   "autoPlayback": "automatische Wiedergabe",
   "importAudio": "Audio Datei importieren",
-  "recordAudio": "Audio aufnehmen"
+  "recordAudio": "Audio aufnehmen",
+  "startRecording": "Aufnahme starten",
+  "stopRecording": "Aufnahme beenden"
 }
