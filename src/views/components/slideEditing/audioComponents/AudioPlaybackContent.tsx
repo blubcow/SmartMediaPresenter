@@ -6,13 +6,17 @@ import { PauseCircle, PlayCircle } from '@mui/icons-material';
 import { formatTimer } from '../../../../util/Formatter';
 import { LinearProgress } from '@mui/material';
 import { useAudioPlaybackContentStyles } from './styles';
+import { useTranslation } from 'react-i18next';
+import { i18nNamespace } from '../../../../i18n/i18n';
+import { PresentationEditingActionIdentifiers } from '../../../../types/identifiers';
 
 interface IAudioPlaybackContentProps {}
 
 const AudioPlaybackContent: React.FC<IAudioPlaybackContentProps> = (props) => {
-	const { state } = usePresentationEditingContext();
+	const { state, dispatch } = usePresentationEditingContext();
 	const { presentation, currentSlide } = state;
 	const classes = useAudioPlaybackContentStyles();
+	const { t } = useTranslation([i18nNamespace.Presentation]);
 
 	const audioRessource = presentation.slides[currentSlide].audio;
 	const audioLocation = (audioRessource?.location.local ??
@@ -63,7 +67,19 @@ const AudioPlaybackContent: React.FC<IAudioPlaybackContentProps> = (props) => {
 			<Box className={classes.upperContainer}>
 				<AudioIcon isPlaying={isPlaying} />
 				<Box className={classes.removeBtnContainer}>
-					<Button variant='contained'>remove audio</Button>
+					<Button
+						variant='contained'
+						onClick={() => {
+							const newPresentation = { ...presentation };
+							newPresentation.slides[currentSlide].audio = undefined;
+							dispatch({
+								type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+								payload: { presentation: newPresentation },
+							});
+						}}
+					>
+						{t('removeAudio')}
+					</Button>
 				</Box>
 			</Box>
 			<Box className={classes.lowerContainer}>

@@ -59,5 +59,6 @@
   "importAudio": "Audio Datei importieren",
   "recordAudio": "Audio aufnehmen",
   "startRecording": "Aufnahme starten",
-  "stopRecording": "Aufnahme beenden"
+  "stopRecording": "Aufnahme beenden",
+  "removeAudio": "Audio entfernen"
 }

@@ -59,5 +59,6 @@
   "importAudio": "import audio file",
   "recordAudio": "record audio",
   "startRecording": "start recording",
-  "stopRecording": "stop recording"
+  "stopRecording": "stop recording",
+  "removeAudio": "remove Audio"
 }
