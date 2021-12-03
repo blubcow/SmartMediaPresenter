@@ -21,6 +21,7 @@ export interface Slide {
 	columns: number;
 	media: MediaRessource[];
 	settings?: SlideSettings;
+	audio?: AudioRessource;
 }
 
 export interface SlideSettings {
@@ -33,6 +34,10 @@ export interface MediaRessource {
 	id: number;
 	location: MediaLocation;
 	settings?: Partial<MediaSettings>;
+}
+
+export interface AudioRessource {
+	location: MediaLocation;
 }
 
 export interface MediaSettings {
