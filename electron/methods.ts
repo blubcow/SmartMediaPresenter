@@ -285,4 +285,25 @@ export const registerMainProcessMethodHandlers = (
 			return;
 		}
 	);
+
+	ipcMain.handle(
+		MainProcessMethodIdentifiers.storeAudioFile,
+		async (_, id: number, buffer: Buffer) => {
+			const path = `${__dirname}/store/audio`;
+			const presPath = `/${id}`;
+			const fileName = `/${Date.now()}.wav`;
+
+			if (!fs.existsSync(path)) {
+				await fs.mkdirSync(path);
+			}
+
+			if (!fs.existsSync(path + presPath)) {
+				await fs.mkdirSync(path + presPath);
+			}
+
+			await fs.writeFileSync(path + presPath + fileName, buffer);
+
+			return path + presPath + fileName;
+		}
+	);
 };

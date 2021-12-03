@@ -12,4 +12,5 @@ export enum MainProcessMethodIdentifiers {
 	PreviousSlideTrigger = 'previousSlideTrigger',
 	PresenterModeUpdateNotification = 'presenterModeUpdate',
 	EndPresenterMode = 'endPresenterMode',
+	storeAudioFile = 'storeAudioFile',
 }

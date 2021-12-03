@@ -164,3 +164,16 @@ export const usePresentationMode = () => {
 		terminatePresentationMode,
 	};
 };
+
+export const useAudioStore = () => {
+	const storeAudio = async (id: number, buffer: Buffer) => {
+		const path = await ipcRenderer.invoke(
+			MainProcessMethodIdentifiers.storeAudioFile,
+			id,
+			buffer
+		);
+		return path;
+	};
+
+	return { storeAudio };
+};
