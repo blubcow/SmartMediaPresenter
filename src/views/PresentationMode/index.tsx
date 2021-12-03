@@ -8,6 +8,7 @@ import { Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import useStyles from './styles';
+import { formatTimer } from '../../util/Formatter';
 
 interface IPresenttionModeProps {
 	handle: any;
@@ -82,15 +83,6 @@ const Content = ({ presentation }: { presentation: SinglePresentation }) => {
 			document.removeEventListener('keydown', handleKey);
 		};
 	});
-
-	const formatTimer = (time: number) => {
-		const minutes = Math.floor(time / 60);
-		const seconds = time % 60;
-
-		return `${minutes < 10 ? '0' + minutes : minutes}:${
-			seconds < 10 ? '0' + seconds : seconds
-		}`;
-	};
 
 	return (
 		<Box className={classes.container}>
