@@ -55,10 +55,20 @@ const Content = ({ presentation }: { presentation: SinglePresentation }) => {
 		const slideInterval = setInterval(() => {
 			setSlideTimer((curr) => curr + 1);
 		}, 1000);
+
+		return () => {
+			clearInterval(presInterval);
+			clearInterval(slideInterval);
+		};
 	}, []);
 
 	useEffect(() => {
 		setSlideTimer(0);
+		const slideInterval = setInterval(() => {
+			setSlideTimer((curr) => curr + 1);
+		}, 1000);
+
+		return () => clearInterval(slideInterval);
 	}, [slideNumber]);
 
 	useEffect(() => {
