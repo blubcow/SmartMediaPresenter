@@ -59,10 +59,7 @@ const ChoosePlaybackTimeContent: React.FC<IChoosePlaybackTimeContentProps> = (
 					const newPresentation = { ...presentation };
 					newPresentation.slides[currentSlide].playback = duration;
 
-					if (
-						duration === undefined &&
-						newPresentation.slides[currentSlide].audio
-					)
+					if (duration === undefined && presentation.slides[currentSlide].audio)
 						newPresentation.slides[currentSlide].playback = 'audio';
 
 					dispatch({

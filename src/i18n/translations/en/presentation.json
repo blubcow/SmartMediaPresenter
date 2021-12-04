@@ -62,5 +62,7 @@
   "stopRecording": "stop recording",
   "removeAudio": "remove Audio",
   "choosePlaybackTime": "choose the slide's duration during auto playback",
-  "noTimeSet": "no time set"
+  "noTimeSet": "no time set",
+  "slideDurationMatchesAudio": "the slide's duration will match the duration of the audio file",
+  "override": "override"
 }

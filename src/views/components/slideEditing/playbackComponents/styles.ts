@@ -20,3 +20,19 @@ export const useChoosePlaybackTimeContentStyles = makeStyles((theme: Theme) =>
 		inputLabelContainer: { minWidth: '80px' },
 	})
 );
+
+export const useMatchAudioTimeContentStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			backgroundColor: theme.palette.secondary.main,
+			padding: theme.spacing(2),
+			width: '450px',
+			display: 'flex',
+			justifyContent: 'space-between',
+			alignItems: 'center',
+		},
+		textContainer: {
+			paddingRight: theme.spacing(2),
+		},
+	})
+);
