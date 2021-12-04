@@ -5,9 +5,14 @@ import useStyles from './styles';
 
 export interface ITextProps extends TypographyProps {
 	editable?: boolean;
-	editableTextDidChange?: (prev: string, cur: string) => void;
+	editableTextDidChange?: (
+		prev: string,
+		cur: string,
+		setValue?: (value: string) => void
+	) => void;
 	minLength?: number;
 	onInvalidInput?: () => void;
+	parseInput?: (newValue: string) => string;
 }
 
 const Text: React.FC<ITextProps> = (props) => {
@@ -16,6 +21,7 @@ const Text: React.FC<ITextProps> = (props) => {
 		editableTextDidChange,
 		minLength = 0,
 		onInvalidInput,
+		parseInput,
 	} = props;
 	const [editableText, setEditableText] = useState<string>(
 		`${props.children ?? ''}`
@@ -50,8 +56,10 @@ const Text: React.FC<ITextProps> = (props) => {
 							editableTextDidChange(value.previousValue, value.value);
 						if (value.value.length < minLength) {
 							setEditableText(value.previousValue);
+
 							if (onInvalidInput) onInvalidInput();
 						}
+						if (parseInput) setEditableText(parseInput(value.value));
 					}}
 				/>
 			) : (
