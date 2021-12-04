@@ -22,6 +22,7 @@ export interface Slide {
 	media: MediaRessource[];
 	settings?: SlideSettings;
 	audio?: AudioRessource;
+	playback?: 'audio' | number;
 }
 
 export interface SlideSettings {
