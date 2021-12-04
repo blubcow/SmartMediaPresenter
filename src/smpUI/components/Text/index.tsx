@@ -22,6 +22,7 @@ const Text: React.FC<ITextProps> = (props) => {
 		minLength = 0,
 		onInvalidInput,
 		parseInput,
+		placeholder,
 	} = props;
 	const [editableText, setEditableText] = useState<string>(
 		`${props.children ?? ''}`
@@ -41,6 +42,7 @@ const Text: React.FC<ITextProps> = (props) => {
 		>
 			{editable ? (
 				<EditText
+					placeholder={placeholder}
 					className={classes.editableText}
 					value={editableText}
 					onChange={(value) => setEditableText(value)}
