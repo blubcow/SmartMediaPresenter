@@ -60,5 +60,7 @@
   "recordAudio": "Audio aufnehmen",
   "startRecording": "Aufnahme starten",
   "stopRecording": "Aufnahme beenden",
-  "removeAudio": "Audio entfernen"
+  "removeAudio": "Audio entfernen",
+  "choosePlaybackTime": "wie lange soll die Folie in der automatischen Wiedergabe angezeigt werden?",
+  "noTimeSet": "keine Zeit gewählt"
 }

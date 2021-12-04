@@ -60,5 +60,7 @@
   "recordAudio": "record audio",
   "startRecording": "start recording",
   "stopRecording": "stop recording",
-  "removeAudio": "remove Audio"
+  "removeAudio": "remove Audio",
+  "choosePlaybackTime": "choose the slide's duration during auto playback",
+  "noTimeSet": "no time set"
 }
