@@ -120,7 +120,7 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 				? a.added < b.added
 					? 1 * multip
 					: -1 * multip
-				: a.name > b.name
+				: a.name < b.name
 				? 1 * multip
 				: -1 * multip
 		);

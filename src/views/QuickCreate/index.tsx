@@ -10,7 +10,6 @@ import { getEmptySlide, Slide } from '../../shared/types/presentation';
 import { SMPRoutes } from '../../types/routes';
 import { useHistory } from 'react-router-dom';
 import { useStoredPresentations } from '../../hooks/useMainProcessMethods';
-import { ContentPasteOutlined } from '@mui/icons-material';
 
 const QuickCreate: React.FC<{}> = () => {
 	const history = useHistory();
