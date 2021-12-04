@@ -72,6 +72,7 @@ const AudioPlaybackContent: React.FC<IAudioPlaybackContentProps> = (props) => {
 						onClick={() => {
 							const newPresentation = { ...presentation };
 							newPresentation.slides[currentSlide].audio = undefined;
+							newPresentation.slides[currentSlide].playback = undefined;
 							dispatch({
 								type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 								payload: { presentation: newPresentation },

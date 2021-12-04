@@ -19,6 +19,7 @@ const RecordAudioContent: React.FC<IRecordAudioContentProps> = (props) => {
 					newPresentation.slides[currentSlide].audio = {
 						location: { local: 'file:///' + path },
 					};
+					newPresentation.slides[currentSlide].playback = 'audio';
 					dispatch({
 						type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 						payload: { presentation: newPresentation },
