@@ -36,6 +36,8 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 	}, [presentationBoxRef.current]);
 
 	useEffect(() => {
+		if (!handle.active) return;
+
 		const handleKey = (e: KeyboardEvent) => {
 			switch (e.key) {
 				case 'ArrowLeft':
@@ -57,7 +59,7 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 		return () => {
 			document.removeEventListener('keydown', handleKey);
 		};
-	}, [slides]);
+	}, [slides, handle.active]);
 
 	useEffect(() => {
 		if (!autoSliding) return;
@@ -76,7 +78,7 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 					setCurrentSlide((current) =>
 						Math.min(current + 1, slides.length - 1)
 					);
-				return;
+				return () => audio.pause();
 			}
 		}
 

@@ -6,21 +6,15 @@ import { i18nNamespace } from '../../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
 import MediaEditingModal from './MediaEditingModal';
 import { Box, TextField } from '../../../smpUI/components';
-import {
-	Dimensions,
-	MediaRessource,
-	MediaSettings,
-} from '../../../shared/types/presentation';
+import { MediaRessource } from '../../../shared/types/presentation';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 
 interface IMoveButtonProps {}
 
 const MoveButton: React.FC<IMoveButtonProps> = (props) => {
-	const { state, dispatch, dispatchMediaTranslationTransformation } =
+	const { state, dispatchMediaTranslationTransformation } =
 		usePresentationEditingContext();
-	const { editingBoxDimensions, presentation, currentSlide, activeMedia } =
-		state;
+	const { presentation, currentSlide, activeMedia } = state;
 	const mediaResource: MediaRessource =
 		presentation.slides[currentSlide].media[activeMedia ?? 0];
 	const { t } = useTranslation([i18nNamespace.Presentation]);
@@ -52,8 +46,8 @@ const MoveButton: React.FC<IMoveButtonProps> = (props) => {
 				onEditingFinished={() => {
 					if (activeMedia === undefined) return;
 					dispatchMediaTranslationTransformation(
-						parseInt(moveValue.x ?? 0),
-						parseInt(moveValue.y ?? 0)
+						isNaN(parseInt(moveValue.x)) ? 0 : parseInt(moveValue.x),
+						isNaN(parseInt(moveValue.y)) ? 0 : parseInt(moveValue.y)
 					);
 					setOpenModal(false);
 				}}
