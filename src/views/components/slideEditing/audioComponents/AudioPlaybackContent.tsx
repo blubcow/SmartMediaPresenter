@@ -12,6 +12,7 @@ import { PresentationEditingActionIdentifiers } from '../../../../types/identifi
 
 interface IAudioPlaybackContentProps {}
 
+//TODO: fix audio files with duration of less than 1 second display flawed bug
 const AudioPlaybackContent: React.FC<IAudioPlaybackContentProps> = (props) => {
 	const { state, dispatch } = usePresentationEditingContext();
 	const { presentation, currentSlide } = state;
@@ -23,13 +24,13 @@ const AudioPlaybackContent: React.FC<IAudioPlaybackContentProps> = (props) => {
 		audioRessource?.location.remote)!;
 
 	const [audio] = useState<HTMLAudioElement>(new Audio(audioLocation));
-	const [duration, setDuration] = useState<number>(0);
+	const [duration, setDuration] = useState<number>();
 	const [timer, setTimer] = useState<number>(0);
 	const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
 	useEffect(() => {
 		const a = new Audio(audio.src);
-		a.currentTime = 1;
+		a.currentTime = Number.MAX_SAFE_INTEGER;
 		const getDuration = () => {
 			if (a.duration !== Infinity) {
 				setDuration(Math.floor(a.duration) * 100);
@@ -84,7 +85,7 @@ const AudioPlaybackContent: React.FC<IAudioPlaybackContentProps> = (props) => {
 				</Box>
 			</Box>
 			<Box className={classes.lowerContainer}>
-				{duration > 0 && (
+				{duration !== undefined && (
 					<Box className={classes.lowerContent}>
 						<Box className={classes.playBtnContainer}>
 							<IconButton
@@ -110,7 +111,7 @@ const AudioPlaybackContent: React.FC<IAudioPlaybackContentProps> = (props) => {
 							/>
 						</Box>
 						<Box className={classes.timerContainer}>
-							<Text>{formatTimer(Math.floor(duration / 100))}</Text>
+							<Text>{formatTimer(Math.floor((duration ?? 0) / 100))}</Text>
 						</Box>
 					</Box>
 				)}

@@ -15,7 +15,7 @@ interface IAudioRecorderProps extends Omit<ReactMediaRecorderProps, 'render'> {
 	presId: number;
 	onRecordingReceived: (path: string) => void;
 }
-//TODO: fix audio files with duration of less than 1 second display flawed bug
+
 const AudioRecorder: React.FC<IAudioRecorderProps> = (props) => {
 	const { presId, onRecordingReceived } = props;
 	const { storeAudio } = useAudioStore();

@@ -27,6 +27,8 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 			});
 		})
 	);
+	const [autoSliding, setAutoSliding] = useState<boolean>(false);
+	const [t, st] = useState<string>('');
 
 	useEffect(() => {
 		if (presentationBoxRef.current !== undefined)
@@ -44,6 +46,9 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 						Math.min(current + 1, slides.length - 1)
 					);
 					break;
+				case ' ':
+					setAutoSliding((curr) => !curr);
+					break;
 				default:
 					break;
 			}
@@ -53,6 +58,36 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 			document.removeEventListener('keydown', handleKey);
 		};
 	}, [slides]);
+
+	useEffect(() => {
+		if (!autoSliding) return;
+
+		const slide = slides[currentSlide];
+
+		const audioSrc =
+			slide.audio?.location.local ?? slide.audio?.location.remote;
+		const timeout = slide.playback;
+
+		if (audioSrc) {
+			const audio = new Audio(audioSrc);
+			audio.play();
+			if (timeout === 'audio') {
+				audio.onended = () =>
+					setCurrentSlide((current) =>
+						Math.min(current + 1, slides.length - 1)
+					);
+				return;
+			}
+		}
+
+		if (timeout === undefined) return;
+
+		const handleNextSlide = setTimeout(() => {
+			setCurrentSlide((current) => Math.min(current + 1, slides.length - 1));
+		}, (timeout as number) * 1000);
+
+		return () => clearTimeout(handleNextSlide);
+	}, [autoSliding, currentSlide]);
 
 	return (
 		<FullScreen handle={handle}>
