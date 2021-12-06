@@ -106,9 +106,10 @@ const Content = ({ presentation }: { presentation: SinglePresentation }) => {
 		const audioSrc =
 			slide.audio?.location.local ?? slide.audio?.location.remote;
 		const timeout = slide.playback;
+		const audio = new Audio();
 
 		if (audioSrc) {
-			const audio = new Audio(audioSrc);
+			audio.src = audioSrc;
 			const getAudioDuration = () => {
 				if (audio.duration !== Infinity) {
 					setAutoPlaybackCurrentSlideTransformDuration(
@@ -131,7 +132,10 @@ const Content = ({ presentation }: { presentation: SinglePresentation }) => {
 		}
 
 		if (timeout === undefined)
-			return () => setAutoPlaybackCurrentSlideTransformDuration(undefined);
+			return () => {
+				setAutoPlaybackCurrentSlideTransformDuration(undefined);
+				audio.pause();
+			};
 
 		setAutoPlaybackCurrentSlideTransformDuration(timeout as number);
 		const handleNextSlide = setTimeout(() => {
@@ -141,6 +145,7 @@ const Content = ({ presentation }: { presentation: SinglePresentation }) => {
 		return () => {
 			clearTimeout(handleNextSlide);
 			setAutoPlaybackCurrentSlideTransformDuration(undefined);
+			audio.pause();
 		};
 	}, [autoPlayback, slideNumber]);
 

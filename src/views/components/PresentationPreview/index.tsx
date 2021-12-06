@@ -20,8 +20,6 @@ import {
 import { useHistory } from 'react-router-dom';
 import { SMPRoutes } from '../../../types/routes';
 import { CircularProgress } from '@mui/material';
-import PresentationFullScreen from '../FullScreen/PresentationFullScreen';
-import { useFullScreenHandle } from 'react-full-screen';
 import usePresentationMediaCache from '../../../hooks/usePresentationMediaCache';
 
 import PresentationFloatingButton from '../PresentationFloatingButton';
@@ -36,7 +34,6 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 	const { isLoading, setPresentation } = usePresentationMediaCache();
 
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
-	const handle = useFullScreenHandle();
 
 	const classes = useStyles();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
@@ -49,22 +46,10 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 
 	return (
 		<Box className={classes.container}>
-			{presentation &&
-				presentation.slides &&
-				presentation.slides.length > 0 &&
-				!isLoading && (
-					<>
-						<PresentationFullScreen
-							handle={handle}
-							slides={presentation?.slides}
-						/>
-					</>
-				)}
 			<FloatingButtonContainer>
 				{presentation && presentation.slides.length > 0 && !isLoading && (
 					<PresentationFloatingButton
 						presentationId={id}
-						handle={handle}
 						presentation={presentation}
 					/>
 				)}

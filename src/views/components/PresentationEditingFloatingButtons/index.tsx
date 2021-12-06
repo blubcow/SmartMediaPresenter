@@ -9,9 +9,8 @@ import usePresentationEditingContext from '../../../hooks/usePresentationEditing
 import { i18nNamespace } from '../../../i18n/i18n';
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import { SavedPresentationSuccess } from '../Alerts/SavedPresentation';
-import PresentationFullScreen from '../FullScreen/PresentationFullScreen';
-import { useFullScreenHandle } from 'react-full-screen';
 import { SinglePresentation } from '../../../shared/types/presentation';
+import PresentationFloatingButton from '../PresentationFloatingButton';
 
 interface IPresentationEditingFloatingButtons {
 	onSave: (presentation: SinglePresentation) => void;
@@ -26,13 +25,13 @@ const PresentationEditingFloatingButtons: React.FC<IPresentationEditingFloatingB
 			presentation,
 			currentSlide,
 			presentationFrameUpdatedSettings,
+			presentationId,
 		} = state;
 		const { t } = useTranslation([i18nNamespace.Presentation]);
 		const [
 			savedPresentationSuccessAlertOpen,
 			setSavedPresentationSuccessAlertOpen,
 		] = useState<boolean>(false);
-		const handle = useFullScreenHandle();
 
 		const confirmPresentationFrameChanges = () => {
 			const settings = {
@@ -74,13 +73,6 @@ const PresentationEditingFloatingButtons: React.FC<IPresentationEditingFloatingB
 					open={savedPresentationSuccessAlertOpen}
 					onClose={() => setSavedPresentationSuccessAlertOpen(false)}
 				/>
-				{presentation.slides.length > 0 &&
-					presentation.slides[0].media.length > 0 && (
-						<PresentationFullScreen
-							handle={handle}
-							slides={presentation.slides}
-						/>
-					)}
 				{state.editingControls === 'presentationFrame' ? (
 					<>
 						<FloatingButton
@@ -122,16 +114,10 @@ const PresentationEditingFloatingButtons: React.FC<IPresentationEditingFloatingB
 							<Save sx={{ mr: 1 }} />
 							{t('save')}
 						</FloatingButton>
-						<FloatingButton
-							variant='extended'
-							color='primary'
-							onClick={() => {
-								handle.enter();
-							}}
-						>
-							<Slideshow sx={{ mr: 1 }} />
-							{t('startPresentation')}
-						</FloatingButton>
+						<PresentationFloatingButton
+							presentationId={presentationId}
+							presentation={presentation}
+						/>
 					</>
 				)}
 			</FloatingButtonContainer>

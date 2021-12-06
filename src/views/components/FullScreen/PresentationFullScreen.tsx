@@ -69,22 +69,26 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 		const audioSrc =
 			slide.audio?.location.local ?? slide.audio?.location.remote;
 		const timeout = slide.playback;
+		const audio = new Audio();
 
 		if (audioSrc) {
-			const audio = new Audio(audioSrc);
+			audio.src = audioSrc;
 			audio.play();
 			if (timeout === 'audio') {
 				audio.onended = () =>
 					setCurrentSlide((current) =>
 						Math.min(current + 1, slides.length - 1)
 					);
-				return () => audio.pause();
+				return () => {
+					audio.pause();
+				};
 			}
 		}
 
-		if (timeout === undefined) return;
+		if (timeout === undefined) return () => audio.pause();
 
 		const handleNextSlide = setTimeout(() => {
+			audio.pause();
 			setCurrentSlide((current) => Math.min(current + 1, slides.length - 1));
 		}, (timeout as number) * 1000);
 

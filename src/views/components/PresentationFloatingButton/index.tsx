@@ -8,22 +8,23 @@ import PresentationDispalaySelectionModal from './PresentationDisplaySelectionMo
 import PresentationMode from '../../PresentationMode';
 import { useFullScreenHandle } from 'react-full-screen';
 import { SinglePresentation } from '../../../shared/types/presentation';
+import PresentationFullScreen from '../FullScreen/PresentationFullScreen';
 
 interface IPresentationFloatingButtonProps {
 	presentationId: number;
-	handle: any;
 	presentation: SinglePresentation;
 }
 
 const PresentationFloatingButton: React.FC<IPresentationFloatingButtonProps> = (
 	props
 ) => {
-	const { presentationId, handle, presentation } = props;
+	const { presentationId, presentation } = props;
 	const { displaysAvailable, startPresentationMode } = useDisplays();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const [open, setOpen] = useState<boolean>(false);
 	const [displayAmount, setDisplayAmount] = useState<number>(0);
 	const presentationModeHandle = useFullScreenHandle();
+	const handle = useFullScreenHandle();
 
 	return (
 		<>
@@ -66,6 +67,13 @@ const PresentationFloatingButton: React.FC<IPresentationFloatingButtonProps> = (
 					}}
 				/>
 			)}
+			{presentation.slides.length > 0 &&
+				presentation.slides[0].media.length > 0 && (
+					<PresentationFullScreen
+						handle={handle}
+						slides={presentation.slides}
+					/>
+				)}
 		</>
 	);
 };
