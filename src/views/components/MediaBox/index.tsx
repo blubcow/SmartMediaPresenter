@@ -52,7 +52,8 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 				cursor: 'pointer',
 				height:
 					media?.location.local || media?.location.remote ? '100%' : undefined,
-				width: '100%',
+				width:
+					media?.location.local || media?.location.remote ? undefined : '100%',
 				display: 'flex',
 				flexDirection: 'column',
 				justifyContent: 'center',
