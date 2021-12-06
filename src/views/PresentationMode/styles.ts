@@ -21,6 +21,7 @@ export default makeStyles((theme: Theme) =>
 			display: 'flex',
 			flexDirection: 'column',
 			justifyContent: 'space-between',
+			position: 'relative',
 		},
 		controlsContainer: {
 			display: 'flex',

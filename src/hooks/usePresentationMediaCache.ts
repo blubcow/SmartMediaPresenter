@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
-import { SinglePresentation } from '../shared/types/presentation';
+import {
+	MediaLocation,
+	SinglePresentation,
+} from '../shared/types/presentation';
 
 const usePresentationMediaCache = (presentation?: SinglePresentation) => {
 	const [pres, setPresentation] = useState<SinglePresentation | undefined>(
@@ -28,7 +31,7 @@ const usePresentationMediaCache = (presentation?: SinglePresentation) => {
 					img.src = media.location.local ?? media.location.remote!;
 					setImgs((curr) => [...curr, img]);
 					img.onload = () => {
-						resolve('loaded media');
+						resolve(img);
 					};
 					img.onerror = () => reject('img loading failed');
 				});

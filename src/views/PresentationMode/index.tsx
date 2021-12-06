@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import useStyles from './styles';
 import { formatTimer } from '../../util/Formatter';
+import AutoPlaybackBar from '../components/AutoPlaybackBar';
 
 interface IPresenttionModeProps {
 	handle: any;
@@ -31,6 +32,11 @@ const Content = ({ presentation }: { presentation: SinglePresentation }) => {
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const [presentationTimer, setPresentationTimer] = useState<number>(0);
 	const [slideTimer, setSlideTimer] = useState<number>(0);
+	const [autoPlayback, setAutoPlayback] = useState<boolean>(false);
+	const [
+		autoPlaybackCurrentSlideTransformDuration,
+		setAutoPlaybackCurrentSlideTransformDuration,
+	] = useState<number>();
 	const classes = useStyles();
 
 	const triggerNext = () => {
@@ -47,18 +53,13 @@ const Content = ({ presentation }: { presentation: SinglePresentation }) => {
 
 	useEffect(() => {
 		setPresentationTimer(0);
-		setSlideTimer(0);
 
 		const presInterval = setInterval(() => {
 			setPresentationTimer((curr) => curr + 1);
 		}, 1000);
-		const slideInterval = setInterval(() => {
-			setSlideTimer((curr) => curr + 1);
-		}, 1000);
 
 		return () => {
 			clearInterval(presInterval);
-			clearInterval(slideInterval);
 		};
 	}, []);
 
@@ -84,6 +85,9 @@ const Content = ({ presentation }: { presentation: SinglePresentation }) => {
 				case 'ArrowRight':
 					triggerNext();
 					break;
+				case ' ':
+					setAutoPlayback((curr) => !curr);
+					break;
 				default:
 					break;
 			}
@@ -94,10 +98,60 @@ const Content = ({ presentation }: { presentation: SinglePresentation }) => {
 		};
 	});
 
+	useEffect(() => {
+		if (!autoPlayback) return;
+
+		const slide = presentation.slides[slideNumber];
+
+		const audioSrc =
+			slide.audio?.location.local ?? slide.audio?.location.remote;
+		const timeout = slide.playback;
+
+		if (audioSrc) {
+			const audio = new Audio(audioSrc);
+			const getAudioDuration = () => {
+				if (audio.duration !== Infinity) {
+					setAutoPlaybackCurrentSlideTransformDuration(
+						audio.duration - audio.currentTime
+					);
+				}
+			};
+
+			audio.addEventListener('durationchange', getAudioDuration);
+			audio.play();
+
+			if (timeout === 'audio') {
+				audio.onended = triggerNext;
+				return () => {
+					audio.pause();
+					setAutoPlaybackCurrentSlideTransformDuration(undefined);
+					audio.removeEventListener('durationchange', getAudioDuration);
+				};
+			}
+		}
+
+		if (timeout === undefined)
+			return () => setAutoPlaybackCurrentSlideTransformDuration(undefined);
+
+		setAutoPlaybackCurrentSlideTransformDuration(timeout as number);
+		const handleNextSlide = setTimeout(() => {
+			triggerNext();
+		}, (timeout as number) * 1000);
+
+		return () => {
+			clearTimeout(handleNextSlide);
+			setAutoPlaybackCurrentSlideTransformDuration(undefined);
+		};
+	}, [autoPlayback, slideNumber]);
+
 	return (
 		<Box className={classes.container}>
 			<Box className={classes.upperBox}>
 				<Box className={classes.upperLeftBox}>
+					<AutoPlaybackBar
+						slideTime={autoPlaybackCurrentSlideTransformDuration}
+						slideNumber={slideNumber}
+					/>
 					<SlideBox
 						slide={presentation.slides[slideNumber]}
 						presentationFrameEditingEnabled={false}
