@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import EditingButton from './EditingButton';
 import { GridView } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
@@ -24,6 +24,11 @@ const SlideFormatButton: React.FC<ISlideFormatButtonProps> = (props) => {
 	const [columns, setColumns] = useState<number>(
 		presentation.slides[currentSlide].columns
 	);
+
+	useEffect(() => {
+		setRows(presentation.slides[currentSlide].rows);
+		setColumns(presentation.slides[currentSlide].columns);
+	}, [currentSlide, presentation]);
 
 	return (
 		<>
@@ -52,7 +57,7 @@ const SlideFormatButton: React.FC<ISlideFormatButtonProps> = (props) => {
 						textAlign: 'center',
 					}}
 				>
-					<Text>choose the format of the current slide</Text>
+					<Text>{t('chooseSlideFormat')}</Text>
 					<Box sx={{ pt: 2, display: 'flex' }}>
 						<Box
 							sx={{
@@ -64,7 +69,7 @@ const SlideFormatButton: React.FC<ISlideFormatButtonProps> = (props) => {
 							}}
 						>
 							<Text variant='caption' color='text.secondary'>
-								rows
+								{t('rows')}
 							</Text>
 							<Box sx={{ width: '35px' }}>
 								<Text
@@ -74,12 +79,16 @@ const SlideFormatButton: React.FC<ISlideFormatButtonProps> = (props) => {
 										setRows(parseInt(curr));
 									}}
 									parseInput={(val) =>
-										`${Math.min(
-											val === '' || isNaN(parseInt(val))
-												? 1
-												: Math.max(parseInt(val), 1),
-											10
-										)}`
+										`${
+											val === ''
+												? ''
+												: Math.min(
+														isNaN(parseInt(val))
+															? 1
+															: Math.max(parseInt(val), 1),
+														5
+												  )
+										}`
 									}
 								>
 									{rows}
@@ -96,7 +105,7 @@ const SlideFormatButton: React.FC<ISlideFormatButtonProps> = (props) => {
 							}}
 						>
 							<Text variant='caption' color='text.secondary'>
-								columns
+								{t('columns')}
 							</Text>
 							<Box sx={{ width: '35px' }}>
 								<Text
@@ -106,12 +115,16 @@ const SlideFormatButton: React.FC<ISlideFormatButtonProps> = (props) => {
 										setColumns(parseInt(curr))
 									}
 									parseInput={(val) =>
-										`${Math.min(
-											val === '' || isNaN(parseInt(val))
-												? 2
-												: Math.max(parseInt(val), 1),
-											10
-										)}`
+										`${
+											val === ''
+												? ''
+												: Math.min(
+														isNaN(parseInt(val))
+															? 1
+															: Math.max(parseInt(val), 1),
+														5
+												  )
+										}`
 									}
 								>
 									{columns}

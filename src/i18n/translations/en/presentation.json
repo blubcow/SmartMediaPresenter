@@ -67,5 +67,8 @@
   "override": "override",
   "multipleDisplaysAvailable": "multiple displays are available for the presentation",
   "selectDisplay": "choose the desired one",
-  "display": "display"
+  "display": "display",
+  "chooseSlideFormat": "choose the format of the current slide",
+  "rows": "rows",
+  "columns": "columns"
 }

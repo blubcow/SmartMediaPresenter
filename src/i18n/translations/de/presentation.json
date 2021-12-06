@@ -67,5 +67,8 @@
   "override": "überschreiben",
   "multipleDisplaysAvailable": "mehrere Bildschirme stehen für die Präsentation zur Verfügung",
   "selectDisplay": "wähle den gewünschten Bildschirm",
-  "display": "Bildschrim"
+  "display": "Bildschrim",
+  "chooseSlideFormat": "wähle das Format der Folie",
+  "rows": "Reihen",
+  "columns": "Spalten"
 }
