@@ -35,7 +35,7 @@ const SlidePreviewRow: React.FC<ISlidePreviewRowProps> = (props) => {
 				{...props}
 				draggable
 				sx={{
-					height: '100px',
+					height: `${slide.rows * 100}px`,
 				}}
 				onClick={() => {
 					onSelected(slide.id);
@@ -49,7 +49,27 @@ const SlidePreviewRow: React.FC<ISlidePreviewRowProps> = (props) => {
 					onDraggedOverSwap(slide.id);
 				}}
 			>
-				<PreviewRow height='100%' items={slide.media} />
+				{Array.apply(null, Array(slide.rows)).map((_, i) => (
+					<Box
+						key={i}
+						sx={{
+							display: 'flex',
+							flexDirection: 'row',
+							height: '100%',
+							justifyContent: 'center',
+							alignItems: 'center',
+							maxHeight: `${100 / slide.rows}%`,
+						}}
+					>
+						<PreviewRow
+							height='100%'
+							items={[...slide.media].slice(
+								i * slide.columns,
+								i * slide.columns + slide.columns
+							)}
+						/>
+					</Box>
+				))}
 			</Row>
 			<div ref={ref} />
 		</>

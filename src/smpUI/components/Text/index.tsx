@@ -45,7 +45,10 @@ const Text: React.FC<ITextProps> = (props) => {
 					placeholder={placeholder}
 					className={classes.editableText}
 					value={editableText}
-					onChange={(value) => setEditableText(value)}
+					onChange={(value) => {
+						if (parseInput) setEditableText(parseInput(value));
+						else setEditableText(value);
+					}}
 					// @ts-ignore
 					onBlur={() => {
 						setIsEditing(false);
@@ -54,14 +57,13 @@ const Text: React.FC<ITextProps> = (props) => {
 						setIsEditing(true);
 					}}
 					onSave={(value) => {
-						if (editableTextDidChange)
-							editableTextDidChange(value.previousValue, value.value);
 						if (value.value.length < minLength) {
 							setEditableText(value.previousValue);
-
-							if (onInvalidInput) onInvalidInput();
+							return;
 						}
-						if (parseInput) setEditableText(parseInput(value.value));
+
+						if (editableTextDidChange)
+							editableTextDidChange(value.previousValue, editableText);
 					}}
 				/>
 			) : (

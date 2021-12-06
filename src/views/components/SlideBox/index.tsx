@@ -93,9 +93,13 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 			)}
 			<Box className={classes.mediaContainer}>
 				{Array.apply(null, Array(slide.rows)).map((_, i) => (
-					<Box key={i} className={classes.rowContainer}>
+					<Box
+						key={i}
+						className={classes.rowContainer}
+						sx={{ maxHeight: `${100 / slide.rows}%` }}
+					>
 						{[...slide.media]
-							.splice(i * slide.columns, i * slide.columns + slide.columns)
+							.slice(i * slide.columns, i * slide.columns + slide.columns)
 							.map((media, n) => (
 								<MediaBox
 									key={`${i}-${n}`}

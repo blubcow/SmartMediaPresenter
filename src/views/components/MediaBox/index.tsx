@@ -43,8 +43,7 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 		<Box
 			sx={{
 				maxWidth: width,
-				maxHeight:
-					media?.location.local || media?.location.remote ? '100%' : undefined,
+				maxHeight: '100%',
 				aspectRatio:
 					media?.location.local || media?.location.remote
 						? undefined
@@ -53,8 +52,7 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 				cursor: 'pointer',
 				height:
 					media?.location.local || media?.location.remote ? '100%' : undefined,
-				width:
-					media?.location.local || media?.location.remote ? undefined : '100%',
+				width: '100%',
 				display: 'flex',
 				flexDirection: 'column',
 				justifyContent: 'center',
