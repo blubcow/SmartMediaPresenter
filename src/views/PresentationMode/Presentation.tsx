@@ -17,7 +17,15 @@ const PresentationMode = () => {
 	}, [location.search]);
 
 	return (
-		<Box sx={{ height: '100vh', width: '100vw', bgcolor: 'red' }}>
+		<Box
+			sx={{
+				height: '100vh',
+				width: '100vw',
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+			}}
+		>
 			{storedPresentation && (
 				<SlideBox
 					slide={storedPresentation.slides[slideNumber]}

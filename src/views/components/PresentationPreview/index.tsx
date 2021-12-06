@@ -12,7 +12,6 @@ import SlideBox from '../SlideBox';
 import useStyles from './styles';
 import {
 	Edit,
-	Slideshow,
 	Delete,
 	ArrowLeft,
 	ArrowRight,
@@ -24,8 +23,8 @@ import { CircularProgress } from '@mui/material';
 import PresentationFullScreen from '../FullScreen/PresentationFullScreen';
 import { useFullScreenHandle } from 'react-full-screen';
 import usePresentationMediaCache from '../../../hooks/usePresentationMediaCache';
-import { useDisplays } from '../../../hooks/useMainProcessMethods';
-import PresentationMode from '../../PresentationMode';
+
+import PresentationFloatingButton from '../PresentationFloatingButton';
 
 interface IPresentationPreviewProps {
 	presentation?: SinglePresentation;
@@ -38,11 +37,9 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
 	const handle = useFullScreenHandle();
-	const presentationModeHandle = useFullScreenHandle();
 
 	const classes = useStyles();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
-	const { displaysAvailable, startPresentationMode } = useDisplays();
 
 	const history = useHistory();
 
@@ -61,30 +58,15 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 							handle={handle}
 							slides={presentation?.slides}
 						/>
-						<PresentationMode
-							handle={presentationModeHandle}
-							presentation={presentation}
-						/>
 					</>
 				)}
 			<FloatingButtonContainer>
 				{presentation && presentation.slides.length > 0 && !isLoading && (
-					<FloatingButton
-						variant='extended'
-						color='primary'
-						onClick={async () => {
-							const c = await displaysAvailable();
-							if (c > 1) {
-								startPresentationMode(id);
-								presentationModeHandle.enter();
-							} else {
-								handle.enter();
-							}
-						}}
-					>
-						<Slideshow sx={{ mr: 1 }} />
-						{t('startPresentation')}
-					</FloatingButton>
+					<PresentationFloatingButton
+						presentationId={id}
+						handle={handle}
+						presentation={presentation}
+					/>
 				)}
 				<FloatingButton
 					variant='extended'

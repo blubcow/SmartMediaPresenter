@@ -232,9 +232,9 @@ export const registerMainProcessMethodHandlers = (
 
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.StartPresenterMode,
-		async (_, id: number) => {
+		async (_, id: number, displayNumber?: number) => {
 			if ((await screen.getAllDisplays().length) === 1) return;
-			const display = screen.getAllDisplays()[1];
+			const display = screen.getAllDisplays()[displayNumber ?? 1];
 
 			const presentation = new BrowserWindow({
 				x: display.bounds.x + 50,
