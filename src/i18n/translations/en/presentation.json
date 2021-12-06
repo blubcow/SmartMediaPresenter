@@ -64,5 +64,8 @@
   "choosePlaybackTime": "choose the slide's duration during auto playback",
   "noTimeSet": "no time set",
   "slideDurationMatchesAudio": "the slide's duration will match the duration of the audio file",
-  "override": "override"
+  "override": "override",
+  "multipleDisplaysAvailable": "multiple displays are available for the presentation",
+  "selectDisplay": "choose the desired one",
+  "display": "display"
 }

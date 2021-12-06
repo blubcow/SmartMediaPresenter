@@ -64,5 +64,8 @@
   "choosePlaybackTime": "wie lange soll die Folie in der automatischen Wiedergabe angezeigt werden?",
   "noTimeSet": "keine Zeit gewählt",
   "slideDurationMatchesAudio": "die Dauer der Folie stimmt mit der Dauer der Audio-Datei überein",
-  "override": "überschreiben"
+  "override": "überschreiben",
+  "multipleDisplaysAvailable": "mehrere Bildschirme stehen für die Präsentation zur Verfügung",
+  "selectDisplay": "wähle den gewünschten Bildschirm",
+  "display": "Bildschrim"
 }
