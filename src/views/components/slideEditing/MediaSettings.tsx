@@ -4,7 +4,7 @@ import { Box } from '../../../smpUI/components';
 import CropButton from './CropButton';
 import ImageManipulationButton from './ImageManipulationButton';
 import MoveButton from './MoveButton';
-import RemoveButton from './RemoveButton';
+import RemoveMediaButton from './RemoveMediaButton';
 import RotateButton from './RotateButton';
 import ScaleButton from './ScaleButton';
 import { useSettingsContainerStyles } from './styles';
@@ -27,7 +27,7 @@ const MediaSettings: React.FC<IMediaSettingsProps> = (props) => {
 			<Box className={classes.spacer} />
 			<ImageManipulationButton />
 			<Box className={classes.spacer} />
-			<RemoveButton />
+			<RemoveMediaButton />
 		</Box>
 	);
 };

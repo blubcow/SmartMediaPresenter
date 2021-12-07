@@ -4,7 +4,7 @@ import AddTextButton from './AddTextButton';
 import ChangeBackgroundColorButton from './ChangeBackgroundColorButton';
 import EditPresentationFrame from './EditPresentationFrame';
 import EditThemeButton from './EditThemeButton';
-import RemoveButton from './RemoveButton';
+import RemoveSlideButton from './RemoveSlideButton';
 import TakeNotesButton from './TakeNotesButton';
 import { useSettingsContainerStyles } from './styles';
 import SlideFormatButton from './SlideFormatButton';
@@ -34,7 +34,7 @@ const SlideSettings: React.FC<ISlideSettingsProps> = () => {
 			<Box className={classes.spacer} />
 			<EditThemeButton selected={false} />
 			<Box className={classes.spacer} />
-			<RemoveButton />
+			<RemoveSlideButton />
 		</Box>
 	);
 };

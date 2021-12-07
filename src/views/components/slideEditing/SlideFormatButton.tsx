@@ -39,7 +39,7 @@ const SlideFormatButton: React.FC<ISlideFormatButtonProps> = (props) => {
 					/>
 				}
 				secondaryNode={<EditButtonLabel>{t('changeFormat')}</EditButtonLabel>}
-				selected={false}
+				selected={!!anchorElement}
 				onClick={(e) => setAnchorElement(e.currentTarget)}
 				{...props}
 			/>

@@ -6,7 +6,7 @@ import { i18nNamespace } from '../../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
 
 interface IRemoveButtonProps
-	extends Omit<IEditingButtonProps, 'icon' | 'secondaryNode' | 'selected'> {}
+	extends Omit<IEditingButtonProps, 'icon' | 'secondaryNode'> {}
 
 const RemoveButton: React.FC<IRemoveButtonProps> = (props) => {
 	const { t } = useTranslation([i18nNamespace.Presentation]);
@@ -16,7 +16,6 @@ const RemoveButton: React.FC<IRemoveButtonProps> = (props) => {
 				<Close sx={{ color: 'text.primary', height: '100%', width: '100%' }} />
 			}
 			secondaryNode={<EditButtonLabel>{t('remove')}</EditButtonLabel>}
-			selected={false}
 			{...props}
 		/>
 	);

@@ -41,7 +41,7 @@ const AutoPlaybackButton: React.FC<IAutoPlaybackButtonProps> = (props) => {
 					/>
 				}
 				secondaryNode={<EditButtonLabel>{t('autoPlayback')}</EditButtonLabel>}
-				selected={false}
+				selected={!!anchorElement}
 				onClick={(e) => {
 					setAnchorElement(e.currentTarget);
 				}}
