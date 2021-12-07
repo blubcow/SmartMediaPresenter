@@ -1,4 +1,4 @@
-import { useContext, Dispatch } from 'react';
+import { useContext, Dispatch, useState } from 'react';
 import { PresentationEditingContext } from '../providers/PresentationEditingProvider';
 import { MediaRessource } from '../shared/types/presentation';
 import { PresentationEditingActionIdentifiers } from '../types/identifiers';
@@ -23,10 +23,13 @@ const usePresentationEditingContext = () => {
 				'tried to translate a media object without a media object being active!'
 			);
 
-		const mediaResource: MediaRessource =
-			context.state.presentation.slides[context.state.currentSlide].media[
-				context.state.activeMedia
-			];
+		const mediaResource: MediaRessource = JSON.parse(
+			JSON.stringify(
+				context.state.presentation.slides[context.state.currentSlide].media[
+					context.state.activeMedia
+				]
+			)
+		);
 		const heightDivider =
 			context.state.editingBoxDimensions.height /
 			(mediaResource.settings?.translation?.rel.height ??
@@ -44,16 +47,22 @@ const usePresentationEditingContext = () => {
 			y: y,
 		};
 
-		const mediaSettings = { ...mediaResource.settings };
+		const mediaSettings = {
+			...mediaResource.settings,
+		};
 		mediaSettings.translation = {
 			rel: { ...context.state.editingBoxDimensions },
 			x: (prevTransformation.x ?? 0) + currentTransformation.x,
 			y: (prevTransformation.y ?? 0) - currentTransformation.y,
 		};
-		const newPresentation = { ...context.state.presentation };
+		const newPresentation = JSON.parse(
+			JSON.stringify(context.state.presentation)
+		);
+
 		newPresentation.slides[context.state.currentSlide].media[
 			context.state.activeMedia
-		].settings = mediaSettings;
+		].settings = { ...mediaSettings };
+
 		context.dispatch({
 			type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 			payload: { presentation: newPresentation },

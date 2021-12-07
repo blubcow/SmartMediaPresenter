@@ -57,7 +57,12 @@ const ChoosePlaybackTimeContent: React.FC<IChoosePlaybackTimeContentProps> = (
 				variant='contained'
 				onClick={() => {
 					const newPresentation = { ...presentation };
-					newPresentation.slides[currentSlide].playback = duration;
+					newPresentation.slides = [...presentation.slides];
+
+					newPresentation.slides[currentSlide] = {
+						...presentation.slides[currentSlide],
+						playback: duration,
+					};
 
 					if (duration === undefined && presentation.slides[currentSlide].audio)
 						newPresentation.slides[currentSlide].playback = 'audio';

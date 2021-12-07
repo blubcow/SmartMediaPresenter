@@ -46,8 +46,8 @@ const ImageManipulationButton: React.FC<IImageManipulationButtonProps> = (
 					onConfrim={(media) => {
 						if (activeMedia === undefined) return;
 
-						const mediaSettings = { ...media.settings };
-						const newPresentation = { ...presentation };
+						const mediaSettings = JSON.parse(JSON.stringify(media.settings));
+						const newPresentation = JSON.parse(JSON.stringify(presentation));
 						newPresentation.slides[currentSlide].media[activeMedia].settings =
 							mediaSettings;
 						dispatch({

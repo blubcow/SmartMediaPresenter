@@ -34,14 +34,18 @@ const PresentationEditingFloatingButtons: React.FC<IPresentationEditingFloatingB
 		] = useState<boolean>(false);
 
 		const confirmPresentationFrameChanges = () => {
-			const settings = {
-				...presentation.slides[currentSlide].settings,
-			};
-			settings.presentationFrame =
-				presentationFrameUpdatedSettings ??
-				presentation.slides[currentSlide].settings?.presentationFrame;
 			const newPresentation = { ...presentation };
-			newPresentation.slides[currentSlide].settings = settings;
+			newPresentation.slides = [...presentation.slides];
+			newPresentation.slides[currentSlide] = {
+				...presentation.slides[currentSlide],
+				settings: {
+					...presentation.slides[currentSlide].settings,
+					presentationFrame:
+						presentationFrameUpdatedSettings ??
+						presentation.slides[currentSlide].settings?.presentationFrame,
+				},
+			};
+
 			dispatch({
 				type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 				payload: { presentation: newPresentation },

@@ -12,8 +12,7 @@ const RemoveMediaButton: React.FC<{}> = (props) => {
 		<RemoveButton
 			onClick={() => {
 				if (activeMedia === undefined) return;
-				const newPresentation = { ...presentation };
-				const slide = presentation.slides[currentSlide];
+				const newPresentation = JSON.parse(JSON.stringify(presentation));
 
 				newPresentation.slides[currentSlide].media[activeMedia] = {
 					id: activeMedia,

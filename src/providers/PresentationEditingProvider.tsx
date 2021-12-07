@@ -19,6 +19,7 @@ const PresentationEditingProvider: React.FC<
 > = ({ presentationId, initialPresentation, children }) => {
 	if (!initialPresentation.slides.length)
 		initialPresentation.slides = [getEmptySlide(0)];
+
 	const [state, dispatch] = useReducer(
 		presentationEditingReducer,
 		getInitialState(presentationId, initialPresentation)

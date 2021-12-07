@@ -4,7 +4,7 @@ import {
 	PresentationEditingAction,
 	PresentationEditingSettings,
 } from '../types/state';
-import * as lodash from 'lodash';
+import _ from 'lodash';
 
 const presentationEditingReducer = (
 	state: PresentationEditingSettings,
@@ -44,8 +44,8 @@ const presentationEditingReducer = (
 			return {
 				...state,
 				presentation: action.payload?.presentation ?? state.presentation,
-				unsavedChanges: lodash.isEqual(
-					action.payload?.presentation ?? state.presentation,
+				unsavedChanges: !_.isEqual(
+					action.payload?.presentation,
 					state.initialPresentation
 				),
 			};
@@ -64,7 +64,7 @@ const presentationEditingReducer = (
 		case ActionIdentifiers.savePresentationChanges:
 			return {
 				...state,
-				initialPresentation: state.presentation,
+				initialPresentation: { ...state.presentation },
 				unsavedChanges: false,
 			};
 		default:
@@ -80,8 +80,8 @@ export const getInitialState = (
 		editingControls: 'slide',
 		currentSlide: 0,
 		editingBoxDimensions: { height: 0, width: 0 },
-		presentation: presentation,
-		initialPresentation: presentation,
+		presentation: { ...presentation },
+		initialPresentation: { ...presentation },
 		unsavedChanges: false,
 		presentationId: presentationId,
 	};

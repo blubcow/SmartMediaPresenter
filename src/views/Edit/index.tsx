@@ -25,10 +25,10 @@ const Edit: React.FC<{}> = (props) => {
 		setId(id ?? '');
 	}, [location.search]);
 
-	return storedPresentation ? (
+	return storedPresentation !== undefined ? (
 		<PresentationEditingProvider
 			presentationId={parseInt(id)}
-			initialPresentation={storedPresentation}
+			initialPresentation={{ ...storedPresentation }}
 		>
 			<Page TopBar={<EditTopBar fileName={storedPresentation?.name} />}>
 				<PresentationEditingFloatingButtons

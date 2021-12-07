@@ -137,10 +137,16 @@ const SlideFormatButton: React.FC<ISlideFormatButtonProps> = (props) => {
 							variant='contained'
 							onClick={() => {
 								const newPresentation = { ...presentation };
-								newPresentation.slides[currentSlide].rows = rows;
-								newPresentation.slides[currentSlide].columns = columns;
+								newPresentation.slides = [...presentation.slides];
+								newPresentation.slides[currentSlide] = {
+									...presentation.slides[currentSlide],
+									rows: rows,
+									columns: columns,
+								};
 
-								const slide = newPresentation.slides[currentSlide];
+								const slide = { ...newPresentation.slides[currentSlide] };
+								slide.media = [...slide.media];
+
 								const media: MediaRessource[] = [];
 								for (let row = 0; row < rows; row++) {
 									for (let col = 0; col < columns; col++) {
@@ -151,7 +157,7 @@ const SlideFormatButton: React.FC<ISlideFormatButtonProps> = (props) => {
 										else media.push({ id: index, location: {} });
 									}
 								}
-								newPresentation.slides[currentSlide].media = media;
+								newPresentation.slides[currentSlide].media = [...media];
 
 								dispatch({
 									type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,

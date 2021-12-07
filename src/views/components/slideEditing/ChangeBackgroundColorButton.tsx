@@ -40,11 +40,15 @@ const ChangeBackgroundColorButton: React.FC<IChangeBackgroundColorButtonProps> =
 					initialColor={backgroundColor}
 					onColorPicked={(color) => {
 						let newPresentation = { ...presentation };
-						const settings = {
-							...newPresentation.slides[currentSlide].settings,
-							color: color,
+						newPresentation.slides = [...presentation.slides];
+						newPresentation.slides[currentSlide] = {
+							...presentation.slides[currentSlide],
+							settings: {
+								...presentation.slides[currentSlide].settings,
+								color: color,
+							},
 						};
-						presentation.slides[currentSlide].settings = settings;
+
 						dispatch({
 							type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 							payload: { presentation: newPresentation },

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import usePresentationEditingContext from '../../../../hooks/usePresentationEditingContext';
 import { Box } from '../../../../smpUI/components';
 import { PresentationEditingActionIdentifiers } from '../../../../types/identifiers';
@@ -18,10 +18,15 @@ const RecordAudioContent: React.FC<IRecordAudioContentProps> = (props) => {
 				presId={presentationId}
 				onRecordingReceived={(path) => {
 					const newPresentation = { ...presentation };
-					newPresentation.slides[currentSlide].audio = {
-						location: { local: 'file:///' + path },
+					newPresentation.slides = [...presentation.slides];
+					newPresentation.slides[currentSlide] = {
+						...presentation.slides[currentSlide],
+						audio: {
+							location: { local: 'file:///' + path },
+						},
+						playback: 'audio',
 					};
-					newPresentation.slides[currentSlide].playback = 'audio';
+
 					dispatch({
 						type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 						payload: { presentation: newPresentation },

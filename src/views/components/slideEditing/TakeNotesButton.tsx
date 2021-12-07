@@ -72,11 +72,15 @@ const TakeNotesButton: React.FC<ITakeNotesButtonProps> = (props) => {
 								color='primary'
 								onClick={() => {
 									let newPresentation = { ...presentation };
-									const settings = {
-										...newPresentation.slides[currentSlide].settings,
-										notes: notes,
+									newPresentation.slides = [...presentation.slides];
+									newPresentation.slides[currentSlide] = {
+										...presentation.slides[currentSlide],
+										settings: {
+											...newPresentation.slides[currentSlide].settings,
+											notes: notes,
+										},
 									};
-									presentation.slides[currentSlide].settings = settings;
+
 									dispatch({
 										type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 										payload: { presentation: newPresentation },
