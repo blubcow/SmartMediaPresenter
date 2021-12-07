@@ -4,6 +4,7 @@ import {
 	PresentationEditingAction,
 	PresentationEditingSettings,
 } from '../types/state';
+import * as lodash from 'lodash';
 
 const presentationEditingReducer = (
 	state: PresentationEditingSettings,
@@ -43,6 +44,10 @@ const presentationEditingReducer = (
 			return {
 				...state,
 				presentation: action.payload?.presentation ?? state.presentation,
+				unsavedChanges: lodash.isEqual(
+					action.payload?.presentation ?? state.presentation,
+					state.initialPresentation
+				),
 			};
 		case ActionIdentifiers.editingBoxDimensionsUpdated:
 			return {
@@ -55,6 +60,12 @@ const presentationEditingReducer = (
 				...state,
 				presentationFrameUpdatedSettings:
 					action.payload?.presentationFrameUpdatedSettings,
+			};
+		case ActionIdentifiers.savePresentationChanges:
+			return {
+				...state,
+				initialPresentation: state.presentation,
+				unsavedChanges: false,
 			};
 		default:
 			return state;
@@ -71,6 +82,7 @@ export const getInitialState = (
 		editingBoxDimensions: { height: 0, width: 0 },
 		presentation: presentation,
 		initialPresentation: presentation,
+		unsavedChanges: false,
 		presentationId: presentationId,
 	};
 };

@@ -107,6 +107,9 @@ const PresentationEditingFloatingButtons: React.FC<IPresentationEditingFloatingB
 							color='primary'
 							onClick={() => {
 								onSave(presentation);
+								dispatch({
+									type: PresentationEditingActionIdentifiers.savePresentationChanges,
+								});
 								// TODO: evaluate result of saving and show according alert
 								setSavedPresentationSuccessAlertOpen(true);
 							}}

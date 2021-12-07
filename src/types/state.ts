@@ -19,6 +19,7 @@ export interface PresentationEditingSettings {
 	presentationFrameUpdatedSettings?: PresentationFrameSettings;
 	presentation: SinglePresentation;
 	initialPresentation: SinglePresentation;
+	unsavedChanges: boolean;
 	presentationId: number;
 }
 

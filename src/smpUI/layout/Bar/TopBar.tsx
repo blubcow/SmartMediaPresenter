@@ -7,10 +7,11 @@ import { useHistory } from 'react-router-dom';
 export interface ITopBarProps extends AppBarProps {
 	withFixedHeight?: string;
 	canGoBack?: boolean;
+	onGoBack?: () => void;
 }
 
 const TopBar: React.FC<ITopBarProps> = (props) => {
-	const { withFixedHeight = '75px', canGoBack = false } = props;
+	const { withFixedHeight = '75px', canGoBack = false, onGoBack } = props;
 	const history = useHistory();
 
 	return (
@@ -29,7 +30,8 @@ const TopBar: React.FC<ITopBarProps> = (props) => {
 					<IconButton
 						icon={ArrowBackIosNew}
 						onClick={() => {
-							history.goBack();
+							if (onGoBack) onGoBack();
+							else history.goBack();
 						}}
 					/>
 				)}

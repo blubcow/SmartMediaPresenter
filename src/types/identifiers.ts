@@ -12,4 +12,5 @@ export enum PresentationEditingActionIdentifiers {
 	presentationSettingsUpdated = 'psu',
 	editingBoxDimensionsUpdated = 'ebdu',
 	presentationFrameUpdated = 'pfu',
+	savePresentationChanges = 'spc',
 }
