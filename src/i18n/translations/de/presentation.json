@@ -70,5 +70,7 @@
   "display": "Bildschrim",
   "chooseSlideFormat": "wähle das Format der Folie",
   "rows": "Reihen",
-  "columns": "Spalten"
+  "columns": "Spalten",
+  "actionConfirmationQuestion": "Bist du sicher?",
+  "unsavedChangesLost": "alle ungespeicherten Änderungen gehen verloren"
 }

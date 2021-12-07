@@ -32,3 +32,24 @@ export const useCreateProjectOptionStyles = makeStyles((theme: Theme) =>
 		},
 	})
 );
+
+export const useActionConfirmationModalStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		contentContainer: {
+			width: '450px',
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'center',
+			textAlign: 'center',
+			padding: theme.spacing(1),
+		},
+		secondaryTextContainer: {
+			textAlign: 'center',
+			padding: theme.spacing(3),
+		},
+		buttonContainer: {
+			display: 'flex',
+			justifyContent: 'space-between',
+		},
+	})
+);

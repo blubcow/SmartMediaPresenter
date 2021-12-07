@@ -70,5 +70,7 @@
   "display": "display",
   "chooseSlideFormat": "choose the format of the current slide",
   "rows": "rows",
-  "columns": "columns"
+  "columns": "columns",
+  "actionConfirmationQuestion": "Are you sure?",
+  "unsavedChangesLost": "all unsaved changes will be lost"
 }
