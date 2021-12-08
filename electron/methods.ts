@@ -3,6 +3,8 @@ import { MainProcessMethodIdentifiers } from '../src/shared/types/identifiers';
 import { allowedFiles } from '../src/shared/types/mediaResources';
 import * as path from 'path';
 import * as fs from 'fs';
+import { FileExpolorerOptions } from './types/fileExplorer';
+import { FileExplorerType } from '../src/shared/types/fileExplorer';
 
 export const registerMainProcessMethodHandlers = (
 	ipcMain: IpcMain,
@@ -205,13 +207,9 @@ export const registerMainProcessMethodHandlers = (
 
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.OpenFileSelectorDialog,
-		async () => {
+		async (_, type: FileExplorerType) => {
 			const files = dialog.showOpenDialogSync(mainWindow, {
-				filters: [
-					{ name: 'Images', extensions: ['jpg', 'png', 'gif'] },
-					{ name: 'Movies', extensions: ['mkv', 'avi', 'mp4'] },
-				],
-				properties: ['openFile', 'openDirectory'],
+				...FileExpolorerOptions[type],
 			});
 
 			if (!files || !files.length) return [];

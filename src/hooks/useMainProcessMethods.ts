@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { FileExplorerType } from '../shared/types/fileExplorer';
 import { MainProcessMethodIdentifiers } from '../shared/types/identifiers';
 import {
 	StoredPresentation,
@@ -108,9 +109,10 @@ export const useLocalFileSystem = () => {
 		return filesInDir;
 	};
 
-	const openFileSelectorDialog = async () => {
+	const openFileSelectorDialog = async (type: FileExplorerType) => {
 		const files = await ipcRenderer.invoke(
-			MainProcessMethodIdentifiers.OpenFileSelectorDialog
+			MainProcessMethodIdentifiers.OpenFileSelectorDialog,
+			type
 		);
 		return files;
 	};

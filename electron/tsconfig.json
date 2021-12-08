@@ -9,6 +9,7 @@
   },
   "include": [
     "../src/shared",
+    "./types"
   ],
   "files": [
     "index.ts",
