@@ -10,12 +10,14 @@ import OptionContent from './audioComponents/OptionContent';
 import RecordAudioContent from './audioComponents/RecordAudioContent';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import AudioPlaybackContent from './audioComponents/AudioPlaybackContent';
+import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
+import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 
 interface IAudioButtonProps {}
 
 const AudioButton: React.FC<IAudioButtonProps> = (props) => {
 	const { t } = useTranslation([i18nNamespace.Presentation]);
-	const { state } = usePresentationEditingContext();
+	const { state, dispatch } = usePresentationEditingContext();
 	const { presentation, currentSlide } = state;
 
 	const [anchorElement, setAnchorElement] = useState<
@@ -23,6 +25,8 @@ const AudioButton: React.FC<IAudioButtonProps> = (props) => {
 	>(undefined);
 	const [recordAudioSelected, setRecordAudioSelected] =
 		useState<boolean>(false);
+
+	const { openFileSelectorDialog } = useLocalFileSystem();
 
 	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
 		setRecordAudioSelected(false);
@@ -62,7 +66,25 @@ const AudioButton: React.FC<IAudioButtonProps> = (props) => {
 					<RecordAudioContent />
 				) : (
 					<OptionContent
-						onInsertClicked={() => {}}
+						onInsertClicked={async () => {
+							const files: any[] = await openFileSelectorDialog('audio');
+							if (files.length > 0) {
+								const file = files[0];
+								const newPresentation = JSON.parse(
+									JSON.stringify(presentation)
+								);
+								newPresentation.slides[currentSlide] = {
+									...newPresentation.slides[currentSlide],
+									audio: { location: file.location },
+									playback: 'audio',
+								};
+
+								dispatch({
+									type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+									payload: { presentation: newPresentation },
+								});
+							}
+						}}
 						onRecordClicked={() => setRecordAudioSelected(true)}
 					/>
 				)}
