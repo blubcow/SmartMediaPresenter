@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, TypographyProps } from '@mui/material';
-import { EditText } from 'react-edit-text';
+import { EditText, EditTextarea } from 'react-edit-text';
 import useStyles from './styles';
 
 export interface ITextProps extends TypographyProps {
 	editable?: boolean;
+	multiLineEditable?: boolean;
 	editableTextDidChange?: (
 		prev: string,
 		cur: string,
@@ -18,6 +19,7 @@ export interface ITextProps extends TypographyProps {
 const Text: React.FC<ITextProps> = (props) => {
 	const {
 		editable = false,
+		multiLineEditable = false,
 		editableTextDidChange,
 		minLength = 0,
 		onInvalidInput,
@@ -38,34 +40,63 @@ const Text: React.FC<ITextProps> = (props) => {
 		<Typography
 			fontWeight='medium'
 			{...props}
-			sx={{ bgcolor: isEditing ? 'divider' : 'transparent' }}
+			sx={{
+				bgcolor: isEditing && !multiLineEditable ? 'divider' : 'transparent',
+			}}
 		>
 			{editable ? (
-				<EditText
-					placeholder={placeholder}
-					className={classes.editableText}
-					value={editableText}
-					onChange={(value) => {
-						if (parseInput) setEditableText(parseInput(value));
-						else setEditableText(value);
-					}}
-					// @ts-ignore
-					onBlur={() => {
-						setIsEditing(false);
-					}}
-					onEditMode={() => {
-						setIsEditing(true);
-					}}
-					onSave={(value) => {
-						if (value.value.length < minLength) {
-							setEditableText(value.previousValue);
-							return;
-						}
+				multiLineEditable ? (
+					<EditTextarea
+						placeholder={placeholder}
+						className={classes.editableText}
+						value={editableText}
+						onChange={(value) => {
+							if (parseInput) setEditableText(parseInput(value));
+							else setEditableText(value);
+						}} // @ts-ignore
+						onBlur={() => {
+							setIsEditing(false);
+						}}
+						onEditMode={() => {
+							setIsEditing(true);
+						}}
+						onSave={(value) => {
+							if (value.value.length < minLength) {
+								setEditableText(value.previousValue);
+								return;
+							}
 
-						if (editableTextDidChange)
-							editableTextDidChange(value.previousValue, editableText);
-					}}
-				/>
+							if (editableTextDidChange)
+								editableTextDidChange(value.previousValue, editableText);
+						}}
+					/>
+				) : (
+					<EditText
+						placeholder={placeholder}
+						className={classes.editableText}
+						value={editableText}
+						onChange={(value) => {
+							if (parseInput) setEditableText(parseInput(value));
+							else setEditableText(value);
+						}}
+						// @ts-ignore
+						onBlur={() => {
+							setIsEditing(false);
+						}}
+						onEditMode={() => {
+							setIsEditing(true);
+						}}
+						onSave={(value) => {
+							if (value.value.length < minLength) {
+								setEditableText(value.previousValue);
+								return;
+							}
+
+							if (editableTextDidChange)
+								editableTextDidChange(value.previousValue, editableText);
+						}}
+					/>
+				)
 			) : (
 				props.children
 			)}
