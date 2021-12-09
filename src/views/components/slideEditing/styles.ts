@@ -115,3 +115,7 @@ export const useAudioButtonStyles = makeStyles((theme: Theme) =>
 		},
 	})
 );
+
+export const useEditThemeDrawerStyles = makeStyles((theme: Theme) =>
+	createStyles({ container: { padding: theme.spacing(2) } })
+);

@@ -32,7 +32,7 @@ const SlideSettings: React.FC<ISlideSettingsProps> = () => {
 			<Box className={classes.spacer} />
 			<ChangeBackgroundColorButton />
 			<Box className={classes.spacer} />
-			<EditThemeButton selected={false} />
+			<EditThemeButton />
 			<Box className={classes.spacer} />
 			<RemoveSlideButton />
 		</Box>
