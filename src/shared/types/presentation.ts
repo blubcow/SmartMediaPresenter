@@ -23,6 +23,7 @@ export interface Slide {
 	settings?: SlideSettings;
 	audio?: AudioRessource;
 	playback?: 'audio' | number;
+	elements?: SlideElement[];
 }
 
 export interface SlideSettings {
@@ -101,4 +102,26 @@ export interface PresentationFrameSettings {
 	left: number;
 	right: number;
 	bottom: number;
+}
+
+export type SlideElementType = 'text';
+
+export interface SlideElement {
+	id: number;
+	position: { x: number; y: number };
+	type: SlideElementType;
+}
+
+export type TextAlignment = 'left' | 'right' | 'center';
+
+export type TextStyle = 'normal' | 'italic';
+
+export interface TextElement extends SlideElement {
+	text: string;
+	size: number;
+	fontFamily?: string;
+	color?: string;
+	weight?: number;
+	alignment: TextAlignment;
+	style: TextStyle;
 }
