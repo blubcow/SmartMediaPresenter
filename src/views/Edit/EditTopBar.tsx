@@ -11,6 +11,7 @@ import ActionConfirmationModal from '../components/modals/ActionConfirmationModa
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
+import TextSettings from '../components/slideEditing/TextSettings';
 
 interface IEditTopBarProps extends ITopBarDisplayingFilenameProps {}
 
@@ -45,7 +46,13 @@ const EditTopBar: React.FC<IEditTopBarProps> = (props) => {
 				<Box
 					sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}
 				>
-					{editingControls === 'media' ? <MediaSettings /> : <SlideSettings />}
+					{editingControls === 'media' ? (
+						<MediaSettings />
+					) : editingControls === 'text' ? (
+						<TextSettings />
+					) : (
+						<SlideSettings />
+					)}
 				</Box>
 			</TopBarDisplayingFilename>
 			<ActionConfirmationModal
