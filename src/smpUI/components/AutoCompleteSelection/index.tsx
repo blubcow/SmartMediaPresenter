@@ -21,7 +21,7 @@ const AutoCompleteSelection: React.FC<IAutoCompleteSelectionProps> = (
 			onChange={(_, val) => {
 				if (onValueChanged) onValueChanged(val);
 			}}
-			value={'hey'}
+			value={value}
 			style={style}
 			options={options}
 			renderInput={(params) => <TextField {...params} label={label} />}

@@ -72,5 +72,6 @@
   "rows": "Reihen",
   "columns": "Spalten",
   "actionConfirmationQuestion": "Bist du sicher?",
-  "unsavedChangesLost": "alle ungespeicherten Änderungen gehen verloren"
+  "unsavedChangesLost": "alle ungespeicherten Änderungen gehen verloren",
+  "font": "Schrift"
 }

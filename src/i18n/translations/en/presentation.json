@@ -72,5 +72,6 @@
   "rows": "rows",
   "columns": "columns",
   "actionConfirmationQuestion": "Are you sure?",
-  "unsavedChangesLost": "all unsaved changes will be lost"
+  "unsavedChangesLost": "all unsaved changes will be lost",
+  "font": "font"
 }

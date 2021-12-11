@@ -13,6 +13,7 @@ interface IAddTextButtonProps
 const AddTextButton: React.FC<IAddTextButtonProps> = (props) => {
 	const { dispatch } = usePresentationEditingContext();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
+
 	return (
 		<EditingButton
 			icon={
