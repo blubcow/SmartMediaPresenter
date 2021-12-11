@@ -6,11 +6,11 @@ import { ITextProps } from '../../../smpUI/components/Text';
 interface ISlideTextElementProps extends ITextProps {
 	textElement: TextElement;
 	parentSize: Dimensions;
-	style?: React.CSSProperties;
+	editableStyle?: React.CSSProperties;
 }
 
 const SlideTextElement: React.FC<ISlideTextElementProps> = (props) => {
-	const { textElement, parentSize, style } = props;
+	const { textElement, parentSize, editableStyle } = props;
 	const [heightMultiplier, setHeightMultiplier] = useState<number>(
 		parentSize.height / textElement.position.rel.height
 	);
@@ -31,7 +31,7 @@ const SlideTextElement: React.FC<ISlideTextElementProps> = (props) => {
 	return (
 		<Text
 			style={{
-				font: textElement.font,
+				fontFamily: textElement.font,
 				fontSize: `${heightMultiplier * textElement.size}px`,
 				fontWeight: textElement.bold ? 'bold' : undefined,
 				fontStyle: textElement.italic ? 'italic' : 'normal',
@@ -48,7 +48,7 @@ const SlideTextElement: React.FC<ISlideTextElementProps> = (props) => {
 				}%, 0%)`,
 				zIndex: 10,
 				pointerEvents: 'none',
-				...style,
+				...editableStyle,
 			}}
 			{...props}
 		>

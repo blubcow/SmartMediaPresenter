@@ -16,18 +16,21 @@ const presentationEditingReducer = (
 				...state,
 				editingControls: 'media',
 				activeMedia: action.payload?.activeMedia ?? state.activeMedia,
+				activeComponent: undefined,
 			};
 		case ActionIdentifiers.editingSlideStated:
 			return {
 				...state,
 				editingControls: 'slide',
 				activeMedia: undefined,
+				activeComponent: undefined,
 			};
 		case ActionIdentifiers.editingPresentationFrameStarted:
 			return {
 				...state,
 				editingControls: 'presentationFrame',
 				activeMedia: undefined,
+				activeComponent: undefined,
 			};
 		case ActionIdentifiers.editingTextStarted:
 			return {

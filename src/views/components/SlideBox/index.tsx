@@ -1,14 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Box } from '../../../smpUI/components';
+import { Box, Text } from '../../../smpUI/components';
 import {
 	Dimensions,
 	MediaRessource,
 	Slide,
+	TextElement,
 } from '../../../shared/types/presentation';
 import { IBoxProps } from '../../../smpUI/components/Box';
 import MediaBox from '../MediaBox';
 import PresentationFrame from '../PresentationFrame';
 import useStyels from './styles';
+import SlideTextElement from '../SlideTextElement';
+import EditableSlideText from '../slideEditing/EditableSlideText';
 
 export interface ISlideBoxProps extends IBoxProps {
 	slide: Slide;
@@ -24,6 +27,7 @@ export interface ISlideBoxProps extends IBoxProps {
 	dragToSwapEnabled?: boolean;
 	onDragToSwapStarted?: (id: number) => void;
 	onSwapped?: (id: number) => void;
+	editableText?: boolean;
 }
 
 const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
@@ -41,6 +45,7 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 		dragToSwapEnabled = false,
 		onDragToSwapStarted,
 		onSwapped,
+		editableText = false,
 	} = props;
 	const [media, setMedia] = useState<MediaRessource[]>([...slide.media]);
 	const [size, setSize] = useState<Dimensions>({ height: 0, width: 0 });
@@ -82,6 +87,24 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 			}}
 			onClick={onSlideBackgroundClicked}
 		>
+			{slide.elements &&
+				slide.elements.map((element, index) => {
+					switch (element.type) {
+						case 'text':
+							let txt = element as TextElement;
+							return !editableText ? (
+								<SlideTextElement
+									key={index}
+									textElement={txt}
+									parentSize={size}
+								/>
+							) : (
+								<EditableSlideText key={index} elementId={txt.id} />
+							);
+						default:
+							return <React.Fragment key={index}></React.Fragment>;
+					}
+				})}
 			{presentationFrameEditingEnabled !== undefined && (
 				<PresentationFrame
 					isEditing={presentationFrameEditingEnabled}

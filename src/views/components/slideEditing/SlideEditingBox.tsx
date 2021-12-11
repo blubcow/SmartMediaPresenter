@@ -133,6 +133,7 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 						payload: { presentation: newPresentation },
 					});
 				}}
+				editableText
 			/>
 			<Box sx={{ width: '100%', paddingLeft: 1 }}>
 				<Text>{`${currentSlide + 1}/${presentation.slides.length}`}</Text>

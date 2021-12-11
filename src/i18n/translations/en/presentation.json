@@ -73,5 +73,6 @@
   "columns": "columns",
   "actionConfirmationQuestion": "Are you sure?",
   "unsavedChangesLost": "all unsaved changes will be lost",
-  "font": "font"
+  "font": "font",
+  "typeHere": "type here..."
 }

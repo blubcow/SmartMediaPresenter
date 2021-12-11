@@ -40,7 +40,7 @@ const AddTextButton: React.FC<IAddTextButtonProps> = (props) => {
 					},
 					type: 'text',
 					text: '',
-					size: 12,
+					size: 24,
 					alignment: 'left',
 					italic: false,
 					bold: false,

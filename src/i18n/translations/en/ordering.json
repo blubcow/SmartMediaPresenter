@@ -3,5 +3,6 @@
   "name": "name",
   "ascending": "ascending",
   "descending": "descending",
-  "orderBy": "order by"
+  "orderBy": "order by",
+  "typeHere": "hier tippen..."
 }
