@@ -13,4 +13,5 @@ export enum PresentationEditingActionIdentifiers {
 	editingBoxDimensionsUpdated = 'ebdu',
 	presentationFrameUpdated = 'pfu',
 	savePresentationChanges = 'spc',
+	lastFontChanged = 'lfc',
 }

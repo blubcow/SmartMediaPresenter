@@ -34,6 +34,8 @@ const presentationEditingReducer = (
 				...state,
 				editingControls: 'text',
 				activeMedia: undefined,
+				activeComponent:
+					action.payload?.activeComponent ?? state.activeComponent,
 			};
 		case ActionIdentifiers.changeCurrentSlide:
 			return {
@@ -67,6 +69,8 @@ const presentationEditingReducer = (
 				initialPresentation: { ...state.presentation },
 				unsavedChanges: false,
 			};
+		case ActionIdentifiers.lastFontChanged:
+			return { ...state, lastFont: action.payload?.lastFont ?? state.lastFont };
 		default:
 			return state;
 	}

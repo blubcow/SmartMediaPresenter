@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSystemFonts } from '../../../hooks/useMainProcessMethods';
-import { AutoCompleteSelection } from '../../../smpUI/components';
+import { Box, AutoCompleteSelection } from '../../../smpUI/components';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 
@@ -16,13 +16,15 @@ const TextFontSelection: React.FC<{}> = () => {
 	}, [fonts]);
 
 	return (
-		<AutoCompleteSelection
-			label={t('font')}
-			value={font}
-			onValueChanged={(val) => setFont(val)}
-			options={fonts}
-			style={{ width: '250px' }}
-		/>
+		<Box sx={{ height: '100%', display: 'flex', alignItems: 'center' }}>
+			<AutoCompleteSelection
+				label={t('font')}
+				value={font}
+				onValueChanged={(val) => setFont(val)}
+				options={fonts}
+				style={{ width: '250px' }}
+			/>
+		</Box>
 	);
 };
 
