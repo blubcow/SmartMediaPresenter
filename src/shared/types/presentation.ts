@@ -108,20 +108,19 @@ export type SlideElementType = 'text';
 
 export interface SlideElement {
 	id: number;
-	position: { x: number; y: number };
+	position: MediaTranslation;
 	type: SlideElementType;
 }
 
 export type TextAlignment = 'left' | 'right' | 'center';
-
-export type TextStyle = 'normal' | 'italic';
 
 export interface TextElement extends SlideElement {
 	text: string;
 	size: number;
 	fontFamily?: string;
 	color?: string;
-	weight?: number;
 	alignment: TextAlignment;
-	style: TextStyle;
+	italic: boolean;
+	bold: boolean;
+	font: string;
 }

@@ -6,12 +6,18 @@ import { i18nNamespace } from '../../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
+import {
+	SinglePresentation,
+	TextElement,
+} from '../../../shared/types/presentation';
+import { type } from 'os';
 
 interface IAddTextButtonProps
 	extends Omit<IEditingButtonProps, 'icon' | 'secondaryNode'> {}
 
 const AddTextButton: React.FC<IAddTextButtonProps> = (props) => {
-	const { dispatch } = usePresentationEditingContext();
+	const { state, dispatch } = usePresentationEditingContext();
+	const { presentation, currentSlide, editingBoxDimensions, lastFont } = state;
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 
 	return (
@@ -23,8 +29,41 @@ const AddTextButton: React.FC<IAddTextButtonProps> = (props) => {
 			}
 			secondaryNode={<EditButtonLabel>{t('addTxt')}</EditButtonLabel>}
 			onClick={() => {
+				const elementId =
+					presentation.slides[currentSlide].elements?.length ?? 0;
+				const newTxtComponent: TextElement = {
+					id: elementId,
+					position: {
+						rel: { ...editingBoxDimensions },
+						x: editingBoxDimensions.width / 2,
+						y: editingBoxDimensions.height / 2,
+					},
+					type: 'text',
+					text: '',
+					size: 12,
+					alignment: 'left',
+					italic: false,
+					bold: false,
+					font: lastFont ?? '',
+				};
+				const newPresentation: SinglePresentation = JSON.parse(
+					JSON.stringify(presentation)
+				);
+				newPresentation.slides[currentSlide].elements = [
+					...(newPresentation.slides[currentSlide].elements ?? []),
+					newTxtComponent,
+				];
+				dispatch({
+					type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+					payload: {
+						presentation: newPresentation,
+					},
+				});
 				dispatch({
 					type: PresentationEditingActionIdentifiers.editingTextStarted,
+					payload: {
+						activeComponent: elementId,
+					},
 				});
 			}}
 			{...props}
