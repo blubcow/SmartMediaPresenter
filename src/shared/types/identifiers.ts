@@ -13,4 +13,5 @@ export enum MainProcessMethodIdentifiers {
 	PresenterModeUpdateNotification = 'presenterModeUpdate',
 	EndPresenterMode = 'endPresenterMode',
 	storeAudioFile = 'storeAudioFile',
+	getSystemFonts = 'getSystemFonts',
 }

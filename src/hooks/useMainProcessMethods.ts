@@ -183,3 +183,14 @@ export const useAudioStore = () => {
 
 	return { storeAudio };
 };
+
+export const useSystemFonts = () => {
+	const [fonts, setFonts] = useState<string[]>([]);
+	useEffect(() => {
+		ipcRenderer
+			.invoke(MainProcessMethodIdentifiers.getSystemFonts)
+			.then((fonts: string[]) => setFonts(fonts));
+	}, []);
+
+	return { fonts };
+};

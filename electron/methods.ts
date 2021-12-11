@@ -5,6 +5,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { FileExpolorerOptions } from './types/fileExplorer';
 import { FileExplorerType } from '../src/shared/types/fileExplorer';
+import { getFonts } from 'font-list';
 
 export const registerMainProcessMethodHandlers = (
 	ipcMain: IpcMain,
@@ -304,4 +305,8 @@ export const registerMainProcessMethodHandlers = (
 			return path + presPath + fileName;
 		}
 	);
+
+	ipcMain.handle(MainProcessMethodIdentifiers.getSystemFonts, async () => {
+		return await getFonts();
+	});
 };
