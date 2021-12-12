@@ -118,7 +118,7 @@ export interface TextElement extends SlideElement {
 	text: string;
 	size: number;
 	fontFamily?: string;
-	color?: string;
+	color: string;
 	alignment: TextAlignment;
 	italic: boolean;
 	bold: boolean;

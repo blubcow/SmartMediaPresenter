@@ -30,6 +30,7 @@ const SlideTextElement: React.FC<ISlideTextElementProps> = (props) => {
 
 	return (
 		<Text
+			color={textElement.color}
 			style={{
 				fontFamily: textElement.font,
 				fontSize: `${heightMultiplier * textElement.size}px`,

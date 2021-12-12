@@ -45,6 +45,7 @@ const AddTextButton: React.FC<IAddTextButtonProps> = (props) => {
 					italic: false,
 					bold: false,
 					font: lastFont ?? '',
+					color: '#fff',
 				};
 				const newPresentation: SinglePresentation = JSON.parse(
 					JSON.stringify(presentation)
