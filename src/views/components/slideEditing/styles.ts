@@ -119,3 +119,15 @@ export const useAudioButtonStyles = makeStyles((theme: Theme) =>
 export const useEditThemeDrawerStyles = makeStyles((theme: Theme) =>
 	createStyles({ container: { padding: theme.spacing(2) } })
 );
+
+export const useTextFontSelectionOptionStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			padding: theme.spacing(1),
+			cursor: 'pointer',
+			'&:hover': {
+				backgroundColor: theme.palette.background.default,
+			},
+		},
+	})
+);

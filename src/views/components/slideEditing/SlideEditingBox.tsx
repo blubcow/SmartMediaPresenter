@@ -102,7 +102,9 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 					editingControls === 'presentationFrame'
 				}
 				overflowEnabled={
-					editingControls === 'presentationFrame' || editingControls === 'media'
+					editingControls === 'presentationFrame' ||
+					editingControls === 'media' ||
+					editingControls === 'text'
 				}
 				dragToSwapEnabled={
 					editingControls === 'slide' || editingControls === 'media'

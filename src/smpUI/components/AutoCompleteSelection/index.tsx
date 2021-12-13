@@ -1,19 +1,23 @@
 import React from 'react';
-import { Autocomplete } from '@mui/material';
-import { TextField } from '../.';
+import { Autocomplete, AutocompleteRenderInputParams } from '@mui/material';
 
 interface IAutoCompleteSelectionProps {
 	value?: string;
 	onValueChanged: (value: string) => void;
-	label: string;
 	options: string[];
 	style?: React.CSSProperties;
+	renderInput: (params: AutocompleteRenderInputParams) => React.ReactNode;
+	renderOption?: (
+		props: React.HTMLAttributes<HTMLLIElement>,
+		option: string
+	) => React.ReactNode;
 }
 
 const AutoCompleteSelection: React.FC<IAutoCompleteSelectionProps> = (
 	props
 ) => {
-	const { value, onValueChanged, label, options, style } = props;
+	const { value, onValueChanged, options, style, renderOption, renderInput } =
+		props;
 	return (
 		<Autocomplete
 			disablePortal
@@ -24,7 +28,8 @@ const AutoCompleteSelection: React.FC<IAutoCompleteSelectionProps> = (
 			value={value}
 			style={style}
 			options={options}
-			renderInput={(params) => <TextField {...params} label={label} />}
+			renderOption={renderOption}
+			renderInput={renderInput}
 		/>
 	);
 };

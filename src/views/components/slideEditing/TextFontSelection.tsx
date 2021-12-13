@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useSystemFonts } from '../../../hooks/useMainProcessMethods';
-import { Box, AutoCompleteSelection } from '../../../smpUI/components';
+import {
+	Box,
+	AutoCompleteSelection,
+	TextField,
+} from '../../../smpUI/components';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
@@ -9,6 +13,7 @@ import {
 	TextElement,
 } from '../../../shared/types/presentation';
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
+import TextFontSelectionOption from './TextFontSelectionOption';
 
 const TextFontSelection: React.FC<{}> = () => {
 	const { state, dispatch } = usePresentationEditingContext();
@@ -22,7 +27,6 @@ const TextFontSelection: React.FC<{}> = () => {
 				presentation.slides[currentSlide].elements && (
 					<Box sx={{ height: '100%', display: 'flex', alignItems: 'center' }}>
 						<AutoCompleteSelection
-							label={t('font')}
 							value={
 								(
 									presentation.slides[currentSlide].elements![
@@ -48,6 +52,20 @@ const TextFontSelection: React.FC<{}> = () => {
 							}}
 							options={fonts}
 							style={{ width: '250px' }}
+							renderOption={(props, option) => (
+								<TextFontSelectionOption font={option} {...props} />
+							)}
+							renderInput={(params) => {
+								params.inputProps.style = {
+									fontFamily: (
+										presentation.slides[currentSlide].elements![
+											activeComponent
+										] as TextElement
+									).font,
+								};
+
+								return <TextField {...params} label={t('font')} />;
+							}}
 						/>
 					</Box>
 				)}

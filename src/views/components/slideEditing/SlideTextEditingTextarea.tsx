@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import { Dimensions, TextElement } from '../../../shared/types/presentation';
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
+import { useTranslation } from 'react-i18next';
+import { i18nNamespace } from '../../../i18n/i18n';
 
 interface ISlideTextEditingTextareaProps {
 	elementId: number;
@@ -19,6 +21,7 @@ const SlideTextEditingTextarea: React.FC<ISlideTextEditingTextareaProps> = (
 		elementId
 	] as TextElement;
 	const textareaRef = useRef<any>();
+	const { t } = useTranslation([i18nNamespace.Presentation]);
 
 	const [editableText, setEditableText] = useState<string>(textElement.text);
 
@@ -67,7 +70,7 @@ const SlideTextEditingTextarea: React.FC<ISlideTextEditingTextareaProps> = (
 			ref={textareaRef}
 			value={editableText}
 			onChange={(e) => setEditableText(e.currentTarget.value)}
-			placeholder={'type here'}
+			placeholder={t('typeHere')}
 			onClick={(e) => {
 				e.stopPropagation();
 				dispatch({
