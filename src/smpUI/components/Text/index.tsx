@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Typography, TypographyProps } from '@mui/material';
 import { EditText, EditTextarea } from 'react-edit-text';
 import useStyles from './styles';
@@ -31,6 +31,7 @@ const Text: React.FC<ITextProps> = (props) => {
 	);
 	const [isEditing, setIsEditing] = useState<boolean>(false);
 	const classes = useStyles();
+	const textareaRef = useRef<any>();
 
 	useEffect(() => {
 		setEditableText(`${props.children ?? ''}`);
@@ -48,8 +49,9 @@ const Text: React.FC<ITextProps> = (props) => {
 				multiLineEditable ? (
 					<EditTextarea
 						placeholder={placeholder}
-						className={classes.editableText}
+						// className={classes.editableText}
 						value={editableText}
+						style={{ display: 'block', resize: 'none' }}
 						onChange={(value) => {
 							if (parseInput) setEditableText(parseInput(value));
 							else setEditableText(value);

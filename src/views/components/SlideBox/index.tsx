@@ -11,7 +11,7 @@ import MediaBox from '../MediaBox';
 import PresentationFrame from '../PresentationFrame';
 import useStyels from './styles';
 import SlideTextElement from '../SlideTextElement';
-import EditableSlideText from '../slideEditing/EditableSlideText';
+import SlideTextEditingTextarea from '../slideEditing/SlideTextEditingTextarea';
 
 export interface ISlideBoxProps extends IBoxProps {
 	slide: Slide;
@@ -92,14 +92,13 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 					switch (element.type) {
 						case 'text':
 							let txt = element as TextElement;
-							return !editableText ? (
+							return (
 								<SlideTextElement
 									key={index}
 									textElement={txt}
 									parentSize={size}
+									editable={editableText}
 								/>
-							) : (
-								<EditableSlideText key={index} elementId={txt.id} />
 							);
 						default:
 							return <React.Fragment key={index}></React.Fragment>;

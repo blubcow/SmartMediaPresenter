@@ -13,7 +13,8 @@ export default makeStyles((theme: Theme) =>
 			fontWeight: 'inherit',
 			fontSize: 'inherit',
 			color: 'inherit',
-			resize: 'none',
+			resize: 'both',
+			overflow: 'show',
 		},
 	})
 );

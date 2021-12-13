@@ -124,7 +124,7 @@ const PresentationFrame: React.FC<IPresentationFrameProps> = (props) => {
 		<Box
 			sx={{
 				position: 'absolute',
-				zIndex: 10,
+				zIndex: 99,
 				outlineStyle: 'solid',
 				outlineWidth: isHidden
 					? '0px'
