@@ -24,7 +24,7 @@ const SlideTextElement: React.FC<ISlideTextElementProps> = (props) => {
 		wordBreak: 'keep-all',
 		color: textElement.color,
 		fontFamily: textElement.font,
-		fontSize: `${heightMultiplier * textElement.size}px`,
+		fontSize: `${widthMultiplier * textElement.size}px`,
 		fontWeight: textElement.bold ? 'bold' : undefined,
 		fontStyle: textElement.italic ? 'italic' : 'normal',
 		position: 'absolute',
@@ -56,9 +56,11 @@ const SlideTextElement: React.FC<ISlideTextElementProps> = (props) => {
 		<>
 			{editable ? (
 				<SlideTextEditingTextarea
-					parentSize={parentSize}
 					elementId={textElement.id}
+					parentSize={parentSize}
 					editableStyle={style}
+					heightMultiplier={heightMultiplier}
+					widthMulitplier={widthMultiplier}
 				/>
 			) : (
 				<Text color={textElement.color} style={style} {...props}>

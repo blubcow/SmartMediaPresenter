@@ -15,7 +15,7 @@ const RemoveTextButton: React.FC<{}> = (props) => {
 				const newPresentation: SinglePresentation = JSON.parse(
 					JSON.stringify(presentation)
 				);
-				console.log(activeComponent);
+
 				newPresentation.slides[currentSlide].elements =
 					newPresentation.slides[currentSlide].elements
 						?.filter((element) => element.id !== activeComponent)
