@@ -13,6 +13,7 @@ export interface SinglePresentation {
 	name: string;
 	lastChanges: number;
 	slides: Slide[];
+	theme?: SlideTheme;
 }
 
 export interface Slide {
@@ -123,4 +124,14 @@ export interface TextElement extends SlideElement {
 	italic: boolean;
 	bold: boolean;
 	font: string;
+}
+
+export interface SlideTheme {
+	defaultFormat?: { rows: number; columns: number };
+	defaultBackgroundColor?: string;
+	audio?: string;
+	defaultPlaybackDuration?: number;
+	defaultFontSize?: number;
+	defaultFont?: string;
+	defaultFontColor?: string;
 }
