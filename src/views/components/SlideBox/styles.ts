@@ -9,7 +9,7 @@ export default makeStyles((theme: Theme) =>
 			display: 'flex',
 			justifyContent: 'center',
 			alignItems: 'center',
-			overflow: 'hidden',
+
 			position: 'relative',
 		},
 		presentationFrame: {

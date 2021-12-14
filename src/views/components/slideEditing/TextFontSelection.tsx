@@ -44,6 +44,10 @@ const TextFontSelection: React.FC<{}> = () => {
 									] as TextElement
 								).font = val;
 								dispatch({
+									type: PresentationEditingActionIdentifiers.lastFontChanged,
+									payload: { lastFont: val },
+								});
+								dispatch({
 									type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 									payload: {
 										presentation: newPresentation,

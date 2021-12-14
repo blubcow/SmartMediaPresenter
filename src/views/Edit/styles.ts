@@ -16,7 +16,6 @@ export default makeStyles((theme: Theme) =>
 			flexDirection: 'column',
 			justifyContent: 'center',
 			alignItems: 'center',
-			overflow: 'hidden',
 		},
 		loadingContainer: {
 			height: '100vh',

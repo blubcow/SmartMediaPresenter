@@ -43,6 +43,9 @@ const PresentationEditingPreviewRows: React.FC<IPresentationEditingPreviewRows> 
 							selected={currentSlide === i}
 							onSelected={(id: number) => {
 								dispatch({
+									type: PresentationEditingActionIdentifiers.editingSlideStated,
+								});
+								dispatch({
 									type: PresentationEditingActionIdentifiers.changeCurrentSlide,
 									payload: { currentSlide: id },
 								});
