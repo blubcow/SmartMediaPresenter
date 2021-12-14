@@ -172,7 +172,6 @@ const SlideTextEditingTextarea: React.FC<ISlideTextEditingTextareaProps> = (
 				border: 'none',
 				top: editingPosition.y + 'px',
 				left: editingPosition.x + 'px',
-				overflow: 'auto',
 			}}
 		/>
 	);

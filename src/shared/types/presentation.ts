@@ -116,7 +116,7 @@ export type TextAlignment = 'left' | 'right' | 'center';
 
 export interface TextElement extends SlideElement {
 	text: string;
-	size: number;
+	size: { rel: number; font: number };
 	fontFamily?: string;
 	color: string;
 	alignment: TextAlignment;

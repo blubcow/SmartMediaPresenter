@@ -19,12 +19,16 @@ const SlideTextElement: React.FC<ISlideTextElementProps> = (props) => {
 		parentSize.width / textElement.position.rel.width
 	);
 
+	const [fontSizeMultiplier, setFontSizeMultiplier] = useState<number>(
+		parentSize.width / textElement.size.rel
+	);
+
 	const style: React.CSSProperties = {
 		whiteSpace: 'nowrap',
 		wordBreak: 'keep-all',
 		color: textElement.color,
-		fontFamily: textElement.font,
-		fontSize: `${widthMultiplier * textElement.size}px`,
+		fontFamily: textElement.font === '' ? 'Montserrat' : textElement.font,
+		fontSize: `${fontSizeMultiplier * textElement.size.font}px`,
 		fontWeight: textElement.bold ? 'bold' : undefined,
 		fontStyle: textElement.italic ? 'italic' : 'normal',
 		position: 'absolute',
@@ -40,16 +44,19 @@ const SlideTextElement: React.FC<ISlideTextElementProps> = (props) => {
 		}%, 0%)`,
 		zIndex: 100,
 		pointerEvents: editable ? 'initial' : 'none',
+		lineHeight: `${fontSizeMultiplier * textElement.size.font}px`,
 	};
 
 	useEffect(() => {
 		setHeightMultiplier(parentSize.height / textElement.position.rel.height);
 		setWidthMultiplier(parentSize.width / textElement.position.rel.width);
+		setFontSizeMultiplier(parentSize.width / textElement.size.rel);
 	}, [
 		parentSize.height,
 		parentSize.width,
 		textElement.position.rel.width,
 		textElement.position.rel.height,
+		textElement.size.rel,
 	]);
 
 	return (

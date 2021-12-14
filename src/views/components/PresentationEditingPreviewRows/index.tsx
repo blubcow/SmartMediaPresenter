@@ -20,6 +20,9 @@ const PresentationEditingPreviewRows: React.FC<IPresentationEditingPreviewRows> 
 				<Box className={classes.rowsScrollingContainer}>
 					<SlidesHeaderRow
 						addNewSlide={() => {
+							dispatch({
+								type: PresentationEditingActionIdentifiers.editingSlideStated,
+							});
 							const newSlide = getEmptySlide(presentation.slides.length);
 							const newPresentation = { ...presentation };
 							newPresentation.slides = [...presentation.slides];

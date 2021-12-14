@@ -74,5 +74,9 @@
   "columns": "Spalten",
   "actionConfirmationQuestion": "Bist du sicher?",
   "unsavedChangesLost": "alle ungespeicherten Änderungen gehen verloren",
-  "font": "Schrift"
+  "font": "Schrift",
+  "typeHere": "hier tippen...",
+  "fontSize": "Schriftgröße",
+  "chooseFontSize": "neue Schriftgröße wählen",
+  "newFontSize": "neue Schriftgröße"
 }
