@@ -4,6 +4,7 @@ import { Dimensions, TextElement } from '../../../shared/types/presentation';
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
+import { ConstructionOutlined } from '@mui/icons-material';
 
 interface ISlideTextEditingTextareaProps {
 	elementId: number;
@@ -30,9 +31,12 @@ const SlideTextEditingTextarea: React.FC<ISlideTextEditingTextareaProps> = (
 	] as TextElement;
 	const textareaRef = useRef<any>();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
+	console.log(presentation.slides[currentSlide].elements);
+	console.log(elementId);
 
 	const [editableText, setEditableText] = useState<string>(textElement.text);
 	const [dragging, setDragging] = useState<boolean>(false);
+	const [didDrag, setDidDrag] = useState<boolean>(false);
 	const [initialDraggingPosition, setInitialDraggingPosition] = useState<{
 		x: number;
 		y: number;
@@ -62,19 +66,22 @@ const SlideTextEditingTextarea: React.FC<ISlideTextEditingTextareaProps> = (
 
 	useEffect(() => {
 		if (!dragging) {
-			const newPresentation = JSON.parse(JSON.stringify(presentation));
-			newPresentation.slides[currentSlide].elements![elementId].position = {
-				rel: {
-					...parentSize,
-				},
-				...editingPosition,
-			};
-			dispatch({
-				type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
-				payload: { presentation: newPresentation },
-			});
+			if (didDrag) {
+				const newPresentation = JSON.parse(JSON.stringify(presentation));
+				newPresentation.slides[currentSlide].elements![elementId].position = {
+					rel: {
+						...parentSize,
+					},
+					...editingPosition,
+				};
+				dispatch({
+					type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+					payload: { presentation: newPresentation },
+				});
+			}
 			return;
 		}
+		setDidDrag(true);
 
 		const draggingHanlder = (e: MouseEvent) => {
 			setEditingPosition({
@@ -109,6 +116,10 @@ const SlideTextEditingTextarea: React.FC<ISlideTextEditingTextareaProps> = (
 	]);
 
 	useEffect(() => {
+		setEditableText(textElement.text);
+	}, [textElement.text]);
+
+	useEffect(() => {
 		resizeTextarea();
 
 		if (elementId === activeComponent) {
@@ -133,7 +144,7 @@ const SlideTextEditingTextarea: React.FC<ISlideTextEditingTextareaProps> = (
 	useLayoutEffect(() => {
 		const initialResize = setTimeout(() => {
 			resizeTextarea();
-		}, 0);
+		}, 5);
 		return () => clearTimeout(initialResize);
 	}, [textareaRef.current, textElement.text]);
 
@@ -163,6 +174,7 @@ const SlideTextEditingTextarea: React.FC<ISlideTextEditingTextareaProps> = (
 				border: 'none',
 				top: editingPosition.y + 'px',
 				left: editingPosition.x + 'px',
+				overflow: 'auto',
 			}}
 		/>
 	);

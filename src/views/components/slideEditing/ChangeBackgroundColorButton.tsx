@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { Box } from '../../../smpUI/components';
-import EditingButton from './EditingButton';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
-import EditButtonLabel from './EditButtonLabel';
-import ColorPicker from '../ColorPicker';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
+import ColorPickerButton from './ColorPickerButton';
 
 interface IChangeBackgroundColorButtonProps {}
 
@@ -19,70 +16,28 @@ const ChangeBackgroundColorButton: React.FC<IChangeBackgroundColorButtonProps> =
 		const [colorPickerOpen, setColorPickerOpen] = useState<boolean>(false);
 		const { t } = useTranslation([i18nNamespace.Presentation]);
 		return (
-			<>
-				<EditingButton
-					selected={colorPickerOpen}
-					icon={<BackgroundColorIcon color={backgroundColor} />}
-					secondaryNode={
-						<EditButtonLabel>{t('changeSlideColor')}</EditButtonLabel>
-					}
-					onClick={() => {
-						setColorPickerOpen(true);
-					}}
-					{...props}
-				/>
-				<ColorPicker
-					title={t('changeSlideColor')}
-					onClose={() => {
-						setColorPickerOpen(false);
-					}}
-					open={colorPickerOpen}
-					initialColor={backgroundColor}
-					onColorPicked={(color) => {
-						let newPresentation = { ...presentation };
-						newPresentation.slides = [...presentation.slides];
-						newPresentation.slides[currentSlide] = {
-							...presentation.slides[currentSlide],
-							settings: {
-								...presentation.slides[currentSlide].settings,
-								color: color,
-							},
-						};
+			<ColorPickerButton
+				label={t('changeSlideColor')}
+				color={backgroundColor}
+				onColorPicked={(color) => {
+					let newPresentation = { ...presentation };
+					newPresentation.slides = [...presentation.slides];
+					newPresentation.slides[currentSlide] = {
+						...presentation.slides[currentSlide],
+						settings: {
+							...presentation.slides[currentSlide].settings,
+							color: color,
+						},
+					};
 
-						dispatch({
-							type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
-							payload: { presentation: newPresentation },
-						});
-						setColorPickerOpen(false);
-					}}
-					onCancel={() => {
-						setColorPickerOpen(false);
-					}}
-				/>
-			</>
+					dispatch({
+						type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+						payload: { presentation: newPresentation },
+					});
+					setColorPickerOpen(false);
+				}}
+			/>
 		);
 	};
-
-interface IBackgroundColorIconProps {
-	color: string;
-}
-
-const BackgroundColorIcon: React.FC<IBackgroundColorIconProps> = (props) => {
-	const { color } = props;
-
-	return (
-		<Box
-			sx={{
-				height: '100%',
-				width: '100%',
-				bgcolor: color,
-				borderWidth: '2px',
-				borderStyle: 'solid',
-				borderColor: 'text.primary',
-				borderRadius: 1,
-			}}
-		/>
-	);
-};
 
 export default ChangeBackgroundColorButton;
