@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box } from '../../../smpUI/components';
+import ChangeTextColorButton from './ChangeTextColorButton';
 import RemoveTextButton from './RemoveTextButton';
 import { useSettingsContainerStyles } from './styles';
 import TextFontSelection from './TextFontSelection';
@@ -15,6 +16,8 @@ const TextSettings: React.FC<ITextSettingsProps> = () => {
 			<TextFontSelection />
 			<Box className={classes.spacer} />
 			<TextOptionsContainer />
+			<Box className={classes.spacer} />
+			<ChangeTextColorButton />
 			<Box className={classes.spacer} />
 			<RemoveTextButton />
 		</Box>

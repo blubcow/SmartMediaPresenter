@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
@@ -13,7 +13,7 @@ const ChangeBackgroundColorButton: React.FC<IChangeBackgroundColorButtonProps> =
 		const { presentation, currentSlide } = state;
 		const backgroundColor =
 			presentation.slides[currentSlide].settings?.color ?? '#000';
-		const [colorPickerOpen, setColorPickerOpen] = useState<boolean>(false);
+
 		const { t } = useTranslation([i18nNamespace.Presentation]);
 		return (
 			<ColorPickerButton
@@ -34,7 +34,6 @@ const ChangeBackgroundColorButton: React.FC<IChangeBackgroundColorButtonProps> =
 						type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 						payload: { presentation: newPresentation },
 					});
-					setColorPickerOpen(false);
 				}}
 			/>
 		);

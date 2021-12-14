@@ -31,8 +31,6 @@ const SlideTextEditingTextarea: React.FC<ISlideTextEditingTextareaProps> = (
 	] as TextElement;
 	const textareaRef = useRef<any>();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
-	console.log(presentation.slides[currentSlide].elements);
-	console.log(elementId);
 
 	const [editableText, setEditableText] = useState<string>(textElement.text);
 	const [dragging, setDragging] = useState<boolean>(false);
