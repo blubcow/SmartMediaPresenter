@@ -30,6 +30,7 @@ const PresentationMode = () => {
 				<SlideBox
 					slide={storedPresentation.slides[slideNumber]}
 					presentationFrameEditingEnabled={false}
+					theme={{ ...storedPresentation.theme }}
 				/>
 			)}
 		</Box>

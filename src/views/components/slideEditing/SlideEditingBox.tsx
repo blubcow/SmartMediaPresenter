@@ -73,6 +73,7 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 		<>
 			<SlideBox
 				slide={presentation.slides[currentSlide]}
+				theme={{ ...presentation.theme }}
 				didReceiveMediaFile={onFileReceived}
 				activeMedia={activeMedia}
 				onActivateMedia={(id: number) => {

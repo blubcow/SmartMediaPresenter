@@ -69,10 +69,7 @@ const PresentationFloatingButton: React.FC<IPresentationFloatingButtonProps> = (
 			)}
 			{presentation.slides.length > 0 &&
 				presentation.slides[0].media.length > 0 && (
-					<PresentationFullScreen
-						handle={handle}
-						slides={presentation.slides}
-					/>
+					<PresentationFullScreen handle={handle} presentation={presentation} />
 				)}
 		</>
 	);

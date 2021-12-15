@@ -117,7 +117,30 @@ export const useAudioButtonStyles = makeStyles((theme: Theme) =>
 );
 
 export const useEditThemeDrawerStyles = makeStyles((theme: Theme) =>
-	createStyles({ container: { padding: theme.spacing(2) } })
+	createStyles({
+		container: {
+			display: 'flex',
+		},
+		content: {
+			minWidth: '450px',
+			display: 'flex',
+			flexDirection: 'column',
+			height: '100%',
+			justifyContent: 'space-between',
+			padding: theme.spacing(1),
+		},
+		rowContainer: {
+			display: 'flex',
+			flexDirection: 'column',
+			overflow: 'scroll',
+		},
+		btnContainer: {
+			padding: theme.spacing(1),
+			width: '100%',
+			display: 'flex',
+			justifyContent: 'flex-end',
+		},
+	})
 );
 
 export const useTextFontSelectionOptionStyles = makeStyles((theme: Theme) =>

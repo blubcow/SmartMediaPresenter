@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
-import { SinglePresentation, Slide } from '../../../shared/types/presentation';
+import {
+	SinglePresentation,
+	Slide,
+	SlideTheme,
+} from '../../../shared/types/presentation';
 import {
 	Box,
 	FloatingButton,
@@ -41,6 +45,11 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 	const history = useHistory();
 
 	useEffect(() => {
+		setCurrentSlide(0);
+	}, [id]);
+
+	useEffect(() => {
+		setCurrentSlide(0);
 		setPresentation(presentation);
 	}, [presentation, setPresentation]);
 
@@ -88,7 +97,10 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 							<Text>{t('fetchingMedia')}</Text>
 						</Box>
 					) : (
-						<Preview slide={presentation.slides[currentSlide]} />
+						<Preview
+							slide={presentation.slides[currentSlide]}
+							theme={{ ...presentation.theme }}
+						/>
 					)
 				) : (
 					<Text variant='h6'>{t('presentationIsEmpty')}</Text>
@@ -137,12 +149,19 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 
 interface IPreviewProps {
 	slide: Slide;
+	theme: SlideTheme;
 }
 
 const Preview: React.FC<IPreviewProps> = (props) => {
-	const { slide } = props;
+	const { slide, theme } = props;
 
-	return <SlideBox slide={slide} presentationFrameEditingEnabled={false} />;
+	return (
+		<SlideBox
+			slide={slide}
+			theme={theme}
+			presentationFrameEditingEnabled={false}
+		/>
+	);
 };
 
 export default PresentationPreview;

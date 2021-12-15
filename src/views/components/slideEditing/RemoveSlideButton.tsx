@@ -19,7 +19,10 @@ const RemoveSlideButton: React.FC<{}> = (props) => {
 						id: slide.id > currentSlide ? slide.id - 1 : slide.id,
 					}));
 
-				if (slides.length === 0) slides.push(getEmptySlide());
+				if (slides.length === 0)
+					slides.push(
+						getEmptySlide(undefined, presentation.theme?.defaultFormat)
+					);
 
 				newPresentation.slides = slides;
 

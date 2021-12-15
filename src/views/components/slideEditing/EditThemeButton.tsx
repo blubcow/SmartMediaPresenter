@@ -24,7 +24,11 @@ const EditThemeButton: React.FC<IEditThemeButtonProps> = (props) => {
 				onClick={() => setOpen(true)}
 				selected={open}
 			/>
-			<EditThemeDrawer open={open} onClose={() => setOpen(false)} />
+			<EditThemeDrawer
+				open={open}
+				onClose={() => setOpen(false)}
+				onFinish={() => setOpen(false)}
+			/>
 		</>
 	);
 };

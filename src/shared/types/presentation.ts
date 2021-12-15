@@ -74,15 +74,18 @@ export interface MediaLocation {
 	remote?: string;
 }
 
-export const getEmptySlide = (id?: number): Slide => {
+export const getEmptySlide = (
+	id?: number,
+	format?: { rows: number; columns: number }
+): Slide => {
 	return {
 		id: id ?? 0,
-		columns: 2,
-		rows: 1,
-		media: [
-			{ id: 0, location: {} },
-			{ id: 1, location: {} },
-		],
+		columns: format?.columns ?? 2,
+		rows: format?.rows ?? 1,
+		media: Array.from(
+			{ length: (format?.columns ?? 2) * (format?.rows ?? 1) },
+			(_, i) => ({ id: i, location: {} })
+		),
 	};
 };
 
@@ -129,7 +132,7 @@ export interface TextElement extends SlideElement {
 export interface SlideTheme {
 	defaultFormat?: { rows: number; columns: number };
 	defaultBackgroundColor?: string;
-	audio?: string;
+	audio?: MediaLocation;
 	defaultPlaybackDuration?: number;
 	defaultFontSize?: number;
 	defaultFont?: string;

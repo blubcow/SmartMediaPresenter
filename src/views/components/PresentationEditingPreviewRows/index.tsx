@@ -23,7 +23,10 @@ const PresentationEditingPreviewRows: React.FC<IPresentationEditingPreviewRows> 
 							dispatch({
 								type: PresentationEditingActionIdentifiers.editingSlideStated,
 							});
-							const newSlide = getEmptySlide(presentation.slides.length);
+							const newSlide = getEmptySlide(
+								presentation.slides.length,
+								presentation.theme?.defaultFormat
+							);
 							const newPresentation = { ...presentation };
 							newPresentation.slides = [...presentation.slides];
 							newPresentation.slides.push(newSlide);

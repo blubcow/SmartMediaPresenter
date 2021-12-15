@@ -40,12 +40,15 @@ const AddTextButton: React.FC<IAddTextButtonProps> = (props) => {
 					},
 					type: 'text',
 					text: '',
-					size: { rel: editingBoxDimensions.width, font: 24 },
+					size: {
+						rel: editingBoxDimensions.width,
+						font: presentation.theme?.defaultFontSize ?? 24,
+					},
 					alignment: 'left',
 					italic: false,
 					bold: false,
-					font: lastFont ?? '',
-					color: '#fff',
+					font: presentation.theme?.defaultFont ?? lastFont ?? '',
+					color: presentation.theme?.defaultFontColor ?? '#ffffff',
 				};
 				const newPresentation: SinglePresentation = JSON.parse(
 					JSON.stringify(presentation)

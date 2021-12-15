@@ -12,7 +12,9 @@ const ChangeBackgroundColorButton: React.FC<IChangeBackgroundColorButtonProps> =
 		const { state, dispatch } = usePresentationEditingContext();
 		const { presentation, currentSlide } = state;
 		const backgroundColor =
-			presentation.slides[currentSlide].settings?.color ?? '#000';
+			presentation.slides[currentSlide].settings?.color ??
+			presentation.theme?.defaultBackgroundColor ??
+			'#000000';
 
 		const { t } = useTranslation([i18nNamespace.Presentation]);
 		return (

@@ -24,7 +24,7 @@ const SlideTextElement: React.FC<ISlideTextElementProps> = (props) => {
 	);
 
 	const style: React.CSSProperties = {
-		whiteSpace: 'nowrap',
+		whiteSpace: 'pre',
 		wordBreak: 'keep-all',
 		color: textElement.color,
 		fontFamily: textElement.font === '' ? 'Montserrat' : textElement.font,

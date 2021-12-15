@@ -53,6 +53,9 @@ export default makeStyles((theme: Theme) =>
 			padding: theme.spacing(2),
 			display: 'flex',
 			flexDirection: 'column',
+			whiteSpace: 'pre',
+			wordBreak: 'keep-all',
+			overflow: 'scroll',
 		},
 		notesContainer: {
 			flex: 1,

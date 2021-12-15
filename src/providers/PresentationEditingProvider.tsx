@@ -18,7 +18,9 @@ const PresentationEditingProvider: React.FC<
 	PropsWithChildren<IPresentationEditingProviderProps>
 > = ({ presentationId, initialPresentation, children }) => {
 	if (!initialPresentation.slides.length)
-		initialPresentation.slides = [getEmptySlide(0)];
+		initialPresentation.slides = [
+			getEmptySlide(0, initialPresentation.theme?.defaultFormat),
+		];
 
 	const [state, dispatch] = useReducer(
 		presentationEditingReducer,

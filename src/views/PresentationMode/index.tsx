@@ -21,12 +21,18 @@ const PresentationMode: React.FC<IPresenttionModeProps> = (props) => {
 
 	return (
 		<FullScreen handle={handle}>
-			{handle.active && <Content presentation={presentation} />}
+			{handle.active && <Content presentation={presentation} handle={handle} />}
 		</FullScreen>
 	);
 };
 
-const Content = ({ presentation }: { presentation: SinglePresentation }) => {
+const Content = ({
+	presentation,
+	handle,
+}: {
+	presentation: SinglePresentation;
+	handle: any;
+}) => {
 	const { slideNumber, nextSlide, previousSlide, terminatePresentationMode } =
 		usePresentationMode();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
@@ -38,6 +44,12 @@ const Content = ({ presentation }: { presentation: SinglePresentation }) => {
 		setAutoPlaybackCurrentSlideTransformDuration,
 	] = useState<number>();
 	const classes = useStyles();
+	const [backgroundAudio] = useState<HTMLAudioElement>(
+		new Audio(
+			presentation.theme?.audio?.local ?? presentation.theme?.audio?.remote
+		)
+	);
+	const [slideAudio] = useState<HTMLAudioElement>(new Audio());
 
 	const triggerNext = () => {
 		if (slideNumber < presentation.slides.length - 1) {
@@ -50,6 +62,11 @@ const Content = ({ presentation }: { presentation: SinglePresentation }) => {
 			previousSlide();
 		}
 	};
+
+	useEffect(() => {
+		backgroundAudio.loop = true;
+		return () => backgroundAudio.pause();
+	}, []);
 
 	useEffect(() => {
 		setPresentationTimer(0);
@@ -105,28 +122,28 @@ const Content = ({ presentation }: { presentation: SinglePresentation }) => {
 
 		const audioSrc =
 			slide.audio?.location.local ?? slide.audio?.location.remote;
-		const timeout = slide.playback;
-		const audio = new Audio();
+		const timeout =
+			slide.playback ?? presentation.theme?.defaultPlaybackDuration;
 
 		if (audioSrc) {
-			audio.src = audioSrc;
+			slideAudio.src = audioSrc;
 			const getAudioDuration = () => {
-				if (audio.duration !== Infinity) {
+				if (slideAudio.duration !== Infinity) {
 					setAutoPlaybackCurrentSlideTransformDuration(
-						audio.duration - audio.currentTime
+						slideAudio.duration - slideAudio.currentTime
 					);
 				}
 			};
 
-			audio.addEventListener('durationchange', getAudioDuration);
-			audio.play();
+			slideAudio.addEventListener('durationchange', getAudioDuration);
+			slideAudio.play();
 
 			if (timeout === 'audio') {
-				audio.onended = triggerNext;
+				slideAudio.onended = triggerNext;
 				return () => {
-					audio.pause();
+					slideAudio.pause();
 					setAutoPlaybackCurrentSlideTransformDuration(undefined);
-					audio.removeEventListener('durationchange', getAudioDuration);
+					slideAudio.removeEventListener('durationchange', getAudioDuration);
 				};
 			}
 		}
@@ -134,7 +151,7 @@ const Content = ({ presentation }: { presentation: SinglePresentation }) => {
 		if (timeout === undefined)
 			return () => {
 				setAutoPlaybackCurrentSlideTransformDuration(undefined);
-				audio.pause();
+				slideAudio.pause();
 			};
 
 		setAutoPlaybackCurrentSlideTransformDuration(timeout as number);
@@ -145,9 +162,21 @@ const Content = ({ presentation }: { presentation: SinglePresentation }) => {
 		return () => {
 			clearTimeout(handleNextSlide);
 			setAutoPlaybackCurrentSlideTransformDuration(undefined);
-			audio.pause();
+			slideAudio.pause();
 		};
 	}, [autoPlayback, slideNumber]);
+
+	useEffect(() => {
+		if (autoPlayback) backgroundAudio.play();
+		else backgroundAudio.pause();
+	}, [autoPlayback]);
+
+	useEffect(() => {
+		backgroundAudio.pause();
+		backgroundAudio.currentTime = 0;
+		slideAudio.pause();
+		slideAudio.currentTime = 0;
+	}, [handle.active]);
 
 	return (
 		<Box className={classes.container}>
@@ -160,6 +189,7 @@ const Content = ({ presentation }: { presentation: SinglePresentation }) => {
 					<SlideBox
 						slide={presentation.slides[slideNumber]}
 						presentationFrameEditingEnabled={false}
+						theme={{ ...presentation.theme }}
 					/>
 					<Box className={classes.spacer} />
 					<Box className={classes.controlsContainer}>

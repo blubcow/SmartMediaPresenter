@@ -4,7 +4,6 @@ import { Dimensions, TextElement } from '../../../shared/types/presentation';
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
-import { ConstructionOutlined } from '@mui/icons-material';
 
 interface ISlideTextEditingTextareaProps {
 	elementId: number;
@@ -172,6 +171,8 @@ const SlideTextEditingTextarea: React.FC<ISlideTextEditingTextareaProps> = (
 				border: 'none',
 				top: editingPosition.y + 'px',
 				left: editingPosition.x + 'px',
+				whiteSpace: 'nowrap',
+				cursor: dragging ? 'move' : 'initial',
 			}}
 		/>
 	);

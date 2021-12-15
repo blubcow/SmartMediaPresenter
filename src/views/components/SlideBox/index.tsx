@@ -4,6 +4,7 @@ import {
 	Dimensions,
 	MediaRessource,
 	Slide,
+	SlideTheme,
 	TextElement,
 } from '../../../shared/types/presentation';
 import { IBoxProps } from '../../../smpUI/components/Box';
@@ -11,10 +12,11 @@ import MediaBox from '../MediaBox';
 import PresentationFrame from '../PresentationFrame';
 import useStyels from './styles';
 import SlideTextElement from '../SlideTextElement';
-import SlideTextEditingTextarea from '../slideEditing/SlideTextEditingTextarea';
+import { ThemeContext } from '@emotion/react';
 
 export interface ISlideBoxProps extends IBoxProps {
 	slide: Slide;
+	theme: SlideTheme;
 	didReceiveMediaFile?: (file: File, id: number) => void;
 	mediaBoxesCanReceiveMedia?: boolean;
 	activeMedia?: number;
@@ -33,6 +35,7 @@ export interface ISlideBoxProps extends IBoxProps {
 const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 	const {
 		slide,
+		theme,
 		didReceiveMediaFile,
 		mediaBoxesCanReceiveMedia = false,
 		activeMedia,
@@ -82,7 +85,8 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 			ref={containerRef}
 			className={classes.container}
 			sx={{
-				bgcolor: slide.settings?.color ?? '#000',
+				bgcolor:
+					slide.settings?.color ?? theme.defaultBackgroundColor ?? '#000',
 				overflow: overflowEnabled ? 'visible' : 'hidden',
 			}}
 			onClick={onSlideBackgroundClicked}
@@ -109,7 +113,9 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 					isEditing={presentationFrameEditingEnabled}
 					isHidden={overflowEnabled && !presentationFrameEditingEnabled}
 					parentSize={size}
-					outlineColor={slide.settings?.color ?? '#000'}
+					outlineColor={
+						slide.settings?.color ?? theme.defaultBackgroundColor ?? '#000'
+					}
 					settings={slide.settings?.presentationFrame}
 				/>
 			)}

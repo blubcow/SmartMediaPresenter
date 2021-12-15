@@ -1,18 +1,21 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { FullScreen } from 'react-full-screen';
-import { Dimensions, Slide } from '../../../shared/types/presentation';
+import {
+	Dimensions,
+	SinglePresentation,
+} from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
 import SlideBox from '../SlideBox';
 
 interface IPresentationFullScreenProps {
 	handle: any;
-	slides: Slide[];
+	presentation: SinglePresentation;
 }
 
 const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 	props
 ) => {
-	const { handle, slides } = props;
+	const { handle, presentation } = props;
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
 	const [presentationBoxSize, setPresentationBoxSize] = useState<Dimensions>({
 		height: 0,
@@ -28,7 +31,12 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 		})
 	);
 	const [autoSliding, setAutoSliding] = useState<boolean>(false);
-	const [t, st] = useState<string>('');
+	const [backgroundAudio] = useState<HTMLAudioElement>(
+		new Audio(
+			presentation.theme?.audio?.local ?? presentation.theme?.audio?.remote
+		)
+	);
+	const [slideAudio] = useState<HTMLAudioElement>(new Audio());
 
 	useEffect(() => {
 		if (presentationBoxRef.current !== undefined)
@@ -45,7 +53,7 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 					break;
 				case 'ArrowRight':
 					setCurrentSlide((current) =>
-						Math.min(current + 1, slides.length - 1)
+						Math.min(current + 1, presentation.slides.length - 1)
 					);
 					break;
 				case ' ':
@@ -59,41 +67,66 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 		return () => {
 			document.removeEventListener('keydown', handleKey);
 		};
-	}, [slides, handle.active]);
+	}, [presentation.slides, handle.active]);
+
+	useEffect(() => {
+		backgroundAudio.loop = true;
+	}, []);
 
 	useEffect(() => {
 		if (!autoSliding) return;
 
-		const slide = slides[currentSlide];
+		backgroundAudio.play();
+
+		const slide = presentation.slides[currentSlide];
 
 		const audioSrc =
 			slide.audio?.location.local ?? slide.audio?.location.remote;
-		const timeout = slide.playback;
-		const audio = new Audio();
+		const timeout =
+			slide.playback ?? presentation.theme?.defaultPlaybackDuration;
 
 		if (audioSrc) {
-			audio.src = audioSrc;
-			audio.play();
+			slideAudio.src = audioSrc;
+			slideAudio.play();
 			if (timeout === 'audio') {
-				audio.onended = () =>
+				slideAudio.onended = () =>
 					setCurrentSlide((current) =>
-						Math.min(current + 1, slides.length - 1)
+						Math.min(current + 1, presentation.slides.length - 1)
 					);
 				return () => {
-					audio.pause();
+					slideAudio.pause();
 				};
 			}
 		}
 
-		if (timeout === undefined) return () => audio.pause();
+		if (timeout === undefined)
+			return () => {
+				slideAudio.pause();
+			};
 
 		const handleNextSlide = setTimeout(() => {
-			audio.pause();
-			setCurrentSlide((current) => Math.min(current + 1, slides.length - 1));
+			slideAudio.pause();
+			setCurrentSlide((current) =>
+				Math.min(current + 1, presentation.slides.length - 1)
+			);
 		}, (timeout as number) * 1000);
 
-		return () => clearTimeout(handleNextSlide);
+		return () => {
+			clearTimeout(handleNextSlide);
+		};
 	}, [autoSliding, currentSlide]);
+
+	useEffect(() => {
+		if (autoSliding) backgroundAudio.play();
+		else backgroundAudio.pause();
+	}, [autoSliding]);
+
+	useEffect(() => {
+		backgroundAudio.pause();
+		backgroundAudio.currentTime = 0;
+		slideAudio.pause();
+		slideAudio.currentTime = 0;
+	}, [handle.active]);
 
 	return (
 		<FullScreen handle={handle}>
@@ -106,13 +139,14 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 					display: handle.active ? 'flex' : 'none',
 					alignItems: 'center',
 					justifyContent: 'center',
-					bgcolor: slides[currentSlide]
-						? slides[currentSlide].settings?.color ?? '#000'
+					bgcolor: presentation.slides[currentSlide]
+						? presentation.slides[currentSlide].settings?.color ?? '#000'
 						: '#000',
 				}}
 			>
 				<SlideBox
-					slide={slides[currentSlide]}
+					slide={presentation.slides[currentSlide]}
+					theme={{ ...presentation.theme }}
 					presentationFrameEditingEnabled={false}
 				/>
 			</Box>

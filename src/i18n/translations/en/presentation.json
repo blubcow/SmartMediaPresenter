@@ -85,6 +85,7 @@
   "bgAudio": "background audio",
   "defaultFont": "default font",
   "defaultFontSize": "default font size",
+  "noDefaultSize": "no default size",
   "defaultFontColor": "default font color",
   "finish": "finish"
 }

@@ -10,7 +10,6 @@ import useStyles from './styles';
 import HeaderRow from './HeaderRow';
 import SlideRow from './SlideRow';
 import MultiInsertion from './MultiInsertion';
-import { QuickCreateMediaResource } from '../../../types/quickCreateMode';
 import { DataTransferIdentifiers } from '../../../types/identifiers';
 
 interface IQuickCreateSlidesBoxProps {
@@ -79,6 +78,7 @@ const QuickCreateSlidesBox: React.FC<IQuickCreateSlidesBoxProps> = (props) => {
 			<SlideBox
 				className={classes.previewContainer}
 				slide={slides[currentSlide]}
+				theme={{}}
 			/>
 			<Box className={classes.slideScrollingContainer}>
 				<HeaderRow
