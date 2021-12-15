@@ -78,5 +78,13 @@
   "typeHere": "type here...",
   "fontSize": "font size",
   "chooseFontSize": "choose the size of the font",
-  "newFontSize": "new font size"
+  "newFontSize": "new font size",
+  "defaultBgColor": "default background color",
+  "defaultFormat": "default format",
+  "defaultAutoPlaybackTime": "default auto playback time",
+  "bgAudio": "background audio",
+  "defaultFont": "default font",
+  "defaultFontSize": "default font size",
+  "defaultFontColor": "default font color",
+  "finish": "finish"
 }

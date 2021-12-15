@@ -78,5 +78,13 @@
   "typeHere": "hier tippen...",
   "fontSize": "Schriftgröße",
   "chooseFontSize": "neue Schriftgröße wählen",
-  "newFontSize": "neue Schriftgröße"
+  "newFontSize": "neue Schriftgröße",
+  "defaultBgColor": "standard Hintergrundfarbe",
+  "defaultFormat": "standard Format",
+  "defaultAutoPlaybackTime": "standard automatische Wiedergabe Zeit",
+  "bgAudio": "Hintergrund Audio",
+  "defaultFont": "standard Schriftart",
+  "defaultFontSize": "standard Schriftgröße",
+  "defaultFontColor": "standard Schriftfarbe",
+  "finish": "beenden"
 }
