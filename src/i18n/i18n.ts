@@ -16,6 +16,9 @@ export enum i18nNamespace {
 	Alert = 'alert',
 }
 
+export const AvailableLanguages = ['auto', 'en', 'de'] as const;
+export type AvailableLanguage = typeof AvailableLanguages[number];
+
 i18n.use(initReactI18next).init({
 	lng: navigator.language.split('_')[0],
 	fallbackLng: 'en',

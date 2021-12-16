@@ -1,4 +1,4 @@
-import { useContext, Dispatch, useState } from 'react';
+import { useContext, Dispatch } from 'react';
 import { PresentationEditingContext } from '../providers/PresentationEditingProvider';
 import { MediaRessource } from '../shared/types/presentation';
 import { PresentationEditingActionIdentifiers } from '../types/identifiers';

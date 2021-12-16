@@ -6,6 +6,7 @@ import * as fs from 'fs';
 import { FileExpolorerOptions } from './types/fileExplorer';
 import { FileExplorerType } from '../src/shared/types/fileExplorer';
 import { getFonts } from 'font-list';
+import { UserSettings } from '../src/shared/types/userSettings';
 
 export const registerMainProcessMethodHandlers = (
 	ipcMain: IpcMain,
@@ -309,4 +310,24 @@ export const registerMainProcessMethodHandlers = (
 	ipcMain.handle(MainProcessMethodIdentifiers.getSystemFonts, async () => {
 		return await getFonts();
 	});
+
+	ipcMain.handle(MainProcessMethodIdentifiers.getUserSettings, async () => {
+		const file = __dirname + '/store/userSettings.json';
+		return fs.existsSync(file)
+			? JSON.parse(`${fs.readFileSync(file)}`)
+			: { language: 'auto', theme: 'auto' };
+	});
+
+	ipcMain.handle(
+		MainProcessMethodIdentifiers.saveUserSettings,
+		async (_, settings: UserSettings) => {
+			const path = __dirname + '/store';
+
+			if (!fs.existsSync(path)) {
+				fs.mkdirSync(path);
+			}
+
+			fs.writeFileSync(path + '/userSettings.json', JSON.stringify(settings));
+		}
+	);
 };

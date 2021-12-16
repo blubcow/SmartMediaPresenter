@@ -7,6 +7,7 @@ import {
 	SinglePresentation,
 	Slide,
 } from '../shared/types/presentation';
+import { UserSettings } from '../shared/types/userSettings';
 const { ipcRenderer } = window.require('electron');
 
 export const useStoredPresentations = () => {
@@ -193,4 +194,24 @@ export const useSystemFonts = () => {
 	}, []);
 
 	return { fonts };
+};
+
+export const useUserSettings = () => {
+	const [userSettings, setUserSettings] = useState<UserSettings>({
+		theme: 'auto',
+		language: 'auto',
+	});
+
+	useEffect(() => {
+		ipcRenderer
+			.invoke(MainProcessMethodIdentifiers.getUserSettings)
+			.then((r: UserSettings) => setUserSettings(r));
+	}, []);
+
+	const saveUserSettings = (settings: UserSettings) => {
+		ipcRenderer.invoke(MainProcessMethodIdentifiers.saveUserSettings, settings);
+		setUserSettings(settings);
+	};
+
+	return { userSettings, saveUserSettings };
 };

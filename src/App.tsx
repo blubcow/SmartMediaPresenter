@@ -3,14 +3,17 @@ import ThemeProvider from './providers/ThemeProvider';
 import NavigationProvider from './providers/NavigationProvider';
 import I18NProvider from './providers/I18NProvider';
 import 'react-image-crop/dist/ReactCrop.css';
+import UserSettingsProvider from './providers/UserSettingsProvider';
 
 function App() {
 	return (
-		<I18NProvider>
-			<ThemeProvider>
-				<NavigationProvider />
-			</ThemeProvider>
-		</I18NProvider>
+		<UserSettingsProvider>
+			<I18NProvider>
+				<ThemeProvider>
+					<NavigationProvider />
+				</ThemeProvider>
+			</I18NProvider>
+		</UserSettingsProvider>
 	);
 }
 
