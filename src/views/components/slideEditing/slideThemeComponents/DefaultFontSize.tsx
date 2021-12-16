@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import usePresentationEditingContext from '../../../../hooks/usePresentationEditingContext';
 import { Box, Text } from '../../../../smpUI/components';
 import { PresentationEditingActionIdentifiers } from '../../../../types/identifiers';
-import Row from './Row';
+import Row from '../../SettingsRow';
 import { useDefaultFontSizeStyles } from './styles';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../../i18n/i18n';

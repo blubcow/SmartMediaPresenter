@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text } from '../../../../smpUI/components';
+import { Box, Text } from '../../../smpUI/components';
 import { useRowStyles } from './styles';
 
 interface IRowProps {

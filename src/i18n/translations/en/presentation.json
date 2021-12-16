@@ -87,5 +87,10 @@
   "defaultFontSize": "default font size",
   "noDefaultSize": "no default size",
   "defaultFontColor": "default font color",
-  "finish": "finish"
+  "finish": "finish",
+  "language": "language",
+  "de": "german",
+  "en": "english",
+  "auto": "auto",
+  "theme": "theme"
 }

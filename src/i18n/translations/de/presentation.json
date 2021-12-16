@@ -87,5 +87,10 @@
   "defaultFontSize": "standard Schriftgröße",
   "noDefaultSize": "keine standard Größe",
   "defaultFontColor": "standard Schriftfarbe",
-  "finish": "beenden"
+  "finish": "beenden",
+  "language": "Sprache",
+  "de": "Deutsch",
+  "en": "Englisch",
+  "auto": "automatisch",
+  "theme": "Oberflächenfarbe"
 }

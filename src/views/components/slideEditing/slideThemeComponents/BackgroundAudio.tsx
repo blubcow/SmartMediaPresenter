@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Row from './Row';
+import Row from '../../SettingsRow';
 import { Box, Text, Button, IconButton } from '../../../../smpUI/components';
 import { Audiotrack } from '@mui/icons-material';
 import usePresentationEditingContext from '../../../../hooks/usePresentationEditingContext';

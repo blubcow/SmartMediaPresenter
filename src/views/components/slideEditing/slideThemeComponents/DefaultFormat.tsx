@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Row from './Row';
+import Row from '../../SettingsRow';
 import { Box, Text } from '../../../../smpUI/components';
 import { useDefaultFormatStyles } from './styles';
 import usePresentationEditingContext from '../../../../hooks/usePresentationEditingContext';

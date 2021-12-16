@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Row from './Row';
+import Row from '../../SettingsRow';
 import { Box } from '../../../../smpUI/components';
 import ColorPickerIcon from '../ColorPickerIcon';
 import usePresentationEditingContext from '../../../../hooks/usePresentationEditingContext';
