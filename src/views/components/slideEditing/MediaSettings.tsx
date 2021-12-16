@@ -23,7 +23,7 @@ const MediaSettings: React.FC<IMediaSettingsProps> = (props) => {
 			<Box className={classes.spacer} />
 			<RotateButton />
 			<Box className={classes.spacer} />
-			<CropButton selected={false} />
+			<CropButton />
 			<Box className={classes.spacer} />
 			<ImageManipulationButton />
 			<Box className={classes.spacer} />

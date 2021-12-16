@@ -1,6 +1,6 @@
 import React from 'react';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { getEmptySlide, Slide } from '../../../shared/types/presentation';
+
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import RemoveButton from './RemoveButton';
 

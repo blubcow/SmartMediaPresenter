@@ -54,6 +54,14 @@ export interface MediaSettings {
 	grayScale: number;
 	sepia: number;
 	blur: number;
+	crop: MediaCrop;
+}
+
+export interface MediaCrop {
+	x: number;
+	y: number;
+	width: number;
+	height: number;
 }
 
 export interface MediaScaleing {

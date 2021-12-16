@@ -126,6 +126,15 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 						}%) hue-rotate(${media.settings?.hue ?? 0}deg) blur(${
 							media.settings?.blur ?? 0
 						}px)`,
+						clipPath: `inset(${media.settings?.crop?.y ?? 0}% ${
+							100 -
+							((media.settings?.crop?.x ?? 0) +
+								(media.settings?.crop?.width ?? 100))
+						}% ${
+							100 -
+							((media.settings?.crop?.y ?? 0) +
+								(media.settings?.crop?.height ?? 100))
+						}% ${media.settings?.crop?.x ?? 0}%)`,
 					}}
 					alt='presentation-media'
 				/>
