@@ -12,14 +12,22 @@ export default makeStyles<Theme>((theme: Theme) =>
 			position: 'relative',
 			userSelect: 'none',
 		},
-		imgSelected: {
-			maxWidth: '100%',
-			maxHeight: '100%',
-			zIndex: 2,
+	})
+);
+
+export const useActiveMediaIndicatorStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		indicator: {
+			outlineWidth: '2px',
+			outlineStyle: 'dashed',
 			outlineColor: 'white',
-			outline: '3px dashed',
-			overflow: 'overlay',
-			userSelect: 'none',
+			borderWidth: '2px',
+			borderStyle: 'solid',
+			borderColor: theme.palette.primary.main,
+			position: 'absolute',
+			pointerEvents: 'none',
+			touchAction: 'none',
+			zIndex: 50,
 		},
 	})
 );

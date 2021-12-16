@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { Dimensions, MediaRessource } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
 import MediaDropBoxIndicator from '../MediaDropBoxIndicator';
+import ActiveMediaIdenticator from './ActiveMediaIdenticator';
 import useStyles from './styles';
 
 interface IMediaBox {
@@ -86,10 +87,13 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 				}
 			}}
 		>
+			{isActive && media && (
+				<ActiveMediaIdenticator image={imgRef.current} mediaElement={media} />
+			)}
 			{media?.location.local || media?.location.remote ? (
 				<img
 					ref={imgRef}
-					className={isActive ? classes.imgSelected : classes.img}
+					className={classes.img}
 					src={media.location.local ?? media.location.remote}
 					draggable={false}
 					onClick={(e) => {
