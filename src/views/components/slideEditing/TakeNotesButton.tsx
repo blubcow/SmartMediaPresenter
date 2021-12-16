@@ -88,7 +88,7 @@ const TakeNotesButton: React.FC<ITakeNotesButtonProps> = (props) => {
 									setOpenDrawer(false);
 								}}
 							>
-								{t('confrim')}
+								{t('confirm')}
 							</Button>
 						</Box>
 					</Box>

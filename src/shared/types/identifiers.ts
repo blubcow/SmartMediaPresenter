@@ -3,6 +3,7 @@ export enum MainProcessMethodIdentifiers {
 	LoadFilesFromDirectory = 'loadFilesFromDirectory',
 	GetStoredPresentations = 'getStoredPresentations',
 	GetSinglePresentation = 'getSinglePresentation',
+	deleteSinglePresentation = 'deleteSinglePresentation',
 	SaveChangesToPresentation = 'saveChangesToPresentation',
 	CreateQuickCreatePresentation = 'createPresentationQuickCreate',
 	OpenFileSelectorDialog = 'openFileSelectorDialog',

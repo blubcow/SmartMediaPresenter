@@ -90,6 +90,35 @@ export const registerMainProcessMethodHandlers = (
 	);
 
 	ipcMain.handle(
+		MainProcessMethodIdentifiers.deleteSinglePresentation,
+		async (_, id) => {
+			const path = __dirname + `/store/${id}.json`;
+			const audioPath = __dirname + `/store/audio/${id}`;
+
+			if (!fs.existsSync(path)) return;
+
+			fs.unlinkSync(path);
+
+			if (fs.existsSync(audioPath))
+				fs.rmdirSync(audioPath, { recursive: true });
+
+			const presentations = JSON.parse(
+				`${fs.readFileSync(__dirname + '/store/presentations.json')}`
+			);
+
+			const newPresentations = presentations.presentations.filter(
+				(pres: any) => pres.id !== id
+			);
+			presentations.presentations = newPresentations;
+
+			fs.writeFileSync(
+				__dirname + '/store/presentations.json',
+				JSON.stringify(presentations)
+			);
+		}
+	);
+
+	ipcMain.handle(
 		MainProcessMethodIdentifiers.SaveChangesToPresentation,
 		async (_, id: number, file: any) => {
 			const oldFile = JSON.parse(

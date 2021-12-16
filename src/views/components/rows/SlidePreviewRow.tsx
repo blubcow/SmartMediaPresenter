@@ -97,6 +97,7 @@ const ImagePreview = (props: { width: string; location?: MediaLocation }) => {
 					src={location?.local ?? location?.remote}
 					style={{ height: '100%', width: '100%', objectFit: 'contain' }}
 					alt='media'
+					loading='lazy'
 				/>
 			) : (
 				<Box

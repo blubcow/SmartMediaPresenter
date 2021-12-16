@@ -32,7 +32,7 @@ const ActionConfirmationModal: React.FC<IActionConfirmationModalProps> = (
 						{t('cancel')}
 					</Button>
 					<Button variant='contained' onClick={onConfirm}>
-						{t('confrim')}
+						{t('confirm')}
 					</Button>
 				</Box>
 			</Box>

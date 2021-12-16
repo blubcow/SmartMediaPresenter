@@ -27,17 +27,21 @@ import { CircularProgress } from '@mui/material';
 import usePresentationMediaCache from '../../../hooks/usePresentationMediaCache';
 
 import PresentationFloatingButton from '../PresentationFloatingButton';
+import ActionConfirmationModal from '../modals/ActionConfirmationModal';
+import { useStoredPresentations } from '../../../hooks/useMainProcessMethods';
 
 interface IPresentationPreviewProps {
 	presentation?: SinglePresentation;
 	id: number;
+	removePresentationAction: (id: number) => void;
 }
 
 const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
-	const { presentation, id } = props;
+	const { presentation, id, removePresentationAction } = props;
 	const { isLoading, setPresentation } = usePresentationMediaCache();
 
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
+	const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
 
 	const classes = useStyles();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
@@ -78,10 +82,24 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 						{t('export')}
 					</FloatingButton>
 				)}
-				<FloatingButton variant='extended' color='secondary'>
+				<FloatingButton
+					variant='extended'
+					color='secondary'
+					onClick={() => setOpenDeleteModal(true)}
+				>
 					<Delete sx={{ mr: 1 }} />
 					{t('delete')}
 				</FloatingButton>
+				<ActionConfirmationModal
+					secondaryText={t('deletingPresUndoneMsg')}
+					open={openDeleteModal}
+					onClose={() => setOpenDeleteModal(false)}
+					onCancel={() => setOpenDeleteModal(false)}
+					onConfirm={() => {
+						removePresentationAction(id);
+						setOpenDeleteModal(false);
+					}}
+				/>
 			</FloatingButtonContainer>
 			<Box className={classes.topContainer}>
 				<Text variant='h4'>{presentation?.name}</Text>

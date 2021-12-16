@@ -61,11 +61,23 @@ export const useStoredPresentations = () => {
 			});
 	};
 
+	const removeSinglePresentation = (id: number) => {
+		ipcRenderer.invoke(
+			MainProcessMethodIdentifiers.deleteSinglePresentation,
+			id
+		);
+		const filteredPres = [...presentations].filter((pres) => {
+			return pres.id !== id;
+		});
+		setPresentations(filteredPres);
+	};
+
 	return {
 		retrieveSinglePresentationOnce,
 		createPresentation,
 		createQuickCreatePresentation,
 		presentations,
+		removeSinglePresentation,
 	};
 };
 

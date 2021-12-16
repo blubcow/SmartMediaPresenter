@@ -15,8 +15,12 @@ import PresentationPreview from '../components/PresentationPreview';
 
 const Home: React.FC<{}> = () => {
 	const classes = useStyles();
-	const { presentations, createPresentation, retrieveSinglePresentationOnce } =
-		useStoredPresentations();
+	const {
+		presentations,
+		createPresentation,
+		retrieveSinglePresentationOnce,
+		removeSinglePresentation,
+	} = useStoredPresentations();
 	const history = useHistory();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const [currentPresentation, setCurrentPresentation] = useState<
@@ -79,6 +83,7 @@ const Home: React.FC<{}> = () => {
 						<PresentationPreview
 							presentation={presentationPreview}
 							id={currentPresentation}
+							removePresentationAction={removeSinglePresentation}
 						/>
 					) : (
 						<Box className={classes.noPresentationSelectedContainer}>
