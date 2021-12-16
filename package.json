@@ -24,6 +24,7 @@
     "react-edit-text": "^4.2.0",
     "react-full-screen": "^1.1.0",
     "react-i18next": "^11.13.0",
+    "react-image-crop": "^9.0.5",
     "react-lazy-load-image-component": "^1.5.1",
     "react-media-recorder": "^1.6.3",
     "react-redux": "^7.2.5",
