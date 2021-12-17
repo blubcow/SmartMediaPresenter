@@ -93,5 +93,7 @@
   "de": "german",
   "en": "english",
   "auto": "auto",
-  "theme": "theme"
+  "theme": "theme",
+  "reset": "reset",
+  "adjustColorChannels": "adjust color channels"
 }

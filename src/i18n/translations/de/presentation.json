@@ -93,5 +93,7 @@
   "de": "Deutsch",
   "en": "Englisch",
   "auto": "automatisch",
-  "theme": "Oberflächenfarbe"
+  "theme": "Oberflächenfarbe",
+  "reset": "zurücksetzen",
+  "adjustColorChannels": "Farbkanäle anpassen"
 }

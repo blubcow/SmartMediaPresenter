@@ -14,7 +14,11 @@ const ColorChannelFilter: React.FC<IColorChannelFilterProps> = (props) => {
 	const { red, green, blue } = channels;
 
 	return (
-		<svg version='1.1' xmlns='http://www.w3.org/2000/svg'>
+		<svg
+			version='1.1'
+			xmlns='http://www.w3.org/2000/svg'
+			style={{ display: 'none' }}
+		>
 			<defs>
 				<filter id={`${id}`}>
 					<feColorMatrix

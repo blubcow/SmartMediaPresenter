@@ -13,6 +13,11 @@ import {
 } from '../../../shared/types/presentation';
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
+import { RestartAlt } from '@mui/icons-material';
+import useImageManipulation from '../../../hooks/useImageManipulation';
+import RgbChannelsImageManipulationRow from './RgbChannelsImageManipulationRow';
+import RgbChannelsPopover from './RgbChannelsPopover';
+import ColorChannelFilter from '../MediaBox/ColorChannelFilter';
 
 interface IImageManipulationButtonProps {}
 
@@ -75,58 +80,16 @@ const ImageManipulationControls: React.FC<IImageManipulationControlsProps> = (
 ) => {
 	const { heading, media, onConfrim, onCancel } = props;
 	const { t } = useTranslation([i18nNamespace.Presentation]);
-	const [options, setOptions] = useState<ImageManipulationEntity[]>([
-		{
-			name: t('brightness'),
-			property: 'brightness',
-			range: { from: 0, to: 200 },
-			value: media?.settings?.brightness ?? 100,
-			unit: '%',
-		},
-		{
-			name: t('contrast'),
-			property: 'contrast',
-			range: { from: 0, to: 200 },
-			value: media?.settings?.contrast ?? 100,
-			unit: '%',
-		},
-		{
-			name: t('saturation'),
-			property: 'saturate',
-			range: { from: 0, to: 200 },
-			value: media?.settings?.contrast ?? 100,
-			unit: '%',
-		},
-		{
-			name: t('gray scale'),
-			property: 'grayscale',
-			range: { from: 0, to: 100 },
-			value: media?.settings?.grayScale ?? 0,
-			unit: '%',
-		},
-		{
-			name: t('sepia'),
-			property: 'sepia',
-			range: { from: 0, to: 100 },
-			value: media?.settings?.sepia ?? 0,
-			unit: '%',
-		},
-		{
-			name: t('hue'),
-			property: 'hue-rotate',
-			range: { from: 0, to: 360 },
-			value: media?.settings?.hue ?? 0,
-			unit: 'deg',
-		},
-		{
-			name: t('blur'),
-			property: 'blur',
-			range: { from: 0, to: 20 },
-			value: media?.settings?.blur ?? 0,
-			unit: 'px',
-		},
-	]);
+	const {
+		options,
+		setOptions,
+		channels,
+		setChannels,
+		resetToDefault,
+		resetChannels,
+	} = useImageManipulation(media?.settings);
 	const [filter, setFilter] = useState<string>('');
+	const [anchorElement, setAnchorElement] = useState<Element | undefined>();
 
 	const classes = useImageManipulationControlsStyles();
 
@@ -136,13 +99,14 @@ const ImageManipulationControls: React.FC<IImageManipulationControlsProps> = (
 				(prev, option) =>
 					`${option.property}(${option.value}${option.unit}) ${prev}`,
 				''
-			)
+			) + `url(#${100})`
 		);
 	}, [options]);
 
 	return (
 		<Box className={classes.container}>
 			<Text variant={'h4'}>{heading}</Text>
+			<ColorChannelFilter id={100} channels={channels} />
 			<img
 				className={classes.img}
 				src={media?.location.local ?? media?.location.remote}
@@ -151,27 +115,53 @@ const ImageManipulationControls: React.FC<IImageManipulationControlsProps> = (
 				}}
 				alt='media'
 			/>
-			{options.map((option, index) => (
-				<Box key={index} className={classes.optionContainer}>
-					<Text variant='h6'>{option.name}</Text>
-					<Slider
-						className={classes.slider}
-						size='small'
-						value={option.value}
-						min={option.range.from}
-						max={option.range.to}
-						valueLabelDisplay='auto'
-						onChange={(e, val) => {
-							// @ts-ignore
-							setOptions([
-								...options.map((option, i) =>
-									index === i ? { ...option, value: val ?? 0 } : option
-								),
-							]);
-						}}
-					/>
-				</Box>
-			))}
+			<Button
+				color='secondary'
+				variant='contained'
+				sx={{ marginTop: 1 }}
+				onClick={resetToDefault}
+			>
+				<RestartAlt sx={{ pr: 0.5 }} />
+				{t('reset')}
+			</Button>
+			<Box className={classes.optionsContainer}>
+				{options.map((option, index) => (
+					<Box key={index} className={classes.optionContainer}>
+						<Text fontWeight='bold'>{option.name}</Text>
+						<Slider
+							className={classes.slider}
+							size='small'
+							value={option.value}
+							min={option.range.from}
+							max={option.range.to}
+							valueLabelDisplay='auto'
+							onChange={(e, val) => {
+								// @ts-ignore
+								setOptions([
+									...options.map((option, i) =>
+										index === i ? { ...option, value: val ?? 0 } : option
+									),
+								]);
+							}}
+						/>
+					</Box>
+				))}
+				<RgbChannelsImageManipulationRow
+					onClick={(e) => setAnchorElement(e.currentTarget)}
+				/>
+				<RgbChannelsPopover
+					anchorEl={anchorElement}
+					onClose={() => setAnchorElement(undefined)}
+					channels={channels}
+					onChannelsChanged={(mainChannel, subChannel, value) => {
+						const newChannels = { ...channels };
+						newChannels[mainChannel][subChannel] = value;
+						setChannels(newChannels);
+					}}
+					reset={resetChannels}
+				/>
+			</Box>
+
 			<Box className={classes.btnContainer}>
 				<Button variant='contained' color='secondary' onClick={onCancel}>
 					{t('cancel')}
@@ -189,6 +179,7 @@ const ImageManipulationControls: React.FC<IImageManipulationControlsProps> = (
 							sepia: options[4].value,
 							hue: options[5].value,
 							blur: options[6].value,
+							rgbChannels: { ...channels },
 						};
 						onConfrim({ ...media, settings: newSettings });
 					}}

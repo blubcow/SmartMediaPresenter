@@ -62,15 +62,21 @@ export const useImageManipulationControlsStyles = makeStyles((theme: Theme) =>
 			display: 'flex',
 			flexDirection: 'column',
 			alignItems: 'center',
-			padding: theme.spacing(3),
+			padding: theme.spacing(2),
+			justifyContent: 'space-between',
 		},
 		img: {
 			marginTop: theme.spacing(3),
-			maxHeight: '200px',
+			maxHeight: '170px',
 			maxWidth: '100%',
+		},
+		optionsContainer: {
+			paddingTop: theme.spacing(2),
+			width: '100%',
 		},
 		optionContainer: {
 			width: '100%',
+			maxHeight: '45px',
 		},
 		slider: {
 			width: '100%',

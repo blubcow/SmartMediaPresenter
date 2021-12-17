@@ -6,7 +6,7 @@ interface IRowProps {
 	label: string;
 	primaryNode?: React.ReactNode;
 	node: React.ReactNode;
-	onClick?: () => void;
+	onClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 	isHighlighted?: boolean;
 }
 
