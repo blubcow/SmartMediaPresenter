@@ -3,6 +3,7 @@ import { Dimensions, MediaRessource } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
 import MediaDropBoxIndicator from '../MediaDropBoxIndicator';
 import ActiveMediaIdenticator from './ActiveMediaIdenticator';
+import ColorChannelFilter from './ColorChannelFilter';
 import useStyles from './styles';
 
 interface IMediaBox {
@@ -91,57 +92,69 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 				<ActiveMediaIdenticator image={imgRef.current} mediaElement={media} />
 			)}
 			{media?.location.local || media?.location.remote ? (
-				<img
-					ref={imgRef}
-					className={classes.img}
-					src={media.location.local ?? media.location.remote}
-					draggable={false}
-					onClick={(e) => {
-						e.stopPropagation();
-						if (activateMedia) activateMedia(id);
-					}}
-					onBlur={(e) => {
-						// TODO: take focus if the condition matches
-						if (e.relatedTarget?.id === 'mediaOrSlideEditing') {
-							// e.target.focus();
-							return;
+				<>
+					<ColorChannelFilter
+						id={id}
+						channels={
+							media.settings?.rgbChannels ?? {
+								red: { r: 1, g: 0, b: 0, alpha: 0 },
+								green: { r: 0, g: 1, b: 0, alpha: 0 },
+								blue: { r: 0, g: 0, b: 1, alpha: 0 },
+							}
 						}
-						if (onMediaSelectionBlur) onMediaSelectionBlur();
-					}}
-					tabIndex={id}
-					style={{
-						transform: `translate(${
-							((slideEditingBoxDimensions?.width ?? 0) /
-								(media?.settings?.translation?.rel?.width ?? 1)) *
-							(media?.settings?.translation?.x ?? 0)
-						}px, ${
-							((slideEditingBoxDimensions?.height ?? 0) /
-								(media?.settings?.translation?.rel?.height ?? 1)) *
-							(media?.settings?.translation?.y ?? 0)
-						}px) scale(${media?.settings?.scaling?.x ?? 1}, ${
-							media?.settings?.scaling?.y ?? 1
-						}) rotate(${media.settings?.rotation ?? 0}deg)`,
-						filter: `brightness(${
-							media.settings?.brightness ?? 100
-						}%) contrast(${media.settings?.contrast ?? 100}%) saturate(${
-							media.settings?.saturation ?? 100
-						}%) grayscale(${media.settings?.grayScale ?? 0}%) sepia(${
-							media.settings?.sepia ?? 0
-						}%) hue-rotate(${media.settings?.hue ?? 0}deg) blur(${
-							media.settings?.blur ?? 0
-						}px)`,
-						clipPath: `inset(${media.settings?.crop?.y ?? 0}% ${
-							100 -
-							((media.settings?.crop?.x ?? 0) +
-								(media.settings?.crop?.width ?? 100))
-						}% ${
-							100 -
-							((media.settings?.crop?.y ?? 0) +
-								(media.settings?.crop?.height ?? 100))
-						}% ${media.settings?.crop?.x ?? 0}%)`,
-					}}
-					alt='presentation-media'
-				/>
+					/>
+					<img
+						ref={imgRef}
+						className={classes.img}
+						src={media.location.local ?? media.location.remote}
+						draggable={false}
+						onClick={(e) => {
+							e.stopPropagation();
+							if (activateMedia) activateMedia(id);
+						}}
+						onBlur={(e) => {
+							// TODO: take focus if the condition matches
+							if (e.relatedTarget?.id === 'mediaOrSlideEditing') {
+								// e.target.focus();
+								return;
+							}
+							if (onMediaSelectionBlur) onMediaSelectionBlur();
+						}}
+						tabIndex={id}
+						style={{
+							transform: `translate(${
+								((slideEditingBoxDimensions?.width ?? 0) /
+									(media?.settings?.translation?.rel?.width ?? 1)) *
+								(media?.settings?.translation?.x ?? 0)
+							}px, ${
+								((slideEditingBoxDimensions?.height ?? 0) /
+									(media?.settings?.translation?.rel?.height ?? 1)) *
+								(media?.settings?.translation?.y ?? 0)
+							}px) scale(${media?.settings?.scaling?.x ?? 1}, ${
+								media?.settings?.scaling?.y ?? 1
+							}) rotate(${media.settings?.rotation ?? 0}deg)`,
+							filter: `brightness(${
+								media.settings?.brightness ?? 100
+							}%) contrast(${media.settings?.contrast ?? 100}%) saturate(${
+								media.settings?.saturation ?? 100
+							}%) grayscale(${media.settings?.grayScale ?? 0}%) sepia(${
+								media.settings?.sepia ?? 0
+							}%) hue-rotate(${media.settings?.hue ?? 0}deg) blur(${
+								media.settings?.blur ?? 0
+							}px) url(#${media.id})`,
+							clipPath: `inset(${media.settings?.crop?.y ?? 0}% ${
+								100 -
+								((media.settings?.crop?.x ?? 0) +
+									(media.settings?.crop?.width ?? 100))
+							}% ${
+								100 -
+								((media.settings?.crop?.y ?? 0) +
+									(media.settings?.crop?.height ?? 100))
+							}% ${media.settings?.crop?.x ?? 0}%)`,
+						}}
+						alt='presentation-media'
+					/>
+				</>
 			) : canReceiveMedia ? (
 				<MediaDropBoxIndicator
 					canTapToOpenFileInspector

@@ -55,6 +55,20 @@ export interface MediaSettings {
 	sepia: number;
 	blur: number;
 	crop: MediaCrop;
+	rgbChannels: MediaRGBChannels;
+}
+
+export interface RGBChannel {
+	r: number;
+	g: number;
+	b: number;
+	alpha: number;
+}
+
+export interface MediaRGBChannels {
+	red: RGBChannel;
+	green: RGBChannel;
+	blue: RGBChannel;
 }
 
 export interface MediaCrop {
