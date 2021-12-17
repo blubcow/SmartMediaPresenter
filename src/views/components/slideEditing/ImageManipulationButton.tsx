@@ -77,8 +77,8 @@ const ImageManipulationControls: React.FC<IImageManipulationControlsProps> = (
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const [options, setOptions] = useState<ImageManipulationEntity[]>([
 		{
-			name: 'brightness',
-			property: t('brightness'),
+			name: t('brightness'),
+			property: 'brightness',
 			range: { from: 0, to: 200 },
 			value: media?.settings?.brightness ?? 100,
 			unit: '%',
