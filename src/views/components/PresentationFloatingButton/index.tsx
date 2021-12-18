@@ -13,12 +13,13 @@ import PresentationFullScreen from '../FullScreen/PresentationFullScreen';
 interface IPresentationFloatingButtonProps {
 	presentationId: number;
 	presentation: SinglePresentation;
+	initialSlide?: number;
 }
 
 const PresentationFloatingButton: React.FC<IPresentationFloatingButtonProps> = (
 	props
 ) => {
-	const { presentationId, presentation } = props;
+	const { presentationId, presentation, initialSlide } = props;
 	const { displaysAvailable, startPresentationMode } = useDisplays();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const [open, setOpen] = useState<boolean>(false);
@@ -69,7 +70,11 @@ const PresentationFloatingButton: React.FC<IPresentationFloatingButtonProps> = (
 			)}
 			{presentation.slides.length > 0 &&
 				presentation.slides[0].media.length > 0 && (
-					<PresentationFullScreen handle={handle} presentation={presentation} />
+					<PresentationFullScreen
+						handle={handle}
+						presentation={presentation}
+						initialSlide={initialSlide}
+					/>
 				)}
 		</>
 	);

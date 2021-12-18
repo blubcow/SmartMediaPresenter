@@ -124,6 +124,7 @@ const PresentationEditingFloatingButtons: React.FC<IPresentationEditingFloatingB
 						<PresentationFloatingButton
 							presentationId={presentationId}
 							presentation={presentation}
+							initialSlide={currentSlide}
 						/>
 					</>
 				)}

@@ -1,3 +1,4 @@
+import { initial } from 'lodash';
 import React, { useEffect, useState, useRef } from 'react';
 import { FullScreen } from 'react-full-screen';
 import {
@@ -10,13 +11,14 @@ import SlideBox from '../SlideBox';
 interface IPresentationFullScreenProps {
 	handle: any;
 	presentation: SinglePresentation;
+	initialSlide?: number;
 }
 
 const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 	props
 ) => {
-	const { handle, presentation } = props;
-	const [currentSlide, setCurrentSlide] = useState<number>(0);
+	const { handle, presentation, initialSlide } = props;
+	const [currentSlide, setCurrentSlide] = useState<number>(initialSlide ?? 0);
 	const [presentationBoxSize, setPresentationBoxSize] = useState<Dimensions>({
 		height: 0,
 		width: 0,
@@ -37,6 +39,10 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 		)
 	);
 	const [slideAudio] = useState<HTMLAudioElement>(new Audio());
+
+	useEffect(() => {
+		setCurrentSlide(initialSlide ?? 0);
+	}, [initialSlide]);
 
 	useEffect(() => {
 		if (presentationBoxRef.current !== undefined)
