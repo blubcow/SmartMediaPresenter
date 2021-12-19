@@ -13,11 +13,30 @@ const ActiveMediaIdenticator: React.FC<IActiveMediaIdenticatorProps> = (
 ) => {
 	const { image, mediaElement } = props;
 	const { indicator } = useActiveMediaIndicatorStyles();
+	const [hidden, setHidden] = useState<boolean>(false);
+
+	useEffect(() => {
+		const handleKeydown = (e: KeyboardEvent) => {
+			if (e.key === ' ') setHidden(true);
+		};
+		const handleKeyup = (e: KeyboardEvent) => {
+			if (e.key === ' ') setHidden(false);
+		};
+
+		window.addEventListener('keydown', handleKeydown);
+
+		window.addEventListener('keyup', handleKeyup);
+		return () => {
+			window.removeEventListener('keydown', handleKeydown);
+			window.removeEventListener('keyup', handleKeyup);
+		};
+	}, []);
 
 	return (
 		<Box
 			className={indicator}
 			style={{
+				display: hidden ? 'none' : undefined,
 				top:
 					image.offsetTop +
 					(mediaElement.settings?.translation?.y ?? 0) +
