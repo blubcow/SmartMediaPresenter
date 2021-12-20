@@ -95,5 +95,9 @@
   "auto": "auto",
   "theme": "theme",
   "reset": "reset",
-  "adjustColorChannels": "adjust color channels"
+  "adjustColorChannels": "adjust color channels",
+  "align": "align",
+  "left": "left",
+  "center": "center",
+  "right": "right"
 }

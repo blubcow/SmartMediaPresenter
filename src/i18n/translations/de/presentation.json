@@ -95,5 +95,9 @@
   "auto": "automatisch",
   "theme": "Oberflächenfarbe",
   "reset": "zurücksetzen",
-  "adjustColorChannels": "Farbkanäle anpassen"
+  "adjustColorChannels": "Farbkanäle anpassen",
+  "align": "ausrichten",
+  "left": "links",
+  "center": "mittig",
+  "right": "rechts"
 }

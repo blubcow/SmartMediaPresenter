@@ -56,6 +56,7 @@ export interface MediaSettings {
 	blur: number;
 	crop: MediaCrop;
 	rgbChannels: MediaRGBChannels;
+	alignment: MediaAlignment;
 }
 
 export interface RGBChannel {
@@ -110,6 +111,8 @@ export const getEmptySlide = (
 		),
 	};
 };
+
+export type MediaAlignment = TextAlignment;
 
 export interface MediaTranslation {
 	rel: { width: number; height: number };

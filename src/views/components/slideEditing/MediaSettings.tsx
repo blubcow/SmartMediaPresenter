@@ -1,6 +1,7 @@
 import React from 'react';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import { Box } from '../../../smpUI/components';
+import AlignMediaButton from './AlignMediaButton';
 import CropButton from './CropButton';
 import ImageManipulationButton from './ImageManipulationButton';
 import MoveButton from './MoveButton';
@@ -17,6 +18,8 @@ const MediaSettings: React.FC<IMediaSettingsProps> = (props) => {
 
 	return (
 		<Box className={classes.container}>
+			<AlignMediaButton />
+			<Box className={classes.spacer} />
 			<MoveButton />
 			<Box className={classes.spacer} />
 			<ScaleButton />
