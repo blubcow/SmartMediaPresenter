@@ -11,6 +11,7 @@ export default makeStyles<Theme>((theme: Theme) =>
 			backgroundColor: 'divider',
 			position: 'relative',
 			userSelect: 'none',
+			objectFit: 'contain',
 		},
 	})
 );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Box, Text } from '../../../smpUI/components';
+import { Box } from '../../../smpUI/components';
 import {
 	Dimensions,
 	MediaRessource,
@@ -12,7 +12,6 @@ import MediaBox from '../MediaBox';
 import PresentationFrame from '../PresentationFrame';
 import useStyels from './styles';
 import SlideTextElement from '../SlideTextElement';
-import { ThemeContext } from '@emotion/react';
 
 export interface ISlideBoxProps extends IBoxProps {
 	slide: Slide;
@@ -124,7 +123,9 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 					<Box
 						key={i}
 						className={classes.rowContainer}
-						sx={{ maxHeight: `${100 / slide.rows}%` }}
+						sx={{
+							maxHeight: `${100 / slide.rows}%`,
+						}}
 					>
 						{[...slide.media]
 							.slice(i * slide.columns, i * slide.columns + slide.columns)

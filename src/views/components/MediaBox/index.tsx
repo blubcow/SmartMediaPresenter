@@ -55,9 +55,19 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 				height:
 					media?.location.local || media?.location.remote ? '100%' : undefined,
 				width:
-					media?.location.local || media?.location.remote ? undefined : '100%',
+					(media?.location.local || media?.location.remote) &&
+					!media?.settings?.alignment
+						? undefined
+						: width,
 				display: 'flex',
 				flexDirection: 'column',
+				alignItems: media?.settings?.alignment
+					? media.settings.alignment === 'left'
+						? 'start'
+						: media.settings.alignment === 'center'
+						? 'center'
+						: 'end'
+					: undefined,
 				justifyContent: 'center',
 				overflow: 'visible',
 			}}

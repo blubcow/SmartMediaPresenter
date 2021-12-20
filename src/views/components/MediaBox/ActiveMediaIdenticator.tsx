@@ -51,7 +51,8 @@ const ActiveMediaIdenticator: React.FC<IActiveMediaIdenticatorProps> = (
 					image.height * ((mediaElement.settings?.crop?.height ?? 100) / 100) +
 					'px',
 				width:
-					image.width * ((mediaElement.settings?.crop?.width ?? 100) / 100) +
+					image.clientWidth *
+						((mediaElement.settings?.crop?.width ?? 100) / 100) +
 					'px',
 				transform: `scale(${mediaElement.settings?.scaling?.x ?? 1}, ${
 					mediaElement.settings?.scaling?.y ?? 1
