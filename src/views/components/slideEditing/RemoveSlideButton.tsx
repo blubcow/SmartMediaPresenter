@@ -1,6 +1,10 @@
 import React from 'react';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { getEmptySlide, Slide } from '../../../shared/types/presentation';
+import {
+	getEmptySlide,
+	SinglePresentation,
+	Slide,
+} from '../../../shared/types/presentation';
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import RemoveButton from './RemoveButton';
 
@@ -11,8 +15,10 @@ const RemoveSlideButton: React.FC<{}> = (props) => {
 	return (
 		<RemoveButton
 			onClick={() => {
-				const newPresentation = { ...presentation };
-				const slides: Slide[] = presentation.slides
+				const newPresentation: SinglePresentation = JSON.parse(
+					JSON.stringify(presentation)
+				);
+				const slides: Slide[] = newPresentation.slides
 					.filter((slide) => slide.id !== currentSlide)
 					.map((slide) => ({
 						...slide,
