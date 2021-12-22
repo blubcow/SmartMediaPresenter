@@ -41,5 +41,10 @@ export const useAuthButtonContainerStyles = makeStyles((theme: Theme) =>
 			display: 'flex',
 			justifyContent: 'center',
 		},
+		secondaryBtnsContainer: {
+			marginTop: theme.spacing(2),
+			display: 'flex',
+			justifyContent: 'space-between',
+		},
 	})
 );

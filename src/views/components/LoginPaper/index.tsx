@@ -54,9 +54,12 @@ const AuthButtonContainer = () => {
 					{t('login')}
 				</Button>
 			</Box>
-			<Box className={classes.buttonContainer}>
-				<Button color='info' minWidth='200px'>
+			<Box className={classes.secondaryBtnsContainer}>
+				<Button color='primary' size='small'>
 					{t('forgotPwd')}
+				</Button>
+				<Button color='primary' size='small'>
+					{t('createAccount')}
 				</Button>
 			</Box>
 		</Box>

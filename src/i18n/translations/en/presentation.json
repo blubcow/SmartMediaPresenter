@@ -99,5 +99,6 @@
   "align": "align",
   "left": "left",
   "center": "center",
-  "right": "right"
+  "right": "right",
+  "createAccount": "create account"
 }
