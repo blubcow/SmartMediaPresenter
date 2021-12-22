@@ -4,16 +4,19 @@ import NavigationProvider from './providers/NavigationProvider';
 import I18NProvider from './providers/I18NProvider';
 import 'react-image-crop/dist/ReactCrop.css';
 import UserSettingsProvider from './providers/UserSettingsProvider';
+import RemoteUserProvider from './providers/RemoteUserProvider';
 
 function App() {
 	return (
-		<UserSettingsProvider>
-			<I18NProvider>
-				<ThemeProvider>
-					<NavigationProvider />
-				</ThemeProvider>
-			</I18NProvider>
-		</UserSettingsProvider>
+		<RemoteUserProvider>
+			<UserSettingsProvider>
+				<I18NProvider>
+					<ThemeProvider>
+						<NavigationProvider />
+					</ThemeProvider>
+				</I18NProvider>
+			</UserSettingsProvider>
+		</RemoteUserProvider>
 	);
 }
 
