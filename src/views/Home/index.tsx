@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { SinglePresentation } from '../../shared/types/presentation';
 import PresentationPreview from '../components/PresentationPreview';
+import { getFormattedDate } from '../../models/DateFormatter';
 
 const Home: React.FC<{}> = () => {
 	const classes = useStyles();
@@ -40,10 +41,6 @@ const Home: React.FC<{}> = () => {
 		}
 	}, [currentPresentation]);
 
-	const getFormattedDtate = (date: Date) => {
-		return `${date.getDay()}.${date.getMonth()}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
-	};
-
 	return (
 		<Page TopBar={<HomeTopBar />}>
 			<Box className={classes.container}>
@@ -63,8 +60,8 @@ const Home: React.FC<{}> = () => {
 						{presentations.map((presentation, i) => (
 							<Row
 								title={presentation.name}
-								info={`${t('lastChange')}: ${getFormattedDtate(
-									new Date(presentation.created)
+								info={`${t('lastChange')}: ${getFormattedDate(
+									presentation.created
 								)}`}
 								rootContainerStyle={{ zIndex: 0 }}
 								key={i}
