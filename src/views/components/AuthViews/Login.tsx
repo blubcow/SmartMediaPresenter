@@ -1,29 +1,27 @@
 import React from 'react';
-import { Box, Paper, Text, TextField, Button } from '../../../smpUI/components';
+import { Box, Text, Button, TextField } from '../../../smpUI/components';
 import useThemedLogo from '../../../hooks/useThemedLogo';
 import useStyles, {
 	useAuthButtonContainerStyles,
 	useTextFieldContainerStyles,
-} from './styles';
+} from '../AuthViews/styles';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 
-const LoginPaper: React.FC<{}> = () => {
+const Login: React.FC<{}> = () => {
 	const logo = useThemedLogo();
 	const classes = useStyles();
 	const { t } = useTranslation([i18nNamespace.Auth]);
 
 	return (
-		<Paper>
-			<Box className={classes.container}>
-				<img src={logo.logo} className={classes.img} alt='SMP-Logo' />
-				<Text variant='h4' fontWeight='bold'>
-					{t('login')}
-				</Text>
-				<TextFieldContainer />
-				<AuthButtonContainer />
-			</Box>
-		</Paper>
+		<Box className={classes.container}>
+			<img src={logo.logo} className={classes.img} alt='SMP-Logo' />
+			<Text variant='h4' fontWeight='bold'>
+				{t('login')}
+			</Text>
+			<TextFieldContainer />
+			<AuthButtonContainer />
+		</Box>
 	);
 };
 
@@ -66,4 +64,4 @@ const AuthButtonContainer = () => {
 	);
 };
 
-export default LoginPaper;
+export default Login;

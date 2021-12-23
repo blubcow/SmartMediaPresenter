@@ -5,6 +5,7 @@ import { AccountCircle } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { auth } from '../../../models/firebase';
+import AuthViews from '../AuthViews';
 
 const RemoteUser: React.FC<{}> = () => {
 	const { remoteUser } = useRemoteUserContext();
@@ -43,10 +44,9 @@ const RemoteUser: React.FC<{}> = () => {
 					</Button>
 				</Box>
 			</Box>
-			<Modal
-				open={openLoginModal}
-				onClose={() => setOpenLoginModal(false)}
-			></Modal>
+			<Modal open={openLoginModal} onClose={() => setOpenLoginModal(false)}>
+				<AuthViews />
+			</Modal>
 		</Box>
 	);
 };
