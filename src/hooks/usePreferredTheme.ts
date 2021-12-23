@@ -1,7 +1,8 @@
-import { Theme } from '@mui/material';
 import { useState, useEffect } from 'react';
+import { Theme } from '@mui/material';
 import { preferredTheme } from '../shared/types/userSettings';
 import { darkTheme, lightTheme } from '../smpUI/smpUITheme';
+import useUserSettingsContext from './useUserSettingsContext';
 
 const usePreferredTheme = () => {
 	const [preferredTheme, setPreferredTheme] = useState<Theme>(
@@ -10,11 +11,16 @@ const usePreferredTheme = () => {
 			: lightTheme
 	);
 	const [auto, setAuto] = useState<boolean>(true);
+	const { userSettings } = useUserSettingsContext();
 
 	const themeListener = (event: MediaQueryListEvent) => {
 		if (!auto) return;
 		setPreferredTheme(event.matches ? darkTheme : lightTheme);
 	};
+
+	useEffect(() => {
+		changeTheme(userSettings.theme ?? 'auto');
+	}, [userSettings.theme]);
 
 	useEffect(() => {
 		const darkThemeListener = window.matchMedia('(prefers-color-scheme: dark)');
@@ -38,7 +44,7 @@ const usePreferredTheme = () => {
 		);
 	};
 
-	return { preferredTheme, changeTheme };
+	return { preferredTheme };
 };
 
 export default usePreferredTheme;
