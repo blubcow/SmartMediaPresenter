@@ -45,7 +45,7 @@ const RemoteUser: React.FC<{}> = () => {
 				</Box>
 			</Box>
 			<Modal open={openLoginModal} onClose={() => setOpenLoginModal(false)}>
-				<AuthViews />
+				<AuthViews onLogin={() => setOpenLoginModal(false)} />
 			</Modal>
 		</Box>
 	);

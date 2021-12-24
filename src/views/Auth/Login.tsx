@@ -6,6 +6,7 @@ import useStyles from './styles';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
+import { SMPRoutes } from '../../types/routes';
 
 const Login: React.FC<{}> = () => {
 	const classes = useStyles();
@@ -16,7 +17,7 @@ const Login: React.FC<{}> = () => {
 			<Box className={classes.container}>
 				<AuthPaper />
 				<Box className={classes.skipLoginButtonContainer}>
-					<Link to='/home' style={{ textDecoration: 'none' }}>
+					<Link to={SMPRoutes.Home} style={{ textDecoration: 'none' }}>
 						<Button color='warning'>{t('skipLogin')}</Button>
 					</Link>
 				</Box>

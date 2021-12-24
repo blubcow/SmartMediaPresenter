@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Text, Button, TextField } from '../../../smpUI/components';
 import useThemedLogo from '../../../hooks/useThemedLogo';
 import useStyles, {
@@ -7,8 +7,13 @@ import useStyles, {
 } from '../AuthViews/styles';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
+import { auth } from '../../../models/firebase';
 
-const Login: React.FC<{}> = () => {
+interface ILoginProps {
+	onLogin: () => void;
+}
+
+const Login: React.FC<ILoginProps> = (props) => {
 	const logo = useThemedLogo();
 	const classes = useStyles();
 	const { t } = useTranslation([i18nNamespace.Auth]);
@@ -19,24 +24,63 @@ const Login: React.FC<{}> = () => {
 			<Text variant='h4' fontWeight='bold'>
 				{t('login')}
 			</Text>
-			<TextFieldContainer />
+			<FormContainer {...props} />
 			<AuthButtonContainer />
 		</Box>
 	);
 };
 
-const TextFieldContainer = () => {
+interface IFormContainerProps {
+	onLogin: () => void;
+}
+
+const FormContainer: React.FC<IFormContainerProps> = (props) => {
+	const { onLogin } = props;
+
 	const classes = useTextFieldContainerStyles();
+	const [email, setEmail] = useState<string>('');
+	const [password, setPassword] = useState<string>('');
 	const { t } = useTranslation([i18nNamespace.Auth]);
+	const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		auth
+			.signIn(email, password)
+			.then((_) => {
+				// successfull sign in
+				onLogin();
+			})
+			.catch((error) => {
+				// sign in failed
+				setEmail('');
+				setPassword('');
+			});
+	};
 
 	return (
 		<Box className={classes.container}>
-			<Box className={classes.textFieldContainer}>
-				<TextField label={t('email')} />
-			</Box>
-			<Box className={classes.textFieldContainer}>
-				<TextField label={t('pwd')} type='password' />
-			</Box>
+			<form onSubmit={handleLogin}>
+				<Box className={classes.textFieldContainer}>
+					<TextField
+						label={t('email')}
+						type='email'
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+					/>
+				</Box>
+				<Box className={classes.textFieldContainer}>
+					<TextField
+						label={t('pwd')}
+						type='password'
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+					/>
+				</Box>
+				<Box className={classes.buttonContainer}>
+					<Button variant='contained' minWidth='200px' type='submit'>
+						{t('login')}
+					</Button>
+				</Box>
+			</form>
 		</Box>
 	);
 };
@@ -47,19 +91,12 @@ const AuthButtonContainer = () => {
 
 	return (
 		<Box className={classes.container}>
-			<Box className={classes.buttonContainer}>
-				<Button variant='contained' minWidth='200px'>
-					{t('login')}
-				</Button>
-			</Box>
-			<Box className={classes.secondaryBtnsContainer}>
-				<Button color='primary' size='small'>
-					{t('forgotPwd')}
-				</Button>
-				<Button color='primary' size='small'>
-					{t('createAccount')}
-				</Button>
-			</Box>
+			<Button color='primary' size='small'>
+				{t('forgotPwd')}
+			</Button>
+			<Button color='primary' size='small'>
+				{t('createAccount')}
+			</Button>
 		</Box>
 	);
 };

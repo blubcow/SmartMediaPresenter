@@ -26,6 +26,11 @@ export const useTextFieldContainerStyles = makeStyles((theme: Theme) =>
 			width: '100%',
 			marginTop: theme.spacing(3),
 		},
+		buttonContainer: {
+			marginTop: theme.spacing(2),
+			display: 'flex',
+			justifyContent: 'center',
+		},
 	})
 );
 
@@ -33,15 +38,6 @@ export const useAuthButtonContainerStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		container: {
 			width: '100%',
-			display: 'flex',
-			flexDirection: 'column',
-		},
-		buttonContainer: {
-			marginTop: theme.spacing(2),
-			display: 'flex',
-			justifyContent: 'center',
-		},
-		secondaryBtnsContainer: {
 			marginTop: theme.spacing(2),
 			display: 'flex',
 			justifyContent: 'space-between',
