@@ -40,9 +40,12 @@ const FormContainer: React.FC<IFormContainerProps> = (props) => {
 	const classes = useTextFieldContainerStyles();
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const { t } = useTranslation([i18nNamespace.Auth]);
+
 	const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		setIsLoading(true);
 		auth
 			.signIn(email, password)
 			.then((_) => {
@@ -53,7 +56,8 @@ const FormContainer: React.FC<IFormContainerProps> = (props) => {
 				// sign in failed
 				setEmail('');
 				setPassword('');
-			});
+			})
+			.finally(() => setIsLoading(false));
 	};
 
 	return (
@@ -65,6 +69,7 @@ const FormContainer: React.FC<IFormContainerProps> = (props) => {
 						type='email'
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
+						disabled={isLoading}
 					/>
 				</Box>
 				<Box className={classes.textFieldContainer}>
@@ -73,10 +78,17 @@ const FormContainer: React.FC<IFormContainerProps> = (props) => {
 						type='password'
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
+						disabled={isLoading}
 					/>
 				</Box>
 				<Box className={classes.buttonContainer}>
-					<Button variant='contained' minWidth='200px' type='submit'>
+					<Button
+						variant='contained'
+						minWidth='200px'
+						type='submit'
+						isLoading={isLoading}
+						disabled={isLoading}
+					>
 						{t('login')}
 					</Button>
 				</Box>
