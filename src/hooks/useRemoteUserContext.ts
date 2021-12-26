@@ -3,7 +3,10 @@ import { RemoteUserContext } from '../providers/RemoteUserProvider';
 import { RemoteUser } from '../types/remote';
 
 const useRemoteUserContext = () => {
-	const context = useContext(RemoteUserContext) as { remoteUser?: RemoteUser };
+	const context = useContext(RemoteUserContext) as {
+		remoteUser?: RemoteUser;
+		userLoggedIn?: boolean;
+	};
 
 	if (!context)
 		throw new Error(
