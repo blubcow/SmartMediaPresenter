@@ -14,6 +14,9 @@ initializeApp(config);
 const fireAuth = getAuth();
 
 const firebaseAuth = () => {
+	const createAccount = async (email: string, password: string) =>
+		await createUserWithEmailAndPassword(fireAuth, email, password);
+
 	const signIn = async (email: string, password: string) =>
 		await signInWithEmailAndPassword(fireAuth, email, password);
 
@@ -23,7 +26,7 @@ const firebaseAuth = () => {
 
 	const signOut = async () => await fireSignOut(fireAuth);
 
-	return { signIn, signOut, listenForAuthChanges };
+	return { createAccount, signIn, signOut, listenForAuthChanges };
 };
 const auth = firebaseAuth();
 

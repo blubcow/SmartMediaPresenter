@@ -8,6 +8,8 @@ import useStyles, {
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { auth } from '../../../models/firebase';
+import PopUpModal from './PopUpModal';
+import CreateAccount from './CreateAccount';
 
 interface ILoginProps {
 	onLogin: () => void;
@@ -25,7 +27,7 @@ const Login: React.FC<ILoginProps> = (props) => {
 				{t('login')}
 			</Text>
 			<FormContainer {...props} />
-			<AuthButtonContainer />
+			<AuthButtonContainer onAccountCreated={props.onLogin} />
 		</Box>
 	);
 };
@@ -70,6 +72,8 @@ const FormContainer: React.FC<IFormContainerProps> = (props) => {
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 						disabled={isLoading}
+						autoComplete='email'
+						id='email'
 					/>
 				</Box>
 				<Box className={classes.textFieldContainer}>
@@ -79,6 +83,8 @@ const FormContainer: React.FC<IFormContainerProps> = (props) => {
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						disabled={isLoading}
+						autoComplete='current-password'
+						id='current-password'
 					/>
 				</Box>
 				<Box className={classes.buttonContainer}>
@@ -97,18 +103,42 @@ const FormContainer: React.FC<IFormContainerProps> = (props) => {
 	);
 };
 
-const AuthButtonContainer = () => {
+interface IAuthButtonContainerProps {
+	onAccountCreated?: () => void;
+}
+
+const AuthButtonContainer: React.FC<IAuthButtonContainerProps> = (props) => {
+	const { onAccountCreated } = props;
+
 	const classes = useAuthButtonContainerStyles();
 	const { t } = useTranslation([i18nNamespace.Auth]);
+	const [createAccountOpen, setCreateAccountOpen] = useState<boolean>(false);
+	const [forgotPasswordOpen, setForgotPasswordOpen] = useState<boolean>(false);
 
 	return (
 		<Box className={classes.container}>
 			<Button color='primary' size='small'>
 				{t('forgotPwd')}
 			</Button>
-			<Button color='primary' size='small'>
+			<Button
+				color='primary'
+				size='small'
+				onClick={() => setCreateAccountOpen(true)}
+			>
 				{t('createAccount')}
 			</Button>
+			<PopUpModal
+				open={createAccountOpen}
+				onClose={() => setCreateAccountOpen(false)}
+				goBack={() => setCreateAccountOpen(false)}
+			>
+				<CreateAccount
+					onAccountCreated={() => {
+						setCreateAccountOpen(false);
+						if (onAccountCreated) onAccountCreated();
+					}}
+				/>
+			</PopUpModal>
 		</Box>
 	);
 };
