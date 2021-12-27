@@ -14,6 +14,8 @@ import { FileExplorerType } from '../src/shared/types/fileExplorer';
 import { getFonts } from 'font-list';
 import { UserSettings } from '../src/shared/types/userSettings';
 import { SinglePresentation } from '../src/shared/types/presentation';
+import xlsx from 'xlsx';
+import { convertJsonToXlsx } from './models/PresentationFileConverter';
 
 export const registerMainProcessMethodHandlers = (
 	ipcMain: IpcMain,
@@ -381,6 +383,9 @@ export const registerMainProcessMethodHandlers = (
 
 				if (fileExtension === 'json') {
 					fs.writeFileSync(filePath, JSON.stringify(presentation));
+				} else if (fileExtension === 'xlsx') {
+					const book = convertJsonToXlsx(presentation);
+					xlsx.writeFile(book, filePath);
 				}
 			}
 		}

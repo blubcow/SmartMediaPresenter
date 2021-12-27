@@ -11,7 +11,8 @@
   },
   "include": [
     "../src/shared",
-    "./types"
+    "./types",
+    "./models"
   ],
   "files": [
     "index.ts",
