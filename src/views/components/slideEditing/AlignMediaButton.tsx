@@ -39,7 +39,10 @@ const AlignMediaButton: React.FC<IAlignMediaButtonProps> = (props) => {
 	return (
 		<>
 			<EditingButton
-				highlighted={presentation.slides[currentSlide].playback !== undefined}
+				highlighted={
+					presentation.slides[currentSlide].media[activeMedia!].settings
+						?.alignment !== undefined
+				}
 				icon={
 					<CropOriginal
 						sx={{ color: 'text.primary', height: '100%', width: '100%' }}
