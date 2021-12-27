@@ -83,6 +83,7 @@ export const convertJsonToXlsx = (
 		id: slide.id,
 		rows: slide.rows,
 		columns: slide.columns,
+		media: slide.media.length,
 		'settings-color': slide.settings?.color,
 		'settings-presentationframe-rel-width':
 			slide.settings?.presentationFrame?.rel?.width,
