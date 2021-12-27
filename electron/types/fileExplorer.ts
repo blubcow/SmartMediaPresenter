@@ -42,4 +42,12 @@ export const FileExpolorerOptions = {
 		],
 		properties: ['openFile'] as FileExplorereProperties,
 	},
+	save: {
+		properties: ['createDirectory'],
+		showsTagField: false,
+		filters: [
+			{ name: 'json', extensions: ['json'] },
+			{ name: 'excel', extensions: ['xlsx'] },
+		],
+	},
 };

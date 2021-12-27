@@ -17,4 +17,5 @@ export enum MainProcessMethodIdentifiers {
 	getSystemFonts = 'getSystemFonts',
 	getUserSettings = 'getUserSettings',
 	saveUserSettings = 'saveUserSettings',
+	openSavePresentationDialog = 'openSavePresentationDialog',
 }

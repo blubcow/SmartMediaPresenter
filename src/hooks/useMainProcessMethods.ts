@@ -130,7 +130,18 @@ export const useLocalFileSystem = () => {
 		return files;
 	};
 
-	return { getFilesInDir, openFileSelectorDialog };
+	const openSaveFileDialog = async (
+		title: string,
+		presentation: SinglePresentation
+	) => {
+		ipcRenderer.invoke(
+			MainProcessMethodIdentifiers.openSavePresentationDialog,
+			title,
+			presentation
+		);
+	};
+
+	return { getFilesInDir, openFileSelectorDialog, openSaveFileDialog };
 };
 
 export const useDisplays = () => {

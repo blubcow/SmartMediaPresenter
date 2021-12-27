@@ -99,5 +99,6 @@
   "align": "ausrichten",
   "left": "links",
   "center": "mittig",
-  "right": "rechts"
+  "right": "rechts",
+  "savePres": "Präsentation speichern"
 }

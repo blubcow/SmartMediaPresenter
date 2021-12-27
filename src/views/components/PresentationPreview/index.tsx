@@ -28,7 +28,7 @@ import usePresentationMediaCache from '../../../hooks/usePresentationMediaCache'
 
 import PresentationFloatingButton from '../PresentationFloatingButton';
 import ActionConfirmationModal from '../modals/ActionConfirmationModal';
-import { useStoredPresentations } from '../../../hooks/useMainProcessMethods';
+import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
 
 interface IPresentationPreviewProps {
 	presentation?: SinglePresentation;
@@ -45,6 +45,8 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 
 	const classes = useStyles();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
+
+	const { openSaveFileDialog } = useLocalFileSystem();
 
 	const history = useHistory();
 
@@ -77,7 +79,13 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 					{t('edit')}
 				</FloatingButton>
 				{presentation && presentation.slides.length > 0 && (
-					<FloatingButton variant='extended' color='primary'>
+					<FloatingButton
+						variant='extended'
+						color='primary'
+						onClick={() => {
+							openSaveFileDialog(t('savePres'), presentation);
+						}}
+					>
 						<SaveAlt sx={{ mr: 1 }} />
 						{t('export')}
 					</FloatingButton>

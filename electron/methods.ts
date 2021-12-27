@@ -1,4 +1,10 @@
-import { BrowserWindow, dialog, IpcMain, screen } from 'electron';
+import {
+	BrowserWindow,
+	dialog,
+	IpcMain,
+	SaveDialogOptions,
+	screen,
+} from 'electron';
 import { MainProcessMethodIdentifiers } from '../src/shared/types/identifiers';
 import { allowedFiles } from '../src/shared/types/mediaResources';
 import * as path from 'path';
@@ -7,6 +13,7 @@ import { FileExpolorerOptions } from './types/fileExplorer';
 import { FileExplorerType } from '../src/shared/types/fileExplorer';
 import { getFonts } from 'font-list';
 import { UserSettings } from '../src/shared/types/userSettings';
+import { SinglePresentation } from '../src/shared/types/presentation';
 
 export const registerMainProcessMethodHandlers = (
 	ipcMain: IpcMain,
@@ -357,6 +364,25 @@ export const registerMainProcessMethodHandlers = (
 			}
 
 			fs.writeFileSync(path + '/userSettings.json', JSON.stringify(settings));
+		}
+	);
+
+	ipcMain.handle(
+		MainProcessMethodIdentifiers.openSavePresentationDialog,
+		async (_, title: string, presentation: SinglePresentation) => {
+			const { canceled, filePath } = await dialog.showSaveDialog(mainWindow, {
+				...(FileExpolorerOptions.save as SaveDialogOptions),
+				title: title,
+				defaultPath: presentation.name,
+			});
+
+			if (!canceled && filePath !== undefined) {
+				const fileExtension = filePath.split('.').pop();
+
+				if (fileExtension === 'json') {
+					fs.writeFileSync(filePath, JSON.stringify(presentation));
+				}
+			}
 		}
 	);
 };
