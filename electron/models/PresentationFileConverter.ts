@@ -1,4 +1,3 @@
-import { SliderPicker } from 'react-color';
 import xlsx from 'xlsx';
 import {
 	MediaRessource,

@@ -35,9 +35,12 @@ export const useStoredPresentations = () => {
 			});
 	};
 
-	const createPresentation = (callback: (id: number) => any) => {
+	const createPresentation = (
+		callback: (id: number) => any,
+		pres?: SinglePresentation
+	) => {
 		ipcRenderer
-			.invoke(MainProcessMethodIdentifiers.CreatePresentation)
+			.invoke(MainProcessMethodIdentifiers.CreatePresentation, pres)
 			.then((r: StoredPresentation) => {
 				setPresentations([...presentations, r]);
 				callback(r.id);
@@ -141,7 +144,20 @@ export const useLocalFileSystem = () => {
 		);
 	};
 
-	return { getFilesInDir, openFileSelectorDialog, openSaveFileDialog };
+	const importPresentationFromFileSystem = async (path: string) => {
+		const pres = (await ipcRenderer.invoke(
+			MainProcessMethodIdentifiers.importPresentationFromFS,
+			path
+		)) as SinglePresentation;
+		return pres;
+	};
+
+	return {
+		getFilesInDir,
+		openFileSelectorDialog,
+		openSaveFileDialog,
+		importPresentationFromFileSystem,
+	};
 };
 
 export const useDisplays = () => {

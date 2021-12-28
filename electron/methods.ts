@@ -6,7 +6,6 @@ import {
 	screen,
 } from 'electron';
 import { MainProcessMethodIdentifiers } from '../src/shared/types/identifiers';
-import { allowedFiles } from '../src/shared/types/mediaResources';
 import * as path from 'path';
 import * as fs from 'fs';
 import { FileExpolorerOptions } from './types/fileExplorer';
@@ -16,6 +15,8 @@ import { UserSettings } from '../src/shared/types/userSettings';
 import { SinglePresentation } from '../src/shared/types/presentation';
 import xlsx from 'xlsx';
 import { convertJsonToXlsx } from './models/PresentationFileConverter';
+import { getFilesInDir, getFileFromPath } from './models/FileSystem';
+import { parse } from './models/PresentationParser';
 
 export const registerMainProcessMethodHandlers = (
 	ipcMain: IpcMain,
@@ -23,49 +24,53 @@ export const registerMainProcessMethodHandlers = (
 ) => {
 	const windows: BrowserWindow[] = [mainWindow];
 
-	ipcMain.handle(MainProcessMethodIdentifiers.CreatePresentation, async () => {
-		const path = __dirname + '/store';
-		const file = path + '/presentations.json';
+	ipcMain.handle(
+		MainProcessMethodIdentifiers.CreatePresentation,
+		async (_, pres?: SinglePresentation) => {
+			const path = __dirname + '/store';
+			const file = path + '/presentations.json';
 
-		if (!fs.existsSync(path)) {
-			fs.mkdirSync(path);
+			if (!fs.existsSync(path)) {
+				fs.mkdirSync(path);
+			}
+
+			const presentations: any = fs.existsSync(file)
+				? JSON.parse(`${fs.readFileSync(file)}`)
+				: {
+						count: 0,
+						presentations: [],
+				  };
+
+			const currentId = presentations.count + 1;
+			const presentationName = `presentation-${currentId}`;
+			const timestamp = Date.now();
+			const newPresentation: any = {
+				id: currentId,
+				name: pres?.name ?? presentationName,
+				created: timestamp,
+			};
+
+			fs.writeFileSync(
+				file,
+				JSON.stringify({
+					count: currentId,
+					presentations: [...presentations.presentations, newPresentation],
+				})
+			);
+
+			fs.writeFileSync(
+				`${path}/${currentId}.json`,
+				JSON.stringify({
+					name: presentationName,
+					lastChanges: timestamp,
+					slides: [],
+					...pres,
+				})
+			);
+
+			return newPresentation;
 		}
-
-		const presentations: any = fs.existsSync(file)
-			? JSON.parse(`${fs.readFileSync(file)}`)
-			: {
-					count: 0,
-					presentations: [],
-			  };
-
-		const currentId = presentations.count + 1;
-		const presentationName = `presentation-${currentId}`;
-		const timestamp = Date.now();
-		const newPresentation: any = {
-			id: currentId,
-			name: presentationName,
-			created: timestamp,
-		};
-
-		fs.writeFileSync(
-			file,
-			JSON.stringify({
-				count: currentId,
-				presentations: [...presentations.presentations, newPresentation],
-			})
-		);
-
-		fs.writeFileSync(
-			`${path}/${currentId}.json`,
-			JSON.stringify({
-				name: presentationName,
-				lastChanges: timestamp,
-				slides: [],
-			})
-		);
-
-		return newPresentation;
-	});
+	);
 
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.GetStoredPresentations,
@@ -220,31 +225,6 @@ export const registerMainProcessMethodHandlers = (
 		}
 	);
 
-	const getFilesInDir = async (dirPath: string) => {
-		return await fs
-			.readdirSync(dirPath)
-			.filter((value) => allowedFiles.includes(path.extname(value)))
-			.reduce(
-				(prev, value) => [
-					...prev,
-					{
-						name: value,
-						location: { local: `file://${dirPath}/${value}` },
-						added: Date.now(),
-					},
-				],
-				[]
-			);
-	};
-
-	const getFileFromPath = (path: string) => {
-		return {
-			name: path.split('/').pop(),
-			location: { local: `file://${path}` },
-			added: Date.now(),
-		};
-	};
-
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.OpenFileSelectorDialog,
 		async (_, type: FileExplorerType) => {
@@ -285,7 +265,7 @@ export const registerMainProcessMethodHandlers = (
 					webSecurity: false,
 				},
 			});
-			// presentation.webContents.openDevTools();
+
 			presentation.loadURL(`http://localhost:3000/pres?id=${id}`);
 			presentation.maximize();
 			windows.push(presentation);
@@ -380,14 +360,29 @@ export const registerMainProcessMethodHandlers = (
 
 			if (!canceled && filePath !== undefined) {
 				const fileExtension = filePath.split('.').pop();
+				const fileName = filePath.split('/').pop().split('.').shift();
 
 				if (fileExtension === 'json') {
-					fs.writeFileSync(filePath, JSON.stringify(presentation));
+					fs.writeFileSync(
+						filePath,
+						JSON.stringify({ ...presentation, name: fileName })
+					);
 				} else if (fileExtension === 'xlsx') {
 					const book = convertJsonToXlsx(presentation);
 					xlsx.writeFile(book, filePath);
 				}
 			}
+		}
+	);
+
+	ipcMain.handle(
+		MainProcessMethodIdentifiers.importPresentationFromFS,
+		async (_, path: string) => {
+			const fileExtension = path.split('.').pop();
+
+			const file = parse.get(fileExtension)(path);
+
+			return file;
 		}
 	);
 };

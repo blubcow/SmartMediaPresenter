@@ -42,8 +42,17 @@ export const FileExpolorerOptions = {
 		],
 		properties: ['openFile'] as FileExplorereProperties,
 	},
+	presentation: {
+		filters: [
+			{
+				name: 'Presentation',
+				extensions: ['json', 'xlsx'],
+			},
+		],
+		properties: ['openFile'] as FileExplorereProperties,
+	},
 	save: {
-		properties: ['createDirectory'],
+		properties: ['createDirectory'] as FileExplorereProperties,
 		showsTagField: false,
 		filters: [
 			{ name: 'json', extensions: ['json'] },

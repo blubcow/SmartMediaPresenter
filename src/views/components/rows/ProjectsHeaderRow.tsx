@@ -6,12 +6,17 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 
 interface IHeaderRowProps {
-	ceratePresentationAction: () => any;
-	enterQuickCreateAction: () => any;
+	ceratePresentationAction: () => void;
+	importPresentationAction: () => void;
+	enterQuickCreateAction: () => void;
 }
 
 const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
-	const { ceratePresentationAction, enterQuickCreateAction } = props;
+	const {
+		ceratePresentationAction,
+		importPresentationAction,
+		enterQuickCreateAction,
+	} = props;
 	const [modalOpened, setModalOpened] = useState<boolean>(false);
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 
@@ -38,6 +43,7 @@ const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
 				onClose={() => setModalOpened(false)}
 				createPresentationAction={ceratePresentationAction}
 				enterQuickCreateAction={enterQuickCreateAction}
+				importPresentationAction={importPresentationAction}
 			/>
 		</>
 	);

@@ -5,12 +5,18 @@ import { Box, Row, Text } from '../../smpUI/components';
 import { ProjectsHeaderRow } from '../components/rows';
 import useStyles from './styles';
 import { Divider } from '@mui/material';
-import { useStoredPresentations } from '../../hooks/useMainProcessMethods';
+import {
+	useStoredPresentations,
+	useLocalFileSystem,
+} from '../../hooks/useMainProcessMethods';
 import { useHistory } from 'react-router-dom';
 import { SMPRoutes } from '../../types/routes';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { SinglePresentation } from '../../shared/types/presentation';
+import {
+	SinglePresentation,
+	StoredPresentation,
+} from '../../shared/types/presentation';
 import PresentationPreview from '../components/PresentationPreview';
 import { getFormattedDate } from '../../models/DateFormatter';
 
@@ -30,6 +36,8 @@ const Home: React.FC<{}> = () => {
 	const [presentationPreview, setPresentationPreview] = useState<
 		SinglePresentation | undefined
 	>();
+	const { openFileSelectorDialog, importPresentationFromFileSystem } =
+		useLocalFileSystem();
 
 	useEffect(() => {
 		if (currentPresentation === undefined) {
@@ -55,6 +63,20 @@ const Home: React.FC<{}> = () => {
 							}}
 							enterQuickCreateAction={() => {
 								history.push(SMPRoutes.QuickCreate);
+							}}
+							importPresentationAction={async () => {
+								const files = await openFileSelectorDialog('presentation');
+								if (files.length > 0) {
+									const file = files[0];
+									const filePath = file.location.local as string;
+
+									const pres = (await importPresentationFromFileSystem(
+										filePath
+									)) as SinglePresentation;
+									createPresentation((id: number) => {
+										history.push(`${SMPRoutes.Edit}?id=${id}`);
+									}, pres);
+								}
 							}}
 						/>
 						{presentations.map((presentation, i) => (

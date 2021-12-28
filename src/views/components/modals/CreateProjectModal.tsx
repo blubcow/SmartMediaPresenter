@@ -15,12 +15,17 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 
 interface ICreateProjectModalProps extends IModalProps {
-	createPresentationAction: () => any;
-	enterQuickCreateAction: () => any;
+	createPresentationAction: () => void;
+	importPresentationAction: () => void;
+	enterQuickCreateAction: () => void;
 }
 
 const CreateProjectModal: React.FC<ICreateProjectModalProps> = (props) => {
-	const { createPresentationAction, enterQuickCreateAction } = props;
+	const {
+		createPresentationAction,
+		importPresentationAction,
+		enterQuickCreateAction,
+	} = props;
 	const classes = useCreateProjectModalStyles();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 
@@ -42,7 +47,7 @@ const CreateProjectModal: React.FC<ICreateProjectModalProps> = (props) => {
 					<CreateProjectOption
 						icon={Download}
 						text={t('importExistingPresentation')}
-						onClick={() => {}}
+						onClick={importPresentationAction}
 					/>
 					<CreateProjectOption
 						icon={ViewColumn}
