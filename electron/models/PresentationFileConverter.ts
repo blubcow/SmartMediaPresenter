@@ -123,3 +123,155 @@ export const convertJsonToXlsx = (
 	xlsx.utils.book_append_sheet(book, sheet, presentation.name);
 	return book;
 };
+
+const convertSlidesFromXlsxToJson = (slides: any[]) => {
+	return slides.map((slide: any) => ({
+		id: slide.id,
+		rows: slide.row,
+		columns: slide.columns,
+		audio:
+			slide['audio-location-local'] || slide['audio-location-remote']
+				? {
+						location: {
+							local: slide['audio-location-local'],
+							remote: slide['audio-location-remote'],
+						},
+				  }
+				: undefined,
+		playback: slide.playback,
+		settings: {
+			color: slide['settings-color'],
+			notes: slide['settings-notes'],
+			presentationFrame:
+				slide['settings-presentationframe-top'] !== undefined
+					? {
+							rel: {
+								width: slide['settins-presentationframe-rel-width'],
+								height: slide['settings-presentationframe-rel-height'],
+							},
+							top: slide['settings-presetationframe-top'],
+							left: slide['settings-presentationframe-left'],
+							right: slide['settings-presetationframe-right'],
+							bottom: slide['settings-presentationframe-bottom'],
+					  }
+					: undefined,
+		},
+		media: Array.from(
+			{ length: (slide['media'] as number) ?? 0 },
+			() => null
+		).map((_, id) => ({
+			id: id,
+			location:
+				slide['media-' + id + '-location-local'] ||
+				slide['media-' + id + '-location-remote']
+					? {
+							local: slide['media-' + id + '-location-local'],
+							remote: slide['media-' + id + '-location-remote'],
+					  }
+					: undefined,
+			settings: {
+				translation:
+					slide['media-' + id + '-settings-translation-x'] !== undefined
+						? {
+								rel: {
+									width:
+										slide['media-' + id + '-settings-translation-rel-width'],
+									height:
+										slide['media-' + id + '-settings-translation-rel-height'],
+								},
+								x: slide['media-' + id + '-settings-translation-x'],
+								y: slide['media-' + id + '-settings-translation-y'],
+						  }
+						: undefined,
+				scaling:
+					slide['media-' + id + '-settings-scaleing-x'] !== undefined
+						? {
+								x: slide['media-' + id + '-settings-scaleing-x'] ?? 1,
+								y: slide['media-' + id + '-settings-scaleing-y'] ?? 1,
+						  }
+						: undefined,
+				rotation: slide['media-' + id + '-settings-rotation'],
+				brightness: slide['media-' + id + '-settings-brightness'],
+				saturation: slide['media-' + id + '-settings-saturation'],
+				hue: slide['media-' + id + '-settings-hue'],
+				contrast: slide['media-' + id + '-settings-contast'],
+				grayScale: slide['media-' + id + '-settings-grayscale'],
+				sepia: slide['media-' + id + '-settings-sepia'],
+				blur: slide['media-' + id + '-settings-blur'],
+				crop:
+					slide['media-' + id + '-settings-crop-x'] !== undefined
+						? {
+								x: slide['media-' + id + '-settings-crop-x'],
+								y: slide['media-' + id + '-settings-crop-y'],
+								width: slide['media-' + id + '-settings-crop-width'],
+								height: slide['media-' + id + '-settings-crop-height'],
+						  }
+						: undefined,
+				rgbChannels:
+					slide['media-' + id + '-settings-rgbchannel-red-r'] !== undefined
+						? {
+								red: {
+									r: slide['media-' + id + '-settings-rgbchannel-red-r'],
+									g: slide['media-' + id + '-settings-rgbchannel-red-g'],
+									b: slide['media-' + id + '-settings-rgbchannel-red-b'],
+									alpha:
+										slide['media-' + id + '-settings-rgbchannel-red-alpha'],
+								},
+								green: {
+									r: slide['media-' + id + '-settings-rgbchannel-green-r'],
+									g: slide['media-' + id + '-settings-rgbchannel-green-g'],
+									b: slide['media-' + id + '-settings-rgbchannel-green-b'],
+									alpha:
+										slide['media-' + id + '-settings-rgbchannel-green-alpha'],
+								},
+								blue: {
+									r: slide['media-' + id + '-settings-rgbchannel-blue-r'],
+									g: slide['media-' + id + '-settings-rgbchannel-blue-g'],
+									b: slide['media-' + id + '-settings-rgbchannel-blue-b'],
+									alpha:
+										slide['media-' + id + '-settings-rgbchannel-blue-alpha'],
+								},
+						  }
+						: undefined,
+				alignment: slide['media-' + id + '-settings-alignment'],
+			},
+		})),
+		elements: [],
+	}));
+};
+
+export const convertXlsxPresentationToJson = (pres: xlsx.WorkBook) => {
+	const sheet = xlsx.utils.sheet_to_json(pres.Sheets[pres.SheetNames[0]]);
+
+	const presentationInfo: any = sheet[0];
+	const presentationTheme = {
+		defaultFormat:
+			presentationInfo['theme-defaultformat-rows'] !== undefined
+				? {
+						rows: presentationInfo['theme-defaultformat-rows'],
+						columns: presentationInfo['theme-defaultformat-columns'],
+				  }
+				: undefined,
+		defaultBackgroundColor: presentationInfo['theme-defaultbackgroundcolor'],
+		audio: presentationInfo['theme-audio'],
+		defaultPlaybackDuration: presentationInfo['theme-defaultplaybackduration'],
+		defaultFontSize: presentationInfo['theme-defaultfontsize'],
+		defaultFont: presentationInfo['theme-defaultfont'],
+		defaultFontColor: presentationInfo['theme-defaultfontcolor'],
+	};
+
+	const slides = sheet.slice(1);
+
+	console.log(slides);
+
+	const json = {
+		name: presentationInfo.name,
+		lastChanges: presentationInfo.lastChanges,
+		theme: presentationTheme,
+		slides: convertSlidesFromXlsxToJson(slides),
+	};
+
+	console.log(json);
+
+	return json;
+};
