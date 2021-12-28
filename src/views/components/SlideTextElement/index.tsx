@@ -12,6 +12,7 @@ interface ISlideTextElementProps extends ITextProps {
 
 const SlideTextElement: React.FC<ISlideTextElementProps> = (props) => {
 	const { textElement, parentSize, editable } = props;
+
 	const [heightMultiplier, setHeightMultiplier] = useState<number>(
 		parentSize.height / textElement.position.rel.height
 	);

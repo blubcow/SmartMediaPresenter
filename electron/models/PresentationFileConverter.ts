@@ -2,6 +2,8 @@ import xlsx from 'xlsx';
 import {
 	MediaRessource,
 	SinglePresentation,
+	SlideElement,
+	TextElement,
 } from '../../src/shared/types/presentation';
 
 const mediaToXlsx = (media: MediaRessource[]) => {
@@ -75,6 +77,41 @@ const singleMediaToXlsx = (media?: MediaRessource) => {
 	return data;
 };
 
+const elementsToXlsx = (elements?: SlideElement[]) => {
+	if (elements === undefined) return {};
+	return elements.reduce((prev, element) => {
+		let data;
+		switch (element.type) {
+			case 'text':
+				data = convertTextElementToXlsx(element as TextElement);
+				break;
+			default:
+				data = {};
+		}
+		return { ...prev, ...data };
+	}, {} as any);
+};
+
+const convertTextElementToXlsx = (element: TextElement) => {
+	const data: any = {};
+	data[`element-${element.id}-position-rel-width`] = element.position.rel.width;
+	data[`element-${element.id}-position-rel-height`] =
+		element.position.rel.height;
+	data[`element-${element.id}-position-x`] = element.position.x;
+	data[`element-${element.id}-position-y`] = element.position.y;
+	data[`element-${element.id}-type`] = element.type;
+	data[`element-${element.id}-text`] = element.text;
+	data[`element-${element.id}-size-rel`] = element.size.rel;
+	data[`element-${element.id}-size-font`] = element.size.font;
+	data[`element-${element.id}-fontFamily`] = element.fontFamily;
+	data[`element-${element.id}-color`] = element.color;
+	data[`element-${element.id}-alignment`] = element.alignment;
+	data[`element-${element.id}-italic`] = element.italic ? 't' : 'f';
+	data[`element-${element.id}-bold`] = element.bold ? 't' : 'f';
+	data[`element-${element.id}-font`] = element.font;
+	return data;
+};
+
 export const convertJsonToXlsx = (
 	presentation: SinglePresentation
 ): xlsx.WorkBook => {
@@ -99,6 +136,8 @@ export const convertJsonToXlsx = (
 		'audio-location-remote': slide.audio?.location?.remote,
 		playback: slide.playback,
 		...mediaToXlsx(slide.media),
+		elements: (slide.elements ?? []).length,
+		...elementsToXlsx(slide.elements),
 	}));
 	const data = [
 		{
@@ -124,10 +163,42 @@ export const convertJsonToXlsx = (
 	return book;
 };
 
+const convertTextElementToJson = (slide: any, elementId: number) => {
+	return {
+		id: elementId,
+		position:
+			slide[`element-${elementId}-position-rel-width`] !== undefined
+				? {
+						rel: {
+							width: slide[`element-${elementId}-position-rel-width`],
+							height: slide[`element-${elementId}-position-rel-height`],
+						},
+						x: slide[`element-${elementId}-position-x`],
+						y: slide[`element-${elementId}-position-y`],
+				  }
+				: undefined,
+		type: 'text',
+		text: slide[`element-${elementId}-text`],
+		size:
+			slide[`element-${elementId}-size-rel`] !== undefined
+				? {
+						rel: slide[`element-${elementId}-size-rel`],
+						font: slide[`element-${elementId}-size-font`],
+				  }
+				: undefined,
+		fontFamily: slide[`element-${elementId}-fontFamily`],
+		color: slide[`element-${elementId}-color`],
+		alignment: slide[`element-${elementId}-alignment`],
+		italic: slide[`element-${elementId}-italic`] === 't',
+		bold: slide[`element-${elementId}-bold`] === 't',
+		font: slide[`element-${elementId}-font`],
+	};
+};
+
 const convertSlidesFromXlsxToJson = (slides: any[]) => {
 	return slides.map((slide: any) => ({
 		id: slide.id,
-		rows: slide.row,
+		rows: slide.rows,
 		columns: slide.columns,
 		audio:
 			slide['audio-location-local'] || slide['audio-location-remote']
@@ -161,14 +232,10 @@ const convertSlidesFromXlsxToJson = (slides: any[]) => {
 			() => null
 		).map((_, id) => ({
 			id: id,
-			location:
-				slide['media-' + id + '-location-local'] ||
-				slide['media-' + id + '-location-remote']
-					? {
-							local: slide['media-' + id + '-location-local'],
-							remote: slide['media-' + id + '-location-remote'],
-					  }
-					: undefined,
+			location: {
+				local: slide['media-' + id + '-location-local'],
+				remote: slide['media-' + id + '-location-remote'],
+			},
 			settings: {
 				translation:
 					slide['media-' + id + '-settings-translation-x'] !== undefined
@@ -236,7 +303,21 @@ const convertSlidesFromXlsxToJson = (slides: any[]) => {
 				alignment: slide['media-' + id + '-settings-alignment'],
 			},
 		})),
-		elements: [],
+		elements: Array.from({ length: slide.elements }, () => null).map(
+			(_, id) => {
+				let data;
+				switch (slide['element-' + id + '-type']) {
+					case 'text':
+						data = convertTextElementToJson(slide, id);
+						break;
+					default:
+						data = {};
+				}
+				return {
+					...data,
+				};
+			}
+		),
 	}));
 };
 
@@ -262,16 +343,12 @@ export const convertXlsxPresentationToJson = (pres: xlsx.WorkBook) => {
 
 	const slides = sheet.slice(1);
 
-	console.log(slides);
-
 	const json = {
 		name: presentationInfo.name,
 		lastChanges: presentationInfo.lastChanges,
 		theme: presentationTheme,
 		slides: convertSlidesFromXlsxToJson(slides),
 	};
-
-	console.log(json);
 
 	return json;
 };

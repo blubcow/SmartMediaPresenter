@@ -368,7 +368,7 @@ export const registerMainProcessMethodHandlers = (
 						JSON.stringify({ ...presentation, name: fileName })
 					);
 				} else if (fileExtension === 'xlsx') {
-					const book = convertJsonToXlsx(presentation);
+					const book = convertJsonToXlsx({ ...presentation, name: fileName });
 					xlsx.writeFile(book, filePath);
 				}
 			}
