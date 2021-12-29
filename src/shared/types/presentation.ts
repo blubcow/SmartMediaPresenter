@@ -2,6 +2,8 @@ export interface StoredPresentation {
 	id: number;
 	name: string;
 	created: number;
+	remoteId?: string;
+	remoteUpdate?: number;
 }
 
 export interface StoredPresentations {
@@ -12,6 +14,8 @@ export interface StoredPresentations {
 export interface SinglePresentation {
 	name: string;
 	lastChanges: number;
+	remoteId?: string;
+	remoteUpdate?: number;
 	slides: Slide[];
 	theme?: SlideTheme;
 }

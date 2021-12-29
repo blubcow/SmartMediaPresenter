@@ -5,6 +5,7 @@ export interface IPresentationSyncContext {
 	localSyncingQueue: LocalSyncPresentationItem[];
 	addToLocalSyncingQueue: AddToLocalSyncingQueueHandler;
 	syncingAvailable: boolean;
+	syncPaper: Map<string, number>;
 }
 
 export type AddToLocalSyncingQueueHandler = (

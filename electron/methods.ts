@@ -134,12 +134,12 @@ export const registerMainProcessMethodHandlers = (
 
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.SaveChangesToPresentation,
-		async (_, id: number, file: any) => {
+		async (_, id: number, file: any, remoteTimestamp?: number) => {
 			const oldFile = JSON.parse(
 				`${fs.readFileSync(__dirname + `/store/${id}.json`)}`
 			);
 
-			const timestamp = Date.now();
+			const timestamp = remoteTimestamp ?? Date.now();
 
 			const newFile = { ...oldFile, ...file, lastChanges: timestamp };
 
@@ -159,6 +159,8 @@ export const registerMainProcessMethodHandlers = (
 
 			pres.created = timestamp;
 			pres.name = file.name ?? pres.name;
+			pres.remoteId = file.remoteId;
+			pres.remoteUpdate = file.remoteUpdate;
 
 			newPres.push(pres);
 

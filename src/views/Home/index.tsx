@@ -17,7 +17,7 @@ import { SinglePresentation } from '../../shared/types/presentation';
 import PresentationPreview from '../components/PresentationPreview';
 import { getFormattedDate } from '../../models/DateFormatter';
 import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
-import { CloudUpload } from '@mui/icons-material';
+import { CloudUpload, CloudDone, CloudDownload } from '@mui/icons-material';
 
 const Home: React.FC<{}> = () => {
 	const classes = useStyles();
@@ -38,7 +38,7 @@ const Home: React.FC<{}> = () => {
 	const { openFileSelectorDialog, importPresentationFromFileSystem } =
 		useLocalFileSystem();
 
-	const { addToLocalSyncingQueue, syncingAvailable } =
+	const { addToLocalSyncingQueue, syncingAvailable, syncPaper } =
 		usePresentationSyncContext();
 	const { localSyncingQueue } = usePresentationSyncContext();
 
@@ -101,9 +101,49 @@ const Home: React.FC<{}> = () => {
 											(item) => item.presentationId === presentation.id
 										) !== undefined ? (
 											<CircularProgress variant='indeterminate' />
+										) : presentation.remoteId &&
+										  syncPaper.get(presentation.remoteId!) ? (
+											presentation.created ===
+											syncPaper.get(presentation.remoteId!)! ? (
+												<CloudDone
+													sx={{ color: 'primary.main', fontSize: '50px' }}
+												/>
+											) : presentation.created >
+											  syncPaper.get(presentation.remoteId!)! ? (
+												<CloudUpload
+													sx={{
+														color: 'secondary.main',
+														fontSize: '50px',
+														cursor: 'pointer',
+													}}
+													onClick={() => {
+														retrieveSinglePresentationOnce(
+															presentation.id,
+															(singlePres) => {
+																addToLocalSyncingQueue(
+																	singlePres,
+																	presentation.id
+																);
+															}
+														);
+													}}
+												/>
+											) : (
+												<CloudDownload
+													sx={{
+														color: 'secondary.main',
+														fontSize: '50px',
+														cursor: 'pointer',
+													}}
+												/>
+											)
 										) : (
 											<CloudUpload
-												sx={{ color: 'secondary.main', fontSize: '50px' }}
+												sx={{
+													color: 'secondary.main',
+													fontSize: '50px',
+													cursor: 'pointer',
+												}}
 												onClick={() => {
 													retrieveSinglePresentationOnce(
 														presentation.id,

@@ -8,7 +8,7 @@ import { CircularProgress, LinearProgress } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import useRemoteUserContext from '../hooks/useRemoteUserContext';
 import { i18nNamespace } from '../i18n/i18n';
-import { storage } from '../models/firebase';
+import { storage, database } from '../models/firebase';
 import { syncLocalPresentation } from '../models/PresentationSyncer';
 import { SinglePresentation } from '../shared/types/presentation';
 import { Box, Text } from '../smpUI/components';
@@ -25,8 +25,10 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 	children,
 }) => {
 	const { remoteUser, userLoggedIn } = useRemoteUserContext();
+	const [syncPaper, setSyncPaper] = useState<Map<string, number>>(new Map());
 	const [remoteMedia, setRemoteMedia] = useState<RemotelyAvailableMedia[]>([]);
 	const [presProgess, setProgress] = useState<Map<number, number>>(new Map());
+	const [syncingAvailable, setSyncingAvailable] = useState<boolean>(false);
 	const [localSyncingQueue, setLocalSyncingQueue] = useState<
 		LocalSyncPresentationItem[]
 	>([]);
@@ -47,14 +49,23 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 					})
 				).then((r) => setRemoteMedia(r))
 			);
+
+			// TODO: move to inital loading screen
+			database.getSyncPaper(remoteUser.uid).then((snapshot) => {
+				if (snapshot.exists()) {
+					const paper: any = snapshot.val();
+					const paperMap = new Map();
+					for (const key in paper) {
+						paperMap.set(key, paper[key]);
+					}
+					setSyncPaper(paperMap);
+					setSyncingAvailable(userLoggedIn);
+				}
+			});
 		}
 
 		return () => {};
 	}, [remoteUser, userLoggedIn]);
-
-	useEffect(() => {
-		// console.log(localSyncingQueue);
-	}, [localSyncingQueue]);
 
 	const addToLocalSyncingQueue = (
 		presentation: SinglePresentation,
@@ -94,17 +105,24 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 						task.downloadUrl;
 				});
 
-				ipcRenderer
-					.invoke(
-						MainProcessMethodIdentifiers.SaveChangesToPresentation,
-						presentationId,
-						presToSave
-					)
-					.then(() => {
-						setLocalSyncingQueue((curr) =>
-							curr.filter((task) => task.presentationId !== presentationId)
-						);
-					});
+				database.uploadPresentation(
+					remoteUser.uid,
+					presentation,
+					(remotePresentation) => {
+						ipcRenderer
+							.invoke(
+								MainProcessMethodIdentifiers.SaveChangesToPresentation,
+								presentationId,
+								remotePresentation,
+								remotePresentation.remoteUpdate
+							)
+							.then(() => {
+								setLocalSyncingQueue((curr) =>
+									curr.filter((task) => task.presentationId !== presentationId)
+								);
+							});
+					}
+				);
 			}
 		);
 	};
@@ -115,7 +133,8 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				remoteMedia: remoteMedia,
 				localSyncingQueue: localSyncingQueue,
 				addToLocalSyncingQueue: addToLocalSyncingQueue,
-				syncingAvailable: userLoggedIn,
+				syncPaper: syncPaper,
+				syncingAvailable: syncingAvailable,
 			}}
 		>
 			<Box

@@ -17,6 +17,16 @@ import {
 	getDownloadURL,
 	listAll,
 } from 'firebase/storage';
+import {
+	getDatabase,
+	ref as dbRef,
+	set,
+	get,
+	update,
+	push,
+} from 'firebase/database';
+import { SinglePresentation } from '../shared/types/presentation';
+import { dbCollection, defaultDBURL } from '../types/remoteCollections';
 
 initializeApp(config);
 
@@ -80,4 +90,71 @@ const firebaseStorage = () => {
 
 const storage = firebaseStorage();
 
-export { auth, storage };
+const fireDatabase = getDatabase(undefined, defaultDBURL);
+
+const firebaseDatabase = () => {
+	const uploadPresentation = async (
+		userId: string,
+		presentation: SinglePresentation,
+		callback: (remotePresentation: SinglePresentation) => void
+	) => {
+		if (presentation.remoteId) {
+			updateRemotePresentation(userId, presentation, callback);
+		} else {
+			const ref = dbRef(
+				fireDatabase,
+				userId + '/' + dbCollection.presentations
+			);
+			push(ref).then((newRef) => {
+				const id = newRef.key!;
+
+				const remotePresentation = {
+					...JSON.parse(JSON.stringify(presentation)),
+					remoteId: id,
+				};
+				updateRemotePresentation(userId, remotePresentation, callback);
+			});
+		}
+	};
+
+	const updateRemotePresentation = (
+		userId: string,
+		remotePresentation: SinglePresentation,
+		callback: (remotePresentation: SinglePresentation) => void
+	) => {
+		const ref = dbRef(
+			fireDatabase,
+			userId +
+				'/' +
+				dbCollection.presentations +
+				'/' +
+				remotePresentation.remoteId!
+		);
+		const timestamp = Date.now();
+		const pres = {
+			...remotePresentation,
+			lastChanges: timestamp,
+			remoteUpdate: timestamp,
+		};
+
+		set(ref, pres).then(() => {
+			const updateSyncPaperRef = dbRef(
+				fireDatabase,
+				userId + '/' + dbCollection.syncPaper + '/' + pres.remoteId!
+			);
+			set(updateSyncPaperRef, timestamp);
+			callback(pres);
+		});
+	};
+
+	const getSyncPaper = (userId: string) => {
+		const ref = dbRef(fireDatabase, userId + '/' + dbCollection.syncPaper);
+		return get(ref);
+	};
+
+	return { uploadPresentation, getSyncPaper };
+};
+
+const database = firebaseDatabase();
+
+export { auth, storage, database };
