@@ -19,6 +19,7 @@ import {
 } from '../../shared/types/presentation';
 import PresentationPreview from '../components/PresentationPreview';
 import { getFormattedDate } from '../../models/DateFormatter';
+import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
 
 const Home: React.FC<{}> = () => {
 	const classes = useStyles();
@@ -38,6 +39,9 @@ const Home: React.FC<{}> = () => {
 	>();
 	const { openFileSelectorDialog, importPresentationFromFileSystem } =
 		useLocalFileSystem();
+
+	const { addToLocalSyncingQueue, syncingAvailable } =
+		usePresentationSyncContext();
 
 	useEffect(() => {
 		if (currentPresentation === undefined) {
@@ -92,6 +96,23 @@ const Home: React.FC<{}> = () => {
 									// history.push(`/edit?id=${presentation.id}`);
 								}}
 								selected={presentation.id === currentPresentation}
+								iconBadge={
+									syncingAvailable ? (
+										<Box
+											onClick={() => {
+												console.log('hello');
+												retrieveSinglePresentationOnce(
+													presentation.id,
+													(singlePres) => {
+														addToLocalSyncingQueue(singlePres, presentation.id);
+													}
+												);
+											}}
+										>
+											sync
+										</Box>
+									) : undefined
+								}
 							/>
 						))}
 					</Box>

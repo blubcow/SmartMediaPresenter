@@ -8,6 +8,15 @@ import {
 	onAuthStateChanged,
 	User,
 } from 'firebase/auth';
+import {
+	getStorage,
+	ref,
+	uploadBytesResumable,
+	UploadMetadata,
+	UploadTask,
+	getDownloadURL,
+	listAll,
+} from 'firebase/storage';
 
 initializeApp(config);
 
@@ -30,4 +39,45 @@ const firebaseAuth = () => {
 };
 const auth = firebaseAuth();
 
-export { auth };
+const fireStorage = getStorage();
+
+const firebaseStorage = () => {
+	const uploadFile = (
+		userId: string,
+		fileName: string,
+		buffer: Buffer,
+		metadata?: UploadMetadata
+	): UploadTask => {
+		const path = userId + '/' + fileName;
+		const reference = ref(fireStorage, path);
+
+		const task = uploadBytesResumable(
+			reference,
+			buffer,
+			metadata
+		) as UploadTask;
+
+		return task;
+	};
+
+	const listRemoteMedia = (userId: string) => {
+		const reference = ref(fireStorage, userId);
+		return listAll(reference);
+	};
+
+	const getDownloadUrlFromFileName = (userId: string, fileName: string) => {
+		const reference = ref(fireStorage, userId + '/' + fileName);
+		return getDownloadURL(reference);
+	};
+
+	return {
+		uploadFile,
+		getDownloadURL,
+		getDownloadUrlFromFileName,
+		listRemoteMedia,
+	};
+};
+
+const storage = firebaseStorage();
+
+export { auth, storage };

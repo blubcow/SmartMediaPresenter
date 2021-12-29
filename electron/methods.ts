@@ -385,4 +385,11 @@ export const registerMainProcessMethodHandlers = (
 			return file;
 		}
 	);
+
+	ipcMain.handle(
+		MainProcessMethodIdentifiers.retriveFullFile,
+		async (_, path: string) => {
+			return fs.readFileSync(path);
+		}
+	);
 };

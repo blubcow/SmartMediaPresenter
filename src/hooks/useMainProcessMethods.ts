@@ -152,11 +152,19 @@ export const useLocalFileSystem = () => {
 		return pres;
 	};
 
+	const retriveFullFile = async (path: string) => {
+		return await ipcRenderer.invoke(
+			MainProcessMethodIdentifiers.retriveFullFile,
+			path
+		);
+	};
+
 	return {
 		getFilesInDir,
 		openFileSelectorDialog,
 		openSaveFileDialog,
 		importPresentationFromFileSystem,
+		retriveFullFile,
 	};
 };
 

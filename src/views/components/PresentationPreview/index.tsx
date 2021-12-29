@@ -11,6 +11,7 @@ import {
 	FloatingButton,
 	FloatingButtonContainer,
 	Text,
+	Button,
 } from '../../../smpUI/components';
 import SlideBox from '../SlideBox';
 import useStyles from './styles';

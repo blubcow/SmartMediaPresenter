@@ -19,4 +19,5 @@ export enum MainProcessMethodIdentifiers {
 	saveUserSettings = 'saveUserSettings',
 	openSavePresentationDialog = 'openSavePresentationDialog',
 	importPresentationFromFS = 'importPresentationFromFS',
+	retriveFullFile = 'retrieveFullFile',
 }
