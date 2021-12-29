@@ -59,12 +59,16 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 						paperMap.set(key, paper[key]);
 					}
 					setSyncPaper(paperMap);
-					setSyncingAvailable(userLoggedIn);
 				}
+				setSyncingAvailable(userLoggedIn);
 			});
+		} else {
+			setRemoteMedia([]);
+			setProgress(new Map());
+			setSyncPaper(new Map());
+			setLocalSyncingQueue([]);
+			setSyncingAvailable(false);
 		}
-
-		return () => {};
 	}, [remoteUser, userLoggedIn]);
 
 	const addToLocalSyncingQueue = (
