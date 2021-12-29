@@ -217,12 +217,12 @@ const convertSlidesFromXlsxToJson = (slides: any[]) => {
 				slide['settings-presentationframe-top'] !== undefined
 					? {
 							rel: {
-								width: slide['settins-presentationframe-rel-width'],
+								width: slide['settings-presentationframe-rel-width'],
 								height: slide['settings-presentationframe-rel-height'],
 							},
-							top: slide['settings-presetationframe-top'],
+							top: slide['settings-presentationframe-top'],
 							left: slide['settings-presentationframe-left'],
-							right: slide['settings-presetationframe-right'],
+							right: slide['settings-presentationframe-right'],
 							bottom: slide['settings-presentationframe-bottom'],
 					  }
 					: undefined,
