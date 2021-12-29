@@ -100,5 +100,6 @@
   "left": "left",
   "center": "center",
   "right": "right",
-  "savePres": "save presentation"
+  "savePres": "save presentation",
+  "syncToCloud": "is being synced to the cloud"
 }

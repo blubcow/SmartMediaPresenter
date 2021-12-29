@@ -51,6 +51,9 @@ export const syncLocalPresentation = (
 		if (availableRemoteMedia) {
 			tasks[task.index].completed = true;
 			tasks[task.index].downloadUrl = availableRemoteMedia.downloadUrl;
+			if (tasks.find((task) => !task.completed) === undefined) {
+				didFinish(tasks);
+			}
 			return;
 		}
 

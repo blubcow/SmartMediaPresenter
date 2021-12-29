@@ -10,15 +10,15 @@ import PresentationSyncProvider from './providers/PresentationSyncProvider';
 function App() {
 	return (
 		<RemoteUserProvider>
-			<PresentationSyncProvider>
-				<UserSettingsProvider>
-					<I18NProvider>
-						<ThemeProvider>
+			<UserSettingsProvider>
+				<I18NProvider>
+					<ThemeProvider>
+						<PresentationSyncProvider>
 							<NavigationProvider />
-						</ThemeProvider>
-					</I18NProvider>
-				</UserSettingsProvider>
-			</PresentationSyncProvider>
+						</PresentationSyncProvider>
+					</ThemeProvider>
+				</I18NProvider>
+			</UserSettingsProvider>
 		</RemoteUserProvider>
 	);
 }

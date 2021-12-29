@@ -100,5 +100,6 @@
   "left": "links",
   "center": "mittig",
   "right": "rechts",
-  "savePres": "Präsentation speichern"
+  "savePres": "Präsentation speichern",
+  "syncToCloud": "wird in die Cloud geladen"
 }

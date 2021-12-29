@@ -17,7 +17,7 @@ export const useStoredPresentations = () => {
 		ipcRenderer
 			.invoke(MainProcessMethodIdentifiers.GetStoredPresentations)
 			.then((r: StoredPresentations) => {
-				// sorts the presentations so that the last changes are on top
+				// sorts the presentations so that the ones with the most recent changes are on top
 				r.presentations.sort((f, s) => (f.created < s.created ? 1 : -1));
 				setPresentations([...r.presentations]);
 			});
