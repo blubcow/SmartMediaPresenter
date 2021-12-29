@@ -23,6 +23,9 @@ const RemoveMediaButton: React.FC<{}> = (props) => {
 					type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 					payload: { presentation: newPresentation },
 				});
+				dispatch({
+					type: PresentationEditingActionIdentifiers.editingSlideStated,
+				});
 			}}
 			selected={false}
 		/>
