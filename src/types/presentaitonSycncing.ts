@@ -20,5 +20,4 @@ export interface RemotelyAvailableMedia {
 export interface LocalSyncPresentationItem {
 	presentation: SinglePresentation;
 	presentationId: number;
-	progress: number;
 }

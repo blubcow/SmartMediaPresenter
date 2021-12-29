@@ -4,7 +4,7 @@ import HomeTopBar from './HomeTopBar';
 import { Box, Row, Text } from '../../smpUI/components';
 import { ProjectsHeaderRow } from '../components/rows';
 import useStyles from './styles';
-import { Divider } from '@mui/material';
+import { CircularProgress, Divider } from '@mui/material';
 import {
 	useStoredPresentations,
 	useLocalFileSystem,
@@ -40,6 +40,7 @@ const Home: React.FC<{}> = () => {
 
 	const { addToLocalSyncingQueue, syncingAvailable } =
 		usePresentationSyncContext();
+	const { localSyncingQueue } = usePresentationSyncContext();
 
 	useEffect(() => {
 		if (currentPresentation === undefined) {
@@ -96,17 +97,26 @@ const Home: React.FC<{}> = () => {
 								selected={presentation.id === currentPresentation}
 								iconBadge={
 									syncingAvailable ? (
-										<CloudUpload
-											sx={{ color: 'secondary.main', fontSize: '50px' }}
-											onClick={() => {
-												retrieveSinglePresentationOnce(
-													presentation.id,
-													(singlePres) => {
-														addToLocalSyncingQueue(singlePres, presentation.id);
-													}
-												);
-											}}
-										/>
+										localSyncingQueue.find(
+											(item) => item.presentationId === presentation.id
+										) !== undefined ? (
+											<CircularProgress variant='indeterminate' />
+										) : (
+											<CloudUpload
+												sx={{ color: 'secondary.main', fontSize: '50px' }}
+												onClick={() => {
+													retrieveSinglePresentationOnce(
+														presentation.id,
+														(singlePres) => {
+															addToLocalSyncingQueue(
+																singlePres,
+																presentation.id
+															);
+														}
+													);
+												}}
+											/>
+										)
 									) : undefined
 								}
 							/>

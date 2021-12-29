@@ -84,15 +84,6 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 			(progress) => {
 				// @ts-ignore
 				setProgress((curr) => new Map([...curr, [presentationId, progress]]));
-				const newSyncQueue = [...localSyncingQueue];
-				const index = localSyncingQueue.findIndex((item) => {
-					console.log(item.presentationId, presentationId);
-					return item.presentationId === presentationId;
-				});
-				if (index === -1) return;
-				// console.log(index);
-				newSyncQueue[index] = { ...newSyncQueue[index], progress: progress };
-				setLocalSyncingQueue(newSyncQueue);
 			},
 			(tasks) => {
 				const presToSave = JSON.parse(
@@ -189,7 +180,7 @@ const SyncingInfoToast: React.FC<ISyncingInfoToastProps> = (props) => {
 				<Text>{`${name} ${t('syncToCloud')}`}</Text>
 				<CircularProgress variant='indeterminate' />
 			</Box>
-			{progress}
+
 			<LinearProgress
 				value={progress}
 				variant='determinate'
