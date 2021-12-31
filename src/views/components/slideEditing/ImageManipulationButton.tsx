@@ -43,7 +43,11 @@ const ImageManipulationButton: React.FC<IImageManipulationButtonProps> = (
 				{...props}
 				onClick={() => setOpenDrawer(true)}
 			/>
-			<Drawer open={openDrawer} onClose={() => setOpenDrawer(false)}>
+			<Drawer
+				open={openDrawer}
+				onClose={() => setOpenDrawer(false)}
+				anchor='left'
+			>
 				<ImageManipulationControls
 					heading={t('imgManipulation')}
 					media={mediaResource}
