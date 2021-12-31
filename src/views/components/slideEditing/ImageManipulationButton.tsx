@@ -47,6 +47,7 @@ const ImageManipulationButton: React.FC<IImageManipulationButtonProps> = (
 				open={openDrawer}
 				onClose={() => setOpenDrawer(false)}
 				anchor='left'
+				BackdropProps={{ invisible: true }}
 			>
 				<ImageManipulationControls
 					heading={t('imgManipulation')}
