@@ -14,12 +14,18 @@ const RemoteUserProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
 	const [userLoggedIn, setUserLoggedIn] = useState<boolean | undefined>();
 
 	useEffect(() => {
-		const authListenerUnsubscribe = auth.listenForAuthChanges((user) => {
-			setCurrentUser(user ? { uid: user.uid, email: user.email! } : undefined);
-			setUserLoggedIn(!!user);
-		});
-
-		return () => authListenerUnsubscribe();
+		try {
+			const authListenerUnsubscribe = auth.listenForAuthChanges((user) => {
+				setCurrentUser(
+					user ? { uid: user.uid, email: user.email! } : undefined
+				);
+				setUserLoggedIn(!!user);
+			});
+			return () => authListenerUnsubscribe();
+		} catch (error) {
+			setCurrentUser(undefined);
+			setUserLoggedIn(false);
+		}
 	}, []);
 
 	return (
