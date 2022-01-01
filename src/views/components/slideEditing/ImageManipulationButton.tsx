@@ -7,7 +7,6 @@ import { i18nNamespace } from '../../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
 import { useImageManipulationControlsStyles } from './styles';
 import {
-	ImageManipulationEntity,
 	MediaRessource,
 	MediaSettings,
 } from '../../../shared/types/presentation';
@@ -30,6 +29,9 @@ const ImageManipulationButton: React.FC<IImageManipulationButtonProps> = (
 		presentation.slides[currentSlide].media[activeMedia ?? 0];
 	const [openDrawer, setOpenDrawer] = useState<boolean>(false);
 	const { t } = useTranslation([i18nNamespace.Presentation]);
+
+	const [prevSettings, setPrevSettings] = useState(mediaResource.settings);
+
 	return (
 		<React.Fragment>
 			<EditingButton
@@ -41,7 +43,10 @@ const ImageManipulationButton: React.FC<IImageManipulationButtonProps> = (
 					<EditButtonLabel>{t('imgManipulation')}</EditButtonLabel>
 				}
 				{...props}
-				onClick={() => setOpenDrawer(true)}
+				onClick={() => {
+					setPrevSettings(mediaResource.settings);
+					setOpenDrawer(true);
+				}}
 			/>
 			<Drawer
 				open={openDrawer}
@@ -52,8 +57,21 @@ const ImageManipulationButton: React.FC<IImageManipulationButtonProps> = (
 				<ImageManipulationControls
 					heading={t('imgManipulation')}
 					media={mediaResource}
-					onCancel={() => setOpenDrawer(false)}
-					onConfrim={(media) => {
+					onCancel={() => {
+						if (activeMedia !== undefined) {
+							const mediaSettings = prevSettings;
+							const newPresentation = JSON.parse(JSON.stringify(presentation));
+							newPresentation.slides[currentSlide].media[activeMedia].settings =
+								mediaSettings;
+							dispatch({
+								type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+								payload: { presentation: newPresentation },
+							});
+						}
+
+						setOpenDrawer(false);
+					}}
+					onChange={(media) => {
 						if (activeMedia === undefined) return;
 
 						const mediaSettings = JSON.parse(JSON.stringify(media.settings));
@@ -64,7 +82,8 @@ const ImageManipulationButton: React.FC<IImageManipulationButtonProps> = (
 							type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 							payload: { presentation: newPresentation },
 						});
-
+					}}
+					onConfrim={() => {
 						setOpenDrawer(false);
 					}}
 				/>
@@ -76,14 +95,15 @@ const ImageManipulationButton: React.FC<IImageManipulationButtonProps> = (
 interface IImageManipulationControlsProps {
 	heading: string;
 	media?: MediaRessource;
-	onConfrim: (media: MediaRessource) => void;
+	onConfrim: () => void;
+	onChange: (media: MediaRessource) => void;
 	onCancel: () => void;
 }
 
 const ImageManipulationControls: React.FC<IImageManipulationControlsProps> = (
 	props
 ) => {
-	const { heading, media, onConfrim, onCancel } = props;
+	const { heading, media, onConfrim, onCancel, onChange } = props;
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const {
 		options,
@@ -147,6 +167,18 @@ const ImageManipulationControls: React.FC<IImageManipulationControlsProps> = (
 										index === i ? { ...option, value: val ?? 0 } : option
 									),
 								]);
+								if (!media) return;
+								const newSettings: Partial<MediaSettings> = {
+									...media?.settings,
+									brightness: options[0].value,
+									contrast: options[1].value,
+									saturation: options[2].value,
+									grayScale: options[3].value,
+									sepia: options[4].value,
+									hue: options[5].value,
+									blur: options[6].value,
+								};
+								onChange({ ...media, settings: newSettings });
 							}}
 						/>
 					</Box>
@@ -162,6 +194,19 @@ const ImageManipulationControls: React.FC<IImageManipulationControlsProps> = (
 						const newChannels = { ...channels };
 						newChannels[mainChannel][subChannel] = value;
 						setChannels(newChannels);
+						if (!media) return;
+						const newSettings: Partial<MediaSettings> = {
+							...media?.settings,
+							brightness: options[0].value,
+							contrast: options[1].value,
+							saturation: options[2].value,
+							grayScale: options[3].value,
+							sepia: options[4].value,
+							hue: options[5].value,
+							blur: options[6].value,
+							rgbChannels: newChannels,
+						};
+						onChange({ ...media, settings: newSettings });
 					}}
 					reset={resetChannels}
 				/>
@@ -174,19 +219,7 @@ const ImageManipulationControls: React.FC<IImageManipulationControlsProps> = (
 				<Button
 					variant='contained'
 					onClick={() => {
-						if (!media) return;
-						const newSettings: Partial<MediaSettings> = {
-							...media?.settings,
-							brightness: options[0].value,
-							contrast: options[1].value,
-							saturation: options[2].value,
-							grayScale: options[3].value,
-							sepia: options[4].value,
-							hue: options[5].value,
-							blur: options[6].value,
-							rgbChannels: { ...channels },
-						};
-						onConfrim({ ...media, settings: newSettings });
+						onConfrim();
 					}}
 				>
 					{t('confirm')}
