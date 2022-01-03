@@ -144,7 +144,23 @@ const ImageManipulationControls: React.FC<IImageManipulationControlsProps> = (
 				color='secondary'
 				variant='contained'
 				sx={{ marginTop: 1 }}
-				onClick={resetToDefault}
+				onClick={() =>
+					resetToDefault((options, channels) => {
+						if (!media) return;
+						const newSettings: Partial<MediaSettings> = {
+							...media?.settings,
+							brightness: options[0].value,
+							contrast: options[1].value,
+							saturation: options[2].value,
+							grayScale: options[3].value,
+							sepia: options[4].value,
+							hue: options[5].value,
+							blur: options[6].value,
+							rgbChannels: channels,
+						};
+						onChange({ ...media, settings: newSettings });
+					})
+				}
 			>
 				<RestartAlt sx={{ pr: 0.5 }} />
 				{t('reset')}
@@ -208,7 +224,16 @@ const ImageManipulationControls: React.FC<IImageManipulationControlsProps> = (
 						};
 						onChange({ ...media, settings: newSettings });
 					}}
-					reset={resetChannels}
+					reset={() =>
+						resetChannels((channels) => {
+							if (!media) return;
+							const newSettings: Partial<MediaSettings> = {
+								...media?.settings,
+								rgbChannels: channels,
+							};
+							onChange({ ...media, settings: newSettings });
+						})
+					}
 				/>
 			</Box>
 

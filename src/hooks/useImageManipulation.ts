@@ -69,9 +69,18 @@ const useImageManipulation = (mediaSettings?: Partial<MediaSettings>) => {
 		mediaSettings?.rgbChannels ?? { ...defaultChannels }
 	);
 
-	const resetChannels = () => setChannels({ ...defaultChannels });
+	const resetChannels = (callback?: (channels: MediaRGBChannels) => void) => {
+		const newChannels = JSON.parse(JSON.stringify(defaultChannels));
+		setChannels(newChannels);
+		if (callback) callback(newChannels);
+	};
 
-	const resetToDefault = () => {
+	const resetToDefault = (
+		callback?: (
+			options: ImageManipulationEntity[],
+			channels: MediaRGBChannels
+		) => void
+	) => {
 		const newOptions = [...options];
 		newOptions[0].value = 100;
 		newOptions[1].value = 100;
@@ -81,7 +90,9 @@ const useImageManipulation = (mediaSettings?: Partial<MediaSettings>) => {
 		newOptions[5].value = 0;
 		newOptions[6].value = 0;
 		setOptions(newOptions);
-		resetChannels();
+		resetChannels((channels) => {
+			if (callback) callback(newOptions, channels);
+		});
 	};
 
 	return {
