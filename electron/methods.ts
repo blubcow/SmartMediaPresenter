@@ -266,10 +266,13 @@ export const registerMainProcessMethodHandlers = (
 					contextIsolation: false,
 					webSecurity: false,
 				},
+				autoHideMenuBar: true,
 			});
 
+			// TODO: handle backaged version and load from according src
 			presentation.loadURL(`http://localhost:3000/pres?id=${id}`);
 			presentation.maximize();
+			presentation.setFullScreen(true);
 			windows.push(presentation);
 
 			setTimeout(() => {

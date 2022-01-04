@@ -14,6 +14,7 @@ const createWindow = () => {
 			contextIsolation: false,
 			webSecurity: false,
 		},
+		autoHideMenuBar: true,
 	});
 
 	const appLocation = app.isPackaged
