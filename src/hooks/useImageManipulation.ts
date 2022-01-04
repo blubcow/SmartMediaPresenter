@@ -28,7 +28,7 @@ const useImageManipulation = (mediaSettings?: Partial<MediaSettings>) => {
 			name: t('saturation'),
 			property: 'saturate',
 			range: { from: 0, to: 200 },
-			value: mediaSettings?.contrast ?? 100,
+			value: mediaSettings?.saturation ?? 100,
 			unit: '%',
 		},
 		{
