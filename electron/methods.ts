@@ -252,7 +252,7 @@ export const registerMainProcessMethodHandlers = (
 
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.StartPresenterMode,
-		async (_, id: number, displayNumber?: number) => {
+		async (_, id: number, startingSlide: number, displayNumber?: number) => {
 			if ((await screen.getAllDisplays().length) === 1) return;
 			const display = screen.getAllDisplays()[displayNumber ?? 1];
 
@@ -270,7 +270,9 @@ export const registerMainProcessMethodHandlers = (
 			});
 
 			// TODO: handle backaged version and load from according src
-			presentation.loadURL(`http://localhost:3000/pres?id=${id}`);
+			presentation.loadURL(
+				`http://localhost:3000/pres?id=${id}&startingSlide=${startingSlide}`
+			);
 			presentation.maximize();
 			presentation.setFullScreen(true);
 			windows.push(presentation);

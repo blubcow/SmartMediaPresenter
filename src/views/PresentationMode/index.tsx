@@ -14,14 +14,21 @@ import AutoPlaybackBar from '../components/AutoPlaybackBar';
 interface IPresenttionModeProps {
 	handle: any;
 	presentation: SinglePresentation;
+	startingSlide: number;
 }
 
 const PresentationMode: React.FC<IPresenttionModeProps> = (props) => {
-	const { handle, presentation } = props;
+	const { handle, presentation, startingSlide } = props;
 
 	return (
 		<FullScreen handle={handle}>
-			{handle.active && <Content presentation={presentation} handle={handle} />}
+			{handle.active && (
+				<Content
+					presentation={presentation}
+					handle={handle}
+					startingSlide={startingSlide}
+				/>
+			)}
 		</FullScreen>
 	);
 };
@@ -29,12 +36,14 @@ const PresentationMode: React.FC<IPresenttionModeProps> = (props) => {
 const Content = ({
 	presentation,
 	handle,
+	startingSlide,
 }: {
 	presentation: SinglePresentation;
 	handle: any;
+	startingSlide: number;
 }) => {
 	const { slideNumber, nextSlide, previousSlide, terminatePresentationMode } =
-		usePresentationMode();
+		usePresentationMode(startingSlide);
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const [presentationTimer, setPresentationTimer] = useState<number>(0);
 	const [slideTimer, setSlideTimer] = useState<number>(0);

@@ -6,8 +6,14 @@ import { useSinglePresentation } from '../../hooks/useMainProcessMethods';
 import SlideBox from '../components/SlideBox';
 
 const PresentationMode = () => {
-	const { slideNumber } = usePresentationMode();
 	const location = useLocation();
+	const startingSlideString = new URLSearchParams(location.search).get(
+		'startingSlide'
+	);
+	const startingSlide = startingSlideString ? parseInt(startingSlideString) : 0;
+	const { slideNumber } = usePresentationMode(
+		startingSlide >= 0 ? startingSlide : 0
+	);
 	const [id, setId] = useState<string>('');
 	const { storedPresentation } = useSinglePresentation(parseInt(id));
 

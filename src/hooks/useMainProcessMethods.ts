@@ -175,10 +175,15 @@ export const useDisplays = () => {
 		);
 	};
 
-	const startPresentationMode = async (id: number, display?: number) => {
+	const startPresentationMode = async (
+		id: number,
+		slide: number,
+		display?: number
+	) => {
 		ipcRenderer.invoke(
 			MainProcessMethodIdentifiers.StartPresenterMode,
 			id,
+			slide,
 			display
 		);
 	};
@@ -186,8 +191,8 @@ export const useDisplays = () => {
 	return { displaysAvailable, startPresentationMode };
 };
 
-export const usePresentationMode = () => {
-	const [slideNumber, setSlide] = useState<number>(0);
+export const usePresentationMode = (startingSlide: number) => {
+	const [slideNumber, setSlide] = useState<number>(startingSlide);
 	const [nextSlide] = useState<() => void>(() => () => {
 		ipcRenderer.invoke(MainProcessMethodIdentifiers.NextSlideTrigger);
 	});

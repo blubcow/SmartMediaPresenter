@@ -39,7 +39,7 @@ const PresentationFloatingButton: React.FC<IPresentationFloatingButtonProps> = (
 						if (c > 2) {
 							setOpen(true);
 						} else {
-							startPresentationMode(presentationId, 1);
+							startPresentationMode(presentationId, initialSlide ?? 0, 1);
 							presentationModeHandle.enter();
 						}
 					} else {
@@ -53,12 +53,17 @@ const PresentationFloatingButton: React.FC<IPresentationFloatingButtonProps> = (
 			<PresentationMode
 				handle={presentationModeHandle}
 				presentation={presentation}
+				startingSlide={initialSlide ?? 0}
 			/>
 			{displayAmount > 2 && (
 				<PresentationDispalaySelectionModal
 					displaysAmount={displayAmount}
 					onDisplaySelected={(displayNumber) => {
-						startPresentationMode(presentationId, displayNumber);
+						startPresentationMode(
+							presentationId,
+							initialSlide ?? 0,
+							displayNumber
+						);
 						presentationModeHandle.enter();
 						setOpen(false);
 					}}
