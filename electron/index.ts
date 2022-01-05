@@ -1,5 +1,6 @@
 import { app, BrowserWindow, IpcRenderer, ipcMain } from 'electron';
 import * as path from 'path';
+import { electron } from 'process';
 import { registerMainProcessMethodHandlers } from './methods';
 
 let mainWindow: BrowserWindow | null;
@@ -17,12 +18,13 @@ const createWindow = () => {
 		autoHideMenuBar: true,
 	});
 
+	// const appLocation = 'http://localhost:3000';
 	const appLocation = app.isPackaged
-		? path.join(__dirname, '/../index.html')
+		? `file://${path.join(__dirname, '../index.html')}`
 		: 'http://localhost:3000';
 	mainWindow.loadURL(appLocation);
 
-	// mainWindow.webContents.openDevTools();
+	mainWindow.webContents.openDevTools();
 
 	mainWindow.maximize();
 
@@ -30,7 +32,11 @@ const createWindow = () => {
 		mainWindow = null;
 	});
 
-	registerMainProcessMethodHandlers(ipcMain, mainWindow);
+	registerMainProcessMethodHandlers(
+		app.getPath('userData'),
+		ipcMain,
+		mainWindow
+	);
 };
 
 app.on('ready', createWindow);

@@ -22,7 +22,7 @@ const RecordAudioContent: React.FC<IRecordAudioContentProps> = (props) => {
 					newPresentation.slides[currentSlide] = {
 						...presentation.slides[currentSlide],
 						audio: {
-							location: { local: 'file:///' + path },
+							location: { local: 'file://' + path },
 						},
 						playback: 'audio',
 					};

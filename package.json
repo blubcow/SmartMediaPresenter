@@ -2,6 +2,8 @@
   "name": "smp",
   "version": "0.1.0",
   "private": true,
+  "main": "build/electron/index.js",
+  "homepage": "./",
   "dependencies": {
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
@@ -38,12 +40,27 @@
     "xlsx": "^0.17.4"
   },
   "scripts": {
-    "dev": "npm run compile:desktop && concurrently -k \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && cd electron/dist/electron && electron .\"",
+    "dev": "npm run compile:desktop && concurrently -k \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
+    "dist": "concurrently \"npm run build\" \"npm run compile:desktop\" && electron-builder",
     "compile:desktop": "tsc -p electron/tsconfig.json",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "build": {
+    "appId": "com.jaeger.smartmediapresenter",
+    "productName": "Smart Media Presenter",
+    "extends": null,
+    "files": [
+      "dist",
+      "build",
+      "node_modules",
+      "package.json"
+    ],
+    "mac": {
+      "icon": "./build/resources/icon.png"
+    }
   },
   "eslintConfig": {
     "extends": [

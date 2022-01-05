@@ -44,7 +44,7 @@ const SlideRowMediaHolder: React.FC<ISlideRowMediaHolder> = (props) => {
 				} else {
 					media = {
 						// @ts-ignore
-						location: { local: 'file:///' + e.dataTransfer.files[0].path },
+						location: { local: 'file://' + e.dataTransfer.files[0].path },
 					};
 				}
 

@@ -17,8 +17,10 @@ import xlsx from 'xlsx';
 import { convertJsonToXlsx } from './models/PresentationFileConverter';
 import { getFilesInDir, getFileFromPath } from './models/FileSystem';
 import { parse } from './models/PresentationParser';
+import { electron } from 'process';
 
 export const registerMainProcessMethodHandlers = (
+	userDataPath: string,
 	ipcMain: IpcMain,
 	mainWindow: BrowserWindow
 ) => {
@@ -27,7 +29,7 @@ export const registerMainProcessMethodHandlers = (
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.CreatePresentation,
 		async (_, pres?: SinglePresentation) => {
-			const path = __dirname + '/store';
+			const path = userDataPath + '/store';
 			const file = path + '/presentations.json';
 
 			if (!fs.existsSync(path)) {
@@ -75,7 +77,7 @@ export const registerMainProcessMethodHandlers = (
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.GetStoredPresentations,
 		async () => {
-			const path = __dirname + '/store/presentations.json';
+			const path = userDataPath + '/store/presentations.json';
 
 			const presentations: any = fs.existsSync(path)
 				? JSON.parse(`${fs.readFileSync(path)}`)
@@ -96,7 +98,7 @@ export const registerMainProcessMethodHandlers = (
 			}
 
 			const file = JSON.parse(
-				`${fs.readFileSync(__dirname + `/store/${id}.json`)}`
+				`${fs.readFileSync(userDataPath + `/store/${id}.json`)}`
 			);
 
 			return file;
@@ -106,8 +108,8 @@ export const registerMainProcessMethodHandlers = (
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.deleteSinglePresentation,
 		async (_, id) => {
-			const path = __dirname + `/store/${id}.json`;
-			const audioPath = __dirname + `/store/audio/${id}`;
+			const path = userDataPath + `/store/${id}.json`;
+			const audioPath = userDataPath + `/store/audio/${id}`;
 
 			if (!fs.existsSync(path)) return;
 
@@ -117,7 +119,7 @@ export const registerMainProcessMethodHandlers = (
 				fs.rmdirSync(audioPath, { recursive: true });
 
 			const presentations = JSON.parse(
-				`${fs.readFileSync(__dirname + '/store/presentations.json')}`
+				`${fs.readFileSync(userDataPath + '/store/presentations.json')}`
 			);
 
 			const newPresentations = presentations.presentations.filter(
@@ -126,7 +128,7 @@ export const registerMainProcessMethodHandlers = (
 			presentations.presentations = newPresentations;
 
 			fs.writeFileSync(
-				__dirname + '/store/presentations.json',
+				userDataPath + '/store/presentations.json',
 				JSON.stringify(presentations)
 			);
 		}
@@ -136,7 +138,7 @@ export const registerMainProcessMethodHandlers = (
 		MainProcessMethodIdentifiers.SaveChangesToPresentation,
 		async (_, id: number, file: any, remoteTimestamp?: number) => {
 			const oldFile = JSON.parse(
-				`${fs.readFileSync(__dirname + `/store/${id}.json`)}`
+				`${fs.readFileSync(userDataPath + `/store/${id}.json`)}`
 			);
 
 			const timestamp = remoteTimestamp ?? Date.now();
@@ -144,11 +146,11 @@ export const registerMainProcessMethodHandlers = (
 			const newFile = { ...oldFile, ...file, lastChanges: timestamp };
 
 			fs.writeFileSync(
-				__dirname + `/store/${id}.json`,
+				userDataPath + `/store/${id}.json`,
 				JSON.stringify(newFile)
 			);
 			const presentations = JSON.parse(
-				`${fs.readFileSync(__dirname + '/store/presentations.json')}`
+				`${fs.readFileSync(userDataPath + '/store/presentations.json')}`
 			);
 			const pres = presentations.presentations.find(
 				(presentation: any) => presentation.id === id
@@ -167,7 +169,7 @@ export const registerMainProcessMethodHandlers = (
 			presentations.presentations = newPres;
 
 			fs.writeFileSync(
-				__dirname + '/store/presentations.json',
+				userDataPath + '/store/presentations.json',
 				JSON.stringify(presentations)
 			);
 			return file;
@@ -184,7 +186,7 @@ export const registerMainProcessMethodHandlers = (
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.CreateQuickCreatePresentation,
 		async (_, presentationName: string, slides: any[]) => {
-			const path = __dirname + '/store';
+			const path = userDataPath + '/store';
 			const file = path + '/presentations.json';
 
 			if (!fs.existsSync(path)) {
@@ -314,7 +316,7 @@ export const registerMainProcessMethodHandlers = (
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.storeAudioFile,
 		async (_, id: number, buffer: Buffer) => {
-			const path = `${__dirname}/store/audio`;
+			const path = `${userDataPath}/store/audio`;
 			const presPath = `/${id}`;
 			const fileName = `/${Date.now()}.wav`;
 
@@ -337,7 +339,7 @@ export const registerMainProcessMethodHandlers = (
 	});
 
 	ipcMain.handle(MainProcessMethodIdentifiers.getUserSettings, async () => {
-		const file = __dirname + '/store/userSettings.json';
+		const file = userDataPath + '/store/userSettings.json';
 		return fs.existsSync(file)
 			? JSON.parse(`${fs.readFileSync(file)}`)
 			: { language: 'auto', theme: 'auto' };
@@ -346,7 +348,7 @@ export const registerMainProcessMethodHandlers = (
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.saveUserSettings,
 		async (_, settings: UserSettings) => {
-			const path = __dirname + '/store';
+			const path = userDataPath + '/store';
 
 			if (!fs.existsSync(path)) {
 				fs.mkdirSync(path);
