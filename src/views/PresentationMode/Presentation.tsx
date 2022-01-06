@@ -4,6 +4,7 @@ import { usePresentationMode } from '../../hooks/useMainProcessMethods';
 import { useLocation } from 'react-router-dom';
 import { useSinglePresentation } from '../../hooks/useMainProcessMethods';
 import SlideBox from '../components/SlideBox';
+import usePresentationCacheContext from '../../hooks/usePresentationCacheContext';
 
 const PresentationMode = () => {
 	const location = useLocation();
@@ -16,11 +17,20 @@ const PresentationMode = () => {
 	);
 	const [id, setId] = useState<string>('');
 	const { storedPresentation } = useSinglePresentation(parseInt(id));
+	const { changeCurrentPresentation } = usePresentationCacheContext();
 
 	useEffect(() => {
 		const id = new URLSearchParams(location.search).get('id');
 		setId(id ?? '');
 	}, [location.search]);
+
+	useEffect(() => {
+		const intId = parseInt(id);
+
+		if (!isNaN(intId) && storedPresentation) {
+			changeCurrentPresentation(intId, storedPresentation);
+		}
+	}, [storedPresentation]);
 
 	return (
 		<Box

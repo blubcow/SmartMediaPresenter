@@ -1,4 +1,5 @@
 import {
+	app,
 	BrowserWindow,
 	dialog,
 	IpcMain,
@@ -271,9 +272,12 @@ export const registerMainProcessMethodHandlers = (
 				autoHideMenuBar: true,
 			});
 
-			// TODO: handle backaged version and load from according src
+			const location = app.isPackaged
+				? `file://${path.join(__dirname, '../index.html')}`
+				: 'http://localhost:3000';
+
 			presentation.loadURL(
-				`http://localhost:3000/pres?id=${id}&startingSlide=${startingSlide}`
+				`${location}#/pres?id=${id}&startingSlide=${startingSlide}`
 			);
 			presentation.maximize();
 			presentation.setFullScreen(true);

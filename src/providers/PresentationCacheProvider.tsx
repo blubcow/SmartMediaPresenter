@@ -75,10 +75,11 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 			const newCachedPresentations = new Map([...cachedPresentations]);
 			newCachedPresentations.set(id, {
 				presentation: presentation,
+				imgs: imgs,
 				loading: false,
 				success: true,
 			});
-			// @ts-ignore;
+			// @ts-ignore
 			setCachedPresentations(newCachedPresentations);
 		},
 		[]
