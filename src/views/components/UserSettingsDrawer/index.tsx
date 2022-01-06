@@ -5,11 +5,14 @@ import ChangeLanguage from './ChangeLanguage';
 import ChangeTheme from './ChangeTheme';
 import RemoteUser from './RemoteUser';
 import { useUserSettingsDrawerStyles } from './styles';
+import { useTranslation } from 'react-i18next';
+import { i18nNamespace } from '../../../i18n/i18n';
 
 interface IUserSettingsDrawerProps extends IDrawerProps {}
 
 const UserSettingsDrawer: React.FC<IUserSettingsDrawerProps> = (props) => {
 	const classes = useUserSettingsDrawerStyles();
+	const { t } = useTranslation([i18nNamespace.Alert]);
 
 	return (
 		<Drawer {...props}>
@@ -33,7 +36,9 @@ const UserSettingsDrawer: React.FC<IUserSettingsDrawerProps> = (props) => {
 						bgcolor: 'background.default',
 					}}
 				>
-					<Text variant='body2'>{`version: ${process.env.REACT_APP_VERSION}`}</Text>
+					<Text variant='body2'>{`${t('version')}: ${
+						process.env.REACT_APP_VERSION
+					}`}</Text>
 				</Box>
 			</Box>
 		</Drawer>
