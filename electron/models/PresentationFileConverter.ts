@@ -154,6 +154,7 @@ export const convertJsonToXlsx = (
 			'theme-defaultfontsize': presentation.theme?.defaultFontSize,
 			'theme-defaultfont': presentation.theme?.defaultFont,
 			'theme-defaultfontcolor': presentation.theme?.defaultFontColor,
+			'theme-defaultmediaalignment': presentation.theme?.defaultMediaAlignment,
 		},
 		...slideData,
 	];
@@ -339,6 +340,7 @@ export const convertXlsxPresentationToJson = (pres: xlsx.WorkBook) => {
 		defaultFontSize: presentationInfo['theme-defaultfontsize'],
 		defaultFont: presentationInfo['theme-defaultfont'],
 		defaultFontColor: presentationInfo['theme-defaultfontcolor'],
+		defaultMediaAlignment: presentationInfo['theme-defaultmediaalignment'],
 	};
 
 	const slides = sheet.slice(1);
