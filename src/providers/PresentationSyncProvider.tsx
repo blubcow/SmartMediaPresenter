@@ -50,7 +50,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				).then((r) => setRemoteMedia(r))
 			);
 
-			// TODO: move to inital loading screen
+			// TODO: move to initial loading screen
 			database.getSyncPaper(remoteUser.uid).then((snapshot) => {
 				if (snapshot.exists()) {
 					const paper: any = snapshot.val();

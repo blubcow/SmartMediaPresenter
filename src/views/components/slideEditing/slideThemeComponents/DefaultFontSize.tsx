@@ -31,6 +31,7 @@ const DefaultFontSize: React.FC<{}> = () => {
 			node={
 				<Box className={classes.nodeContainer}>
 					<Text
+						align='center'
 						editable
 						placeholder={t('noDefaultSize')}
 						color={size !== undefined ? 'text.primary' : 'GrayText'}

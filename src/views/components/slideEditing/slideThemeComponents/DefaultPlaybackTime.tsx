@@ -34,6 +34,7 @@ const DefaultPlaybackTime: React.FC<{}> = () => {
 			node={
 				<Box className={classes.nodeContainer}>
 					<Text
+						align='center'
 						editable
 						placeholder={t('noTimeSet')}
 						color={duration !== undefined ? 'text.primary' : 'GrayText'}

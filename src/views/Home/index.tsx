@@ -18,6 +18,7 @@ import PresentationPreview from '../components/PresentationPreview';
 import { getFormattedDate } from '../../models/DateFormatter';
 import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
 import { CloudUpload, CloudDone, CloudDownload } from '@mui/icons-material';
+import usePresentationCacheContext from '../../hooks/usePresentationCacheContext';
 
 const Home: React.FC<{}> = () => {
 	const classes = useStyles();
@@ -29,28 +30,17 @@ const Home: React.FC<{}> = () => {
 	} = useStoredPresentations();
 	const history = useHistory();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
-	const [currentPresentation, setCurrentPresentation] = useState<
-		number | undefined
-	>();
-	const [presentationPreview, setPresentationPreview] = useState<
-		SinglePresentation | undefined
-	>();
 	const { openFileSelectorDialog, importPresentationFromFileSystem } =
 		useLocalFileSystem();
 
 	const { addToLocalSyncingQueue, syncingAvailable, syncPaper } =
 		usePresentationSyncContext();
 	const { localSyncingQueue } = usePresentationSyncContext();
-
-	useEffect(() => {
-		if (currentPresentation === undefined) {
-			setPresentationPreview(undefined);
-		} else {
-			retrieveSinglePresentationOnce(currentPresentation, (presentation) => {
-				setPresentationPreview(presentation);
-			});
-		}
-	}, [currentPresentation]);
+	const {
+		currentPresentationId,
+		cachedPresentations,
+		changeCurrentPresentation,
+	} = usePresentationCacheContext();
 
 	return (
 		<Page TopBar={<HomeTopBar />}>
@@ -91,9 +81,12 @@ const Home: React.FC<{}> = () => {
 								rootContainerStyle={{ zIndex: 0 }}
 								key={i}
 								onClick={() => {
-									setCurrentPresentation(presentation.id);
+									retrieveSinglePresentationOnce(presentation.id, (pres) => {
+										changeCurrentPresentation(presentation.id, pres);
+									});
 								}}
-								selected={presentation.id === currentPresentation}
+								selected={presentation.id === currentPresentationId}
+								style={{ cursor: 'pointer' }}
 								iconBadge={
 									syncingAvailable ? (
 										localSyncingQueue.find(
@@ -164,11 +157,18 @@ const Home: React.FC<{}> = () => {
 				</Box>
 				<Divider orientation='vertical' />
 				<Box className={classes.previewContainer}>
-					{currentPresentation !== undefined ? (
+					{currentPresentationId !== undefined ? (
 						<PresentationPreview
-							presentation={presentationPreview}
-							id={currentPresentation}
+							presentation={
+								cachedPresentations.get(currentPresentationId ?? -1)
+									?.presentation
+							}
+							id={currentPresentationId}
 							removePresentationAction={removeSinglePresentation}
+							isCaching={
+								cachedPresentations.get(currentPresentationId ?? -1)?.loading ??
+								true
+							}
 						/>
 					) : (
 						<Box className={classes.noPresentationSelectedContainer}>

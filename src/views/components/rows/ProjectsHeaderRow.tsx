@@ -25,6 +25,7 @@ const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
 			<Row
 				sx={{
 					bgcolor: 'divider',
+					cursor: 'pointer',
 				}}
 				title={t('createNewPresentation')}
 				rootContainerStyle={{ position: 'sticky', top: 0, zIndex: 1 }}

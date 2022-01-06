@@ -6,6 +6,7 @@ import 'react-image-crop/dist/ReactCrop.css';
 import UserSettingsProvider from './providers/UserSettingsProvider';
 import RemoteUserProvider from './providers/RemoteUserProvider';
 import PresentationSyncProvider from './providers/PresentationSyncProvider';
+import PresentationCacheProvider from './providers/PresentationCacheProvider';
 
 function App() {
 	return (
@@ -13,9 +14,11 @@ function App() {
 			<UserSettingsProvider>
 				<I18NProvider>
 					<ThemeProvider>
-						<PresentationSyncProvider>
-							<NavigationProvider />
-						</PresentationSyncProvider>
+						<PresentationCacheProvider>
+							<PresentationSyncProvider>
+								<NavigationProvider />
+							</PresentationSyncProvider>
+						</PresentationCacheProvider>
 					</ThemeProvider>
 				</I18NProvider>
 			</UserSettingsProvider>

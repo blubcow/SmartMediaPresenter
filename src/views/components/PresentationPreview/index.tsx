@@ -25,8 +25,6 @@ import {
 import { useHistory } from 'react-router-dom';
 import { SMPRoutes } from '../../../types/routes';
 import { CircularProgress } from '@mui/material';
-import usePresentationMediaCache from '../../../hooks/usePresentationMediaCache';
-
 import PresentationFloatingButton from '../PresentationFloatingButton';
 import ActionConfirmationModal from '../modals/ActionConfirmationModal';
 import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
@@ -35,11 +33,11 @@ interface IPresentationPreviewProps {
 	presentation?: SinglePresentation;
 	id: number;
 	removePresentationAction: (id: number) => void;
+	isCaching: boolean;
 }
 
 const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
-	const { presentation, id, removePresentationAction } = props;
-	const { isLoading, setPresentation } = usePresentationMediaCache();
+	const { presentation, id, removePresentationAction, isCaching } = props;
 
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
 	const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
@@ -57,13 +55,12 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 
 	useEffect(() => {
 		setCurrentSlide(0);
-		setPresentation(presentation);
-	}, [presentation, setPresentation]);
+	}, [presentation]);
 
 	return (
 		<Box className={classes.container}>
 			<FloatingButtonContainer>
-				{presentation && presentation.slides.length > 0 && !isLoading && (
+				{presentation && presentation.slides.length > 0 && !isCaching && (
 					<PresentationFloatingButton
 						presentationId={id}
 						presentation={presentation}
@@ -115,7 +112,7 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 			</Box>
 			{presentation ? (
 				presentation.slides.length ? (
-					isLoading ? (
+					isCaching ? (
 						<Box className={classes.loadingContainer}>
 							<CircularProgress
 								className={classes.fetchingSpinner}
