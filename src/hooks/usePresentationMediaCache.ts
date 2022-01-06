@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-	MediaLocation,
-	SinglePresentation,
-} from '../shared/types/presentation';
+import { SinglePresentation } from '../shared/types/presentation';
 
 const usePresentationMediaCache = (presentation?: SinglePresentation) => {
 	const [pres, setPresentation] = useState<SinglePresentation | undefined>(
@@ -25,8 +22,10 @@ const usePresentationMediaCache = (presentation?: SinglePresentation) => {
 			if (!slide.media) return;
 			return slide.media.map((media) => {
 				return new Promise((resolve, reject) => {
-					if (!media.location.local && !media.location.remote)
+					if (!media.location?.local && !media.location?.remote) {
 						resolve('no media src present');
+						return;
+					}
 					const img = new Image();
 					img.src = media.location.local ?? media.location.remote!;
 					setImgs((curr) => [...curr, img]);

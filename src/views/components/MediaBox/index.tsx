@@ -47,15 +47,17 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 				maxWidth: width,
 				maxHeight: '100%',
 				aspectRatio:
-					media?.location.local || media?.location.remote
+					media?.location?.local || media?.location?.remote
 						? undefined
 						: aspectRatio,
-				padding: media?.location.local || media?.location.remote ? 0 : 0.5,
+				padding: media?.location?.local || media?.location?.remote ? 0 : 0.5,
 				cursor: 'pointer',
 				height:
-					media?.location.local || media?.location.remote ? '100%' : undefined,
+					media?.location?.local || media?.location?.remote
+						? '100%'
+						: undefined,
 				width:
-					(media?.location.local || media?.location.remote) &&
+					(media?.location?.local || media?.location?.remote) &&
 					!media?.settings?.alignment
 						? undefined
 						: width,
@@ -101,7 +103,7 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 			{isActive && media && (
 				<ActiveMediaIdenticator image={imgRef.current} mediaElement={media} />
 			)}
-			{media?.location.local || media?.location.remote ? (
+			{media?.location?.local || media?.location?.remote ? (
 				<>
 					<ColorChannelFilter
 						id={id}
@@ -116,7 +118,7 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 					<img
 						ref={imgRef}
 						className={classes.img}
-						src={media.location.local ?? media.location.remote}
+						src={media.location?.local ?? media.location?.remote}
 						draggable={false}
 						onClick={(e) => {
 							e.stopPropagation();

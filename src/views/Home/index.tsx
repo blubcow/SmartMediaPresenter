@@ -92,7 +92,6 @@ const Home: React.FC<{}> = () => {
 								key={i}
 								onClick={() => {
 									setCurrentPresentation(presentation.id);
-									// history.push(`/edit?id=${presentation.id}`);
 								}}
 								selected={presentation.id === currentPresentation}
 								iconBadge={
