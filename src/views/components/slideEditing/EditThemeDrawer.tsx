@@ -11,6 +11,7 @@ import DefaultPlaybackTime from './slideThemeComponents/DefaultPlaybackTime';
 import { useEditThemeDrawerStyles } from './styles';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
+import DefaultMediaAlignemnt from './slideThemeComponents/DefaultMediaAlignment';
 
 interface IEditThemeDrawerProps extends IDrawerProps {
 	onFinish: () => void;
@@ -32,6 +33,7 @@ const EditThemeDrawer: React.FC<IEditThemeDrawerProps> = (props) => {
 					<DefaultFont />
 					<DefaultFontSize />
 					<DefaultFontColor />
+					<DefaultMediaAlignemnt />
 				</Box>
 				<Box className={classes.btnContainer}>
 					<Button variant='contained' onClick={onFinish}>

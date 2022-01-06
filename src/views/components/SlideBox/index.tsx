@@ -146,6 +146,7 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 											draggable={dragToSwapEnabled}
 											onDragStarted={onDragToSwapStarted}
 											onDrop={onSwapped}
+											themeAlignment={theme.defaultMediaAlignment}
 										/>
 									))}
 							</Box>

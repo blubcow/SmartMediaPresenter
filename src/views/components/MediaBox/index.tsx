@@ -1,5 +1,10 @@
+import { ThemeContext } from '@emotion/react';
 import React, { useRef } from 'react';
-import { Dimensions, MediaRessource } from '../../../shared/types/presentation';
+import {
+	Dimensions,
+	MediaAlignment,
+	MediaRessource,
+} from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
 import MediaDropBoxIndicator from '../MediaDropBoxIndicator';
 import ActiveMediaIdenticator from './ActiveMediaIdenticator';
@@ -12,6 +17,7 @@ interface IMediaBox {
 	aspectRatio: string;
 	canReceiveMedia?: boolean;
 	media?: MediaRessource;
+	themeAlignment?: MediaAlignment;
 	isActive?: boolean;
 	activateMedia?: (id: number) => void;
 	onMediaSelectionBlur?: () => void;
@@ -30,6 +36,7 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 		aspectRatio,
 		canReceiveMedia = true,
 		media,
+		themeAlignment,
 		isActive,
 		activateMedia,
 		onMediaSelectionBlur,
@@ -40,6 +47,8 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 	} = props;
 	const classes = useStyles();
 	const imgRef = useRef<any>();
+
+	const alignment = media?.settings?.alignment ?? themeAlignment;
 
 	return (
 		<Box
@@ -58,18 +67,19 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 						: undefined,
 				width:
 					(media?.location?.local || media?.location?.remote) &&
-					!media?.settings?.alignment
+					(!alignment || alignment === 'auto')
 						? undefined
 						: width,
 				display: 'flex',
 				flexDirection: 'column',
-				alignItems: media?.settings?.alignment
-					? media.settings.alignment === 'left'
-						? 'start'
-						: media.settings.alignment === 'center'
-						? 'center'
-						: 'end'
-					: undefined,
+				alignItems:
+					alignment && alignment! !== 'auto'
+						? alignment === 'left'
+							? 'start'
+							: alignment === 'center'
+							? 'center'
+							: 'end'
+						: undefined,
 				justifyContent: 'center',
 				overflow: 'visible',
 			}}

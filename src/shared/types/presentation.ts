@@ -116,7 +116,7 @@ export const getEmptySlide = (
 	};
 };
 
-export type MediaAlignment = TextAlignment;
+export type MediaAlignment = TextAlignment | 'auto';
 
 export interface MediaTranslation {
 	rel: { width: number; height: number };
@@ -166,4 +166,5 @@ export interface SlideTheme {
 	defaultFontSize?: number;
 	defaultFont?: string;
 	defaultFontColor?: string;
+	defaultMediaAlignment?: MediaAlignment;
 }
