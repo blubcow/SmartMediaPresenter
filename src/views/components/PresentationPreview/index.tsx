@@ -24,7 +24,6 @@ import {
 } from '@mui/icons-material';
 import { useHistory } from 'react-router-dom';
 import { SMPRoutes } from '../../../types/routes';
-import { CircularProgress } from '@mui/material';
 import PresentationFloatingButton from '../PresentationFloatingButton';
 import ActionConfirmationModal from '../modals/ActionConfirmationModal';
 import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
@@ -112,20 +111,11 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 			</Box>
 			{presentation ? (
 				presentation.slides.length ? (
-					isCaching ? (
-						<Box className={classes.loadingContainer}>
-							<CircularProgress
-								className={classes.fetchingSpinner}
-								variant='indeterminate'
-							/>
-							<Text>{t('fetchingMedia')}</Text>
-						</Box>
-					) : (
-						<Preview
-							slide={presentation.slides[currentSlide]}
-							theme={{ ...presentation.theme }}
-						/>
-					)
+					<Preview
+						slide={presentation.slides[currentSlide]}
+						theme={{ ...presentation.theme }}
+						isCaching={isCaching}
+					/>
 				) : (
 					<Text variant='h6'>{t('presentationIsEmpty')}</Text>
 				)
@@ -174,16 +164,18 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 interface IPreviewProps {
 	slide: Slide;
 	theme: SlideTheme;
+	isCaching: boolean;
 }
 
 const Preview: React.FC<IPreviewProps> = (props) => {
-	const { slide, theme } = props;
+	const { slide, theme, isCaching } = props;
 
 	return (
 		<SlideBox
 			slide={slide}
 			theme={theme}
 			presentationFrameEditingEnabled={false}
+			showCachingBadge={isCaching}
 		/>
 	);
 };

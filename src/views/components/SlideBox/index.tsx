@@ -11,6 +11,7 @@ import MediaBox from '../MediaBox';
 import PresentationFrame from '../PresentationFrame';
 import useStyels from './styles';
 import SlideTextElement from '../SlideTextElement';
+import LoadingIndicator from './LoadingIndicator';
 
 export interface ISlideBoxProps extends IBoxProps {
 	slide: Slide;
@@ -28,6 +29,7 @@ export interface ISlideBoxProps extends IBoxProps {
 	onDragToSwapStarted?: (id: number) => void;
 	onSwapped?: (id: number) => void;
 	editableText?: boolean;
+	showCachingBadge?: boolean;
 }
 
 const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
@@ -47,6 +49,7 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 		onDragToSwapStarted,
 		onSwapped,
 		editableText = false,
+		showCachingBadge = false,
 	} = props;
 
 	const [size, setSize] = useState<Dimensions>({ height: 0, width: 0 });
@@ -152,6 +155,7 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 							</Box>
 						))}
 					</Box>
+					{showCachingBadge && <LoadingIndicator />}
 				</Box>
 			)}
 		</>

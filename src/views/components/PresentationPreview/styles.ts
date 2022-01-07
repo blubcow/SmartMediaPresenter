@@ -1,5 +1,6 @@
 import { makeStyles, createStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
+import { ThreeMp } from '@mui/icons-material';
 
 export default makeStyles((theme: Theme) =>
 	createStyles({
@@ -10,6 +11,7 @@ export default makeStyles((theme: Theme) =>
 			flexDirection: 'column',
 			justifyContent: 'space-between',
 			alignItems: 'center',
+			position: 'relative',
 		},
 		topContainer: {
 			height: '10%',
@@ -25,17 +27,6 @@ export default makeStyles((theme: Theme) =>
 		},
 		slidesCounterContainer: {
 			marginLeft: theme.spacing(1),
-		},
-		loadingContainer: {
-			display: 'flex',
-			width: '100%',
-			aspectRatio: '16/9',
-			flexDirection: 'column',
-			justifyContent: 'center',
-			alignItems: 'center',
-		},
-		fetchingSpinner: {
-			marginBottom: theme.spacing(1),
 		},
 	})
 );
