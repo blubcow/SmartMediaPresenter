@@ -1,6 +1,6 @@
 {
   "name": "smp",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "private": true,
   "main": "build/electron/index.js",
   "homepage": "./",
@@ -57,12 +57,10 @@
       "package.json"
     ],
     "mac": {
-      "icon": "./build/resources/icon.png",
-      "title": "Smart Media Presenter"
+      "icon": "./build/resources/icon.png"
     },
     "win": {
-      "icon": "./build/resources/icon.png",
-      "title": "Smart Media Presenter"
+      "icon": "./build/resources/icon.png"
     }
   },
   "eslintConfig": {
