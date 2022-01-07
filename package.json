@@ -54,11 +54,15 @@
     "extends": null,
     "files": [
       "build",
-      "node_modules",
       "package.json"
     ],
     "mac": {
-      "icon": "./build/resources/icon.png"
+      "icon": "./build/resources/icon.png",
+      "title": "Smart Media Presenter"
+    },
+    "win": {
+      "icon": "./build/resources/icon.png",
+      "title": "Smart Media Presenter"
     }
   },
   "eslintConfig": {
