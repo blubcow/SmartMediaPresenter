@@ -169,6 +169,9 @@ const Home: React.FC<{}> = () => {
 								cachedPresentations.get(currentPresentationId ?? -1)?.loading ??
 								true
 							}
+							failedToLoad={
+								cachedPresentations.get(currentPresentationId ?? -1)?.failed
+							}
 						/>
 					) : (
 						<Box className={classes.noPresentationSelectedContainer}>

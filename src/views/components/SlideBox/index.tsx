@@ -12,6 +12,7 @@ import PresentationFrame from '../PresentationFrame';
 import useStyels from './styles';
 import SlideTextElement from '../SlideTextElement';
 import LoadingIndicator from './LoadingIndicator';
+import FailedToLoadMediaBadge from './FailedToLoadMediaBadge';
 
 export interface ISlideBoxProps extends IBoxProps {
 	slide: Slide;
@@ -30,6 +31,7 @@ export interface ISlideBoxProps extends IBoxProps {
 	onSwapped?: (id: number) => void;
 	editableText?: boolean;
 	showCachingBadge?: boolean;
+	failedToLoad?: number;
 }
 
 const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
@@ -50,6 +52,7 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 		onSwapped,
 		editableText = false,
 		showCachingBadge = false,
+		failedToLoad,
 	} = props;
 
 	const [size, setSize] = useState<Dimensions>({ height: 0, width: 0 });
@@ -156,6 +159,7 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 						))}
 					</Box>
 					{showCachingBadge && <LoadingIndicator />}
+					{failedToLoad && <FailedToLoadMediaBadge amount={failedToLoad} />}
 				</Box>
 			)}
 		</>

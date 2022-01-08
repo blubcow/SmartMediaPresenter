@@ -102,5 +102,7 @@
   "center": "mittig",
   "right": "rechts",
   "savePres": "Präsentation speichern",
-  "syncToCloud": "wird in die Cloud geladen"
+  "syncToCloud": "wird in die Cloud geladen",
+  "failedToLoadMedia": "ein Bild konnte nicht geladen werden",
+  "failedToLoadMediaMult": "{{amount}} Bilder konnten nicht geladen werden"
 }

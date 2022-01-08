@@ -47,6 +47,7 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 			);
 
 			const imgs: HTMLImageElement[] = [];
+			let failed = 0;
 
 			// TODO: count failed loads and set them in the map
 
@@ -64,7 +65,17 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 						img.onload = () => {
 							resolve(img);
 						};
-						img.onerror = () => reject('img loading failed');
+						let errCnt = 0;
+						img.onerror = () => {
+							errCnt++;
+							if (errCnt < 2 && media.location.local && media.location.remote) {
+								img.src = media.location.remote;
+							} else {
+								failed++;
+								resolve(img);
+							}
+							return;
+						};
 					});
 				});
 			});
@@ -78,6 +89,7 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 				imgs: imgs,
 				loading: false,
 				success: true,
+				failed: failed > 0 ? failed : undefined,
 			});
 			// @ts-ignore
 			setCachedPresentations(newCachedPresentations);

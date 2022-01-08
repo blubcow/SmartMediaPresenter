@@ -63,3 +63,28 @@ export const useLoadingIndicatorStyles = makeStyles((theme: Theme) =>
 		},
 	})
 );
+
+export const useFailedToLoadMediaBadgeStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			padding: theme.spacing(1),
+			backgroundColor: theme.palette.background.paper,
+			borderRadius: theme.shape.borderRadius,
+			display: 'flex',
+			position: 'absolute',
+			marginLeft: 'auto',
+			textAlign: 'center',
+			right: theme.spacing(2),
+			bottom: theme.spacing(2),
+			outlineWidth: '1px',
+			outlineColor: theme.palette.error.main,
+			outlineStyle: 'solid',
+			alignItems: 'center',
+			zIndex: 100,
+		},
+		error: {
+			marginRight: theme.spacing(1),
+			color: theme.palette.error.main,
+		},
+	})
+);

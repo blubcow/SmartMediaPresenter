@@ -33,10 +33,17 @@ interface IPresentationPreviewProps {
 	id: number;
 	removePresentationAction: (id: number) => void;
 	isCaching: boolean;
+	failedToLoad?: number;
 }
 
 const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
-	const { presentation, id, removePresentationAction, isCaching } = props;
+	const {
+		presentation,
+		id,
+		removePresentationAction,
+		isCaching,
+		failedToLoad,
+	} = props;
 
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
 	const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
@@ -115,6 +122,7 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 						slide={presentation.slides[currentSlide]}
 						theme={{ ...presentation.theme }}
 						isCaching={isCaching}
+						failedToLoad={failedToLoad}
 					/>
 				) : (
 					<Text variant='h6'>{t('presentationIsEmpty')}</Text>
@@ -165,10 +173,11 @@ interface IPreviewProps {
 	slide: Slide;
 	theme: SlideTheme;
 	isCaching: boolean;
+	failedToLoad?: number;
 }
 
 const Preview: React.FC<IPreviewProps> = (props) => {
-	const { slide, theme, isCaching } = props;
+	const { slide, theme, isCaching, failedToLoad } = props;
 
 	return (
 		<SlideBox
@@ -176,6 +185,7 @@ const Preview: React.FC<IPreviewProps> = (props) => {
 			theme={theme}
 			presentationFrameEditingEnabled={false}
 			showCachingBadge={isCaching}
+			failedToLoad={failedToLoad}
 		/>
 	);
 };
