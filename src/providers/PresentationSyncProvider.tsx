@@ -121,7 +121,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 
 				database.uploadPresentation(
 					remoteUser.uid,
-					presentation,
+					presToSave,
 					(remotePresentation) => {
 						ipcRenderer
 							.invoke(
