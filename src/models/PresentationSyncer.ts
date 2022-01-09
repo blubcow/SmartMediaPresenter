@@ -42,6 +42,12 @@ export const syncLocalPresentation = (
 			completed: false,
 		}));
 
+	if (tasks.length === 0) {
+		onProgressUpdate(100);
+		didFinish(tasks);
+		return;
+	}
+
 	tasks.forEach(async (task) => {
 		const fileName = task.localLocation.split('/').pop()!;
 		const availableRemoteMedia = filteredMediaNames.find(
