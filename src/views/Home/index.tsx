@@ -14,8 +14,8 @@ import { SinglePresentation } from '../../shared/types/presentation';
 import PresentationPreview from '../components/PresentationPreview';
 import { getFormattedDate } from '../../models/DateFormatter';
 import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
-import { CloudUpload, CloudDone, CloudDownload } from '@mui/icons-material';
 import usePresentationCacheContext from '../../hooks/usePresentationCacheContext';
+import PresentationSyncingButton from '../components/PresentationSyncingButton';
 
 const Home: React.FC<{}> = () => {
 	const classes = useStyles();
@@ -90,50 +90,22 @@ const Home: React.FC<{}> = () => {
 											(item) => item.presentationId === presentation.id
 										) !== undefined ? (
 											<CircularProgress variant='indeterminate' />
-										) : presentation.remoteId &&
-										  syncPaper.get(presentation.remoteId!) ? (
-											presentation.created ===
-											syncPaper.get(presentation.remoteId!)! ? (
-												<CloudDone
-													sx={{ color: 'primary.main', fontSize: '50px' }}
-												/>
-											) : presentation.created >
-											  syncPaper.get(presentation.remoteId!)! ? (
-												<CloudUpload
-													sx={{
-														color: 'secondary.main',
-														fontSize: '50px',
-														cursor: 'pointer',
-													}}
-													onClick={() => {
-														retrieveSinglePresentationOnce(
-															presentation.id,
-															(singlePres) => {
-																addToLocalSyncingQueue(
-																	singlePres,
-																	presentation.id
-																);
-															}
-														);
-													}}
-												/>
-											) : (
-												<CloudDownload
-													sx={{
-														color: 'secondary.main',
-														fontSize: '50px',
-														cursor: 'pointer',
-													}}
-												/>
-											)
 										) : (
-											<CloudUpload
-												sx={{
-													color: 'secondary.main',
-													fontSize: '50px',
-													cursor: 'pointer',
-												}}
-												onClick={() => {
+											<PresentationSyncingButton
+												status={
+													presentation.remoteId &&
+													syncPaper.get(presentation.remoteId!)
+														? presentation.created ===
+														  syncPaper.get(presentation.remoteId!)!
+															? 'insync'
+															: presentation.created >
+															  syncPaper.get(presentation.remoteId!)!
+															? 'uploadable'
+															: 'downloadable'
+														: 'uploadable'
+												}
+												onDownload={() => {}}
+												onUpload={() => {
 													retrieveSinglePresentationOnce(
 														presentation.id,
 														(singlePres) => {

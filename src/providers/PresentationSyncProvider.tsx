@@ -41,6 +41,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 		removeSinglePresentation,
 		reloadPresentations,
 	} = useStoredPresentations();
+	// TODO: add custom removePresentation method which will alos remove the presentation from the syncpaper
 
 	useEffect(() => {
 		if (remoteUser && userLoggedIn) {

@@ -1,7 +1,6 @@
 import {
 	SinglePresentation,
 	StoredPresentation,
-	StoredPresentations,
 } from '../shared/types/presentation';
 
 export interface IPresentationSyncContext {
@@ -36,3 +35,5 @@ export interface LocalSyncPresentationItem {
 	presentation: SinglePresentation;
 	presentationId: number;
 }
+
+export type PresentationSyncStatus = 'uploadable' | 'downloadable' | 'insync';
