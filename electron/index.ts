@@ -18,7 +18,6 @@ const createWindow = () => {
 		autoHideMenuBar: true,
 	});
 
-	// const appLocation = 'http://localhost:3000';
 	const appLocation = app.isPackaged
 		? `file://${path.join(__dirname, '../index.html')}`
 		: 'http://localhost:3000';

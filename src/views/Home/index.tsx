@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Page } from '../../smpUI/layout';
 import HomeTopBar from './HomeTopBar';
 import { Box, Row, Text } from '../../smpUI/components';
 import { ProjectsHeaderRow } from '../components/rows';
 import useStyles from './styles';
 import { CircularProgress, Divider } from '@mui/material';
-import {
-	useStoredPresentations,
-	useLocalFileSystem,
-} from '../../hooks/useMainProcessMethods';
+import { useLocalFileSystem } from '../../hooks/useMainProcessMethods';
 import { useHistory } from 'react-router-dom';
 import { SMPRoutes } from '../../types/routes';
 import { useTranslation } from 'react-i18next';
@@ -22,12 +19,6 @@ import usePresentationCacheContext from '../../hooks/usePresentationCacheContext
 
 const Home: React.FC<{}> = () => {
 	const classes = useStyles();
-	const {
-		presentations,
-		createPresentation,
-		retrieveSinglePresentationOnce,
-		removeSinglePresentation,
-	} = useStoredPresentations();
 	const history = useHistory();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const { openFileSelectorDialog, importPresentationFromFileSystem } =
@@ -35,7 +26,13 @@ const Home: React.FC<{}> = () => {
 
 	const { addToLocalSyncingQueue, syncingAvailable, syncPaper } =
 		usePresentationSyncContext();
-	const { localSyncingQueue } = usePresentationSyncContext();
+	const {
+		storedPresentations,
+		createPresentation,
+		retrieveSinglePresentationOnce,
+		removeSinglePresentation,
+		localSyncingQueue,
+	} = usePresentationSyncContext();
 	const {
 		currentPresentationId,
 		cachedPresentations,
@@ -72,7 +69,7 @@ const Home: React.FC<{}> = () => {
 								}
 							}}
 						/>
-						{presentations.map((presentation, i) => (
+						{storedPresentations.map((presentation, i) => (
 							<Row
 								title={presentation.name}
 								info={`${t('lastChange')}: ${getFormattedDate(

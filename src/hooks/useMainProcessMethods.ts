@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { FileExplorerType } from '../shared/types/fileExplorer';
 import { MainProcessMethodIdentifiers } from '../shared/types/identifiers';
 import {
@@ -13,7 +13,7 @@ const { ipcRenderer } = window.require('electron');
 export const useStoredPresentations = () => {
 	const [presentations, setPresentations] = useState<StoredPresentation[]>([]);
 
-	useEffect(() => {
+	const loadPresentations = useCallback(() => {
 		ipcRenderer
 			.invoke(MainProcessMethodIdentifiers.GetStoredPresentations)
 			.then((r: StoredPresentations) => {
@@ -21,6 +21,10 @@ export const useStoredPresentations = () => {
 				r.presentations.sort((f, s) => (f.created < s.created ? 1 : -1));
 				setPresentations([...r.presentations]);
 			});
+	}, []);
+
+	useEffect(() => {
+		loadPresentations();
 	}, []);
 
 	const retrieveSinglePresentationOnce = (
@@ -81,6 +85,7 @@ export const useStoredPresentations = () => {
 		createQuickCreatePresentation,
 		presentations,
 		removeSinglePresentation,
+		reloadPresentations: loadPresentations,
 	};
 };
 

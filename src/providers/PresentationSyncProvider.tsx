@@ -3,6 +3,7 @@ import React, {
 	PropsWithChildren,
 	useState,
 	useEffect,
+	useCallback,
 } from 'react';
 import { CircularProgress, LinearProgress } from '@mui/material';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +18,7 @@ import {
 	RemotelyAvailableMedia,
 } from '../types/presentaitonSycncing';
 import { MainProcessMethodIdentifiers } from '../shared/types/identifiers';
+import { useStoredPresentations } from '../hooks/useMainProcessMethods';
 const { ipcRenderer } = window.require('electron');
 
 export const PresentationSyncContext = createContext({});
@@ -32,6 +34,13 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 	const [localSyncingQueue, setLocalSyncingQueue] = useState<
 		LocalSyncPresentationItem[]
 	>([]);
+	const {
+		presentations,
+		createPresentation,
+		retrieveSinglePresentationOnce,
+		removeSinglePresentation,
+		reloadPresentations,
+	} = useStoredPresentations();
 
 	useEffect(() => {
 		if (remoteUser && userLoggedIn) {
@@ -124,6 +133,18 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 								setLocalSyncingQueue((curr) =>
 									curr.filter((task) => task.presentationId !== presentationId)
 								);
+								setSyncPaper(
+									(curr) =>
+										new Map([
+											// @ts-ignore
+											...curr,
+											[
+												remotePresentation.remoteId,
+												remotePresentation.remoteUpdate,
+											],
+										])
+								);
+								reloadPresentations();
 							});
 					}
 				);
@@ -134,6 +155,10 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 	return (
 		<PresentationSyncContext.Provider
 			value={{
+				storedPresentations: presentations,
+				createPresentation: createPresentation,
+				removeSinglePresentation: removeSinglePresentation,
+				retrieveSinglePresentationOnce: retrieveSinglePresentationOnce,
 				remoteMedia: remoteMedia,
 				localSyncingQueue: localSyncingQueue,
 				addToLocalSyncingQueue: addToLocalSyncingQueue,
