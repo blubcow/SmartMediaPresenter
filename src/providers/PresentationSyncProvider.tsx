@@ -3,7 +3,6 @@ import React, {
 	PropsWithChildren,
 	useState,
 	useEffect,
-	useCallback,
 } from 'react';
 import { CircularProgress, LinearProgress } from '@mui/material';
 import { useTranslation } from 'react-i18next';
@@ -165,6 +164,22 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 		);
 	};
 
+	const retrieveRemotePresentationOnce = (
+		remoteId: string,
+		callback: (pres: SinglePresentation) => void
+	) => {
+		if (!syncingAvailable) return;
+
+		database
+			.getRemotePresentation(remoteUser!.uid, remoteId)
+			.then((snapshot) => {
+				console.log(snapshot);
+				if (snapshot.exists()) {
+					callback(snapshot.val() as SinglePresentation);
+				}
+			});
+	};
+
 	useEffect(() => {
 		const remotePresentations = Array.from(syncPaper.values());
 		const p = [
@@ -205,6 +220,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				addToLocalSyncingQueue: addToLocalSyncingQueue,
 				syncPaper: syncPaper,
 				syncingAvailable: syncingAvailable,
+				retrieveRemotePresentationOnce: retrieveRemotePresentationOnce,
 			}}
 		>
 			<Box

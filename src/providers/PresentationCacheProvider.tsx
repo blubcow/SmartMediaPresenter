@@ -14,9 +14,11 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 	const [currentPresentaitonId, setCurrentPresentationId] = useState<
 		number | undefined
 	>();
+	const [currentRemotePresentationId, setCurrentRemotePresentationId] =
+		useState<string | undefined>();
 	const [cachedPresentations, setCachedPresentations] = useState<
 		Map<
-			number,
+			number | string,
 			{
 				presentation: SinglePresentation;
 				imgs: HTMLImageElement[];
@@ -28,7 +30,15 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 	>(new Map());
 
 	const cachePresentation = useCallback(
-		async (id: number, presentation: SinglePresentation) => {
+		async (
+			presentation: SinglePresentation,
+			presentationId?: number,
+			remoteId?: string
+		) => {
+			const id = presentationId ?? remoteId;
+
+			if (id === undefined) return;
+
 			setCachedPresentations(
 				(curr) =>
 					new Map([
@@ -99,13 +109,19 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 
 	const changeCurrentPresentation = (
 		id?: number,
+		remoteId?: string,
 		presentation?: SinglePresentation
 	) => {
 		setCurrentPresentationId(id);
-		if (id === undefined || presentation === undefined) return;
+		setCurrentRemotePresentationId(remoteId);
+		if (
+			(id === undefined && remoteId === undefined) ||
+			presentation === undefined
+		)
+			return;
 
-		if (!cachedPresentations.get(id)) {
-			cachePresentation(id, presentation);
+		if (!cachedPresentations.get(id ?? remoteId!)) {
+			cachePresentation(presentation, id, remoteId);
 		}
 	};
 
@@ -113,6 +129,7 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 		<PresentationCacheContext.Provider
 			value={{
 				currentPresentationId: currentPresentaitonId,
+				currentRemotePresentationId: currentRemotePresentationId,
 				cachedPresentations: cachedPresentations,
 				changeCurrentPresentation: changeCurrentPresentation,
 			}}

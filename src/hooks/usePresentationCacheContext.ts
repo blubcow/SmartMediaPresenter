@@ -5,8 +5,9 @@ import { SinglePresentation } from '../shared/types/presentation';
 const usePresentationCacheContext = () => {
 	const context = useContext(PresentationCacheContext) as {
 		currentPresentationId: number | undefined;
+		currentRemotePresentationId: string | undefined;
 		cachedPresentations: Map<
-			number,
+			number | string,
 			{
 				presentation: SinglePresentation;
 				imgs: HTMLImageElement[];
@@ -17,6 +18,7 @@ const usePresentationCacheContext = () => {
 		>;
 		changeCurrentPresentation: (
 			id?: number,
+			remoteId?: string,
 			presentation?: SinglePresentation
 		) => void;
 	};

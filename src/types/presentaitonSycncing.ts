@@ -19,6 +19,10 @@ export interface IPresentationSyncContext {
 	addToLocalSyncingQueue: AddToLocalSyncingQueueHandler;
 	syncingAvailable: boolean;
 	syncPaper: Map<string, SyncPaperEntry>;
+	retrieveRemotePresentationOnce: (
+		remoteId: string,
+		callback: (presentation: SinglePresentation) => void
+	) => void;
 }
 
 export type AddToLocalSyncingQueueHandler = (

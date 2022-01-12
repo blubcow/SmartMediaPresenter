@@ -32,9 +32,11 @@ const Home: React.FC<{}> = () => {
 		retrieveSinglePresentationOnce,
 		removeSinglePresentation,
 		localSyncingQueue,
+		retrieveRemotePresentationOnce,
 	} = usePresentationSyncContext();
 	const {
 		currentPresentationId,
+		currentRemotePresentationId,
 		cachedPresentations,
 		changeCurrentPresentation,
 	} = usePresentationCacheContext();
@@ -80,12 +82,30 @@ const Home: React.FC<{}> = () => {
 								onClick={() => {
 									if (presentation.id !== undefined)
 										retrieveSinglePresentationOnce(presentation.id, (pres) => {
-											changeCurrentPresentation(presentation.id, pres);
+											changeCurrentPresentation(
+												presentation.id,
+												presentation.remoteId,
+												pres
+											);
 										});
+									else if (presentation.remoteId !== undefined) {
+										retrieveRemotePresentationOnce(
+											presentation.remoteId,
+											(pres) => {
+												changeCurrentPresentation(
+													undefined,
+													presentation.remoteId,
+													pres
+												);
+											}
+										);
+									}
 								}}
 								selected={
-									currentPresentationId !== undefined &&
-									presentation.id === currentPresentationId
+									(currentPresentationId !== undefined &&
+										presentation.id === currentPresentationId) ||
+									(currentRemotePresentationId !== undefined &&
+										currentRemotePresentationId === presentation.remoteId)
 								}
 								sx={{
 									cursor: 'pointer',
@@ -142,20 +162,26 @@ const Home: React.FC<{}> = () => {
 				</Box>
 				<Divider orientation='vertical' />
 				<Box className={classes.previewContainer}>
-					{currentPresentationId !== undefined ? (
+					{currentPresentationId !== undefined ||
+					currentRemotePresentationId !== undefined ? (
 						<PresentationPreview
 							presentation={
-								cachedPresentations.get(currentPresentationId ?? -1)
-									?.presentation
+								cachedPresentations.get(
+									currentPresentationId ?? currentRemotePresentationId ?? -1
+								)?.presentation
 							}
 							id={currentPresentationId}
+							remoteId={currentRemotePresentationId}
 							removePresentationAction={removeSinglePresentation}
 							isCaching={
-								cachedPresentations.get(currentPresentationId ?? -1)?.loading ??
-								true
+								cachedPresentations.get(
+									currentPresentationId ?? currentRemotePresentationId ?? -1
+								)?.loading ?? true
 							}
 							failedToLoad={
-								cachedPresentations.get(currentPresentationId ?? -1)?.failed
+								cachedPresentations.get(
+									currentPresentationId ?? currentRemotePresentationId ?? -1
+								)?.failed
 							}
 						/>
 					) : (

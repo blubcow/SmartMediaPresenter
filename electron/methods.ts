@@ -255,7 +255,13 @@ export const registerMainProcessMethodHandlers = (
 
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.StartPresenterMode,
-		async (_, id: number, startingSlide: number, displayNumber?: number) => {
+		async (
+			_,
+			startingSlide: number,
+			id?: number,
+			remoteId?: string,
+			displayNumber?: number
+		) => {
 			if ((await screen.getAllDisplays().length) === 1) return;
 			const display = screen.getAllDisplays()[displayNumber ?? 1];
 
@@ -277,12 +283,13 @@ export const registerMainProcessMethodHandlers = (
 				: 'http://localhost:3000';
 
 			presentation.loadURL(
-				`${location}#/pres?id=${id}&startingSlide=${startingSlide}`
+				`${location}#/pres?startingSlide=${startingSlide}${
+					id !== undefined ? '&id=' + id : ''
+				}${remoteId !== undefined ? '&remoteId=' + remoteId : ''}`
 			);
 			presentation.maximize();
 			presentation.setFullScreen(true);
 			windows.push(presentation);
-
 			setTimeout(() => {
 				mainWindow.focus();
 			}, 2500);

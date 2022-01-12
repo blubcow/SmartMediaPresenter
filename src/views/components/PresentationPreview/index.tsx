@@ -30,7 +30,8 @@ import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
 
 interface IPresentationPreviewProps {
 	presentation?: SinglePresentation;
-	id: number;
+	id?: number;
+	remoteId?: string;
 	removePresentationAction: (id: number) => void;
 	isCaching: boolean;
 	failedToLoad?: number;
@@ -40,6 +41,7 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 	const {
 		presentation,
 		id,
+		remoteId,
 		removePresentationAction,
 		isCaching,
 		failedToLoad,
@@ -69,19 +71,23 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 				{presentation && presentation.slides.length > 0 && !isCaching && (
 					<PresentationFloatingButton
 						presentationId={id}
+						remoteId={remoteId}
 						presentation={presentation}
 					/>
 				)}
-				<FloatingButton
-					variant='extended'
-					color='primary'
-					onClick={() => {
-						history.push(`${SMPRoutes.Edit}?id=${id}`);
-					}}
-				>
-					<Edit sx={{ mr: 1 }} />
-					{t('edit')}
-				</FloatingButton>
+				{id !== undefined && (
+					<FloatingButton
+						variant='extended'
+						color='primary'
+						onClick={() => {
+							history.push(`${SMPRoutes.Edit}?id=${id}`);
+						}}
+					>
+						<Edit sx={{ mr: 1 }} />
+						{t('edit')}
+					</FloatingButton>
+				)}
+
 				{presentation && presentation.slides.length > 0 && (
 					<FloatingButton
 						variant='extended'
@@ -108,8 +114,10 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 					onClose={() => setOpenDeleteModal(false)}
 					onCancel={() => setOpenDeleteModal(false)}
 					onConfirm={() => {
-						removePresentationAction(id);
-						setOpenDeleteModal(false);
+						if (id !== undefined) {
+							removePresentationAction(id);
+							setOpenDeleteModal(false);
+						}
 					}}
 				/>
 			</FloatingButtonContainer>

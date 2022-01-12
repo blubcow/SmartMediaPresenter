@@ -181,14 +181,16 @@ export const useDisplays = () => {
 	};
 
 	const startPresentationMode = async (
-		id: number,
 		slide: number,
+		id?: number,
+		remoteId?: string,
 		display?: number
 	) => {
 		ipcRenderer.invoke(
 			MainProcessMethodIdentifiers.StartPresenterMode,
-			id,
 			slide,
+			id,
+			remoteId,
 			display
 		);
 	};

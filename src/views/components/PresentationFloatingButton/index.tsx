@@ -11,7 +11,8 @@ import { SinglePresentation } from '../../../shared/types/presentation';
 import PresentationFullScreen from '../FullScreen/PresentationFullScreen';
 
 interface IPresentationFloatingButtonProps {
-	presentationId: number;
+	presentationId?: number;
+	remoteId?: string;
 	presentation: SinglePresentation;
 	initialSlide?: number;
 }
@@ -19,7 +20,7 @@ interface IPresentationFloatingButtonProps {
 const PresentationFloatingButton: React.FC<IPresentationFloatingButtonProps> = (
 	props
 ) => {
-	const { presentationId, presentation, initialSlide } = props;
+	const { presentationId, remoteId, presentation, initialSlide } = props;
 	const { displaysAvailable, startPresentationMode } = useDisplays();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const [open, setOpen] = useState<boolean>(false);
@@ -39,7 +40,12 @@ const PresentationFloatingButton: React.FC<IPresentationFloatingButtonProps> = (
 						if (c > 2) {
 							setOpen(true);
 						} else {
-							startPresentationMode(presentationId, initialSlide ?? 0, 1);
+							startPresentationMode(
+								initialSlide ?? 0,
+								presentationId,
+								remoteId,
+								1
+							);
 							presentationModeHandle.enter();
 						}
 					} else {
@@ -60,8 +66,9 @@ const PresentationFloatingButton: React.FC<IPresentationFloatingButtonProps> = (
 					displaysAmount={displayAmount}
 					onDisplaySelected={(displayNumber) => {
 						startPresentationMode(
-							presentationId,
 							initialSlide ?? 0,
+							presentationId,
+							remoteId,
 							displayNumber
 						);
 						presentationModeHandle.enter();

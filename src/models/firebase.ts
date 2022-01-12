@@ -156,7 +156,15 @@ const firebaseDatabase = () => {
 		return get(ref);
 	};
 
-	return { uploadPresentation, getSyncPaper };
+	const getRemotePresentation = (userId: string, remoteId: string) => {
+		const ref = dbRef(
+			fireDatabase,
+			userId + '/' + dbCollection.presentations + '/' + remoteId
+		);
+		return get(ref);
+	};
+
+	return { uploadPresentation, getSyncPaper, getRemotePresentation };
 };
 
 const database = firebaseDatabase();
