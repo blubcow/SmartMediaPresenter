@@ -4,7 +4,7 @@ import {
 } from '../shared/types/presentation';
 
 export interface IPresentationSyncContext {
-	storedPresentations: StoredPresentation[];
+	storedPresentations: SyncableStoredPresentation[];
 	createPresentation: (
 		callback: (id: number) => any,
 		pres?: SinglePresentation | undefined
@@ -18,7 +18,7 @@ export interface IPresentationSyncContext {
 	localSyncingQueue: LocalSyncPresentationItem[];
 	addToLocalSyncingQueue: AddToLocalSyncingQueueHandler;
 	syncingAvailable: boolean;
-	syncPaper: Map<string, number>;
+	syncPaper: Map<string, SyncPaperEntry>;
 }
 
 export type AddToLocalSyncingQueueHandler = (
@@ -37,3 +37,17 @@ export interface LocalSyncPresentationItem {
 }
 
 export type PresentationSyncStatus = 'uploadable' | 'downloadable' | 'insync';
+
+export interface SyncPaperEntry {
+	name: string;
+	remoteId: string;
+	remoteUpdate: number;
+}
+
+export interface SyncableStoredPresentation {
+	name: string;
+	id?: number;
+	remoteId?: string;
+	created?: number;
+	remoteUpdate?: number;
+}

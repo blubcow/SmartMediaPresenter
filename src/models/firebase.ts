@@ -142,7 +142,11 @@ const firebaseDatabase = () => {
 				fireDatabase,
 				userId + '/' + dbCollection.syncPaper + '/' + pres.remoteId!
 			);
-			set(updateSyncPaperRef, timestamp);
+			set(updateSyncPaperRef, {
+				remoteId: pres.remoteId!,
+				name: pres.name,
+				remoteUpdate: timestamp,
+			});
 			callback(pres);
 		});
 	};

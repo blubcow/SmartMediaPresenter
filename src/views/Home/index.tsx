@@ -73,17 +73,27 @@ const Home: React.FC<{}> = () => {
 							<Row
 								title={presentation.name}
 								info={`${t('lastChange')}: ${getFormattedDate(
-									presentation.created
+									presentation.created ?? presentation.remoteUpdate!
 								)}`}
 								rootContainerStyle={{ zIndex: 0 }}
 								key={i}
 								onClick={() => {
-									retrieveSinglePresentationOnce(presentation.id, (pres) => {
-										changeCurrentPresentation(presentation.id, pres);
-									});
+									if (presentation.id !== undefined)
+										retrieveSinglePresentationOnce(presentation.id, (pres) => {
+											changeCurrentPresentation(presentation.id, pres);
+										});
 								}}
-								selected={presentation.id === currentPresentationId}
-								style={{ cursor: 'pointer' }}
+								selected={
+									currentPresentationId !== undefined &&
+									presentation.id === currentPresentationId
+								}
+								sx={{
+									cursor: 'pointer',
+									bgcolor:
+										presentation.id === undefined
+											? 'background.paper'
+											: undefined,
+								}}
 								iconBadge={
 									syncingAvailable ? (
 										localSyncingQueue.find(
@@ -93,28 +103,34 @@ const Home: React.FC<{}> = () => {
 										) : (
 											<PresentationSyncingButton
 												status={
-													presentation.remoteId &&
-													syncPaper.get(presentation.remoteId!)
-														? presentation.created ===
-														  syncPaper.get(presentation.remoteId!)!
-															? 'insync'
-															: presentation.created >
+													presentation.created !== undefined
+														? presentation.remoteId &&
+														  syncPaper.get(presentation.remoteId!)
+															? presentation.created ===
 															  syncPaper.get(presentation.remoteId!)!
-															? 'uploadable'
-															: 'downloadable'
-														: 'uploadable'
+																	.remoteUpdate
+																? 'insync'
+																: presentation.created >
+																  syncPaper.get(presentation.remoteId!)!
+																		.remoteUpdate
+																? 'uploadable'
+																: 'downloadable'
+															: 'uploadable'
+														: 'downloadable'
 												}
 												onDownload={() => {}}
 												onUpload={() => {
-													retrieveSinglePresentationOnce(
-														presentation.id,
-														(singlePres) => {
-															addToLocalSyncingQueue(
-																singlePres,
-																presentation.id
-															);
-														}
-													);
+													if (presentation.id !== undefined) {
+														retrieveSinglePresentationOnce(
+															presentation.id,
+															(singlePres) => {
+																addToLocalSyncingQueue(
+																	singlePres,
+																	presentation.id!
+																);
+															}
+														);
+													}
 												}}
 											/>
 										)

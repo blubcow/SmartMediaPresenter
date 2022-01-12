@@ -16,6 +16,8 @@ import { Box, Text } from '../smpUI/components';
 import {
 	LocalSyncPresentationItem,
 	RemotelyAvailableMedia,
+	SyncableStoredPresentation,
+	SyncPaperEntry,
 } from '../types/presentaitonSycncing';
 import { MainProcessMethodIdentifiers } from '../shared/types/identifiers';
 import { useStoredPresentations } from '../hooks/useMainProcessMethods';
@@ -27,7 +29,9 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 	children,
 }) => {
 	const { remoteUser, userLoggedIn } = useRemoteUserContext();
-	const [syncPaper, setSyncPaper] = useState<Map<string, number>>(new Map());
+	const [syncPaper, setSyncPaper] = useState<Map<string, SyncPaperEntry>>(
+		new Map()
+	);
 	const [remoteMedia, setRemoteMedia] = useState<RemotelyAvailableMedia[]>([]);
 	const [presProgess, setProgress] = useState<Map<number, number>>(new Map());
 	const [syncingAvailable, setSyncingAvailable] = useState<boolean>(false);
@@ -41,7 +45,11 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 		removeSinglePresentation,
 		reloadPresentations,
 	} = useStoredPresentations();
-	// TODO: add custom removePresentation method which will alos remove the presentation from the syncpaper
+	// TODO: add custom removePresentation method which will also remove the presentation from the syncpaper
+
+	const [storedPresentations, setStoredPresentations] = useState<
+		SyncableStoredPresentation[]
+	>([]);
 
 	useEffect(() => {
 		if (remoteUser && userLoggedIn) {
@@ -141,7 +149,11 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 											...curr,
 											[
 												remotePresentation.remoteId,
-												remotePresentation.remoteUpdate,
+												{
+													name: remotePresentation.name,
+													remoteId: remotePresentation.remoteId,
+													remoteUpdate: remotePresentation.remoteUpdate,
+												},
 											],
 										])
 								);
@@ -153,10 +165,38 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 		);
 	};
 
+	useEffect(() => {
+		const remotePresentations = Array.from(syncPaper.values());
+		const p = [
+			...presentations.map(
+				(pres) => ({ ...pres } as SyncableStoredPresentation)
+			),
+			...remotePresentations
+				.filter(
+					(pres) =>
+						presentations.find(
+							(localPres) => localPres.remoteId === pres.remoteId
+						) === undefined
+				)
+				.map((pres) => ({ ...pres } as SyncableStoredPresentation)),
+		].sort((a, b) => {
+			if (a.created === undefined && b.created === undefined) {
+				return b.remoteUpdate! > a.remoteUpdate! ? 1 : -1;
+			} else if (a.created === undefined) {
+				return b.created! > a.remoteUpdate! ? 1 : -1;
+			} else if (b.created === undefined) {
+				return b.remoteUpdate! > a.created! ? 1 : -1;
+			}
+
+			return b.created! > a.created! ? 1 : -1;
+		});
+		setStoredPresentations(p);
+	}, [presentations, syncPaper]);
+
 	return (
 		<PresentationSyncContext.Provider
 			value={{
-				storedPresentations: presentations,
+				storedPresentations: storedPresentations,
 				createPresentation: createPresentation,
 				removeSinglePresentation: removeSinglePresentation,
 				retrieveSinglePresentationOnce: retrieveSinglePresentationOnce,
