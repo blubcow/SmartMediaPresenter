@@ -23,13 +23,19 @@ const PresentationEditingPreviewRows: React.FC<IPresentationEditingPreviewRows> 
 							dispatch({
 								type: PresentationEditingActionIdentifiers.editingSlideStated,
 							});
+							const newSlideId = currentSlide + 1;
 							const newSlide = getEmptySlide(
-								presentation.slides.length,
+								newSlideId,
 								presentation.theme?.defaultFormat
 							);
 							const newPresentation = { ...presentation };
-							newPresentation.slides = [...presentation.slides];
-							newPresentation.slides.push(newSlide);
+							newPresentation.slides = [
+								...presentation.slides.slice(0, newSlideId),
+								newSlide,
+								...presentation.slides
+									.slice(newSlideId)
+									.map((slide) => ({ ...slide, id: slide.id + 1 })),
+							];
 							dispatch({
 								type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 								payload: {
