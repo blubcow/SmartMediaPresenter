@@ -29,7 +29,7 @@ export const registerMainProcessMethodHandlers = (
 
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.CreatePresentation,
-		async (_, pres?: SinglePresentation) => {
+		async (_, pres?: SinglePresentation, created?: number) => {
 			const path = userDataPath + '/store';
 			const file = path + '/presentations.json';
 
@@ -46,11 +46,13 @@ export const registerMainProcessMethodHandlers = (
 
 			const currentId = presentations.count + 1;
 			const presentationName = `presentation-${currentId}`;
-			const timestamp = Date.now();
+			const timestamp = created ?? Date.now();
 			const newPresentation: any = {
 				id: currentId,
 				name: pres?.name ?? presentationName,
 				created: timestamp,
+				remoteId: pres.remoteId,
+				remoteUpdate: pres.remoteUpdate,
 			};
 
 			fs.writeFileSync(

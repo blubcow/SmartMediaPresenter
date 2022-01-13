@@ -10,7 +10,10 @@ import useRemoteUserContext from '../hooks/useRemoteUserContext';
 import { i18nNamespace } from '../i18n/i18n';
 import { storage, database } from '../models/firebase';
 import { syncLocalPresentation } from '../models/PresentationSyncer';
-import { SinglePresentation } from '../shared/types/presentation';
+import {
+	SinglePresentation,
+	StoredPresentation,
+} from '../shared/types/presentation';
 import { Box, Text } from '../smpUI/components';
 import {
 	LocalSyncPresentationItem,
@@ -33,6 +36,9 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 	);
 	const [remoteMedia, setRemoteMedia] = useState<RemotelyAvailableMedia[]>([]);
 	const [presProgess, setProgress] = useState<Map<number, number>>(new Map());
+	const [downloadingPresentations, setDownloadingPresentations] = useState<
+		string[]
+	>([]);
 	const [syncingAvailable, setSyncingAvailable] = useState<boolean>(false);
 	const [localSyncingQueue, setLocalSyncingQueue] = useState<
 		LocalSyncPresentationItem[]
@@ -173,9 +179,51 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 		database
 			.getRemotePresentation(remoteUser!.uid, remoteId)
 			.then((snapshot) => {
-				console.log(snapshot);
 				if (snapshot.exists()) {
 					callback(snapshot.val() as SinglePresentation);
+				}
+			});
+	};
+
+	const downloadAndUpdateLocalPresentation = (remoteId: string) => {
+		if (remoteUser === undefined) return;
+		setDownloadingPresentations((curr) => [...curr, remoteId]);
+		database
+			.getRemotePresentation(remoteUser.uid, remoteId)
+			.then((snapshot) => {
+				if (snapshot.exists()) {
+					const presentation = snapshot.val() as SinglePresentation;
+					const id = presentations.find(
+						(pres) => pres.remoteId === remoteId
+					)?.id;
+					if (id === undefined) {
+						ipcRenderer
+							.invoke(
+								MainProcessMethodIdentifiers.CreatePresentation,
+								presentation,
+								presentation.remoteUpdate
+							)
+							.then((storedPres: StoredPresentation) => {
+								retrieveSinglePresentationOnce(storedPres.id, (pres) => {
+									setDownloadingPresentations((curr) =>
+										curr.filter((id) => id !== remoteId)
+									);
+								});
+							});
+					} else {
+						ipcRenderer
+							.invoke(
+								MainProcessMethodIdentifiers.SaveChangesToPresentation,
+								id,
+								presentation,
+								presentation.remoteUpdate
+							)
+							.then((pres: SinglePresentation) => {
+								setDownloadingPresentations((curr) =>
+									curr.filter((id) => id !== remoteId)
+								);
+							});
+					}
 				}
 			});
 	};
@@ -221,6 +269,8 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				syncPaper: syncPaper,
 				syncingAvailable: syncingAvailable,
 				retrieveRemotePresentationOnce: retrieveRemotePresentationOnce,
+				downloadAndUpdateLocalPresentation: downloadAndUpdateLocalPresentation,
+				downloadingPresentations: downloadingPresentations,
 			}}
 		>
 			<Box

@@ -1,7 +1,4 @@
-import {
-	SinglePresentation,
-	StoredPresentation,
-} from '../shared/types/presentation';
+import { SinglePresentation } from '../shared/types/presentation';
 
 export interface IPresentationSyncContext {
 	storedPresentations: SyncableStoredPresentation[];
@@ -23,6 +20,8 @@ export interface IPresentationSyncContext {
 		remoteId: string,
 		callback: (presentation: SinglePresentation) => void
 	) => void;
+	downloadAndUpdateLocalPresentation: (remoteId: string) => void;
+	downloadingPresentations: string[];
 }
 
 export type AddToLocalSyncingQueueHandler = (

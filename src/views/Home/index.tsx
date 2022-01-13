@@ -33,6 +33,8 @@ const Home: React.FC<{}> = () => {
 		removeSinglePresentation,
 		localSyncingQueue,
 		retrieveRemotePresentationOnce,
+		downloadAndUpdateLocalPresentation,
+		downloadingPresentations,
 	} = usePresentationSyncContext();
 	const {
 		currentPresentationId,
@@ -118,7 +120,11 @@ const Home: React.FC<{}> = () => {
 									syncingAvailable ? (
 										localSyncingQueue.find(
 											(item) => item.presentationId === presentation.id
-										) !== undefined ? (
+										) !== undefined ||
+										(presentation.remoteId &&
+											downloadingPresentations.includes(
+												presentation.remoteId
+											)) ? (
 											<CircularProgress variant='indeterminate' />
 										) : (
 											<PresentationSyncingButton
@@ -138,7 +144,13 @@ const Home: React.FC<{}> = () => {
 															: 'uploadable'
 														: 'downloadable'
 												}
-												onDownload={() => {}}
+												onDownload={() => {
+													if (presentation.remoteId !== undefined) {
+														downloadAndUpdateLocalPresentation(
+															presentation.remoteId
+														);
+													}
+												}}
 												onUpload={() => {
 													if (presentation.id !== undefined) {
 														retrieveSinglePresentationOnce(

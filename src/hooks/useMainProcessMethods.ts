@@ -41,10 +41,11 @@ export const useStoredPresentations = () => {
 
 	const createPresentation = (
 		callback: (id: number) => any,
-		pres?: SinglePresentation
+		pres?: SinglePresentation,
+		created?: number
 	) => {
 		ipcRenderer
-			.invoke(MainProcessMethodIdentifiers.CreatePresentation, pres)
+			.invoke(MainProcessMethodIdentifiers.CreatePresentation, pres, created)
 			.then((r: StoredPresentation) => {
 				setPresentations([...presentations, r]);
 				callback(r.id);
