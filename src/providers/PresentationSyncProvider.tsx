@@ -220,23 +220,10 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 								remotePresentation.remoteUpdate
 							)
 							.then((storedPres: StoredPresentation) => {
-								setStoredPresentations((curr) =>
-									sortStoredPresentations(
-										curr.map((pres) =>
-											pres.remoteId === storedPres.remoteId
-												? {
-														...pres,
-														id: storedPres.id,
-														created: remotePresentation.remoteUpdate,
-														remoteUpdate: remotePresentation.remoteUpdate,
-												  }
-												: pres
-										)
-									)
-								);
 								setDownloadingPresentations((curr) =>
 									curr.filter((id) => id !== remoteId)
 								);
+								reloadPresentations();
 							});
 					} else {
 						ipcRenderer
@@ -247,22 +234,10 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 								remotePresentation.remoteUpdate
 							)
 							.then((_: any) => {
-								setStoredPresentations((curr) =>
-									sortStoredPresentations(
-										curr.map((pres) =>
-											pres.remoteId === remotePresentation.remoteId
-												? {
-														...pres,
-														created: remotePresentation.remoteUpdate,
-														remoteUpdate: remotePresentation.remoteUpdate,
-												  }
-												: pres
-										)
-									)
-								);
 								setDownloadingPresentations((curr) =>
 									curr.filter((id) => id !== remoteId)
 								);
+								reloadPresentations();
 							});
 					}
 				}
