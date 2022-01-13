@@ -33,5 +33,9 @@ export default makeStyles((theme: Theme) =>
 			marginTop: theme.spacing(1),
 			color: theme.palette.text.secondary,
 		},
+		secondaryInfoLabel: {
+			marginTop: theme.spacing(0.5),
+			color: theme.palette.secondary.main,
+		},
 	})
 );
