@@ -170,6 +170,22 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 		);
 	};
 
+	const sortStoredPresentations = (
+		storedPresentations: SyncableStoredPresentation[]
+	): SyncableStoredPresentation[] => {
+		return storedPresentations.sort((a, b) => {
+			if (a.created === undefined && b.created === undefined) {
+				return b.remoteUpdate! > a.remoteUpdate! ? 1 : -1;
+			} else if (a.created === undefined) {
+				return b.created! > a.remoteUpdate! ? 1 : -1;
+			} else if (b.created === undefined) {
+				return b.remoteUpdate! > a.created! ? 1 : -1;
+			}
+
+			return b.created! > a.created! ? 1 : -1;
+		});
+	};
+
 	const retrieveRemotePresentationOnce = (
 		remoteId: string,
 		callback: (pres: SinglePresentation) => void
@@ -192,7 +208,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 			.getRemotePresentation(remoteUser.uid, remoteId)
 			.then((snapshot) => {
 				if (snapshot.exists()) {
-					const presentation = snapshot.val() as SinglePresentation;
+					const remotePresentation = snapshot.val() as SinglePresentation;
 					const id = presentations.find(
 						(pres) => pres.remoteId === remoteId
 					)?.id;
@@ -200,25 +216,50 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 						ipcRenderer
 							.invoke(
 								MainProcessMethodIdentifiers.CreatePresentation,
-								presentation,
-								presentation.remoteUpdate
+								remotePresentation,
+								remotePresentation.remoteUpdate
 							)
 							.then((storedPres: StoredPresentation) => {
-								retrieveSinglePresentationOnce(storedPres.id, (pres) => {
-									setDownloadingPresentations((curr) =>
-										curr.filter((id) => id !== remoteId)
-									);
-								});
+								setStoredPresentations((curr) =>
+									sortStoredPresentations(
+										curr.map((pres) =>
+											pres.remoteId === storedPres.remoteId
+												? {
+														...pres,
+														id: storedPres.id,
+														created: remotePresentation.remoteUpdate,
+														remoteUpdate: remotePresentation.remoteUpdate,
+												  }
+												: pres
+										)
+									)
+								);
+								setDownloadingPresentations((curr) =>
+									curr.filter((id) => id !== remoteId)
+								);
 							});
 					} else {
 						ipcRenderer
 							.invoke(
 								MainProcessMethodIdentifiers.SaveChangesToPresentation,
 								id,
-								presentation,
-								presentation.remoteUpdate
+								remotePresentation,
+								remotePresentation.remoteUpdate
 							)
-							.then((pres: SinglePresentation) => {
+							.then((_: any) => {
+								setStoredPresentations((curr) =>
+									sortStoredPresentations(
+										curr.map((pres) =>
+											pres.remoteId === remotePresentation.remoteId
+												? {
+														...pres,
+														created: remotePresentation.remoteUpdate,
+														remoteUpdate: remotePresentation.remoteUpdate,
+												  }
+												: pres
+										)
+									)
+								);
 								setDownloadingPresentations((curr) =>
 									curr.filter((id) => id !== remoteId)
 								);
@@ -230,7 +271,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 
 	useEffect(() => {
 		const remotePresentations = Array.from(syncPaper.values());
-		const p = [
+		const p = sortStoredPresentations([
 			...presentations.map(
 				(pres) => ({ ...pres } as SyncableStoredPresentation)
 			),
@@ -242,17 +283,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 						) === undefined
 				)
 				.map((pres) => ({ ...pres } as SyncableStoredPresentation)),
-		].sort((a, b) => {
-			if (a.created === undefined && b.created === undefined) {
-				return b.remoteUpdate! > a.remoteUpdate! ? 1 : -1;
-			} else if (a.created === undefined) {
-				return b.created! > a.remoteUpdate! ? 1 : -1;
-			} else if (b.created === undefined) {
-				return b.remoteUpdate! > a.created! ? 1 : -1;
-			}
-
-			return b.created! > a.created! ? 1 : -1;
-		});
+		]);
 		setStoredPresentations(p);
 	}, [presentations, syncPaper]);
 
