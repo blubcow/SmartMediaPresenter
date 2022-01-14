@@ -7,17 +7,21 @@ import RemoteUser from './RemoteUser';
 import { useUserSettingsDrawerStyles } from './styles';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
+import ManageRemoteMedia from './ManageRemoteMedia';
+import usePresentationSyncContext from '../../../hooks/usePresentationSyncContext';
 
 interface IUserSettingsDrawerProps extends IDrawerProps {}
 
 const UserSettingsDrawer: React.FC<IUserSettingsDrawerProps> = (props) => {
 	const classes = useUserSettingsDrawerStyles();
 	const { t } = useTranslation([i18nNamespace.Alert]);
+	const { syncingAvailable } = usePresentationSyncContext();
 
 	return (
 		<Drawer {...props}>
 			<Box className={classes.container}>
 				<RemoteUser />
+				{syncingAvailable && <ManageRemoteMedia />}
 				<ChangeLanguage />
 				<ChangeTheme />
 			</Box>

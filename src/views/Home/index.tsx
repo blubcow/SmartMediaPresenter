@@ -79,18 +79,24 @@ const Home: React.FC<{}> = () => {
 								info={`${t('lastChange')}: ${getFormattedDate(
 									presentation.created ?? presentation.remoteUpdate!
 								)}`}
-								secondaryInfo={`${
-									presentation.id === undefined
-										? t('notLocal')
-										: syncPaper.get(presentation.remoteId ?? '') === undefined
-										? t('notInCloud')
-										: syncPaper.get(presentation.remoteId!)!.remoteUpdate ===
-										  presentation.created
-										? ''
-										: `${t('cloudChanges')}: ${getFormattedDate(
-												syncPaper.get(presentation.remoteId!)!.remoteUpdate
-										  )}`
-								}`}
+								secondaryInfo={
+									syncingAvailable
+										? `${
+												presentation.id === undefined
+													? t('notLocal')
+													: syncPaper.get(presentation.remoteId ?? '') ===
+													  undefined
+													? t('notInCloud')
+													: syncPaper.get(presentation.remoteId!)!
+															.remoteUpdate === presentation.created
+													? ''
+													: `${t('cloudChanges')}: ${getFormattedDate(
+															syncPaper.get(presentation.remoteId!)!
+																.remoteUpdate
+													  )}`
+										  }`
+										: undefined
+								}
 								rootContainerStyle={{ zIndex: 0 }}
 								key={i}
 								onClick={() => {

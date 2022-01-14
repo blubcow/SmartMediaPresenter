@@ -107,5 +107,6 @@
   "savePres": "save presentation",
   "syncToCloud": "is being synced to the cloud",
   "failedToLoadMedia": "failed to load one image",
-  "failedToLoadMediaMult": "failed to laod {{amount}} images"
+  "failedToLoadMediaMult": "failed to laod {{amount}} images",
+  "manageRemoteMedia": "manage remote Media"
 }
