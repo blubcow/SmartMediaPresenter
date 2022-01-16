@@ -2,5 +2,6 @@
   "manageRemoteMedia": "Medien in der Cloud verwalten",
   "uploadMedia": "Medien hochladen",
   "delete": "löschen",
-  "newFolder": "neuer Ordner"
+  "newFolder": "neuer Ordner",
+  "close": "schließen"
 }
