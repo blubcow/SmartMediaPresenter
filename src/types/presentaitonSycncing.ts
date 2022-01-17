@@ -31,6 +31,7 @@ export interface IPresentationSyncContext {
 		callback: (folder: RemoteStorageMedia) => void,
 		path?: string
 	) => void;
+	deleteFiles: (files: RemoteStorageMedia[], callback: () => void) => void;
 }
 
 export type AddToLocalSyncingQueueHandler = (
@@ -64,7 +65,10 @@ export interface SyncableStoredPresentation {
 	remoteUpdate?: number;
 }
 
+export type RemoteStorageMediaType = 'file' | 'dir';
+
 export interface RemoteStorageMedia {
+	type: RemoteStorageMediaType;
 	name: string;
 	path: string;
 	url?: string;

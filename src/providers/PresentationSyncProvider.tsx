@@ -19,11 +19,13 @@ import {
 	LocalSyncPresentationItem,
 	RemotelyAvailableMedia,
 	RemoteStorageMedia,
+	RemoteStorageMediaType,
 	SyncableStoredPresentation,
 	SyncPaperEntry,
 } from '../types/presentaitonSycncing';
 import { MainProcessMethodIdentifiers } from '../shared/types/identifiers';
 import { useStoredPresentations } from '../hooks/useMainProcessMethods';
+import { resourceLimits } from 'worker_threads';
 const { ipcRenderer } = window.require('electron');
 
 export const PresentationSyncContext = createContext({});
@@ -187,6 +189,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 						return {
 							name: item.name,
 							path: path,
+							type: 'file',
 							url: await storage.getDownloadUrlFromFileName(
 								remoteUser.uid,
 								path
@@ -196,6 +199,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 			).then((r) => {
 				media.prefixes.forEach((prefix) => {
 					r.push({
+						type: 'dir',
 						name: prefix.name,
 						path: prefix.fullPath.replace(remoteUser.uid + '/', ''),
 					});
@@ -215,9 +219,53 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 		storage.createFolder(remoteUser.uid, folderName, path).then((r) => {
 			callback({
 				name: folderName,
+				type: 'dir',
 				path: `${path ?? ''}${path ? '/' : ''}${folderName}`,
 			});
 		});
+	};
+
+	const deleteDir = async (path: string) => {
+		const result = await storage.listRemoteMedia(remoteUser!.uid, path);
+		const items: RemoteStorageMedia[] = result.items.map((i) => ({
+			name: i.name,
+			path: i.fullPath.replace(remoteUser!.uid + '/', ''),
+			type: 'file',
+		}));
+		result.prefixes.forEach((dir) => {
+			items.push({
+				name: dir.name,
+				path: dir.fullPath.replace(remoteUser!.uid + '/', ''),
+				type: 'dir',
+			});
+		});
+
+		await Promise.all(
+			items.map(
+				async (item) =>
+					await (item.type === 'dir'
+						? deleteDir(item.path)
+						: deleteSingleFile(item.path))
+			)
+		);
+	};
+
+	const deleteSingleFile = async (path: string) => {
+		return await storage.deleteFile(remoteUser!.uid, path);
+	};
+
+	const deleteFiles = (files: RemoteStorageMedia[], callback: () => void) => {
+		if (remoteUser === undefined) return;
+
+		Promise.all(
+			files.map(async (item) => {
+				if (item.type === 'file') {
+					return await deleteSingleFile(item.path);
+				} else {
+					return await deleteDir(item.path);
+				}
+			})
+		).then(() => callback());
 	};
 
 	const sortStoredPresentations = (
@@ -329,6 +377,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				downloadingPresentations: downloadingPresentations,
 				getRemoteMedia: getRemoteMedia,
 				createFolder: createFolder,
+				deleteFiles: deleteFiles,
 			}}
 		>
 			<Box

@@ -17,6 +17,7 @@ import {
 	getDownloadURL,
 	listAll,
 	uploadString,
+	deleteObject,
 } from 'firebase/storage';
 import {
 	getDatabase,
@@ -90,12 +91,18 @@ const firebaseStorage = () => {
 		return uploadString(keep, '');
 	};
 
+	const deleteFile = (userId: string, path: string) => {
+		const reference = ref(fireStorage, userId + `/${path}`);
+		return deleteObject(reference);
+	};
+
 	return {
 		uploadFile,
 		getDownloadURL,
 		getDownloadUrlFromFileName,
 		listRemoteMedia,
 		createFolder,
+		deleteFile,
 	};
 };
 
