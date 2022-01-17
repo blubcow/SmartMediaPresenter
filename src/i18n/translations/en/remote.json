@@ -2,7 +2,11 @@
   "manageRemoteMedia": "manage remote media",
   "uploadMedia": "upload media",
   "delete": "delete",
-  "newFolder": "new Folder",
+  "newFolder": "new folder",
   "close": "close",
-  "emptyFolder": "this folder is empty"
+  "emptyFolder": "this folder is empty",
+  "name": "name",
+  "create": "create",
+  "createNewFolder": "create new folder",
+  "deletingMedia": "deleting media"
 }

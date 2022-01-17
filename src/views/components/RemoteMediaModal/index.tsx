@@ -44,6 +44,8 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 	const [creatingFolder, setCreatingFolder] = useState<boolean>(false);
 	const [newFolderName, setNewFolderName] = useState<string | undefined>();
 
+	const [deletingMedia, setDeletingMedia] = useState<boolean>(false);
+
 	const clearSelection = () => setCurrentSelection([]);
 
 	useEffect(() => {
@@ -89,6 +91,7 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 							color='secondary'
 							disabled={currentSelection.length === 0}
 							onClick={() => {
+								setDeletingMedia(true);
 								deleteFiles(currentSelection, () => {
 									setCurrentItems((curr) => [
 										...curr
@@ -100,6 +103,7 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 											)
 											.map((item) => ({ ...item })),
 									]);
+									setDeletingMedia(false);
 								});
 							}}
 						>
@@ -213,10 +217,10 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 				>
 					<Box className={classes.newFolderContainer}>
 						<Text variant='h6' fontWeight={800}>
-							create new folder
+							{t('createNewFolder')}
 						</Text>
 						<Text
-							placeholder='name'
+							placeholder={t('name')}
 							editable
 							align='center'
 							color={newFolderName !== undefined ? 'text.primary' : 'GrayText'}
@@ -242,9 +246,17 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 									}
 								}}
 							>
-								create
+								{t('create')}
 							</Button>
 						</Box>
+					</Box>
+				</Modal>
+			)}
+			{deletingMedia && (
+				<Modal open={true}>
+					<Box className={classes.deletingModal}>
+						<Text>{t('deletingMedia')}</Text>
+						<CircularProgress />
 					</Box>
 				</Modal>
 			)}

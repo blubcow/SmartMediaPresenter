@@ -68,6 +68,13 @@ export default makeStyles((theme: Theme) =>
 			textAlign: 'center',
 			width: '250px',
 		},
+		deletingModal: {
+			display: 'flex',
+			flexDirection: 'column',
+			gap: theme.spacing(3),
+			justifyContent: 'center',
+			alignItems: 'center',
+		},
 	})
 );
 

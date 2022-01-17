@@ -4,5 +4,9 @@
   "delete": "löschen",
   "newFolder": "neuer Ordner",
   "close": "schließen",
-  "emptyFolder": "dieser Ordner ist leer"
+  "emptyFolder": "dieser Ordner ist leer",
+  "name": "Name",
+  "create": "erstellen",
+  "createNewFolder": "neuen Ordner erstellen",
+  "deletingMedia": "Medien werden gelöscht"
 }
