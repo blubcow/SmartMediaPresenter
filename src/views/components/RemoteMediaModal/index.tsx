@@ -10,13 +10,14 @@ import { IModalProps } from '../../../smpUI/components/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import useStyles, { useFileStyles } from './styles';
-import { CircularProgress, Divider } from '@mui/material';
+import { CircularProgress, Divider, formControlClasses } from '@mui/material';
 import { CreateNewFolder, UploadFile, Delete } from '@mui/icons-material';
 import usePresentationSyncContext from '../../../hooks/usePresentationSyncContext';
 import { RemoteStorageMedia } from '../../../types/presentaitonSycncing';
 import { useHeldKeys } from '../../../hooks/useHeldKeys';
 import { InsertDriveFile, Folder, ArrowBack } from '@mui/icons-material';
 import { ImageResourceExtensions } from '../../../shared/types/mediaResources';
+import { flushSync } from 'react-dom';
 
 interface IRemoteMediaModalProps extends IModalProps {}
 
@@ -36,15 +37,11 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 	const clearSelection = () => setCurrentSelection([]);
 
 	useEffect(() => {
-		clearSelection();
-		setLoading(true);
-		setHistory([]);
-		setCurrentItems([]);
 		getRemoteMedia((files) => {
 			setCurrentItems(files);
 			setLoading(false);
 		});
-	}, [props.open]);
+	}, []);
 
 	useEffect(() => {
 		clearSelection();
@@ -103,7 +100,8 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 												...curr,
 												{ folder: item.name, files: [...currentItems] },
 											]);
-											setLoading(true);
+											flushSync(() => setLoading(true));
+
 											getRemoteMedia((files) => {
 												setCurrentItems(files);
 												setLoading(false);

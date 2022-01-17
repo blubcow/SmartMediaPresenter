@@ -181,13 +181,11 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 		storage.listRemoteMedia(remoteUser.uid, path).then((media) =>
 			Promise.all(
 				media.items.map(async (item) => {
+					const path = item.fullPath.replace(remoteUser.uid + '/', '');
 					return {
 						name: item.name,
-						path: item.fullPath.replace(remoteUser.uid + '/', ''),
-						url: await storage.getDownloadUrlFromFileName(
-							remoteUser.uid,
-							item.name
-						),
+						path: path,
+						url: await storage.getDownloadUrlFromFileName(remoteUser.uid, path),
 					} as RemoteStorageMedia;
 				})
 			).then((r) => {

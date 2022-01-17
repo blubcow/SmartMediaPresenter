@@ -34,7 +34,7 @@ const ManageRemoteMedia: React.FC<{}> = (props) => {
 					setOpen(true);
 				}}
 			/>
-			<RemoteMediaModal open={open} onClose={() => setOpen(false)} />
+			{open && <RemoteMediaModal open={open} onClose={() => setOpen(false)} />}
 		</>
 	);
 };
