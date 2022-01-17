@@ -3,5 +3,6 @@
   "uploadMedia": "upload media",
   "delete": "delete",
   "newFolder": "new Folder",
-  "close": "close"
+  "close": "close",
+  "emptyFolder": "this folder is empty"
 }

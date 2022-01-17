@@ -183,7 +183,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				media.items.map(async (item) => {
 					return {
 						name: item.name,
-						path: item.fullPath,
+						path: item.fullPath.replace(remoteUser.uid + '/', ''),
 						url: await storage.getDownloadUrlFromFileName(
 							remoteUser.uid,
 							item.name
@@ -192,7 +192,10 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				})
 			).then((r) => {
 				media.prefixes.forEach((prefix) => {
-					r.push({ name: prefix.name, path: prefix.fullPath });
+					r.push({
+						name: prefix.name,
+						path: prefix.fullPath.replace(remoteUser.uid + '/', ''),
+					});
 				});
 				callback(r);
 			})

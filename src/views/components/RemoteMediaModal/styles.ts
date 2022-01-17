@@ -42,11 +42,22 @@ export default makeStyles((theme: Theme) =>
 			left: '50%',
 			transform: 'translate(-50%, -50%)',
 		},
+		emptyFolderIndicator: {
+			position: 'absolute',
+			top: '50%',
+			left: '50%',
+			transform: 'translate(-50%, -50%)',
+		},
 		footerBtnContainer: {
 			display: 'flex',
 			justifyContent: 'space-between',
 			alignItems: 'center',
 			paddingTop: theme.spacing(3),
+		},
+		folderNavigator: {
+			display: 'flex',
+			gap: theme.spacing(1),
+			alignItems: 'center',
 		},
 	})
 );

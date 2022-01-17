@@ -3,5 +3,6 @@
   "uploadMedia": "Medien hochladen",
   "delete": "löschen",
   "newFolder": "neuer Ordner",
-  "close": "schließen"
+  "close": "schließen",
+  "emptyFolder": "dieser Ordner ist leer"
 }
