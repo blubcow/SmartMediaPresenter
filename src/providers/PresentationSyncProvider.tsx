@@ -127,13 +127,22 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				// @ts-ignore
 				setProgress((curr) => new Map([...curr, [presentationId, progress]]));
 			},
-			(tasks) => {
+			(tasks, audioTasks) => {
 				const presToSave = JSON.parse(
 					JSON.stringify(presentation)
 				) as SinglePresentation;
 				tasks.forEach((task) => {
 					presToSave.slides[task.slide].media[task.mediaId].location.remote =
 						task.downloadUrl;
+				});
+
+				audioTasks.forEach((task) => {
+					if (task.slide === 'theme' && presToSave.theme?.audio) {
+						presToSave.theme.audio.remote = task.downloadUrl;
+					} else {
+						presToSave.slides[task.slide as number].audio!.location.remote =
+							task.downloadUrl;
+					}
 				});
 
 				database.uploadPresentation(

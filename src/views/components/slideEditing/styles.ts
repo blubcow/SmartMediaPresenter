@@ -6,7 +6,6 @@ export default makeStyles((theme: Theme) =>
 		editingCard: {
 			height: '100px',
 			width: '95px',
-			backgroundColor: theme.palette.background.paper,
 			borderRadius: theme.shape.borderRadius,
 			cursor: 'pointer',
 			outlineColor: theme.palette.primary.main,
