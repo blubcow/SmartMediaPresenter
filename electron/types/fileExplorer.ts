@@ -1,3 +1,9 @@
+import {
+	AudioResourceExtensions,
+	ImageResourceExtensions,
+} from '../../src/shared/types/mediaResources';
+import { PresentationFileAvailableExtensions } from '../../src/shared/types/presentationFormat';
+
 type FileExplorereProperties = (
 	| 'openFile'
 	| 'openDirectory'
@@ -15,20 +21,7 @@ export const FileExpolorerOptions = {
 		filters: [
 			{
 				name: 'Images',
-				extensions: [
-					'jpg',
-					'jpeg',
-					'jfif',
-					'pjpeg',
-					'pjp',
-					'png',
-					'apng',
-					'avif',
-					'gif',
-					'tiff',
-					'raw',
-					'webp',
-				],
+				extensions: [...ImageResourceExtensions],
 			},
 		],
 		properties: ['openFile', 'openDirectory'] as FileExplorereProperties,
@@ -37,7 +30,7 @@ export const FileExpolorerOptions = {
 		filters: [
 			{
 				name: 'Audio',
-				extensions: ['wav', 'wma', 'mp3', 'msv', 'mpc', 'aiff', 'alac', 'm4p'],
+				extensions: [...AudioResourceExtensions],
 			},
 		],
 		properties: ['openFile'] as FileExplorereProperties,
@@ -46,7 +39,7 @@ export const FileExpolorerOptions = {
 		filters: [
 			{
 				name: 'Presentation',
-				extensions: ['json', 'xlsx'],
+				extensions: [...PresentationFileAvailableExtensions],
 			},
 		],
 		properties: ['openFile'] as FileExplorereProperties,

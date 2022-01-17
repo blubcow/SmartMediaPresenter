@@ -22,6 +22,10 @@ export interface IPresentationSyncContext {
 	) => void;
 	downloadAndUpdateLocalPresentation: (remoteId: string) => void;
 	downloadingPresentations: string[];
+	getRemoteMedia: (
+		callback: (files: RemoteStorageMedia[]) => void,
+		path?: string
+	) => void;
 }
 
 export type AddToLocalSyncingQueueHandler = (
@@ -53,4 +57,10 @@ export interface SyncableStoredPresentation {
 	remoteId?: string;
 	created?: number;
 	remoteUpdate?: number;
+}
+
+export interface RemoteStorageMedia {
+	name: string;
+	path: string;
+	url: string;
 }
