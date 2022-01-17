@@ -16,6 +16,7 @@ import {
 	UploadTask,
 	getDownloadURL,
 	listAll,
+	uploadString,
 } from 'firebase/storage';
 import {
 	getDatabase,
@@ -80,11 +81,21 @@ const firebaseStorage = () => {
 		return getDownloadURL(reference);
 	};
 
+	const createFolder = (userId: string, folderName: string, path?: string) => {
+		const reference = ref(
+			fireStorage,
+			userId + (path ? `/${path}` : '') + `/${folderName}`
+		);
+		const keep = ref(reference, '.keep');
+		return uploadString(keep, '');
+	};
+
 	return {
 		uploadFile,
 		getDownloadURL,
 		getDownloadUrlFromFileName,
 		listRemoteMedia,
+		createFolder,
 	};
 };
 

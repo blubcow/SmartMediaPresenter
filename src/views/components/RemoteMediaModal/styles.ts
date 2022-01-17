@@ -59,6 +59,15 @@ export default makeStyles((theme: Theme) =>
 			gap: theme.spacing(1),
 			alignItems: 'center',
 		},
+		newFolderContainer: {
+			display: 'flex',
+			flexDirection: 'column',
+			gap: theme.spacing(3),
+			justifyContent: 'center',
+			alignItems: 'center',
+			textAlign: 'center',
+			width: '250px',
+		},
 	})
 );
 

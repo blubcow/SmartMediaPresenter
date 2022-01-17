@@ -180,14 +180,19 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 
 		storage.listRemoteMedia(remoteUser.uid, path).then((media) =>
 			Promise.all(
-				media.items.map(async (item) => {
-					const path = item.fullPath.replace(remoteUser.uid + '/', '');
-					return {
-						name: item.name,
-						path: path,
-						url: await storage.getDownloadUrlFromFileName(remoteUser.uid, path),
-					} as RemoteStorageMedia;
-				})
+				media.items
+					.filter((item) => item.name !== '.keep')
+					.map(async (item) => {
+						const path = item.fullPath.replace(remoteUser.uid + '/', '');
+						return {
+							name: item.name,
+							path: path,
+							url: await storage.getDownloadUrlFromFileName(
+								remoteUser.uid,
+								path
+							),
+						} as RemoteStorageMedia;
+					})
 			).then((r) => {
 				media.prefixes.forEach((prefix) => {
 					r.push({
@@ -198,6 +203,21 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				callback(r);
 			})
 		);
+	};
+
+	const createFolder = (
+		folderName: string,
+		callback: (folder: RemoteStorageMedia) => void,
+		path?: string
+	) => {
+		if (remoteUser === undefined) return;
+
+		storage.createFolder(remoteUser.uid, folderName, path).then((r) => {
+			callback({
+				name: folderName,
+				path: `${path ?? ''}${path ? '/' : ''}${folderName}`,
+			});
+		});
 	};
 
 	const sortStoredPresentations = (
@@ -308,6 +328,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				downloadAndUpdateLocalPresentation: downloadAndUpdateLocalPresentation,
 				downloadingPresentations: downloadingPresentations,
 				getRemoteMedia: getRemoteMedia,
+				createFolder: createFolder,
 			}}
 		>
 			<Box

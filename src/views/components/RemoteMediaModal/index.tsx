@@ -17,22 +17,26 @@ import { RemoteStorageMedia } from '../../../types/presentaitonSycncing';
 import { useHeldKeys } from '../../../hooks/useHeldKeys';
 import { InsertDriveFile, Folder, ArrowBack } from '@mui/icons-material';
 import { ImageResourceExtensions } from '../../../shared/types/mediaResources';
-import { flushSync } from 'react-dom';
 
 interface IRemoteMediaModalProps extends IModalProps {}
 
 const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 	const { t } = useTranslation([i18nNamespace.Remote]);
-	const { getRemoteMedia } = usePresentationSyncContext();
+	const { getRemoteMedia, createFolder } = usePresentationSyncContext();
 	const classes = useStyles();
 	const { shift } = useHeldKeys();
 
 	const [loading, setLoading] = useState<boolean>(true);
 	const [currentItems, setCurrentItems] = useState<RemoteStorageMedia[]>([]);
 	const [history, setHistory] = useState<
-		{ folder: string; files: RemoteStorageMedia[] }[]
+		{ folder: string; path: string; files: RemoteStorageMedia[] }[]
 	>([]);
 	const [currentSelection, setCurrentSelection] = useState<string[]>([]);
+	const [currentPath, setCurrentPath] = useState<string>('');
+
+	const [openNewFolderModal, setOpenNewFolderModal] = useState<boolean>(false);
+	const [creatingFolder, setCreatingFolder] = useState<boolean>(false);
+	const [newFolderName, setNewFolderName] = useState<string | undefined>();
 
 	const clearSelection = () => setCurrentSelection([]);
 
@@ -47,6 +51,10 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 		clearSelection();
 	}, [history]);
 
+	useEffect(() => {
+		setNewFolderName(undefined);
+	}, [openNewFolderModal]);
+
 	return (
 		<Modal {...props} maxWidth={false}>
 			<Box className={classes.container} onClick={clearSelection}>
@@ -55,7 +63,13 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 						{t('manageRemoteMedia')}
 					</Text>
 					<Box className={classes.headerBtnContainer}>
-						<Button variant='contained' size='small'>
+						<Button
+							variant='contained'
+							size='small'
+							onClick={() => {
+								setOpenNewFolderModal(true);
+							}}
+						>
 							<CreateNewFolder className={classes.btnIcon} />
 							{t('newFolder')}
 						</Button>
@@ -96,11 +110,19 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 										name={item.name}
 										imgUrl={item.url}
 										changeDir={() => {
-											setHistory((curr) => [
-												...curr,
-												{ folder: item.name, files: [...currentItems] },
+											setHistory([
+												...history.map((h) => ({
+													...h,
+													files: h.files.map((f) => ({ ...f })),
+												})),
+												{
+													folder: item.name,
+													path: currentPath,
+													files: [...currentItems.map((item) => ({ ...item }))],
+												},
 											]);
-											flushSync(() => setLoading(true));
+											setCurrentPath(item.path);
+											setLoading(true);
 
 											getRemoteMedia((files) => {
 												setCurrentItems(files);
@@ -126,10 +148,19 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 									icon={ArrowBack}
 									onClick={() => {
 										if (history.length > 0) {
-											setHistory((curr) => {
-												setCurrentItems([...curr.pop()!.files]);
-												return [...curr];
-											});
+											setCurrentPath(history[history.length - 1].path);
+											const newItems = history[history.length - 1];
+											setCurrentItems([
+												...newItems.files.map((f) => ({ ...f })),
+											]);
+											const newHistory = [
+												...history.map((h) => ({
+													...h,
+													files: h.files.map((f) => ({ ...f })),
+												})),
+											];
+											newHistory.pop();
+											setHistory(newHistory);
 										}
 									}}
 								/>
@@ -149,6 +180,47 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 					</Button>
 				</Box>
 			</Box>
+			{openNewFolderModal && (
+				<Modal
+					open={openNewFolderModal}
+					onClose={() => {
+						if (!creatingFolder) setOpenNewFolderModal(false);
+					}}
+				>
+					<Box className={classes.newFolderContainer}>
+						<Text variant='h6' fontWeight={800}>
+							create new folder
+						</Text>
+						<Text
+							placeholder='name'
+							editable
+							align='center'
+							color={newFolderName !== undefined ? 'text.primary' : 'GrayText'}
+							style={{ maxWidth: '70%' }}
+							editableTextDidChange={(_, curr) => setNewFolderName(curr)}
+						></Text>
+						<Box>
+							<Button
+								isLoading={creatingFolder}
+								variant='contained'
+								onClick={() => {
+									if (newFolderName !== undefined)
+										createFolder(
+											newFolderName,
+											(folder) => {
+												setCurrentItems((curr) => [...curr, { ...folder }]);
+												setOpenNewFolderModal(false);
+											},
+											currentPath
+										);
+								}}
+							>
+								create
+							</Button>
+						</Box>
+					</Box>
+				</Modal>
+			)}
 		</Modal>
 	);
 };

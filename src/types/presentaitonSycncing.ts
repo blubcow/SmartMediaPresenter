@@ -26,6 +26,11 @@ export interface IPresentationSyncContext {
 		callback: (files: RemoteStorageMedia[]) => void,
 		path?: string
 	) => void;
+	createFolder: (
+		folderName: string,
+		callback: (folder: RemoteStorageMedia) => void,
+		path?: string
+	) => void;
 }
 
 export type AddToLocalSyncingQueueHandler = (
