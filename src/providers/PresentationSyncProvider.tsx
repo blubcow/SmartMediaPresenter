@@ -18,6 +18,7 @@ import { Box, Text } from '../smpUI/components';
 import {
 	LocalSyncPresentationItem,
 	RemotelyAvailableMedia,
+	RemoteStorageMedia,
 	SyncableStoredPresentation,
 	SyncPaperEntry,
 } from '../types/presentaitonSycncing';
@@ -50,6 +51,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 		removeSinglePresentation,
 		reloadPresentations,
 	} = useStoredPresentations();
+
 	// TODO: add custom removePresentation method which will also remove the presentation from the syncpaper
 
 	const [storedPresentations, setStoredPresentations] = useState<
@@ -170,6 +172,33 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 		);
 	};
 
+	const getRemoteMedia = (
+		callback: (files: RemoteStorageMedia[]) => void,
+		path?: string
+	) => {
+		if (remoteUser === undefined) return;
+
+		storage.listRemoteMedia(remoteUser.uid, path).then((media) =>
+			Promise.all(
+				media.items.map(async (item) => {
+					return {
+						name: item.name,
+						path: item.fullPath,
+						url: await storage.getDownloadUrlFromFileName(
+							remoteUser.uid,
+							item.name
+						),
+					} as RemoteStorageMedia;
+				})
+			).then((r) => {
+				media.prefixes.forEach((prefix) => {
+					r.push({ name: prefix.name, path: prefix.fullPath });
+				});
+				callback(r);
+			})
+		);
+	};
+
 	const sortStoredPresentations = (
 		storedPresentations: SyncableStoredPresentation[]
 	): SyncableStoredPresentation[] => {
@@ -277,6 +306,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				retrieveRemotePresentationOnce: retrieveRemotePresentationOnce,
 				downloadAndUpdateLocalPresentation: downloadAndUpdateLocalPresentation,
 				downloadingPresentations: downloadingPresentations,
+				getRemoteMedia: getRemoteMedia,
 			}}
 		>
 			<Box

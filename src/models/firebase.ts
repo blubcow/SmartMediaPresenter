@@ -70,8 +70,8 @@ const firebaseStorage = () => {
 		return task;
 	};
 
-	const listRemoteMedia = (userId: string) => {
-		const reference = ref(fireStorage, userId);
+	const listRemoteMedia = (userId: string, path?: string) => {
+		const reference = ref(fireStorage, userId + (path ? `/${path}` : ''));
 		return listAll(reference);
 	};
 

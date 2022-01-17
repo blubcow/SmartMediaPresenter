@@ -62,5 +62,5 @@ export interface SyncableStoredPresentation {
 export interface RemoteStorageMedia {
 	name: string;
 	path: string;
-	url: string;
+	url?: string;
 }
