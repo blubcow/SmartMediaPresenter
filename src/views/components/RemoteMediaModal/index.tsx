@@ -183,7 +183,7 @@ const File: React.FC<IFileProps> = (props) => {
 		>
 			<Box className={classes.fileTypeContainer}>
 				{fileExtension !== name ? (
-					ImageResourceExtensions.includes(fileExtension) ? (
+					ImageResourceExtensions.includes(fileExtension.toLowerCase()) ? (
 						<img className={classes.img} src={imgUrl} loading='lazy' />
 					) : (
 						<InsertDriveFile className={classes.icon} />
@@ -192,7 +192,13 @@ const File: React.FC<IFileProps> = (props) => {
 					<Folder className={classes.icon} />
 				)}
 			</Box>
-			<Box className={classes.nameContainer}>{name}</Box>
+			<Text
+				variant='caption'
+				fontWeight={700}
+				className={classes.nameContainer}
+			>
+				{name}
+			</Text>
 		</Box>
 	);
 };
