@@ -37,12 +37,20 @@ const QuickCreate: React.FC<{}> = () => {
 			if (multiInsertionEnabled) setMultiInsertionEnabled(false);
 		};
 
+		const disableMultiInsertion = () => {
+			setMultiInsertionEnabled(false);
+		};
+
 		document.addEventListener('dragenter', handleDrag);
+		document.addEventListener('dragend', disableMultiInsertion);
+		document.addEventListener('mouseleave', disableMultiInsertion);
 		document.addEventListener('drop', handleDrop);
 
 		return () => {
 			document.removeEventListener('dragenter', handleDrag);
 			document.removeEventListener('drop', handleDrop);
+			document.removeEventListener('dragend', disableMultiInsertion);
+			window.removeEventListener('mouseleave', disableMultiInsertion);
 		};
 	}, [multiInsertionEnabled]);
 
