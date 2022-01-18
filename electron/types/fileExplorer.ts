@@ -52,4 +52,13 @@ export const FileExpolorerOptions = {
 			{ name: 'excel', extensions: ['xlsx'] },
 		],
 	},
+	remote: {
+		filters: [
+			{
+				name: 'Media',
+				extensions: [...AudioResourceExtensions, ...ImageResourceExtensions],
+			},
+		],
+		properties: ['openFile', 'multiSelections'] as FileExplorereProperties,
+	},
 };

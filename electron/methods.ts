@@ -387,7 +387,12 @@ export const registerMainProcessMethodHandlers = (
 				if (fileExtension === 'json') {
 					fs.writeFileSync(
 						filePath,
-						JSON.stringify({ ...presentation, name: fileName })
+						JSON.stringify({
+							...presentation,
+							name: fileName,
+							remoteId: undefined,
+							remoteUpdate: undefined,
+						})
 					);
 				} else if (fileExtension === 'xlsx') {
 					const book = convertJsonToXlsx({ ...presentation, name: fileName });

@@ -1,1 +1,6 @@
-export type FileExplorerType = 'media' | 'audio' | 'presentation' | 'save';
+export type FileExplorerType =
+	| 'media'
+	| 'audio'
+	| 'presentation'
+	| 'save'
+	| 'remote';
