@@ -1,9 +1,8 @@
-import { MainProcessMethodIdentifiers } from '../shared/types/identifiers';
 import {
 	MediaRessource,
 	SinglePresentation,
 } from '../shared/types/presentation';
-import { storage } from './firebase';
+import { uploadMedia } from './MediaUploader';
 const { ipcRenderer } = window.require('electron');
 
 interface MediaSyncTask {
@@ -12,9 +11,6 @@ interface MediaSyncTask {
 	mediaId: number;
 	localLocation: string;
 	downloadUrl?: string;
-	totalBytes?: number;
-	transferredBytes?: number;
-	completed: boolean;
 }
 
 interface AudioSyncTask {
@@ -22,9 +18,6 @@ interface AudioSyncTask {
 	slide: number | 'theme';
 	localLoaction: string;
 	downloadUrl?: string;
-	totalBytes?: number;
-	transferredBytes?: number;
-	completed: boolean;
 }
 
 export const syncLocalPresentation = (
@@ -34,10 +27,7 @@ export const syncLocalPresentation = (
 	onProgressUpdate: (progress: number) => void,
 	didFinish: (tasks: MediaSyncTask[], audioTasks: AudioSyncTask[]) => void
 ) => {
-	let totalBytesAccumulated = 0;
-	let transferredBytesAccumulated = 0;
-
-	const tasks: MediaSyncTask[] = presentation.slides
+	const imageTasks: MediaSyncTask[] = presentation.slides
 		.reduce((prev, slide) => {
 			const newMedia = slide.media
 				.filter((media) => media.location?.local !== undefined)
@@ -48,8 +38,10 @@ export const syncLocalPresentation = (
 			index: index,
 			slide: media.slide,
 			mediaId: media.media.id,
-			localLocation: media.media.location!.local!.substring(7),
-			completed: false,
+			localLocation: media.media.location!.local!,
+			downloadUrl: filteredMediaNames.find(
+				(m) => m.name === media.media.location.local?.split('/').pop()!
+			)?.downloadUrl,
 		}));
 
 	const audioTasks: AudioSyncTask[] = presentation.slides
@@ -63,8 +55,10 @@ export const syncLocalPresentation = (
 		.map((audio, index) => ({
 			index: index,
 			slide: audio.slide,
-			localLoaction: audio.audioLocation.substring(7),
-			completed: false,
+			localLoaction: audio.audioLocation,
+			downloadUrl: filteredMediaNames.find(
+				(m) => m.name === audio.audioLocation.split('/').pop()!
+			)?.downloadUrl,
 		}));
 
 	if (presentation.theme?.audio?.local) {
@@ -72,139 +66,77 @@ export const syncLocalPresentation = (
 			index: audioTasks.length,
 			slide: 'theme',
 			localLoaction: presentation.theme!.audio!.local!.substring(7),
-			completed: false,
 		});
 	}
 
-	if (tasks.length === 0 && audioTasks.length === 0) {
-		onProgressUpdate(100);
-		didFinish(tasks, audioTasks);
-		return;
-	}
+	let imagesCompleted = false;
+	let audioCompleted = false;
+	let imagesTotalBytes = 0;
+	let audioTotalBytes = 0;
+	let imagesTransferredBytes = 0;
+	let audioTransferredBytes = 0;
 
-	tasks.forEach(async (task) => {
-		const fileName = task.localLocation.split('/').pop()!;
-		const availableRemoteMedia = filteredMediaNames.find(
-			(media) => media.name === fileName
-		);
-
-		if (availableRemoteMedia) {
-			tasks[task.index].completed = true;
-			tasks[task.index].downloadUrl = availableRemoteMedia.downloadUrl;
-			if (
-				tasks.find((task) => !task.completed) === undefined &&
-				audioTasks.find((task) => !task.completed) === undefined
-			) {
-				didFinish(tasks, audioTasks);
-			}
-			return;
-		}
-
-		const buffer = await ipcRenderer.invoke(
-			MainProcessMethodIdentifiers.retriveFullFile,
-			task.localLocation
-		);
-
-		const upload = storage.uploadFile(userId, fileName, buffer, {
-			contentType: 'image/' + fileName?.split('.').pop()!,
-		});
-
-		upload.then((snapshot) => {
-			storage.getDownloadURL(snapshot.ref).then((url) => {
-				tasks[task.index].downloadUrl = url;
-				if (snapshot.state === 'success') {
-					tasks[task.index].completed = true;
-					if (
-						tasks.find((task) => !task.completed) === undefined &&
-						audioTasks.find((task) => !task.completed) === undefined
-					) {
-						didFinish(tasks, audioTasks);
-					}
-				}
-			});
-		});
-
-		upload.on('state_changed', (snapshot) => {
-			if (tasks[task.index].totalBytes === undefined) {
-				totalBytesAccumulated += snapshot.totalBytes;
-			}
-
-			tasks[task.index].totalBytes = snapshot.totalBytes;
-
-			const transferredBytesDiff =
-				snapshot.bytesTransferred - (tasks[task.index].transferredBytes ?? 0);
-
-			transferredBytesAccumulated += transferredBytesDiff;
-
-			tasks[task.index].transferredBytes = snapshot.bytesTransferred;
+	uploadMedia(
+		userId,
+		imageTasks
+			.filter((image) => image.downloadUrl === undefined)
+			.map((task) => ({
+				path: task.localLocation,
+				index: task.index,
+				type: 'image',
+			})),
+		(totalBytes, transferredBytes) => {
+			imagesTotalBytes = totalBytes;
+			imagesTransferredBytes = transferredBytes;
 
 			onProgressUpdate(
-				(transferredBytesAccumulated / totalBytesAccumulated) * 100
+				((imagesTransferredBytes + audioTransferredBytes) /
+					(imagesTotalBytes + audioTotalBytes)) *
+					100
 			);
-		});
-	});
+		},
+		(urls) => {
+			imageTasks
+				.filter((image) => image.downloadUrl === undefined)
+				.forEach((task) => {
+					task.downloadUrl = urls.get(task.index);
+				});
 
-	audioTasks.forEach(async (audioTask) => {
-		const fileName = audioTask.localLoaction.split('/').pop()!;
-		const availableRemoteAudio = filteredMediaNames.find(
-			(media) => media.name === fileName
-		);
+			if (audioCompleted) didFinish(imageTasks, audioTasks);
 
-		if (availableRemoteAudio) {
-			audioTasks[audioTask.index].completed = true;
-			audioTasks[audioTask.index].downloadUrl =
-				availableRemoteAudio.downloadUrl;
-			if (
-				audioTasks.find((task) => !task.completed) === undefined &&
-				tasks.find((task) => !task.completed) === undefined
-			) {
-				didFinish(tasks, audioTasks);
-			}
-			return;
+			imagesCompleted = true;
 		}
+	);
 
-		const buffer = await ipcRenderer.invoke(
-			MainProcessMethodIdentifiers.retriveFullFile,
-			audioTask.localLoaction
-		);
-
-		const upload = storage.uploadFile(userId, fileName, buffer, {
-			contentType: 'audio/' + fileName?.split('.').pop()!,
-		});
-
-		upload.then((snapshot) => {
-			storage.getDownloadURL(snapshot.ref).then((url) => {
-				audioTasks[audioTask.index].downloadUrl = url;
-				if (snapshot.state === 'success') {
-					audioTasks[audioTask.index].completed = true;
-					if (
-						audioTasks.find((task) => !task.completed) === undefined &&
-						tasks.find((task) => !task.completed) === undefined
-					) {
-						didFinish(tasks, audioTasks);
-					}
-				}
-			});
-		});
-
-		upload.on('state_changed', (snapshot) => {
-			if (audioTasks[audioTask.index].totalBytes === undefined) {
-				totalBytesAccumulated += snapshot.totalBytes;
-			}
-
-			audioTasks[audioTask.index].totalBytes = snapshot.totalBytes;
-
-			const transferredBytesDiff =
-				snapshot.bytesTransferred -
-				(audioTasks[audioTask.index].transferredBytes ?? 0);
-
-			transferredBytesAccumulated += transferredBytesDiff;
-
-			audioTasks[audioTask.index].transferredBytes = snapshot.bytesTransferred;
+	uploadMedia(
+		userId,
+		audioTasks
+			.filter((audio) => audio.downloadUrl === undefined)
+			.map((task) => ({
+				path: task.localLoaction,
+				index: task.index,
+				type: 'audio',
+			})),
+		(totalBytes, transferredBytes) => {
+			audioTotalBytes = totalBytes;
+			audioTransferredBytes = transferredBytes;
 
 			onProgressUpdate(
-				(transferredBytesAccumulated / totalBytesAccumulated) * 100
+				((imagesTransferredBytes + audioTransferredBytes) /
+					(imagesTotalBytes + audioTotalBytes)) *
+					100
 			);
-		});
-	});
+		},
+		(urls) => {
+			audioTasks
+				.filter((audio) => audio.downloadUrl === undefined)
+				.forEach((task) => {
+					task.downloadUrl = urls.get(task.index);
+				});
+
+			if (imagesCompleted) didFinish(imageTasks, audioTasks);
+
+			audioCompleted = true;
+		}
+	);
 };
