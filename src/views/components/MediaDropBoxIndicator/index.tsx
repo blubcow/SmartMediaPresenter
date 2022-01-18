@@ -26,10 +26,13 @@ const MediaDropBoxIndicator: React.FC<IMediaDropBoxIndicatorProps> = (
 	return (
 		<Box className={classes.droppingArea} {...props}>
 			<Box
-				className={classes.droppingAreaFrame}
+				className={
+					draggedOver
+						? classes.droppingAreaFrameActive
+						: classes.droppingAreaFrame
+				}
 				onDragEnter={() => setDraggedOver(true)}
 				onDragLeave={() => setDraggedOver(false)}
-				sx={{ borderColor: draggedOver ? 'primary.main' : 'background.paper' }}
 			>
 				<Text
 					className={classes.text}

@@ -22,6 +22,16 @@ export default makeStyles<Theme>((theme: Theme) =>
 			alignItems: 'center',
 			padding: theme.spacing(1),
 		},
+		droppingAreaFrameActive: {
+			height: '100%',
+			width: '100%',
+			border: '3px dashed ' + theme.palette.primary.main,
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'center',
+			alignItems: 'center',
+			padding: theme.spacing(1),
+		},
 		text: {
 			pointerEvents: 'none',
 		},

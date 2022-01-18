@@ -11,6 +11,7 @@ export default makeStyles((theme: Theme) =>
 			overflowY: 'scroll',
 			flexDirection: 'column',
 			justifyContent: 'start',
+			zIndex: 1,
 		},
 		infoText: {
 			flex: 1,
