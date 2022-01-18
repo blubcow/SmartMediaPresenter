@@ -1,5 +1,4 @@
-import { ThemeContext } from '@emotion/react';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import {
 	Dimensions,
 	MediaAlignment,
@@ -47,6 +46,9 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 	} = props;
 	const classes = useStyles();
 	const imgRef = useRef<any>();
+	const [imgSrc, setImgSrc] = useState<string | undefined>(
+		media?.location.local ?? media?.location.remote
+	);
 
 	const alignment = media?.settings?.alignment ?? themeAlignment;
 
@@ -128,7 +130,15 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 					<img
 						ref={imgRef}
 						className={classes.img}
-						src={media.location?.local ?? media.location?.remote}
+						src={imgSrc}
+						onError={() => {
+							if (
+								media.location.local &&
+								media.location.remote &&
+								imgSrc !== media.location.remote
+							)
+								setImgSrc(media.location.remote);
+						}}
 						draggable={false}
 						onClick={(e) => {
 							e.stopPropagation();
