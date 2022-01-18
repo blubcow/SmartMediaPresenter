@@ -144,7 +144,7 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 			<HeaderRow
 				addFilesAction={async () => {
 					const files: QuickCreateMediaResource[] =
-						await openFileSelectorDialog('audio');
+						await openFileSelectorDialog('mediaMultiSelect');
 					onFilesReceivedMerge(files);
 				}}
 				searchTerm={searchTerm}

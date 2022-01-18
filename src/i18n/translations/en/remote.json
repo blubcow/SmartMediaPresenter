@@ -9,5 +9,8 @@
   "create": "create",
   "createNewFolder": "create new folder",
   "deletingMedia": "deleting media",
-  "uploadingMedia": "uploading media"
+  "uploadingMedia": "uploading media",
+  "chooseLocalOrRemote": "choose local or from cloud",
+  "local": "local",
+  "cloud": "cloud"
 }

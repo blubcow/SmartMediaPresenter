@@ -35,7 +35,6 @@ const SlideRowMediaHolder: React.FC<ISlideRowMediaHolder> = (props) => {
 			}}
 			onDrop={(e) => {
 				e.preventDefault();
-
 				let media;
 				if (e.dataTransfer.getData(DataTransferIdentifiers.MediaFileInfo)) {
 					media = JSON.parse(

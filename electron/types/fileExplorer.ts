@@ -17,6 +17,19 @@ type FileExplorereProperties = (
 )[];
 
 export const FileExpolorerOptions = {
+	mediaMultiSelect: {
+		filters: [
+			{
+				name: 'Images',
+				extensions: [...ImageResourceExtensions],
+			},
+		],
+		properties: [
+			'openFile',
+			'openDirectory',
+			'multiSelections',
+		] as FileExplorereProperties,
+	},
 	media: {
 		filters: [
 			{

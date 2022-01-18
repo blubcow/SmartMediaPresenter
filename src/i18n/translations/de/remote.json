@@ -9,5 +9,8 @@
   "create": "erstellen",
   "createNewFolder": "neuen Ordner erstellen",
   "deletingMedia": "Medien werden gelöscht",
-  "uploadingMedia": "Medien werden hochgeladen"
+  "uploadingMedia": "Medien werden hochgeladen",
+  "chooseLocalOrRemote": "lokal oder aus der Cloud wählen",
+  "local": "lokal",
+  "cloud": "Cloud"
 }

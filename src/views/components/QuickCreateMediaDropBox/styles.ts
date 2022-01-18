@@ -65,6 +65,8 @@ export const useMediaRowStyles = makeStyles((theme: Theme) =>
 			width: '100%',
 			padding: theme.spacing(1),
 			display: 'flex',
+			cursor: 'pointer',
+			zIndex: 1,
 			'&:focus': {
 				outline: 'none',
 			},
@@ -73,6 +75,7 @@ export const useMediaRowStyles = makeStyles((theme: Theme) =>
 			width: '100%',
 			padding: theme.spacing(1),
 			display: 'flex',
+			zIndex: 1,
 			'&:focus': {
 				outline: 'none',
 			},

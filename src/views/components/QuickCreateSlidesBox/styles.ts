@@ -8,6 +8,7 @@ export default makeStyles((theme: Theme) =>
 			flex: 0.4,
 			display: 'flex',
 			flexDirection: 'column',
+			zIndex: 1,
 		},
 		previewContainer: {
 			width: '100%',

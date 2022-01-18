@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import useRemoteUserContext from '../../../hooks/useRemoteUserContext';
 import {
 	Dimensions,
 	MediaAlignment,
@@ -9,6 +10,8 @@ import MediaDropBoxIndicator from '../MediaDropBoxIndicator';
 import ActiveMediaIdenticator from './ActiveMediaIdenticator';
 import ColorChannelFilter from './ColorChannelFilter';
 import useStyles from './styles';
+import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
+import LocalOrRemoteModal from '../modals/LocalOrRemoteModal';
 
 interface IMediaBox {
 	id: number;
@@ -47,10 +50,33 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 	const classes = useStyles();
 	const imgRef = useRef<any>();
 	const [imgSrc, setImgSrc] = useState<string | undefined>(
-		media?.location.local ?? media?.location.remote
+		media?.location?.local ?? media?.location?.remote
 	);
+	const { userLoggedIn } = useRemoteUserContext();
+	const { openFileSelectorDialog } = useLocalFileSystem();
+	const [openLocalOrRemoteSelector, setOpenLocalOrRemoteSelector] =
+		useState<boolean>(false);
 
 	const alignment = media?.settings?.alignment ?? themeAlignment;
+
+	const handleLocalFileSelection = () => {
+		openFileSelectorDialog('media').then((file: any[]) => {
+			if (didReceiveMediaFile && canReceiveMedia && file.length > 0) {
+				didReceiveMediaFile(
+					{
+						name: file[0].name,
+						// @ts-ignore
+						path: file[0].location.local.substring(7),
+					},
+					id
+				);
+			}
+		});
+	};
+
+	useEffect(() => {
+		setImgSrc(media?.location?.local ?? media?.location?.remote);
+	}, [media]);
 
 	return (
 		<Box
@@ -96,6 +122,7 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 			}}
 			onDrop={(e) => {
 				e.preventDefault();
+				console.log(e.dataTransfer.files[0]);
 				if (didReceiveMediaFile && canReceiveMedia && e.dataTransfer.files[0])
 					didReceiveMediaFile(e.dataTransfer.files[0], id);
 				else if (onDrop) onDrop(id);
@@ -188,10 +215,28 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 					/>
 				</>
 			) : canReceiveMedia ? (
-				<MediaDropBoxIndicator
-					canTapToOpenFileInspector
-					sx={{ bgcolor: 'divider' }}
-				/>
+				<>
+					<MediaDropBoxIndicator
+						canTapToOpenFileInspector
+						sx={{ bgcolor: 'divider' }}
+						onClick={() => {
+							if (userLoggedIn) {
+								setOpenLocalOrRemoteSelector(true);
+							} else {
+								handleLocalFileSelection();
+							}
+						}}
+					/>
+					<LocalOrRemoteModal
+						open={openLocalOrRemoteSelector}
+						onSelection={(selection) => {
+							if (selection === 'local') handleLocalFileSelection();
+							if (selection === 'remote') console.log('remote');
+							setOpenLocalOrRemoteSelector(false);
+						}}
+						onClose={() => setOpenLocalOrRemoteSelector(false)}
+					/>
+				</>
 			) : (
 				<Box sx={{ height: '100%', width: '100%', bgcolor: 'divider' }} />
 			)}
