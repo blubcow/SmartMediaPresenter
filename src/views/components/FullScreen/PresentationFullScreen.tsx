@@ -77,6 +77,14 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 
 	useEffect(() => {
 		backgroundAudio.loop = true;
+		backgroundAudio.onerror = () => {
+			if (
+				presentation.theme?.audio?.local &&
+				presentation.theme?.audio?.remote &&
+				backgroundAudio.src !== presentation.theme.audio.remote
+			)
+				backgroundAudio.src = presentation.theme.audio.remote;
+		};
 	}, []);
 
 	useEffect(() => {
@@ -93,6 +101,14 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 
 		if (audioSrc) {
 			slideAudio.src = audioSrc;
+			slideAudio.onerror = () => {
+				if (
+					slide.audio?.location.local &&
+					slide.audio?.location.remote &&
+					audioSrc !== slide.audio.location.remote
+				)
+					slideAudio.src = slide.audio.location.remote;
+			};
 			slideAudio.play();
 			if (timeout === 'audio') {
 				slideAudio.onended = () =>

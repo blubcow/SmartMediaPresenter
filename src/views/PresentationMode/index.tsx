@@ -74,6 +74,14 @@ const Content = ({
 
 	useEffect(() => {
 		backgroundAudio.loop = true;
+		backgroundAudio.onerror = () => {
+			if (
+				presentation.theme?.audio?.local &&
+				presentation.theme?.audio?.remote &&
+				backgroundAudio.src !== presentation.theme.audio.remote
+			)
+				backgroundAudio.src = presentation.theme.audio.remote;
+		};
 		return () => backgroundAudio.pause();
 	}, []);
 

@@ -32,6 +32,14 @@ const BackgroundAudio: React.FC<{}> = () => {
 
 	useEffect(() => {
 		audio.src = audioLocation ?? '';
+		audio.onerror = () => {
+			if (
+				presentation.theme?.audio?.local &&
+				presentation.theme?.audio?.remote &&
+				audio.src !== presentation.theme?.audio?.remote
+			)
+				audio.src = presentation.theme?.audio?.remote;
+		};
 		audio.load();
 	}, [audioLocation]);
 

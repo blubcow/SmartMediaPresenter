@@ -29,6 +29,17 @@ const AudioPlaybackContent: React.FC<IAudioPlaybackContentProps> = (props) => {
 	const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
 	useEffect(() => {
+		audio.onerror = () => {
+			if (
+				audioRessource?.location.local &&
+				audioRessource?.location.remote &&
+				audio.src !== audioRessource.location.remote
+			)
+				audio.src = audioRessource.location.remote;
+		};
+	}, []);
+
+	useEffect(() => {
 		const a = new Audio(audio.src);
 		a.currentTime = Number.MAX_SAFE_INTEGER;
 		const getDuration = () => {
@@ -44,7 +55,7 @@ const AudioPlaybackContent: React.FC<IAudioPlaybackContentProps> = (props) => {
 
 		a.addEventListener('durationchange', getDuration);
 		return () => a.removeEventListener('durationchange', getDuration);
-	}, [audio]);
+	}, [audio, audio.src]);
 
 	useEffect(() => {
 		if (!isPlaying) return;
