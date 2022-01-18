@@ -71,7 +71,7 @@ export const syncLocalPresentation = (
 		audioTasks.push({
 			index: audioTasks.length,
 			slide: 'theme',
-			localLoaction: presentation.theme!.audio!.local!,
+			localLoaction: presentation.theme!.audio!.local!.substring(7),
 			completed: false,
 		});
 	}
