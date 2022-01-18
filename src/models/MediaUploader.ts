@@ -16,7 +16,7 @@ interface UploadTask extends UploadFile {
 }
 
 export const uploadMedia = (
-	userId: string,
+	path: string,
 	files: UploadFile[],
 	onProgressUpdate: (totalBytes: number, transferredBytes: number) => void,
 	didFinish: (downloadUrls: Map<number, string>) => void
@@ -31,8 +31,6 @@ export const uploadMedia = (
 		index: file.index,
 		type: file.type,
 	}));
-
-	console.log(tasks);
 
 	if (tasks.length === 0) {
 		onProgressUpdate(0, 0);
@@ -49,7 +47,7 @@ export const uploadMedia = (
 				task.path
 			);
 
-			const upload = storage.uploadFile(userId, fileName, buffer, {
+			const upload = storage.uploadFile(path, fileName, buffer, {
 				contentType: task.type + '/' + fileName?.split('.').pop()!,
 			});
 

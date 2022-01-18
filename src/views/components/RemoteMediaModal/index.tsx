@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
 	Modal,
 	Box,
@@ -10,7 +10,7 @@ import { IModalProps } from '../../../smpUI/components/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import useStyles, { useFileStyles } from './styles';
-import { CircularProgress, Divider } from '@mui/material';
+import { CircularProgress, Divider, LinearProgress } from '@mui/material';
 import { CreateNewFolder, UploadFile, Delete } from '@mui/icons-material';
 import usePresentationSyncContext from '../../../hooks/usePresentationSyncContext';
 import {
@@ -20,12 +20,14 @@ import {
 import { useHeldKeys } from '../../../hooks/useHeldKeys';
 import { InsertDriveFile, Folder, ArrowBack } from '@mui/icons-material';
 import { ImageResourceExtensions } from '../../../shared/types/mediaResources';
+import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
+import { uploadMedia } from '../../../models/MediaUploader';
 
 interface IRemoteMediaModalProps extends IModalProps {}
 
 const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 	const { t } = useTranslation([i18nNamespace.Remote]);
-	const { getRemoteMedia, createFolder, deleteFiles } =
+	const { getRemoteMedia, createFolder, deleteFiles, uploadRemoteMedia } =
 		usePresentationSyncContext();
 	const classes = useStyles();
 	const { shift } = useHeldKeys();
@@ -46,7 +48,12 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 
 	const [deletingMedia, setDeletingMedia] = useState<boolean>(false);
 
+	const { openFileSelectorDialog } = useLocalFileSystem();
+
 	const clearSelection = () => setCurrentSelection([]);
+
+	const [uploadingMedia, setUploadingMedia] = useState<boolean>(false);
+	const [uploadProgress, setUploadProgress] = useState<number>(0);
 
 	useEffect(() => {
 		getRemoteMedia((files) => {
@@ -81,7 +88,27 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 							<CreateNewFolder className={classes.btnIcon} />
 							{t('newFolder')}
 						</Button>
-						<Button variant='contained' size='small'>
+						<Button
+							variant='contained'
+							size='small'
+							onClick={() => {
+								openFileSelectorDialog('remote').then((files: any[]) => {
+									setUploadingMedia(true);
+									uploadRemoteMedia(
+										files.map((file) => file.location.local),
+										(progress) => {
+											setUploadProgress(progress);
+										},
+										(media: RemoteStorageMedia[]) => {
+											setCurrentItems((curr) => [...curr, ...media]);
+											setUploadingMedia(false);
+											setUploadProgress(0);
+										},
+										currentPath
+									);
+								});
+							}}
+						>
 							<UploadFile className={classes.btnIcon} />
 							{t('uploadMedia')}
 						</Button>
@@ -254,9 +281,27 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 			)}
 			{deletingMedia && (
 				<Modal open={true}>
-					<Box className={classes.deletingModal}>
-						<Text>{t('deletingMedia')}</Text>
+					<Box className={classes.activityModal}>
+						<Text variant='h6' fontWeight={800}>
+							{t('deletingMedia')}
+						</Text>
 						<CircularProgress />
+					</Box>
+				</Modal>
+			)}
+			{uploadingMedia && (
+				<Modal open={true}>
+					<Box className={classes.activityModal}>
+						<Text variant='h6' fontWeight={800}>
+							{t('uploadingMedia')}
+						</Text>
+						<Box sx={{ width: '100%' }}>
+							<LinearProgress
+								value={uploadProgress}
+								variant='determinate'
+								sx={{ width: '100%' }}
+							/>
+						</Box>
 					</Box>
 				</Modal>
 			)}

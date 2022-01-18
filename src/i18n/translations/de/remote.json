@@ -8,5 +8,6 @@
   "name": "Name",
   "create": "erstellen",
   "createNewFolder": "neuen Ordner erstellen",
-  "deletingMedia": "Medien werden gelöscht"
+  "deletingMedia": "Medien werden gelöscht",
+  "uploadingMedia": "Medien werden hochgeladen"
 }

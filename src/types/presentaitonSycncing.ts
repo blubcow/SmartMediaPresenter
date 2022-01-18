@@ -32,6 +32,12 @@ export interface IPresentationSyncContext {
 		path?: string
 	) => void;
 	deleteFiles: (files: RemoteStorageMedia[], callback: () => void) => void;
+	uploadRemoteMedia: (
+		filePaths: string[],
+		onProgressUpdate: (progress: number) => void,
+		callback: (media: RemoteStorageMedia[]) => void,
+		path?: string
+	) => void;
 }
 
 export type AddToLocalSyncingQueueHandler = (

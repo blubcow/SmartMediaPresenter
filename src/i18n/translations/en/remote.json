@@ -8,5 +8,6 @@
   "name": "name",
   "create": "create",
   "createNewFolder": "create new folder",
-  "deletingMedia": "deleting media"
+  "deletingMedia": "deleting media",
+  "uploadingMedia": "uploading media"
 }

@@ -26,6 +26,8 @@ import {
 import { MainProcessMethodIdentifiers } from '../shared/types/identifiers';
 import { useStoredPresentations } from '../hooks/useMainProcessMethods';
 import { resourceLimits } from 'worker_threads';
+import { uploadMedia } from '../models/MediaUploader';
+import { ImageResourceExtensions } from '../shared/types/mediaResources';
 const { ipcRenderer } = window.require('electron');
 
 export const PresentationSyncContext = createContext({});
@@ -351,6 +353,44 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 			});
 	};
 
+	const uploadRemoteMedia = (
+		filePaths: string[],
+		onProgressUpdate: (progress: number) => void,
+		callback: (media: RemoteStorageMedia[]) => void,
+		path?: string
+	) => {
+		if (remoteUser === undefined) return;
+
+		const tasks = filePaths.map((path, index) => ({
+			path: path,
+			index: index,
+			type: ImageResourceExtensions.includes(
+				(path.split('.').pop() ?? '').toLowerCase()
+			)
+				? 'image'
+				: 'audio',
+		}));
+
+		uploadMedia(
+			remoteUser.uid +
+				`${path !== undefined && path.length > 0 ? '/' : ''}${path}`,
+			tasks,
+			(total, transferred) => {
+				onProgressUpdate((transferred / total) * 100);
+			},
+			(urls) => {
+				callback(
+					tasks.map((task) => ({
+						name: task.path.split('/').pop() ?? 'name not found',
+						type: 'file',
+						path: task.path,
+						url: urls.get(task.index),
+					})) as RemoteStorageMedia[]
+				);
+			}
+		);
+	};
+
 	useEffect(() => {
 		const remotePresentations = Array.from(syncPaper.values());
 		const p = sortStoredPresentations([
@@ -387,6 +427,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				getRemoteMedia: getRemoteMedia,
 				createFolder: createFolder,
 				deleteFiles: deleteFiles,
+				uploadRemoteMedia: uploadRemoteMedia,
 			}}
 		>
 			<Box

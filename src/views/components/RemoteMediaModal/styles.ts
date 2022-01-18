@@ -68,7 +68,7 @@ export default makeStyles((theme: Theme) =>
 			textAlign: 'center',
 			width: '250px',
 		},
-		deletingModal: {
+		activityModal: {
 			display: 'flex',
 			flexDirection: 'column',
 			gap: theme.spacing(3),
