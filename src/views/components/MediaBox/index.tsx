@@ -12,6 +12,7 @@ import ColorChannelFilter from './ColorChannelFilter';
 import useStyles from './styles';
 import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
 import LocalOrRemoteModal from '../modals/LocalOrRemoteModal';
+import RemoteFileExplorer from '../RemoteFileExplorer';
 
 interface IMediaBox {
 	id: number;
@@ -24,6 +25,7 @@ interface IMediaBox {
 	activateMedia?: (id: number) => void;
 	onMediaSelectionBlur?: () => void;
 	didReceiveMediaFile?: (file: File, id: number) => void;
+	didReceiveRemoteMediaUrl?: (url: string, id: number) => void;
 	slideEditingBoxDimensions?: Dimensions;
 	draggable: boolean;
 	onDragStarted?: (id: number) => void;
@@ -34,6 +36,7 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 	const {
 		id,
 		didReceiveMediaFile,
+		didReceiveRemoteMediaUrl,
 		width,
 		aspectRatio,
 		canReceiveMedia = true,
@@ -55,6 +58,8 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 	const { userLoggedIn } = useRemoteUserContext();
 	const { openFileSelectorDialog } = useLocalFileSystem();
 	const [openLocalOrRemoteSelector, setOpenLocalOrRemoteSelector] =
+		useState<boolean>(false);
+	const [openRemoteFileExplorer, setOpenRemoteFileExplorer] =
 		useState<boolean>(false);
 
 	const alignment = media?.settings?.alignment ?? themeAlignment;
@@ -231,11 +236,22 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 						open={openLocalOrRemoteSelector}
 						onSelection={(selection) => {
 							if (selection === 'local') handleLocalFileSelection();
-							if (selection === 'remote') console.log('remote');
+							if (selection === 'remote') setOpenRemoteFileExplorer(true);
 							setOpenLocalOrRemoteSelector(false);
 						}}
 						onClose={() => setOpenLocalOrRemoteSelector(false)}
 					/>
+					{openRemoteFileExplorer && (
+						<RemoteFileExplorer
+							open={true}
+							onClose={() => setOpenRemoteFileExplorer(false)}
+							filterItems='image'
+							onMediaChoosen={(url) => {
+								if (didReceiveRemoteMediaUrl) didReceiveRemoteMediaUrl(url, id);
+								setOpenRemoteFileExplorer(false);
+							}}
+						/>
+					)}
 				</>
 			) : (
 				<Box sx={{ height: '100%', width: '100%', bgcolor: 'divider' }} />

@@ -18,6 +18,7 @@ export interface ISlideBoxProps extends IBoxProps {
 	slide: Slide;
 	theme: SlideTheme;
 	didReceiveMediaFile?: (file: File, id: number) => void;
+	didReceiveRemoteMediaUrl?: (url: string, id: number) => void;
 	mediaBoxesCanReceiveMedia?: boolean;
 	activeMedia?: number;
 	onActivateMedia?: (id: number) => void;
@@ -39,6 +40,7 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 		slide,
 		theme,
 		didReceiveMediaFile,
+		didReceiveRemoteMediaUrl,
 		mediaBoxesCanReceiveMedia = false,
 		activeMedia,
 		onActivateMedia,
@@ -140,6 +142,7 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 											width={`${100 / slide.columns}%`}
 											aspectRatio='16/9'
 											didReceiveMediaFile={didReceiveMediaFile}
+											didReceiveRemoteMediaUrl={didReceiveRemoteMediaUrl}
 											canReceiveMedia={mediaBoxesCanReceiveMedia}
 											isActive={
 												activeMedia !== undefined && activeMedia! === media.id

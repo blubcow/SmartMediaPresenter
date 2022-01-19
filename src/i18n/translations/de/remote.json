@@ -12,5 +12,7 @@
   "uploadingMedia": "Medien werden hochgeladen",
   "chooseLocalOrRemote": "lokal oder aus der Cloud wählen",
   "local": "lokal",
-  "cloud": "Cloud"
+  "cloud": "Cloud",
+  "chooseMedia": "Medien wählen",
+  "choose": "wählen"
 }

@@ -12,5 +12,7 @@
   "uploadingMedia": "uploading media",
   "chooseLocalOrRemote": "choose local or from cloud",
   "local": "local",
-  "cloud": "cloud"
+  "cloud": "cloud",
+  "chooseMedia": "choose media",
+  "choose": "choose"
 }

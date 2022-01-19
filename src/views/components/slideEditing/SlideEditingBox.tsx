@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Box, Text } from '../../../smpUI/components';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
-import { MediaRessource, Slide } from '../../../shared/types/presentation';
+import {
+	MediaRessource,
+	SinglePresentation,
+	Slide,
+} from '../../../shared/types/presentation';
 import SlideBox from '../SlideBox';
 import { useHeldKeys } from '../../../hooks/useHeldKeys';
 
@@ -69,12 +73,34 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 		});
 	};
 
+	const onRemoteUrlReceived = useCallback(
+		(
+			url: string,
+			id: number,
+			presentation: SinglePresentation,
+			currentSlide: number
+		) => {
+			const newPresentation: SinglePresentation = JSON.parse(
+				JSON.stringify(presentation)
+			);
+			newPresentation.slides[currentSlide].media[id].location = { remote: url };
+			dispatch({
+				type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+				payload: { presentation: newPresentation },
+			});
+		},
+		[]
+	);
+
 	return (
 		<>
 			<SlideBox
 				slide={presentation.slides[currentSlide]}
 				theme={{ ...presentation.theme }}
 				didReceiveMediaFile={onFileReceived}
+				didReceiveRemoteMediaUrl={(url, id) =>
+					onRemoteUrlReceived(url, id, presentation, currentSlide)
+				}
 				activeMedia={activeMedia}
 				onActivateMedia={(id: number) => {
 					dispatch({

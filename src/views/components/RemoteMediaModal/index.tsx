@@ -318,7 +318,7 @@ interface IFileProps {
 	type: RemoteStorageMediaType;
 }
 
-const File: React.FC<IFileProps> = (props) => {
+export const File: React.FC<IFileProps> = (props) => {
 	const { name, imgUrl, selected, onClick, changeDir, type } = props;
 	const classes = useFileStyles();
 	const [fileExtension] = useState<string>(name.split('.').pop() ?? '');
