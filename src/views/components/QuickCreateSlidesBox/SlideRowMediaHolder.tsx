@@ -57,9 +57,6 @@ const SlideRowMediaHolder: React.FC<ISlideRowMediaHolder> = (props) => {
 						location: { local: 'file://' + e.dataTransfer.files[0].path },
 					};
 				}
-
-				console.log(media);
-
 				onMediaReceived(
 					id,
 					media.location.local ?? media.location.remote ?? ''

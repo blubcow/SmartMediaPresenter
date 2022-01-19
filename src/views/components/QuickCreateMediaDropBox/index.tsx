@@ -19,12 +19,18 @@ interface IQuickCreateMediaDropBoxProps extends IBoxProps {
 	selectedRows: number[];
 	clearSelectedRows: () => void;
 	onSelectedMediaChanged: (rows: number[]) => void;
+	setMultiInsertionEnabled: (enabled: boolean) => void;
 }
 
 const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 	props
 ) => {
-	const { onSelectedMediaChanged, selectedRows, clearSelectedRows } = props;
+	const {
+		onSelectedMediaChanged,
+		selectedRows,
+		clearSelectedRows,
+		setMultiInsertionEnabled,
+	} = props;
 
 	const [files, setFiles] = useState<QuickCreateMediaResource[]>([]);
 	const [filteredFiles, setFilteredFiles] = useState<
@@ -169,7 +175,10 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 				}}
 			/>
 			{chooseFromCloud ? (
-				<RemoteFileExplorer preview={mediaPreviewEnabled} />
+				<RemoteFileExplorer
+					preview={mediaPreviewEnabled}
+					setMultiInsertionEnabled={setMultiInsertionEnabled}
+				/>
 			) : (
 				<Box className={classes.rowsContainer}>
 					{filteredFiles.length ? (

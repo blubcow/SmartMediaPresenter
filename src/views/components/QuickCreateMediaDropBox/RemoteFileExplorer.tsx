@@ -13,10 +13,11 @@ import { DataTransferIdentifiers } from '../../../types/identifiers';
 
 interface IRemoteFileExplorerProps {
 	preview: boolean;
+	setMultiInsertionEnabled: (enabled: boolean) => void;
 }
 
 const RemoteFileExplorer: React.FC<IRemoteFileExplorerProps> = (props) => {
-	const { preview } = props;
+	const { preview, setMultiInsertionEnabled } = props;
 	const { t } = useTranslation([i18nNamespace.Remote]);
 	const classes = useRemoteFileExplorerStyles();
 	const { getRemoteMedia } = usePresentationSyncContext();
@@ -43,6 +44,10 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerProps> = (props) => {
 			setLoadingMedia(false);
 		}, currentPath);
 	}, [currentPath]);
+
+	useEffect(() => {
+		setMultiInsertionEnabled(selection.length > 1);
+	}, [selection]);
 
 	return (
 		<Box className={classes.container}>
@@ -93,7 +98,24 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerProps> = (props) => {
 								}}
 								onClick={() => {
 									if (item.type === 'file') {
-										setSelection((curr) => [...(shift ? curr : []), index]);
+										if (shift) {
+											const highestIndex = Math.max(...selection);
+											const lowestIndex = Math.min(...selection);
+
+											if (!(index > highestIndex || index < lowestIndex))
+												return;
+											const start =
+												index > highestIndex ? highestIndex + 1 : index;
+											const end =
+												index > highestIndex ? index + 1 : lowestIndex;
+											const selectAllRowBetween = Array.from(
+												{ length: end - start },
+												(_, index) => start + index
+											);
+											setSelection([...selection, ...selectAllRowBetween]);
+										} else {
+											setSelection([index]);
+										}
 									}
 								}}
 								onDoubleClick={() => {

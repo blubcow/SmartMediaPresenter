@@ -39,6 +39,20 @@ const QuickCreateSlidesBox: React.FC<IQuickCreateSlidesBoxProps> = (props) => {
 					DataTransferIdentifiers.MultipleMediaFileInfo
 				)
 			);
+		} else if (
+			event.dataTransfer.getData(
+				DataTransferIdentifiers.MulitpleRemoteMediaFileInfo
+			)
+		) {
+			droppedMedia = Array.from(
+				JSON.parse(
+					event.dataTransfer.getData(
+						DataTransferIdentifiers.MulitpleRemoteMediaFileInfo
+					)
+				)
+			).map((url) => ({
+				location: { remote: url },
+			}));
 		} else {
 			droppedMedia = Array.from(event.dataTransfer.files).map((file) => ({
 				// @ts-ignore

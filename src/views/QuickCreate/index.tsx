@@ -10,6 +10,7 @@ import { getEmptySlide, Slide } from '../../shared/types/presentation';
 import { SMPRoutes } from '../../types/routes';
 import { useHistory } from 'react-router-dom';
 import { useStoredPresentations } from '../../hooks/useMainProcessMethods';
+import { DataTransferIdentifiers } from '../../types/identifiers';
 
 const QuickCreate: React.FC<{}> = () => {
 	const history = useHistory();
@@ -29,7 +30,16 @@ const QuickCreate: React.FC<{}> = () => {
 			if (e.dataTransfer)
 				if (e.dataTransfer.items.length > 1 && !multiInsertionEnabled)
 					setMultiInsertionEnabled(true);
-				else if (e.dataTransfer.items.length < 2 && multiInsertionEnabled)
+				else if (
+					e.dataTransfer.items.length < 2 &&
+					multiInsertionEnabled &&
+					e.dataTransfer.getData(
+						DataTransferIdentifiers.MulitpleRemoteMediaFileInfo
+					) === undefined &&
+					e.dataTransfer.getData(
+						DataTransferIdentifiers.MultipleMediaFileInfo
+					) === undefined
+				)
 					setMultiInsertionEnabled(false);
 		};
 
@@ -87,6 +97,9 @@ const QuickCreate: React.FC<{}> = () => {
 					}}
 					selectedRows={selectedRows}
 					clearSelectedRows={() => setSelectedRows([])}
+					setMultiInsertionEnabled={(enabled) =>
+						setMultiInsertionEnabled(enabled)
+					}
 				/>
 				<Divider orientation='vertical' />
 			</Box>
