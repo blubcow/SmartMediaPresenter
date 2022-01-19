@@ -173,6 +173,7 @@ const BackgroundAudio: React.FC<{}> = () => {
 							type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 							payload: { presentation: newPresentation },
 						});
+						setOpenRemoteFileExplorer(false);
 					}}
 				/>
 			)}

@@ -100,6 +100,10 @@ const Content: React.FC<IContentProps> = (props) => {
 			)
 				backgroundAudio.src = presentation.theme.audio.remote;
 		};
+		return () => {
+			backgroundAudio.pause();
+			slideAudio.pause();
+		};
 	}, []);
 
 	useEffect(() => {
@@ -157,13 +161,6 @@ const Content: React.FC<IContentProps> = (props) => {
 		if (autoSliding) backgroundAudio.play();
 		else backgroundAudio.pause();
 	}, [autoSliding]);
-
-	useEffect(() => {
-		backgroundAudio.pause();
-		backgroundAudio.currentTime = 0;
-		slideAudio.pause();
-		slideAudio.currentTime = 0;
-	}, []);
 
 	return (
 		<Box
