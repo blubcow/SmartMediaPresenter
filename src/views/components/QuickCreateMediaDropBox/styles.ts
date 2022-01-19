@@ -1,5 +1,6 @@
 import { makeStyles, createStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
+import { cursorTo } from 'readline';
 
 export default makeStyles((theme: Theme) =>
 	createStyles({
@@ -8,9 +9,7 @@ export default makeStyles((theme: Theme) =>
 			flex: 0.6,
 			display: 'flex',
 			alignItems: 'center',
-			overflowY: 'scroll',
 			flexDirection: 'column',
-			justifyContent: 'start',
 			zIndex: 1,
 		},
 		infoText: {
@@ -21,6 +20,15 @@ export default makeStyles((theme: Theme) =>
 			justifyContent: 'center',
 			alignItems: 'center',
 			textAlign: 'center',
+		},
+		rowsContainer: {
+			width: '100%',
+			flex: 1,
+			display: 'flex',
+			alignItems: 'center',
+			overflowY: 'scroll',
+			flexDirection: 'column',
+			justifyContent: 'start',
 		},
 	})
 );
@@ -38,11 +46,17 @@ export const useHeaderRowStyles = makeStyles((theme: Theme) =>
 			alignItems: 'center',
 			justifyContent: 'space-between',
 		},
-		addFiles: {
+		labelBtnContainer: {
+			display: 'flex',
+			flexDirection: 'column',
+			gap: theme.spacing(0.5),
+		},
+		labelBtn: {
 			color: theme.palette.text.primary,
 			cursor: 'pointer',
+			textShadow: theme.shadows[5],
 			'&:hover': {
-				color: theme.palette.text.secondary,
+				color: theme.palette.primary.main,
 			},
 		},
 		searchInput: {
@@ -98,6 +112,67 @@ export const useMediaRowStyles = makeStyles((theme: Theme) =>
 		},
 		txtContainer: {
 			marginLeft: theme.spacing(2),
+		},
+	})
+);
+
+export const useRemoteFileExplorerStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			width: '100%',
+			flex: 1,
+			display: 'flex',
+			overflowY: 'scroll',
+			flexDirection: 'column',
+			position: 'relative',
+		},
+		navigator: {
+			width: '100%',
+			padding: theme.spacing(1),
+			display: 'flex',
+			alignItems: 'center',
+			gap: theme.spacing(1),
+			backgroundColor: theme.palette.divider,
+		},
+		inidicator: {
+			position: 'absolute',
+			left: '50%',
+			top: '50%',
+			transform: 'translate(-50%, -50%)',
+		},
+		rowsContainer: {
+			width: '100%',
+			display: 'flex',
+			alignItems: 'center',
+			overflowY: 'scroll',
+			flexDirection: 'column',
+			justifyContent: 'start',
+			maxHeight: '100%',
+		},
+		row: {
+			width: '100%',
+			cursor: 'pointer',
+			display: 'flex',
+			gap: theme.spacing(1),
+			alignItems: 'center',
+			padding: theme.spacing(1),
+		},
+		imgContainer: {
+			height: '100%',
+			width: '50px',
+			aspectRatio: '16/9',
+			display: 'flex',
+			justifyContent: 'center',
+			userSelect: 'none',
+			pointerEvents: 'none',
+		},
+		icon: {
+			fontSize: '30px',
+			color: theme.palette.text.primary,
+		},
+		img: {
+			height: '100%',
+			maxWidth: '100%',
 		},
 	})
 );

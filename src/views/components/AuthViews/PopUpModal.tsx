@@ -12,7 +12,6 @@ const PopUpModal: React.FC<IPopUpModalProps> = (props) => {
 	return (
 		<Modal {...props}>
 			<IconButton icon={ArrowBackIosNew} onClick={goBack} />
-
 			{props.children}
 		</Modal>
 	);

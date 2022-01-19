@@ -43,6 +43,7 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerPorps> = (props) => {
 
 	useEffect(() => {
 		setLoadingMedia(true);
+		setCurrentSelection(undefined);
 		getRemoteMedia((files) => {
 			setCurrentItems(
 				filterItems

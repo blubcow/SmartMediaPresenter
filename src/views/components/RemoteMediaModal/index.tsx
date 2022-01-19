@@ -21,7 +21,6 @@ import { useHeldKeys } from '../../../hooks/useHeldKeys';
 import { InsertDriveFile, Folder, ArrowBack } from '@mui/icons-material';
 import { ImageResourceExtensions } from '../../../shared/types/mediaResources';
 import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
-import { uploadMedia } from '../../../models/MediaUploader';
 
 interface IRemoteMediaModalProps extends IModalProps {}
 

@@ -127,7 +127,6 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 			}}
 			onDrop={(e) => {
 				e.preventDefault();
-				console.log(e.dataTransfer.files[0]);
 				if (didReceiveMediaFile && canReceiveMedia && e.dataTransfer.files[0])
 					didReceiveMediaFile(e.dataTransfer.files[0], id);
 				else if (onDrop) onDrop(id);

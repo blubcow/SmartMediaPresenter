@@ -110,5 +110,6 @@
   "failedToLoadMediaMult": "failed to laod {{amount}} images",
   "manageRemoteMedia": "manage remote Media",
   "chooseCloud": "choose from cloud",
+  "chooseLocal": "choose local files",
   "cloudAudio": "cloud audio"
 }

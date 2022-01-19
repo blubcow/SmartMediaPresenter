@@ -13,6 +13,7 @@ import { i18nNamespace } from '../../../i18n/i18n';
 import MediaDropBoxIndicator from '../MediaDropBoxIndicator';
 import { useHeldKeys } from '../../../hooks/useHeldKeys';
 import { DataTransferIdentifiers } from '../../../types/identifiers';
+import RemoteFileExplorer from './RemoteFileExplorer';
 
 interface IQuickCreateMediaDropBoxProps extends IBoxProps {
 	selectedRows: number[];
@@ -48,6 +49,7 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 	const [orderValue, setOrderValue] = useState<string>(orderOptions[0]);
 	const [mediaPreviewEnabled, setMediaPreviewEnabled] = useState<boolean>(true);
 	const { shift } = useHeldKeys();
+	const [chooseFromCloud, setChooseFromCloud] = useState<boolean>(false);
 
 	useEffect(() => {
 		if (!searchTerm.replaceAll(' ', '').length) {
@@ -148,6 +150,10 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 					onFilesReceivedMerge(files);
 				}}
 				searchTerm={searchTerm}
+				chooseCloudAction={(cloud) => {
+					setChooseFromCloud(cloud);
+				}}
+				cloud={chooseFromCloud}
 				onSearchTermUpdate={(e) => {
 					setSearchTerm(e.target.value ?? '');
 				}}
@@ -162,64 +168,70 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 					setMediaPreviewEnabled(enabled);
 				}}
 			/>
-			{filteredFiles.length ? (
-				filteredFiles.map((file, i) => (
-					<MediaRow
-						key={i}
-						id={i}
-						media={file}
-						onSelection={() => {
-							if (shift) {
-								const highestIndex = Math.max(...selectedRows);
-								const lowestIndex = Math.min(...selectedRows);
-
-								if (!(i > highestIndex || i < lowestIndex)) return;
-								const start = i > highestIndex ? highestIndex : i;
-								const end = i > highestIndex ? i + 1 : lowestIndex;
-								const selectAllRowBetween = Array.from(
-									{ length: end - start },
-									(_, index) => start + index
-								);
-
-								onSelectedMediaChanged([
-									...selectedRows,
-									...selectAllRowBetween,
-								]);
-							} else {
-								onSelectedMediaChanged([i]);
-							}
-						}}
-						selected={selectedRows.includes(i)}
-						onBlur={() => {
-							if (shift) return;
-							clearSelectedRows();
-						}}
-						onDragStart={(e) => {
-							if (selectedRows.length > 1) {
-								e.dataTransfer.setData(
-									DataTransferIdentifiers.MultipleMediaFileInfo,
-									JSON.stringify(
-										filteredFiles.filter((_, index) =>
-											selectedRows.includes(index)
-										)
-									)
-								);
-							} else {
-								e.dataTransfer.setData(
-									DataTransferIdentifiers.MediaFileInfo,
-									JSON.stringify(file)
-								);
-							}
-						}}
-						previewEnabled={mediaPreviewEnabled}
-					/>
-				))
-			) : files.length ? (
-				<Box className={classes.infoText}>
-					<Text variant='h6'>{t('noSearchResults')}</Text>
-				</Box>
+			{chooseFromCloud ? (
+				<RemoteFileExplorer preview={mediaPreviewEnabled} />
 			) : (
-				<MediaDropBoxIndicator />
+				<Box className={classes.rowsContainer}>
+					{filteredFiles.length ? (
+						filteredFiles.map((file, i) => (
+							<MediaRow
+								key={i}
+								id={i}
+								media={file}
+								onSelection={() => {
+									if (shift) {
+										const highestIndex = Math.max(...selectedRows);
+										const lowestIndex = Math.min(...selectedRows);
+
+										if (!(i > highestIndex || i < lowestIndex)) return;
+										const start = i > highestIndex ? highestIndex : i;
+										const end = i > highestIndex ? i + 1 : lowestIndex;
+										const selectAllRowBetween = Array.from(
+											{ length: end - start },
+											(_, index) => start + index
+										);
+
+										onSelectedMediaChanged([
+											...selectedRows,
+											...selectAllRowBetween,
+										]);
+									} else {
+										onSelectedMediaChanged([i]);
+									}
+								}}
+								selected={selectedRows.includes(i)}
+								onBlur={() => {
+									if (shift) return;
+									clearSelectedRows();
+								}}
+								onDragStart={(e) => {
+									if (selectedRows.length > 1) {
+										e.dataTransfer.setData(
+											DataTransferIdentifiers.MultipleMediaFileInfo,
+											JSON.stringify(
+												filteredFiles.filter((_, index) =>
+													selectedRows.includes(index)
+												)
+											)
+										);
+									} else {
+										e.dataTransfer.setData(
+											DataTransferIdentifiers.MediaFileInfo,
+											JSON.stringify(file)
+										);
+									}
+								}}
+								previewEnabled={mediaPreviewEnabled}
+							/>
+						))
+					) : files.length ? (
+						<Box className={classes.infoText}>
+							<Text variant='h6'>{t('noSearchResults')}</Text>
+						</Box>
+					) : (
+						<MediaDropBoxIndicator />
+					)}
+				</Box>
 			)}
 		</Box>
 	);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import useRemoteUserContext from '../../../hooks/useRemoteUserContext';
 import { i18nNamespace } from '../../../i18n/i18n';
 import {
 	Box,
@@ -13,6 +14,8 @@ import { useHeaderRowStyles } from './styles';
 
 interface IHeaderRowProps {
 	addFilesAction: () => void;
+	chooseCloudAction: (cloud: boolean) => void;
+	cloud: boolean;
 	searchTerm: string;
 	onSearchTermUpdate: (event: React.ChangeEvent<any>) => void;
 	orderByOptions: string[];
@@ -28,6 +31,8 @@ interface IHeaderRowProps {
 const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
 	const {
 		addFilesAction,
+		chooseCloudAction,
+		cloud,
 		searchTerm,
 		onSearchTermUpdate,
 		orderByOptions,
@@ -44,13 +49,30 @@ const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
 		i18nNamespace.Presentation,
 		i18nNamespace.Ordering,
 	]);
+	const { userLoggedIn } = useRemoteUserContext();
 
 	return (
 		<Box className={classes.container}>
-			<Text className={classes.addFiles} onClick={addFilesAction}>
-				{t('addFiles')}
-			</Text>
-
+			<Box className={classes.labelBtnContainer}>
+				{!cloud && (
+					<Text
+						fontWeight={800}
+						className={classes.labelBtn}
+						onClick={addFilesAction}
+					>
+						{t('addFiles')}
+					</Text>
+				)}
+				{userLoggedIn && (
+					<Text
+						fontWeight={800}
+						className={classes.labelBtn}
+						onClick={() => chooseCloudAction(!cloud)}
+					>
+						{t(cloud ? 'chooseLocal' : 'chooseCloud')}
+					</Text>
+				)}
+			</Box>
 			<Box
 				sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
 			>
@@ -62,44 +84,47 @@ const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
 					}}
 				/>
 			</Box>
+			{!cloud && (
+				<>
+					<TextField
+						className={classes.searchInput}
+						label={t('search')}
+						value={searchTerm}
+						onChange={(e) => {
+							onSearchTermUpdate(e);
+						}}
+					/>
 
-			<TextField
-				className={classes.searchInput}
-				label={t('search')}
-				value={searchTerm}
-				onChange={(e) => {
-					onSearchTermUpdate(e);
-				}}
-			/>
-
-			<Box className={classes.orderingContainer}>
-				<SelectionPicker
-					label={t('ordering:orderBy')}
-					value={orderByValue}
-					onChange={(e) => {
-						onOrderByChange((e.target.value as string) ?? '');
-					}}
-				>
-					{orderByOptions.map((option) => (
-						<SelectionPickerOption key={option} value={option}>
-							{option}
-						</SelectionPickerOption>
-					))}
-				</SelectionPicker>
-				<Box className={classes.spacer} />
-				<SelectionPicker
-					value={orderValue}
-					onChange={(e) => {
-						onOrderChange((e.target.value as string) ?? '');
-					}}
-				>
-					{orderOptions.map((option) => (
-						<SelectionPickerOption key={option} value={option}>
-							{option}
-						</SelectionPickerOption>
-					))}
-				</SelectionPicker>
-			</Box>
+					<Box className={classes.orderingContainer}>
+						<SelectionPicker
+							label={t('ordering:orderBy')}
+							value={orderByValue}
+							onChange={(e) => {
+								onOrderByChange((e.target.value as string) ?? '');
+							}}
+						>
+							{orderByOptions.map((option) => (
+								<SelectionPickerOption key={option} value={option}>
+									{option}
+								</SelectionPickerOption>
+							))}
+						</SelectionPicker>
+						<Box className={classes.spacer} />
+						<SelectionPicker
+							value={orderValue}
+							onChange={(e) => {
+								onOrderChange((e.target.value as string) ?? '');
+							}}
+						>
+							{orderOptions.map((option) => (
+								<SelectionPickerOption key={option} value={option}>
+									{option}
+								</SelectionPickerOption>
+							))}
+						</SelectionPicker>
+					</Box>
+				</>
+			)}
 		</Box>
 	);
 };
