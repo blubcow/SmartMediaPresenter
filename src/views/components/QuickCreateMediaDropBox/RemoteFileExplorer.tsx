@@ -9,6 +9,7 @@ import usePresentationSyncContext from '../../../hooks/usePresentationSyncContex
 import { ImageResourceExtensions } from '../../../shared/types/mediaResources';
 import { useHeldKeys } from '../../../hooks/useHeldKeys';
 import { Folder, ArrowBack } from '@mui/icons-material';
+import { DataTransferIdentifiers } from '../../../types/identifiers';
 
 interface IRemoteFileExplorerProps {
 	preview: boolean;
@@ -69,6 +70,27 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerProps> = (props) => {
 						{currentItems.map((item, index) => (
 							<Box
 								className={classes.row}
+								draggable
+								onDragStart={(e) => {
+									if (selection.length > 1) {
+										e.dataTransfer.setData(
+											DataTransferIdentifiers.MulitpleRemoteMediaFileInfo,
+											JSON.stringify(
+												selection
+													.filter(
+														(index) => currentItems[index].url !== undefined
+													)
+													.map((index) => currentItems[index].url)
+											)
+										);
+									} else {
+										if (item.url)
+											e.dataTransfer.setData(
+												DataTransferIdentifiers.RemoteMediaFileInfo,
+												item.url
+											);
+									}
+								}}
 								onClick={() => {
 									if (item.type === 'file') {
 										setSelection((curr) => [...(shift ? curr : []), index]);

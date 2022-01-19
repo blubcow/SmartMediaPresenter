@@ -111,5 +111,6 @@
   "manageRemoteMedia": "manage remote Media",
   "chooseCloud": "choose from cloud",
   "chooseLocal": "choose local files",
-  "cloudAudio": "cloud audio"
+  "cloudAudio": "cloud audio",
+  "cloudImage": "cloud image"
 }

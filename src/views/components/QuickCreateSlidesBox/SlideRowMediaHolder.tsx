@@ -40,12 +40,25 @@ const SlideRowMediaHolder: React.FC<ISlideRowMediaHolder> = (props) => {
 					media = JSON.parse(
 						e.dataTransfer.getData(DataTransferIdentifiers.MediaFileInfo)
 					);
+				}
+				if (
+					e.dataTransfer.getData(DataTransferIdentifiers.RemoteMediaFileInfo)
+				) {
+					media = {
+						location: {
+							remote: e.dataTransfer.getData(
+								DataTransferIdentifiers.RemoteMediaFileInfo
+							),
+						},
+					};
 				} else {
 					media = {
 						// @ts-ignore
 						location: { local: 'file://' + e.dataTransfer.files[0].path },
 					};
 				}
+
+				console.log(media);
 
 				onMediaReceived(
 					id,
@@ -61,7 +74,7 @@ const SlideRowMediaHolder: React.FC<ISlideRowMediaHolder> = (props) => {
 						alt='media'
 					/>
 					<Text overflow='hidden' textOverflow='ellipsis' variant='caption'>
-						{src.split('/').pop()}
+						{src.startsWith('http') ? t('cloudImage') : src.split('/').pop()}
 					</Text>
 				</Box>
 			) : (

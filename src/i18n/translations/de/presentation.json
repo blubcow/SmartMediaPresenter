@@ -111,5 +111,6 @@
   "manageRemoteMedia": "Medien in der Cloud verwalten",
   "chooseCloud": "aus der Cloud wählen",
   "chooseLocal": "lokale Medien wählen",
-  "cloudAudio": "Cloud-Audio"
+  "cloudAudio": "Cloud-Audio",
+  "cloudImage": "Cloud-Bild"
 }

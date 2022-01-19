@@ -1,6 +1,8 @@
 export enum DataTransferIdentifiers {
 	MediaFileInfo = 'mediaFileInfo',
 	MultipleMediaFileInfo = 'mulitipleMediaFileInfo',
+	RemoteMediaFileInfo = 'remoteMediaFileInfo',
+	MulitpleRemoteMediaFileInfo = 'mulitpleRemoteMediaFileInfo',
 }
 
 export enum PresentationEditingActionIdentifiers {
