@@ -18,6 +18,23 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 	props
 ) => {
 	const { handle, presentation, initialSlide } = props;
+	return (
+		<FullScreen handle={handle}>
+			{handle.active && (
+				<Content presentation={presentation} initialSlide={initialSlide} />
+			)}
+		</FullScreen>
+	);
+};
+
+interface IContentProps {
+	presentation: SinglePresentation;
+	initialSlide?: number;
+}
+
+const Content: React.FC<IContentProps> = (props) => {
+	const { presentation, initialSlide } = props;
+
 	const [currentSlide, setCurrentSlide] = useState<number>(initialSlide ?? 0);
 	const [presentationBoxSize, setPresentationBoxSize] = useState<Dimensions>({
 		height: 0,
@@ -50,8 +67,6 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 	}, [presentationBoxRef.current]);
 
 	useEffect(() => {
-		if (!handle.active) return;
-
 		const handleKey = (e: KeyboardEvent) => {
 			switch (e.key) {
 				case 'ArrowLeft':
@@ -73,7 +88,7 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 		return () => {
 			document.removeEventListener('keydown', handleKey);
 		};
-	}, [presentation.slides, handle.active]);
+	}, [presentation.slides]);
 
 	useEffect(() => {
 		backgroundAudio.loop = true;
@@ -148,31 +163,29 @@ const PresentationFullScreen: React.FC<IPresentationFullScreenProps> = (
 		backgroundAudio.currentTime = 0;
 		slideAudio.pause();
 		slideAudio.currentTime = 0;
-	}, [handle.active]);
+	}, []);
 
 	return (
-		<FullScreen handle={handle}>
-			<Box
-				ref={presentationBoxRef}
-				sx={{
-					// height: `${window.innerHeight}px`,
-					height: '100%',
-					width: '100vw',
-					display: handle.active ? 'flex' : 'none',
-					alignItems: 'center',
-					justifyContent: 'center',
-					bgcolor: presentation.slides[currentSlide]
-						? presentation.slides[currentSlide].settings?.color ?? '#000'
-						: '#000',
-				}}
-			>
-				<SlideBox
-					slide={presentation.slides[currentSlide]}
-					theme={{ ...presentation.theme }}
-					presentationFrameEditingEnabled={false}
-				/>
-			</Box>
-		</FullScreen>
+		<Box
+			ref={presentationBoxRef}
+			sx={{
+				// height: `${window.innerHeight}px`,
+				height: '100%',
+				width: '100vw',
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'center',
+				bgcolor: presentation.slides[currentSlide]
+					? presentation.slides[currentSlide].settings?.color ?? '#000'
+					: '#000',
+			}}
+		>
+			<SlideBox
+				slide={presentation.slides[currentSlide]}
+				theme={{ ...presentation.theme }}
+				presentationFrameEditingEnabled={false}
+			/>
+		</Box>
 	);
 };
 
