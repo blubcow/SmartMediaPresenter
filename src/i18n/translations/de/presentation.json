@@ -109,5 +109,6 @@
   "failedToLoadMedia": "ein Bild konnte nicht geladen werden",
   "failedToLoadMediaMult": "{{amount}} Bilder konnten nicht geladen werden",
   "manageRemoteMedia": "Medien in der Cloud verwalten",
-  "chooseCloud": "aus der Cloud wählen"
+  "chooseCloud": "aus der Cloud wählen",
+  "cloudAudio": "Cloud-Audio"
 }

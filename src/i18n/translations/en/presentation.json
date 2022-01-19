@@ -109,5 +109,6 @@
   "failedToLoadMedia": "failed to load one image",
   "failedToLoadMediaMult": "failed to laod {{amount}} images",
   "manageRemoteMedia": "manage remote Media",
-  "chooseCloud": "choose from cloud"
+  "chooseCloud": "choose from cloud",
+  "cloudAudio": "cloud audio"
 }
