@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { CircularProgress, Divider } from '@mui/material';
 import usePresentationSyncContext from '../../../hooks/usePresentationSyncContext';
-import { Modal, Box, Button, Text } from '../../../smpUI/components';
+import {
+	Modal,
+	Box,
+	Button,
+	Text,
+	IconButton,
+} from '../../../smpUI/components';
 import { IModalProps } from '../../../smpUI/components/Modal';
 import useStyles from './styles';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +18,7 @@ import {
 	AudioResourceExtensions,
 	ImageResourceExtensions,
 } from '../../../shared/types/mediaResources';
+import { ArrowBack } from '@mui/icons-material';
 
 interface IRemoteFileExplorerPorps extends IModalProps {
 	filterItems?: 'audio' | 'image';
@@ -32,6 +39,7 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerPorps> = (props) => {
 	const [currentSelection, setCurrentSelection] = useState<
 		RemoteStorageMedia | undefined
 	>();
+	const [pathHistory, setPathHistory] = useState<string[]>([]);
 
 	useEffect(() => {
 		setLoadingMedia(true);
@@ -64,6 +72,17 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerPorps> = (props) => {
 			<Box className={classes.container}>
 				<Box className={classes.header}>
 					<Text variant='h5' fontWeight={800}>
+						{pathHistory.length > 0 && (
+							<IconButton
+								icon={ArrowBack}
+								onClick={() => {
+									if (pathHistory.length > 0) {
+										const newPath = pathHistory.pop()!;
+										setCurrentPath(newPath);
+									}
+								}}
+							/>
+						)}
 						{currentPath.length === 0
 							? t('chooseMedia')
 							: currentPath.split('/').pop() ?? ''}
@@ -95,7 +114,10 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerPorps> = (props) => {
 									name={item.name}
 									selected={currentSelection?.name === item.name}
 									onClick={() => setCurrentSelection(item)}
-									changeDir={() => {}}
+									changeDir={() => {
+										setPathHistory((curr) => [...curr, currentPath]);
+										setCurrentPath(item.path);
+									}}
 									type={item.type}
 									imgUrl={item.url}
 								/>
