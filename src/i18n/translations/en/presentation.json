@@ -108,5 +108,6 @@
   "syncToCloud": "is being synced to the cloud",
   "failedToLoadMedia": "failed to load one image",
   "failedToLoadMediaMult": "failed to laod {{amount}} images",
-  "manageRemoteMedia": "manage remote Media"
+  "manageRemoteMedia": "manage remote Media",
+  "chooseCloud": "choose from cloud"
 }

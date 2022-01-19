@@ -12,6 +12,7 @@ import usePresentationEditingContext from '../../../hooks/usePresentationEditing
 import AudioPlaybackContent from './audioComponents/AudioPlaybackContent';
 import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
+import RemoteFileExplorer from '../RemoteFileExplorer';
 
 interface IAudioButtonProps {}
 
@@ -24,6 +25,8 @@ const AudioButton: React.FC<IAudioButtonProps> = (props) => {
 		HTMLDivElement | undefined
 	>(undefined);
 	const [recordAudioSelected, setRecordAudioSelected] =
+		useState<boolean>(false);
+	const [openRemoteFileExplorer, setOpenRemoteFileExplorer] =
 		useState<boolean>(false);
 
 	const { openFileSelectorDialog } = useLocalFileSystem();
@@ -86,9 +89,31 @@ const AudioButton: React.FC<IAudioButtonProps> = (props) => {
 							}
 						}}
 						onRecordClicked={() => setRecordAudioSelected(true)}
+						onCloudClicked={() => setOpenRemoteFileExplorer(true)}
 					/>
 				)}
 			</Popover>
+			{openRemoteFileExplorer && (
+				<RemoteFileExplorer
+					open={true}
+					filterItems='audio'
+					onClose={() => setOpenRemoteFileExplorer(false)}
+					onMediaChoosen={(url) => {
+						const newPresentation = JSON.parse(JSON.stringify(presentation));
+						newPresentation.slides[currentSlide] = {
+							...newPresentation.slides[currentSlide],
+							audio: { location: { remote: url } },
+							playback: 'audio',
+						};
+
+						dispatch({
+							type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+							payload: { presentation: newPresentation },
+						});
+						setOpenRemoteFileExplorer(false);
+					}}
+				/>
+			)}
 		</>
 	);
 };

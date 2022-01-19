@@ -108,5 +108,6 @@
   "syncToCloud": "wird in die Cloud geladen",
   "failedToLoadMedia": "ein Bild konnte nicht geladen werden",
   "failedToLoadMediaMult": "{{amount}} Bilder konnten nicht geladen werden",
-  "manageRemoteMedia": "Medien in der Cloud verwalten"
+  "manageRemoteMedia": "Medien in der Cloud verwalten",
+  "chooseCloud": "aus der Cloud wählen"
 }
