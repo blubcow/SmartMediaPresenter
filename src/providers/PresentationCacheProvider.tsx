@@ -3,7 +3,9 @@ import React, {
 	PropsWithChildren,
 	useState,
 	useCallback,
+	useEffect,
 } from 'react';
+import useRemoteUserContext from '../hooks/useRemoteUserContext';
 import { SinglePresentation } from '../shared/types/presentation';
 
 export const PresentationCacheContext = createContext({});
@@ -11,6 +13,7 @@ export const PresentationCacheContext = createContext({});
 const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 	children,
 }) => {
+	const { remoteUser } = useRemoteUserContext();
 	const [currentPresentaitonId, setCurrentPresentationId] = useState<
 		number | undefined
 	>();
@@ -28,6 +31,11 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 			}
 		>
 	>(new Map());
+
+	useEffect(() => {
+		setCurrentPresentationId(undefined);
+		setCachedPresentations(new Map([]));
+	}, [remoteUser]);
 
 	const cachePresentation = useCallback(
 		async (

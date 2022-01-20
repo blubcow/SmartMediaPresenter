@@ -95,7 +95,7 @@ export const registerMainProcessMethodHandlers = (
 				const buffer = fs.readFileSync(`${storePath}/${pres.id}.json`);
 				const newPres = JSON.parse(`${buffer}`);
 				fs.writeFileSync(
-					`${workspacePath}/${pres.id}`,
+					`${workspacePath}/${pres.id}.json`,
 					JSON.stringify({
 						...newPres,
 						remoteId: undefined,
@@ -139,8 +139,8 @@ export const registerMainProcessMethodHandlers = (
 				id: currentId,
 				name: pres?.name ?? presentationName,
 				created: timestamp,
-				remoteId: pres.remoteId,
-				remoteUpdate: pres.remoteUpdate,
+				remoteId: pres?.remoteId,
+				remoteUpdate: pres?.remoteUpdate,
 			};
 
 			fs.writeFileSync(

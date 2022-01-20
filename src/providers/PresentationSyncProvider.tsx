@@ -75,16 +75,6 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 	>([]);
 
 	useEffect(() => {
-		changeCurrentWorkspace(
-			(canImport, amnt) => {
-				setLocalPresentationsAmnt(amnt);
-				setImportPresentationOpen(canImport);
-				reloadPresentations();
-				reloadUserSettings();
-			},
-			remoteUser ? remoteUser.uid : undefined
-		);
-
 		if (remoteUser && userLoggedIn) {
 			storage.listRemoteMedia(remoteUser.uid).then((media) =>
 				Promise.all(
@@ -121,6 +111,18 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 			setSyncingAvailable(false);
 		}
 	}, [remoteUser, userLoggedIn]);
+
+	useEffect(() => {
+		changeCurrentWorkspace(
+			(canImport, amnt) => {
+				setLocalPresentationsAmnt(amnt);
+				setImportPresentationOpen(canImport);
+				reloadPresentations();
+				reloadUserSettings();
+			},
+			remoteUser ? remoteUser.uid : undefined
+		);
+	}, [remoteUser]);
 
 	const addToLocalSyncingQueue = (
 		presentation: SinglePresentation,
