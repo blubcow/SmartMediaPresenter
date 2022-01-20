@@ -243,6 +243,57 @@ export const registerMainProcessMethodHandlers = (
 	);
 
 	ipcMain.handle(
+		MainProcessMethodIdentifiers.removeRemoteAttributesFromPresentation,
+		async (_, id: number) => {
+			const path =
+				userDataPath +
+				`/store${globalWorkspace ? '/' + globalWorkspace : ''}/${id}.json`;
+			const pres = JSON.parse(`${fs.readFileSync(path)}`);
+
+			fs.writeFileSync(
+				path,
+				JSON.stringify({
+					...pres,
+					remoteId: undefined,
+					remoteUpdate: undefined,
+				})
+			);
+
+			const presentations = JSON.parse(
+				`${fs.readFileSync(
+					userDataPath +
+						`/store${
+							globalWorkspace ? '/' + globalWorkspace : ''
+						}/presentations.json`
+				)}`
+			);
+
+			const storedPres = presentations.presentations.find(
+				(presentation: any) => presentation.id === id
+			);
+			const newPres = presentations.presentations.filter(
+				(presentation: any) => presentation.id !== id
+			);
+			storedPres.remoteId = undefined;
+			storedPres.remoteUpdate = undefined;
+
+			newPres.push(storedPres);
+
+			presentations.presentations = newPres;
+
+			fs.writeFileSync(
+				userDataPath +
+					`/store${
+						globalWorkspace ? '/' + globalWorkspace : ''
+					}/presentations.json`,
+				JSON.stringify(presentations)
+			);
+
+			return;
+		}
+	);
+
+	ipcMain.handle(
 		MainProcessMethodIdentifiers.SaveChangesToPresentation,
 		async (_, id: number, file: any, remoteTimestamp?: number) => {
 			const oldFile = JSON.parse(

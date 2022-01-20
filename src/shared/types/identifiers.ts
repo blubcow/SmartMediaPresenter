@@ -22,4 +22,5 @@ export enum MainProcessMethodIdentifiers {
 	retriveFullFile = 'retrieveFullFile',
 	setWorkspace = 'setWorkspace',
 	importLocalPresentationsIntoWorkspace = 'importLocalPresentationsIntoWorkspace',
+	removeRemoteAttributesFromPresentation = 'removeRemoteAttributesFromPresentation',
 }

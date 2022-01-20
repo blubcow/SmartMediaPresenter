@@ -3,6 +3,7 @@ import React, {
 	PropsWithChildren,
 	useState,
 	useEffect,
+	useCallback,
 } from 'react';
 import { CircularProgress, LinearProgress } from '@mui/material';
 import { useTranslation } from 'react-i18next';
@@ -64,15 +65,35 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 		retrieveSinglePresentationOnce,
 		removeSinglePresentation,
 		reloadPresentations,
+		removeRemoteAttributesFromPresentation,
 	} = useStoredPresentations();
 	const { changeCurrentWorkspace, importLocalPresentations } = useWorkspace();
 	const { reloadUserSettings } = useUserSettingsContext();
 
-	// TODO: add custom removePresentation method which will also remove the presentation from the syncpaper
-
 	const [storedPresentations, setStoredPresentations] = useState<
 		SyncableStoredPresentation[]
 	>([]);
+
+	const getRemotePresentationsFromSyncPaper = useCallback(
+		(callback?: () => void) => {
+			if (remoteUser === undefined) return;
+			setSyncPaper(new Map([]));
+
+			database.getSyncPaper(remoteUser.uid).then((snapshot) => {
+				if (snapshot.exists()) {
+					const paper: any = snapshot.val();
+					const paperMap = new Map();
+					for (const key in paper) {
+						paperMap.set(key, paper[key]);
+					}
+
+					setSyncPaper(paperMap);
+				}
+				if (callback) callback();
+			});
+		},
+		[remoteUser]
+	);
 
 	useEffect(() => {
 		if (remoteUser && userLoggedIn) {
@@ -91,16 +112,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				).then((r) => setRemoteMedia(r))
 			);
 
-			// TODO: move to initial loading screen
-			database.getSyncPaper(remoteUser.uid).then((snapshot) => {
-				if (snapshot.exists()) {
-					const paper: any = snapshot.val();
-					const paperMap = new Map();
-					for (const key in paper) {
-						paperMap.set(key, paper[key]);
-					}
-					setSyncPaper(paperMap);
-				}
+			getRemotePresentationsFromSyncPaper(() => {
 				setSyncingAvailable(userLoggedIn);
 			});
 		} else {
@@ -303,6 +315,18 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 		).then(() => callback());
 	};
 
+	const deleteRemotePresentation = useCallback(
+		(remoteId: string) => {
+			if (remoteUser === undefined) return;
+
+			database.deleteRemotePresentation(remoteUser.uid, remoteId).then(() => {
+				reloadPresentations();
+				getRemotePresentationsFromSyncPaper();
+			});
+		},
+		[remoteUser]
+	);
+
 	const sortStoredPresentations = (
 		storedPresentations: SyncableStoredPresentation[]
 	): SyncableStoredPresentation[] => {
@@ -452,6 +476,9 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				createFolder: createFolder,
 				deleteFiles: deleteFiles,
 				uploadRemoteMedia: uploadRemoteMedia,
+				deleteRemotePresentation: deleteRemotePresentation,
+				removeRemoteAttributesFromPresentation:
+					removeRemoteAttributesFromPresentation,
 			}}
 		>
 			<Box

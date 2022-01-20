@@ -11,7 +11,6 @@ import {
 	FloatingButton,
 	FloatingButtonContainer,
 	Text,
-	Button,
 } from '../../../smpUI/components';
 import SlideBox from '../SlideBox';
 import useStyles from './styles';
@@ -21,12 +20,15 @@ import {
 	ArrowLeft,
 	ArrowRight,
 	SaveAlt,
+	DesktopWindows,
+	Cloud,
 } from '@mui/icons-material';
 import { useHistory } from 'react-router-dom';
 import { SMPRoutes } from '../../../types/routes';
 import PresentationFloatingButton from '../PresentationFloatingButton';
 import ActionConfirmationModal from '../modals/ActionConfirmationModal';
 import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
+import usePresentationSyncContext from '../../../hooks/usePresentationSyncContext';
 
 interface IPresentationPreviewProps {
 	presentation?: SinglePresentation;
@@ -55,6 +57,15 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 
 	const { openSaveFileDialog } = useLocalFileSystem();
 
+	const [localSelected, setLocalSelected] = useState<boolean>(true);
+	const [remoteSelected, setRemoteSelected] = useState<boolean>(false);
+
+	const {
+		syncingAvailable,
+		deleteRemotePresentation,
+		removeRemoteAttributesFromPresentation,
+	} = usePresentationSyncContext();
+
 	const history = useHistory();
 
 	useEffect(() => {
@@ -68,13 +79,16 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 	return (
 		<Box className={classes.container}>
 			<FloatingButtonContainer>
-				{presentation && presentation.slides.length > 0 && !isCaching && (
-					<PresentationFloatingButton
-						presentationId={id}
-						remoteId={remoteId}
-						presentation={presentation}
-					/>
-				)}
+				{presentation &&
+					presentation.slides &&
+					presentation.slides.length > 0 &&
+					!isCaching && (
+						<PresentationFloatingButton
+							presentationId={id}
+							remoteId={remoteId}
+							presentation={presentation}
+						/>
+					)}
 				{id !== undefined && (
 					<FloatingButton
 						variant='extended'
@@ -88,7 +102,7 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 					</FloatingButton>
 				)}
 
-				{presentation && presentation.slides.length > 0 && (
+				{presentation && presentation.slides && presentation.slides.length > 0 && (
 					<FloatingButton
 						variant='extended'
 						color='primary'
@@ -114,18 +128,55 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 					onClose={() => setOpenDeleteModal(false)}
 					onCancel={() => setOpenDeleteModal(false)}
 					onConfirm={() => {
-						if (id !== undefined) {
+						if (
+							id !== undefined &&
+							remoteId !== undefined &&
+							syncingAvailable
+						) {
+							if (localSelected) removePresentationAction(id);
+							if (remoteSelected) {
+								deleteRemotePresentation(remoteId);
+								if (!localSelected) removeRemoteAttributesFromPresentation(id);
+							}
+						} else if (id === undefined && remoteId !== undefined) {
+							deleteRemotePresentation(remoteId);
+						} else if (remoteId === undefined && id !== undefined) {
 							removePresentationAction(id);
-							setOpenDeleteModal(false);
 						}
+						setOpenDeleteModal(false);
 					}}
-				/>
+				>
+					{id !== undefined && remoteId !== undefined && syncingAvailable && (
+						<Box className={classes.btns}>
+							<Box
+								className={classes.btn}
+								bgcolor={localSelected ? 'primary.main' : undefined}
+								onClick={() => setLocalSelected((curr) => !curr)}
+							>
+								<DesktopWindows
+									sx={{ color: 'text.primary', fontSize: '50px' }}
+								/>
+								<Text fontWeight={700}>{t('local')}</Text>
+							</Box>
+							<Box
+								className={classes.btn}
+								bgcolor={remoteSelected ? 'primary.main' : undefined}
+								onClick={() => {
+									setRemoteSelected((curr) => !curr);
+								}}
+							>
+								<Cloud sx={{ color: 'text.primary', fontSize: '50px' }} />
+								<Text fontWeight={700}>{t('cloud')}</Text>
+							</Box>
+						</Box>
+					)}
+				</ActionConfirmationModal>
 			</FloatingButtonContainer>
 			<Box className={classes.topContainer}>
 				<Text variant='h4'>{presentation?.name}</Text>
 			</Box>
 			{presentation ? (
-				presentation.slides.length ? (
+				presentation.slides && presentation.slides.length ? (
 					<Preview
 						slide={presentation.slides[currentSlide]}
 						theme={{ ...presentation.theme }}
@@ -140,7 +191,7 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 			)}
 
 			<Box className={classes.bottomContainer}>
-				{presentation && presentation.slides.length > 0 && (
+				{presentation && presentation.slides && presentation.slides.length > 0 && (
 					<>
 						<FloatingButton
 							sx={{ opacity: currentSlide === 0 ? 0 : 1 }}
@@ -152,12 +203,12 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 						<FloatingButton
 							sx={{
 								opacity:
-									currentSlide === presentation!.slides.length - 1 ? 0 : 1,
+									currentSlide === presentation!.slides?.length - 1 ? 0 : 1,
 							}}
-							disabled={currentSlide === presentation!.slides.length - 1}
+							disabled={currentSlide === presentation!.slides?.length - 1}
 							onClick={() => {
 								setCurrentSlide((curr) =>
-									Math.min(currentSlide + 1, presentation!.slides.length - 1)
+									Math.min(currentSlide + 1, presentation!.slides?.length - 1)
 								);
 							}}
 						>
@@ -165,7 +216,7 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 						</FloatingButton>
 						{presentation && presentation.slides.length > 0 && (
 							<Box className={classes.slidesCounterContainer}>
-								<Text variant='body1'>{`${presentation.slides.length} ${t(
+								<Text variant='body1'>{`${presentation.slides?.length} ${t(
 									'slides'
 								)}`}</Text>
 							</Box>

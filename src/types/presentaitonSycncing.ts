@@ -38,6 +38,8 @@ export interface IPresentationSyncContext {
 		callback: (media: RemoteStorageMedia[]) => void,
 		path?: string
 	) => void;
+	deleteRemotePresentation: (remoteId: string) => void;
+	removeRemoteAttributesFromPresentation: (id: number) => void;
 }
 
 export type AddToLocalSyncingQueueHandler = (

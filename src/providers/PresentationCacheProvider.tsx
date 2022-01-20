@@ -67,7 +67,7 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 			const imgs: HTMLImageElement[] = [];
 			let failed = 0;
 
-			// TODO: count failed loads and set them in the map
+			if (presentation.slides === undefined) return;
 
 			const promises = await presentation.slides.flatMap((slide) => {
 				if (!slide.media) return;

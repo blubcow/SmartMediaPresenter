@@ -182,7 +182,21 @@ const firebaseDatabase = () => {
 		return get(ref);
 	};
 
-	return { uploadPresentation, getSyncPaper, getRemotePresentation };
+	const deleteRemotePresentation = (userId: string, remoteId: string) => {
+		const ref = dbRef(fireDatabase, userId);
+		const updates: any = {};
+		updates[`/${dbCollection.presentations}/${remoteId}`] = null;
+		updates[`/${dbCollection.syncPaper}/${remoteId}`] = null;
+
+		return update(ref, updates);
+	};
+
+	return {
+		uploadPresentation,
+		getSyncPaper,
+		getRemotePresentation,
+		deleteRemotePresentation,
+	};
 };
 
 const database = firebaseDatabase();

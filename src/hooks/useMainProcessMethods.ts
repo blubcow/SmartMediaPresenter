@@ -81,6 +81,13 @@ export const useStoredPresentations = () => {
 		setPresentations(filteredPres);
 	};
 
+	const removeRemoteAttributesFromPresentation = useCallback((id: number) => {
+		ipcRenderer.invoke(
+			MainProcessMethodIdentifiers.removeRemoteAttributesFromPresentation,
+			id
+		);
+	}, []);
+
 	return {
 		retrieveSinglePresentationOnce,
 		createPresentation,
@@ -88,6 +95,7 @@ export const useStoredPresentations = () => {
 		presentations,
 		removeSinglePresentation,
 		reloadPresentations: loadPresentations,
+		removeRemoteAttributesFromPresentation,
 	};
 };
 

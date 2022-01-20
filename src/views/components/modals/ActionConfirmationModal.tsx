@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { Modal, Text, Button, Box } from '../../../smpUI/components';
 import { IModalProps } from '../../../smpUI/components/Modal';
 import { useActionConfirmationModalStyles } from './styles';
@@ -11,9 +11,9 @@ interface IActionConfirmationModalProps extends IModalProps {
 	onCancel: () => void;
 }
 
-const ActionConfirmationModal: React.FC<IActionConfirmationModalProps> = (
-	props
-) => {
+const ActionConfirmationModal: React.FC<
+	PropsWithChildren<IActionConfirmationModalProps>
+> = (props) => {
 	const { secondaryText, onConfirm, onCancel } = props;
 	const classes = useActionConfirmationModalStyles();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
@@ -27,6 +27,7 @@ const ActionConfirmationModal: React.FC<IActionConfirmationModalProps> = (
 				<Box className={classes.secondaryTextContainer}>
 					<Text>{secondaryText}</Text>
 				</Box>
+				{props.children}
 				<Box className={classes.buttonContainer}>
 					<Button variant='contained' color='secondary' onClick={onCancel}>
 						{t('cancel')}
