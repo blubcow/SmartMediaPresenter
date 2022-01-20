@@ -15,7 +15,7 @@ const ConnectivityProvider: React.FC<PropsWithChildren<{}>> = ({
 	children,
 }) => {
 	const { t } = useTranslation([i18nNamespace.Alert]);
-	const [connected, setConnected] = useState<boolean>(true);
+	const [connected, setConnected] = useState<boolean>(navigator.onLine);
 	useEffect(() => {
 		const handleOnline = () => setConnected(true);
 		const handleOffline = () => setConnected(false);
@@ -60,6 +60,7 @@ const ConnectivityProvider: React.FC<PropsWithChildren<{}>> = ({
 							pointerEvents: 'none',
 							userSelect: 'none',
 							transition: 'all 0.3s ease-in-out',
+							zIndex: 100,
 						}}
 					>
 						<WifiOff sx={{ color: 'white', fontSize: '30px' }} />

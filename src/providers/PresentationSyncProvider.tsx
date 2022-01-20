@@ -24,15 +24,13 @@ import {
 	SyncPaperEntry,
 } from '../types/presentaitonSycncing';
 import { MainProcessMethodIdentifiers } from '../shared/types/identifiers';
-import {
-	useStoredPresentations,
-	useUserSettings,
-} from '../hooks/useMainProcessMethods';
+import { useStoredPresentations } from '../hooks/useMainProcessMethods';
 import { uploadMedia } from '../models/MediaUploader';
 import { ImageResourceExtensions } from '../shared/types/mediaResources';
 import { useWorkspace } from '../hooks/useMainProcessMethods';
 import ImportLocalPresentationsModal from '../views/components/modals/ImportLocalPresentationsModal';
 import useUserSettingsContext from '../hooks/useUserSettingsContext';
+import useConnectivityContext from '../hooks/useConnectivityContext';
 const { ipcRenderer } = window.require('electron');
 export const PresentationSyncContext = createContext({});
 
@@ -40,6 +38,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 	children,
 }) => {
 	const { remoteUser, userLoggedIn } = useRemoteUserContext();
+	const { connected } = useConnectivityContext();
 	const [syncPaper, setSyncPaper] = useState<Map<string, SyncPaperEntry>>(
 		new Map()
 	);
@@ -79,17 +78,18 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 			if (remoteUser === undefined) return;
 			setSyncPaper(new Map([]));
 
-			database.getSyncPaper(remoteUser.uid).then((snapshot) => {
-				if (snapshot.exists()) {
-					const paper: any = snapshot.val();
-					const paperMap = new Map();
-					for (const key in paper) {
-						paperMap.set(key, paper[key]);
+			if (connected)
+				database.getSyncPaper(remoteUser.uid).then((snapshot) => {
+					if (snapshot.exists()) {
+						const paper: any = snapshot.val();
+						const paperMap = new Map();
+						for (const key in paper) {
+							paperMap.set(key, paper[key]);
+						}
+						setSyncPaper(paperMap);
 					}
-					setSyncPaper(paperMap);
-				}
-				if (callback) callback();
-			});
+					if (callback) callback();
+				});
 		},
 		[remoteUser]
 	);
@@ -112,7 +112,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 			);
 
 			getRemotePresentationsFromSyncPaper(() => {
-				setSyncingAvailable(userLoggedIn);
+				setSyncingAvailable(userLoggedIn && connected);
 			});
 		} else {
 			setRemoteMedia([]);
@@ -121,7 +121,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 			setLocalSyncingQueue([]);
 			setSyncingAvailable(false);
 		}
-	}, [remoteUser, userLoggedIn]);
+	}, [remoteUser, userLoggedIn, connected]);
 
 	useEffect(() => {
 		changeCurrentWorkspace(
@@ -182,40 +182,43 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 					}
 				});
 
-				database.uploadPresentation(
-					remoteUser.uid,
-					presToSave,
-					(remotePresentation) => {
-						ipcRenderer
-							.invoke(
-								MainProcessMethodIdentifiers.SaveChangesToPresentation,
-								presentationId,
-								remotePresentation,
-								remotePresentation.remoteUpdate
-							)
-							.then(() => {
-								setLocalSyncingQueue((curr) =>
-									curr.filter((task) => task.presentationId !== presentationId)
-								);
-								setSyncPaper(
-									(curr) =>
-										new Map([
-											// @ts-ignore
-											...curr,
-											[
-												remotePresentation.remoteId,
-												{
-													name: remotePresentation.name,
-													remoteId: remotePresentation.remoteId,
-													remoteUpdate: remotePresentation.remoteUpdate,
-												},
-											],
-										])
-								);
-								reloadPresentations();
-							});
-					}
-				);
+				if (connected)
+					database.uploadPresentation(
+						remoteUser.uid,
+						presToSave,
+						(remotePresentation) => {
+							ipcRenderer
+								.invoke(
+									MainProcessMethodIdentifiers.SaveChangesToPresentation,
+									presentationId,
+									remotePresentation,
+									remotePresentation.remoteUpdate
+								)
+								.then(() => {
+									setLocalSyncingQueue((curr) =>
+										curr.filter(
+											(task) => task.presentationId !== presentationId
+										)
+									);
+									setSyncPaper(
+										(curr) =>
+											new Map([
+												// @ts-ignore
+												...curr,
+												[
+													remotePresentation.remoteId,
+													{
+														name: remotePresentation.name,
+														remoteId: remotePresentation.remoteId,
+														remoteUpdate: remotePresentation.remoteUpdate,
+													},
+												],
+											])
+									);
+									reloadPresentations();
+								});
+						}
+					);
 			}
 		);
 	};
@@ -318,10 +321,11 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 		(remoteId: string) => {
 			if (remoteUser === undefined) return;
 
-			database.deleteRemotePresentation(remoteUser.uid, remoteId).then(() => {
-				reloadPresentations();
-				getRemotePresentationsFromSyncPaper();
-			});
+			if (connected)
+				database.deleteRemotePresentation(remoteUser.uid, remoteId).then(() => {
+					reloadPresentations();
+					getRemotePresentationsFromSyncPaper();
+				});
 		},
 		[remoteUser]
 	);
@@ -348,56 +352,58 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 	) => {
 		if (!syncingAvailable) return;
 
-		database
-			.getRemotePresentation(remoteUser!.uid, remoteId)
-			.then((snapshot) => {
-				if (snapshot.exists()) {
-					callback(snapshot.val() as SinglePresentation);
-				}
-			});
+		if (connected)
+			database
+				.getRemotePresentation(remoteUser!.uid, remoteId)
+				.then((snapshot) => {
+					if (snapshot.exists()) {
+						callback(snapshot.val() as SinglePresentation);
+					}
+				});
 	};
 
 	const downloadAndUpdateLocalPresentation = (remoteId: string) => {
 		if (remoteUser === undefined) return;
 		setDownloadingPresentations((curr) => [...curr, remoteId]);
-		database
-			.getRemotePresentation(remoteUser.uid, remoteId)
-			.then((snapshot) => {
-				if (snapshot.exists()) {
-					const remotePresentation = snapshot.val() as SinglePresentation;
-					const id = presentations.find(
-						(pres) => pres.remoteId === remoteId
-					)?.id;
-					if (id === undefined) {
-						ipcRenderer
-							.invoke(
-								MainProcessMethodIdentifiers.CreatePresentation,
-								remotePresentation,
-								remotePresentation.remoteUpdate
-							)
-							.then((storedPres: StoredPresentation) => {
-								setDownloadingPresentations((curr) =>
-									curr.filter((id) => id !== remoteId)
-								);
-								reloadPresentations();
-							});
-					} else {
-						ipcRenderer
-							.invoke(
-								MainProcessMethodIdentifiers.SaveChangesToPresentation,
-								id,
-								remotePresentation,
-								remotePresentation.remoteUpdate
-							)
-							.then((_: any) => {
-								setDownloadingPresentations((curr) =>
-									curr.filter((id) => id !== remoteId)
-								);
-								reloadPresentations();
-							});
+		if (connected)
+			database
+				.getRemotePresentation(remoteUser.uid, remoteId)
+				.then((snapshot) => {
+					if (snapshot.exists()) {
+						const remotePresentation = snapshot.val() as SinglePresentation;
+						const id = presentations.find(
+							(pres) => pres.remoteId === remoteId
+						)?.id;
+						if (id === undefined) {
+							ipcRenderer
+								.invoke(
+									MainProcessMethodIdentifiers.CreatePresentation,
+									remotePresentation,
+									remotePresentation.remoteUpdate
+								)
+								.then((storedPres: StoredPresentation) => {
+									setDownloadingPresentations((curr) =>
+										curr.filter((id) => id !== remoteId)
+									);
+									reloadPresentations();
+								});
+						} else {
+							ipcRenderer
+								.invoke(
+									MainProcessMethodIdentifiers.SaveChangesToPresentation,
+									id,
+									remotePresentation,
+									remotePresentation.remoteUpdate
+								)
+								.then((_: any) => {
+									setDownloadingPresentations((curr) =>
+										curr.filter((id) => id !== remoteId)
+									);
+									reloadPresentations();
+								});
+						}
 					}
-				}
-			});
+				});
 	};
 
 	const uploadRemoteMedia = (
