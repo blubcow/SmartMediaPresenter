@@ -1,5 +1,6 @@
 import { makeStyles, createStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
+import { display } from '@mui/system';
 
 export const useCreateProjectModalStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -85,4 +86,23 @@ export const useLocalOrRemoteModalStyles = makeStyles((theme: Theme) =>
 			},
 		},
 	})
+);
+
+export const useImportLocalPresentationsModalStyles = makeStyles(
+	(theme: Theme) =>
+		createStyles({
+			container: {
+				width: '350px',
+				display: 'flex',
+				flexDirection: 'column',
+				gap: theme.spacing(3),
+				alignItems: 'center',
+				textAlign: 'center',
+			},
+			btnContainer: {
+				width: '100%',
+				display: 'flex',
+				justifyContent: 'space-between',
+			},
+		})
 );

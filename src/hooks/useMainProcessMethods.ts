@@ -8,6 +8,7 @@ import {
 	Slide,
 } from '../shared/types/presentation';
 import { UserSettings } from '../shared/types/userSettings';
+import { WorkspaceChangeResult } from '../shared/types/workspace';
 const { ipcRenderer } = window.require('electron');
 
 export const useStoredPresentations = () => {
@@ -263,9 +264,7 @@ export const useUserSettings = () => {
 	});
 
 	useEffect(() => {
-		ipcRenderer
-			.invoke(MainProcessMethodIdentifiers.getUserSettings)
-			.then((r: UserSettings) => setUserSettings(r));
+		reloadUserSettings();
 	}, []);
 
 	const saveUserSettings = (settings: UserSettings) => {
@@ -273,5 +272,40 @@ export const useUserSettings = () => {
 		setUserSettings(settings);
 	};
 
-	return { userSettings, saveUserSettings };
+	const reloadUserSettings = useCallback(() => {
+		ipcRenderer
+			.invoke(MainProcessMethodIdentifiers.getUserSettings)
+			.then((r: UserSettings) => setUserSettings(r));
+	}, []);
+
+	return { userSettings, saveUserSettings, reloadUserSettings };
+};
+
+export const useWorkspace = () => {
+	const changeCurrentWorkspace = useCallback(
+		async (
+			callback: (canImportLocalPresentations: boolean, amnt: number) => void,
+			workspace?: string
+		) => {
+			ipcRenderer
+				.invoke(MainProcessMethodIdentifiers.setWorkspace, workspace)
+				.then((result: WorkspaceChangeResult) => {
+					callback(
+						result.localPresentationsImportable,
+						result.localPresentations
+					);
+				});
+		},
+		[]
+	);
+
+	const importLocalPresentations = useCallback(async (callback: () => void) => {
+		ipcRenderer
+			.invoke(
+				MainProcessMethodIdentifiers.importLocalPresentationsIntoWorkspace
+			)
+			.then((_: any) => callback());
+	}, []);
+
+	return { changeCurrentWorkspace, importLocalPresentations };
 };

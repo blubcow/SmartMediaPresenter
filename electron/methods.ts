@@ -13,7 +13,11 @@ import { FileExpolorerOptions } from './types/fileExplorer';
 import { FileExplorerType } from '../src/shared/types/fileExplorer';
 import { getFonts } from 'font-list';
 import { UserSettings } from '../src/shared/types/userSettings';
-import { SinglePresentation } from '../src/shared/types/presentation';
+import {
+	SinglePresentation,
+	StoredPresentations,
+} from '../src/shared/types/presentation';
+import { WorkspaceChangeResult } from '../src/shared/types/workspace';
 import xlsx from 'xlsx';
 import { convertJsonToXlsx } from './models/PresentationFileConverter';
 import { getFilesInDir, getFileFromPath } from './models/FileSystem';
@@ -26,11 +30,95 @@ export const registerMainProcessMethodHandlers = (
 	mainWindow: BrowserWindow
 ) => {
 	const windows: BrowserWindow[] = [mainWindow];
+	let globalWorkspace: string | undefined;
+
+	ipcMain.handle(
+		MainProcessMethodIdentifiers.setWorkspace,
+		async (_, workspace?: string) => {
+			globalWorkspace = workspace;
+
+			const storePath = userDataPath + '/store';
+			const workspacePath = `${userDataPath}/store/${workspace}`;
+
+			if (!fs.existsSync(storePath)) {
+				fs.mkdirSync(storePath);
+			}
+
+			const firstLogin =
+				workspace !== undefined && !fs.existsSync(workspacePath);
+
+			if (firstLogin) {
+				fs.mkdirSync(workspacePath);
+			}
+
+			const path = userDataPath + '/store/presentations.json';
+			const presentations: any = fs.existsSync(path)
+				? JSON.parse(`${fs.readFileSync(path)}`)
+				: {
+						count: 0,
+						presentations: [],
+				  };
+
+			const result: WorkspaceChangeResult = {
+				localPresentationsImportable:
+					presentations.presentations.length > 0 && firstLogin,
+				localPresentations: presentations.presentations.length,
+			};
+
+			return result;
+		}
+	);
+
+	ipcMain.handle(
+		MainProcessMethodIdentifiers.importLocalPresentationsIntoWorkspace,
+		async () => {
+			if (globalWorkspace === undefined) return -1;
+
+			const storePath = userDataPath + '/store';
+			const workspacePath = `${userDataPath}/store/${globalWorkspace}`;
+			const storeFile = storePath + '/presentations.json';
+			const workspaceStoreFile = `${userDataPath}/store/${globalWorkspace}/presentations.json`;
+
+			if (!fs.existsSync(storePath) || !fs.existsSync(storeFile)) return;
+
+			if (!fs.existsSync(workspacePath)) {
+				fs.mkdirSync(workspacePath);
+			}
+
+			const storeFileJson: StoredPresentations = JSON.parse(
+				`${fs.readFileSync(storeFile)}`
+			);
+
+			fs.writeFileSync(workspaceStoreFile, JSON.stringify(storeFileJson));
+
+			storeFileJson.presentations.forEach((pres) => {
+				const buffer = fs.readFileSync(`${storePath}/${pres.id}.json`);
+				const newPres = JSON.parse(`${buffer}`);
+				fs.writeFileSync(
+					`${workspacePath}/${pres.id}`,
+					JSON.stringify({
+						...newPres,
+						remoteId: undefined,
+						remoteUpdate: undefined,
+					})
+				);
+			});
+
+			return 0;
+		}
+	);
 
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.CreatePresentation,
 		async (_, pres?: SinglePresentation, created?: number) => {
-			const path = userDataPath + '/store';
+			if (!fs.existsSync(userDataPath + '/store')) {
+				fs.mkdirSync(userDataPath + '/store');
+			}
+
+			const path =
+				userDataPath +
+				'/store' +
+				`${globalWorkspace ? '/' + globalWorkspace : ''}`;
 			const file = path + '/presentations.json';
 
 			if (!fs.existsSync(path)) {
@@ -79,8 +167,10 @@ export const registerMainProcessMethodHandlers = (
 
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.GetStoredPresentations,
-		async () => {
-			const path = userDataPath + '/store/presentations.json';
+		async (_) => {
+			const path = `${userDataPath}/store${
+				globalWorkspace ? '/' + globalWorkspace : ''
+			}/presentations.json`;
 
 			const presentations: any = fs.existsSync(path)
 				? JSON.parse(`${fs.readFileSync(path)}`)
@@ -101,7 +191,10 @@ export const registerMainProcessMethodHandlers = (
 			}
 
 			const file = JSON.parse(
-				`${fs.readFileSync(userDataPath + `/store/${id}.json`)}`
+				`${fs.readFileSync(
+					userDataPath +
+						`/store${globalWorkspace ? '/' + globalWorkspace : ''}/${id}.json`
+				)}`
 			);
 
 			return file;
@@ -111,8 +204,12 @@ export const registerMainProcessMethodHandlers = (
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.deleteSinglePresentation,
 		async (_, id) => {
-			const path = userDataPath + `/store/${id}.json`;
-			const audioPath = userDataPath + `/store/audio/${id}`;
+			const path =
+				userDataPath +
+				`/store${globalWorkspace ? '/' + globalWorkspace : ''}/${id}.json`;
+			const audioPath =
+				userDataPath +
+				`/store${globalWorkspace ? '/' + globalWorkspace : ''}/audio/${id}`;
 
 			if (!fs.existsSync(path)) return;
 
@@ -122,7 +219,12 @@ export const registerMainProcessMethodHandlers = (
 				fs.rmdirSync(audioPath, { recursive: true });
 
 			const presentations = JSON.parse(
-				`${fs.readFileSync(userDataPath + '/store/presentations.json')}`
+				`${fs.readFileSync(
+					userDataPath +
+						`/store${
+							globalWorkspace ? '/' + globalWorkspace : ''
+						}/presentations.json`
+				)}`
 			);
 
 			const newPresentations = presentations.presentations.filter(
@@ -131,7 +233,10 @@ export const registerMainProcessMethodHandlers = (
 			presentations.presentations = newPresentations;
 
 			fs.writeFileSync(
-				userDataPath + '/store/presentations.json',
+				userDataPath +
+					`/store${
+						globalWorkspace ? '/' + globalWorkspace : ''
+					}/presentations.json`,
 				JSON.stringify(presentations)
 			);
 		}
@@ -141,7 +246,10 @@ export const registerMainProcessMethodHandlers = (
 		MainProcessMethodIdentifiers.SaveChangesToPresentation,
 		async (_, id: number, file: any, remoteTimestamp?: number) => {
 			const oldFile = JSON.parse(
-				`${fs.readFileSync(userDataPath + `/store/${id}.json`)}`
+				`${fs.readFileSync(
+					userDataPath +
+						`/store${globalWorkspace ? '/' + globalWorkspace : ''}/${id}.json`
+				)}`
 			);
 
 			const timestamp = remoteTimestamp ?? Date.now();
@@ -149,11 +257,17 @@ export const registerMainProcessMethodHandlers = (
 			const newFile = { ...oldFile, ...file, lastChanges: timestamp };
 
 			fs.writeFileSync(
-				userDataPath + `/store/${id}.json`,
+				userDataPath +
+					`/store${globalWorkspace ? '/' + globalWorkspace : ''}/${id}.json`,
 				JSON.stringify(newFile)
 			);
 			const presentations = JSON.parse(
-				`${fs.readFileSync(userDataPath + '/store/presentations.json')}`
+				`${fs.readFileSync(
+					userDataPath +
+						`/store${
+							globalWorkspace ? '/' + globalWorkspace : ''
+						}/presentations.json`
+				)}`
 			);
 			const pres = presentations.presentations.find(
 				(presentation: any) => presentation.id === id
@@ -172,7 +286,10 @@ export const registerMainProcessMethodHandlers = (
 			presentations.presentations = newPres;
 
 			fs.writeFileSync(
-				userDataPath + '/store/presentations.json',
+				userDataPath +
+					`/store${
+						globalWorkspace ? '/' + globalWorkspace : ''
+					}/presentations.json`,
 				JSON.stringify(presentations)
 			);
 			return file;
@@ -189,7 +306,10 @@ export const registerMainProcessMethodHandlers = (
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.CreateQuickCreatePresentation,
 		async (_, presentationName: string, slides: any[]) => {
-			const path = userDataPath + '/store';
+			const path =
+				userDataPath +
+				'/store' +
+				`${globalWorkspace ? '/' + globalWorkspace : ''}`;
 			const file = path + '/presentations.json';
 
 			if (!fs.existsSync(path)) {
@@ -329,7 +449,9 @@ export const registerMainProcessMethodHandlers = (
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.storeAudioFile,
 		async (_, id: number, buffer: Buffer) => {
-			const path = `${userDataPath}/store/audio`;
+			const path = `${userDataPath}/store${
+				globalWorkspace ? '/' + globalWorkspace : ''
+			}/audio`;
 			const presPath = `/${id}`;
 			const fileName = `/${Date.now()}.wav`;
 
@@ -352,7 +474,9 @@ export const registerMainProcessMethodHandlers = (
 	});
 
 	ipcMain.handle(MainProcessMethodIdentifiers.getUserSettings, async () => {
-		const file = userDataPath + '/store/userSettings.json';
+		const file =
+			userDataPath +
+			`/store${globalWorkspace ? '/' + globalWorkspace : ''}/userSettings.json`;
 		return fs.existsSync(file)
 			? JSON.parse(`${fs.readFileSync(file)}`)
 			: { language: 'auto', theme: 'auto' };
@@ -361,7 +485,10 @@ export const registerMainProcessMethodHandlers = (
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.saveUserSettings,
 		async (_, settings: UserSettings) => {
-			const path = userDataPath + '/store';
+			const path =
+				userDataPath +
+				'/store' +
+				`${globalWorkspace ? '/' + globalWorkspace : ''}`;
 
 			if (!fs.existsSync(path)) {
 				fs.mkdirSync(path);

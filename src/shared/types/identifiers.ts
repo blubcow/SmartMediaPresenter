@@ -20,4 +20,6 @@ export enum MainProcessMethodIdentifiers {
 	openSavePresentationDialog = 'openSavePresentationDialog',
 	importPresentationFromFS = 'importPresentationFromFS',
 	retriveFullFile = 'retrieveFullFile',
+	setWorkspace = 'setWorkspace',
+	importLocalPresentationsIntoWorkspace = 'importLocalPresentationsIntoWorkspace',
 }

@@ -6,9 +6,12 @@ export const UserSettingsContext = createContext({});
 const UserSettingsProvider: React.FC<PropsWithChildren<{}>> = ({
 	children,
 }) => {
-	const { userSettings, saveUserSettings } = useUserSettings();
+	const { userSettings, saveUserSettings, reloadUserSettings } =
+		useUserSettings();
 	return (
-		<UserSettingsContext.Provider value={{ userSettings, saveUserSettings }}>
+		<UserSettingsContext.Provider
+			value={{ userSettings, saveUserSettings, reloadUserSettings }}
+		>
 			{children}
 		</UserSettingsContext.Provider>
 	);

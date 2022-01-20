@@ -6,6 +6,7 @@ const useUserSettingsContext = () => {
 	const context = useContext(UserSettingsContext) as {
 		userSettings: UserSettings;
 		saveUserSettings: (settings: UserSettings) => void;
+		reloadUserSettings: () => void;
 	};
 
 	if (!context)

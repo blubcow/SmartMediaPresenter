@@ -19,17 +19,20 @@ import {
 	LocalSyncPresentationItem,
 	RemotelyAvailableMedia,
 	RemoteStorageMedia,
-	RemoteStorageMediaType,
 	SyncableStoredPresentation,
 	SyncPaperEntry,
 } from '../types/presentaitonSycncing';
 import { MainProcessMethodIdentifiers } from '../shared/types/identifiers';
-import { useStoredPresentations } from '../hooks/useMainProcessMethods';
-import { resourceLimits } from 'worker_threads';
+import {
+	useStoredPresentations,
+	useUserSettings,
+} from '../hooks/useMainProcessMethods';
 import { uploadMedia } from '../models/MediaUploader';
 import { ImageResourceExtensions } from '../shared/types/mediaResources';
+import { useWorkspace } from '../hooks/useMainProcessMethods';
+import ImportLocalPresentationsModal from '../views/components/modals/ImportLocalPresentationsModal';
+import useUserSettingsContext from '../hooks/useUserSettingsContext';
 const { ipcRenderer } = window.require('electron');
-
 export const PresentationSyncContext = createContext({});
 
 const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
@@ -48,6 +51,13 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 	const [localSyncingQueue, setLocalSyncingQueue] = useState<
 		LocalSyncPresentationItem[]
 	>([]);
+	const [importPresentationsOpen, setImportPresentationOpen] =
+		useState<boolean>(false);
+	const [localPresentationsAmnt, setLocalPresentationsAmnt] = useState<
+		number | undefined
+	>();
+	const [importingLocalPresentations, setImportingLocalPresentations] =
+		useState<boolean>(false);
 	const {
 		presentations,
 		createPresentation,
@@ -55,6 +65,8 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 		removeSinglePresentation,
 		reloadPresentations,
 	} = useStoredPresentations();
+	const { changeCurrentWorkspace, importLocalPresentations } = useWorkspace();
+	const { reloadUserSettings } = useUserSettingsContext();
 
 	// TODO: add custom removePresentation method which will also remove the presentation from the syncpaper
 
@@ -63,6 +75,16 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 	>([]);
 
 	useEffect(() => {
+		changeCurrentWorkspace(
+			(canImport, amnt) => {
+				setLocalPresentationsAmnt(amnt);
+				setImportPresentationOpen(canImport);
+				reloadPresentations();
+				reloadUserSettings();
+			},
+			remoteUser ? remoteUser.uid : undefined
+		);
+
 		if (remoteUser && userLoggedIn) {
 			storage.listRemoteMedia(remoteUser.uid).then((media) =>
 				Promise.all(
@@ -450,6 +472,25 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 					/>
 				))}
 			</Box>
+			{importPresentationsOpen && localPresentationsAmnt !== undefined && (
+				<ImportLocalPresentationsModal
+					open={true}
+					importing={importingLocalPresentations}
+					onChoose={(importPresentations: boolean) => {
+						if (importPresentations) {
+							setImportingLocalPresentations(true);
+							importLocalPresentations(() => {
+								reloadPresentations();
+								setImportPresentationOpen(false);
+								setImportingLocalPresentations(false);
+							});
+						} else {
+							setImportPresentationOpen(false);
+						}
+					}}
+					amnt={localPresentationsAmnt}
+				/>
+			)}
 			{children}
 		</PresentationSyncContext.Provider>
 	);

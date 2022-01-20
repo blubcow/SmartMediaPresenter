@@ -112,5 +112,9 @@
   "chooseCloud": "aus der Cloud wählen",
   "chooseLocal": "lokale Medien wählen",
   "cloudAudio": "Cloud-Audio",
-  "cloudImage": "Cloud-Bild"
+  "cloudImage": "Cloud-Bild",
+  "importLocalPresentations": "möchtest du alle {{amount}} lokalen Präsentationen importieren?",
+  "yes": "ja",
+  "no": "nein",
+  "importingLocalPresentations": "lokale Präsentationen werden importiert"
 }
