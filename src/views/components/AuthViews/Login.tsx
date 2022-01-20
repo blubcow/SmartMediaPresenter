@@ -10,6 +10,7 @@ import { i18nNamespace } from '../../../i18n/i18n';
 import { auth } from '../../../models/firebase';
 import PopUpModal from './PopUpModal';
 import CreateAccount from './CreateAccount';
+import ForgotPassword from './ForgotPassword';
 
 interface ILoginProps {
 	onLogin: () => void;
@@ -117,7 +118,11 @@ const AuthButtonContainer: React.FC<IAuthButtonContainerProps> = (props) => {
 
 	return (
 		<Box className={classes.container}>
-			<Button color='primary' size='small'>
+			<Button
+				color='primary'
+				size='small'
+				onClick={() => setForgotPasswordOpen(true)}
+			>
 				{t('forgotPwd')}
 			</Button>
 			<Button
@@ -138,6 +143,13 @@ const AuthButtonContainer: React.FC<IAuthButtonContainerProps> = (props) => {
 						if (onAccountCreated) onAccountCreated();
 					}}
 				/>
+			</PopUpModal>
+			<PopUpModal
+				open={forgotPasswordOpen}
+				onClose={() => setForgotPasswordOpen(false)}
+				goBack={() => setForgotPasswordOpen(false)}
+			>
+				<ForgotPassword onForgotPwd={() => setForgotPasswordOpen(false)} />
 			</PopUpModal>
 		</Box>
 	);

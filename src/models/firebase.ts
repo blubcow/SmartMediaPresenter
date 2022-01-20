@@ -7,6 +7,7 @@ import {
 	createUserWithEmailAndPassword,
 	onAuthStateChanged,
 	User,
+	sendPasswordResetEmail,
 } from 'firebase/auth';
 import {
 	getStorage,
@@ -45,9 +46,19 @@ const firebaseAuth = () => {
 		return onAuthStateChanged(fireAuth, (user) => callback(user ?? undefined));
 	};
 
+	const sendForgotPwdEmail = (email: string) => {
+		return sendPasswordResetEmail(fireAuth, email);
+	};
+
 	const signOut = async () => await fireSignOut(fireAuth);
 
-	return { createAccount, signIn, signOut, listenForAuthChanges };
+	return {
+		createAccount,
+		signIn,
+		signOut,
+		listenForAuthChanges,
+		sendForgotPwdEmail,
+	};
 };
 const auth = firebaseAuth();
 
