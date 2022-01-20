@@ -1,4 +1,5 @@
 {
   "presSaveSuccess": "die Präsentation wurde gespeichert",
-  "version": "Version"
+  "version": "Version",
+  "noInternet": "keine Internetverbindung"
 }

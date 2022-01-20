@@ -1,4 +1,5 @@
 {
   "presSaveSuccess": "presentation was saved",
-  "version": "version"
+  "version": "version",
+  "noInternet": "no internet connection"
 }

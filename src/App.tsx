@@ -7,6 +7,7 @@ import UserSettingsProvider from './providers/UserSettingsProvider';
 import RemoteUserProvider from './providers/RemoteUserProvider';
 import PresentationSyncProvider from './providers/PresentationSyncProvider';
 import PresentationCacheProvider from './providers/PresentationCacheProvider';
+import ConnectivityProvider from './providers/ConnectivityProvider';
 
 function App() {
 	return (
@@ -14,11 +15,13 @@ function App() {
 			<UserSettingsProvider>
 				<I18NProvider>
 					<ThemeProvider>
-						<PresentationCacheProvider>
-							<PresentationSyncProvider>
-								<NavigationProvider />
-							</PresentationSyncProvider>
-						</PresentationCacheProvider>
+						<ConnectivityProvider>
+							<PresentationCacheProvider>
+								<PresentationSyncProvider>
+									<NavigationProvider />
+								</PresentationSyncProvider>
+							</PresentationCacheProvider>
+						</ConnectivityProvider>
 					</ThemeProvider>
 				</I18NProvider>
 			</UserSettingsProvider>

@@ -86,7 +86,6 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 					for (const key in paper) {
 						paperMap.set(key, paper[key]);
 					}
-
 					setSyncPaper(paperMap);
 				}
 				if (callback) callback();
