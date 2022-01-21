@@ -61,6 +61,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 	const {
 		presentations,
 		createPresentation,
+		createQuickCreatePresentation,
 		retrieveSinglePresentationOnce,
 		removeSinglePresentation,
 		reloadPresentations,
@@ -467,6 +468,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 			value={{
 				storedPresentations: storedPresentations,
 				createPresentation: createPresentation,
+				createQuickCreatePresentation: createQuickCreatePresentation,
 				removeSinglePresentation: removeSinglePresentation,
 				retrieveSinglePresentationOnce: retrieveSinglePresentationOnce,
 				remoteMedia: remoteMedia,

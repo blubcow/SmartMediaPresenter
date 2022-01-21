@@ -9,12 +9,12 @@ import QuickCreateSlidesBox from '../components/QuickCreateSlidesBox';
 import { getEmptySlide, Slide } from '../../shared/types/presentation';
 import { SMPRoutes } from '../../types/routes';
 import { useHistory } from 'react-router-dom';
-import { useStoredPresentations } from '../../hooks/useMainProcessMethods';
 import { DataTransferIdentifiers } from '../../types/identifiers';
+import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
 
 const QuickCreate: React.FC<{}> = () => {
 	const history = useHistory();
-	const { createQuickCreatePresentation } = useStoredPresentations();
+	const { createQuickCreatePresentation } = usePresentationSyncContext();
 	const [slides, setSlides] = useState<Slide[]>([getEmptySlide()]);
 	const [presentationName, setPresentationName] = useState<string>(
 		'QuickCreate-Presentation'

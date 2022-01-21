@@ -1,4 +1,4 @@
-import { SinglePresentation } from '../shared/types/presentation';
+import { SinglePresentation, Slide } from '../shared/types/presentation';
 
 export interface IPresentationSyncContext {
 	storedPresentations: SyncableStoredPresentation[];
@@ -40,6 +40,11 @@ export interface IPresentationSyncContext {
 	) => void;
 	deleteRemotePresentation: (remoteId: string) => void;
 	removeRemoteAttributesFromPresentation: (id: number) => void;
+	createQuickCreatePresentation: (
+		name: string,
+		slides: Slide[],
+		callback: (id: number) => any
+	) => void;
 }
 
 export type AddToLocalSyncingQueueHandler = (
