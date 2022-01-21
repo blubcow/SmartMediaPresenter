@@ -446,7 +446,7 @@ export const registerMainProcessMethodHandlers = (
 					// preload: __dirname + '/../preload.js',
 					nodeIntegration: true,
 					contextIsolation: false,
-					webSecurity: false,
+					webSecurity: !app.isPackaged,
 				},
 				autoHideMenuBar: true,
 			});
