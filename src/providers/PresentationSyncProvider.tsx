@@ -145,7 +145,10 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				});
 	};
 
-	const downloadAndUpdateLocalPresentation = (remoteId: string) => {
+	const downloadAndUpdateLocalPresentation = (
+		remoteId: string,
+		callback?: (id: number) => void
+	) => {
 		if (remoteUser === undefined) return;
 		setDownloadingPresentations((curr) => [...curr, remoteId]);
 		if (connected)
@@ -169,6 +172,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 										curr.filter((id) => id !== remoteId)
 									);
 									reloadPresentations();
+									if (callback) callback(storedPres.id);
 								});
 						} else {
 							ipcRenderer
@@ -219,14 +223,16 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				localSyncingQueue: localSyncingQueue,
 				addToLocalSyncingQueue: (
 					presentation: SinglePresentation,
-					presentationId: number
+					presentationId: number,
+					callback?: (remoteId: string) => void
 				) => {
 					addToLocalSyncingQueue(
 						presentation,
 						presentationId,
 						remoteMedia,
-						() => {
+						(remoteId) => {
 							reloadPresentations();
+							if (callback) callback(remoteId);
 						}
 					);
 				},

@@ -41,6 +41,8 @@ const Home: React.FC<{}> = () => {
 		currentRemotePresentationId,
 		cachedPresentations,
 		changeCurrentPresentation,
+		selectLocalPresentation,
+		selectRemotePresentation,
 	} = usePresentationCacheContext();
 
 	return (
@@ -165,7 +167,10 @@ const Home: React.FC<{}> = () => {
 												onDownload={() => {
 													if (presentation.remoteId !== undefined) {
 														downloadAndUpdateLocalPresentation(
-															presentation.remoteId
+															presentation.remoteId,
+															(id) => {
+																selectLocalPresentation(id);
+															}
 														);
 													}
 												}}
@@ -176,7 +181,9 @@ const Home: React.FC<{}> = () => {
 															(singlePres) => {
 																addToLocalSyncingQueue(
 																	singlePres,
-																	presentation.id!
+																	presentation.id!,
+																	(remoteId) =>
+																		selectRemotePresentation(remoteId)
 																);
 															}
 														);

@@ -24,6 +24,8 @@ const usePresentationCacheContext = () => {
 		updatePresentation: (id: number | string, pres: SinglePresentation) => void;
 		unselectLocalPresentation: () => void;
 		unselectRemotePresentation: () => void;
+		selectLocalPresentation: (id: number) => void;
+		selectRemotePresentation: (id: string) => void;
 	};
 
 	if (context === undefined)

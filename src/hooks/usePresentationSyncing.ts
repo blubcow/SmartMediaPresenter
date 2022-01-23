@@ -54,7 +54,7 @@ const usePresentationSyncing = (
 		presentation: SinglePresentation,
 		presentationId: number,
 		remoteMedia: RemotelyAvailableMedia[],
-		callback: () => void
+		callback: (remoteId: string) => void
 	) => {
 		if (
 			localSyncingQueue.find(
@@ -132,7 +132,7 @@ const usePresentationSyncing = (
 												],
 											])
 									);
-									callback();
+									callback(remotePresentation.remoteId!);
 								});
 						}
 					);
