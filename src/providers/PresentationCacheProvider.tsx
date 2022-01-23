@@ -134,6 +134,14 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 		setCachedPresentations(newCache);
 	};
 
+	const unselectLocalPresentation = () => {
+		setCurrentPresentationId(undefined);
+	};
+
+	const unselectRemotePresentation = () => {
+		setCurrentRemotePresentationId(undefined);
+	};
+
 	const changeCurrentPresentation = (
 		id?: number,
 		remoteId?: string,
@@ -160,6 +168,8 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 				cachedPresentations: cachedPresentations,
 				changeCurrentPresentation: changeCurrentPresentation,
 				updatePresentation: updatePresentation,
+				unselectLocalPresentation: unselectLocalPresentation,
+				unselectRemotePresentation: unselectRemotePresentation,
 			}}
 		>
 			{children}

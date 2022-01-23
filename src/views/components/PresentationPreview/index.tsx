@@ -29,6 +29,7 @@ import PresentationFloatingButton from '../PresentationFloatingButton';
 import ActionConfirmationModal from '../modals/ActionConfirmationModal';
 import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
 import usePresentationSyncContext from '../../../hooks/usePresentationSyncContext';
+import usePresentationCacheContext from '../../../hooks/usePresentationCacheContext';
 
 interface IPresentationPreviewProps {
 	presentation?: SinglePresentation;
@@ -65,6 +66,9 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 		deleteRemotePresentation,
 		removeRemoteAttributesFromPresentation,
 	} = usePresentationSyncContext();
+
+	const { unselectLocalPresentation, unselectRemotePresentation } =
+		usePresentationCacheContext();
 
 	const history = useHistory();
 
@@ -133,15 +137,21 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 							remoteId !== undefined &&
 							syncingAvailable
 						) {
-							if (localSelected) removePresentationAction(id);
+							if (localSelected) {
+								removePresentationAction(id);
+								unselectLocalPresentation();
+							}
 							if (remoteSelected) {
 								deleteRemotePresentation(remoteId);
+								unselectRemotePresentation();
 								if (!localSelected) removeRemoteAttributesFromPresentation(id);
 							}
 						} else if (id === undefined && remoteId !== undefined) {
 							deleteRemotePresentation(remoteId);
+							unselectRemotePresentation();
 						} else if (remoteId === undefined && id !== undefined) {
 							removePresentationAction(id);
+							unselectLocalPresentation();
 						}
 						setOpenDeleteModal(false);
 					}}
