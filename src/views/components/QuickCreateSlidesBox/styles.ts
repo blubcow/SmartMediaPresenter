@@ -9,6 +9,7 @@ export default makeStyles((theme: Theme) =>
 			display: 'flex',
 			flexDirection: 'column',
 			zIndex: 1,
+			overflowY: 'visible',
 		},
 		previewContainer: {
 			width: '100%',

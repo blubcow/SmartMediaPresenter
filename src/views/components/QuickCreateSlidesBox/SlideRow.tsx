@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Box } from '../../../smpUI/components';
 import { useSlideRowStyles } from './styles';
 import { Slide } from '../../../shared/types/presentation';
@@ -11,11 +11,20 @@ const SlideRow = (props: {
 	onMediaReceived: (slideId: number, mediaId: number, path: string) => void;
 }) => {
 	const { slide, active, onClick, onMediaReceived } = props;
-
+	const rowRef = useRef<any>();
 	const classes = useSlideRowStyles();
+
+	useEffect(() => {
+		if (
+			active &&
+			rowRef.current?.getBoundingClientRect().bottom > window.innerHeight
+		)
+			rowRef.current?.scrollIntoView({ block: 'end', behavior: 'smooth' });
+	}, [active]);
 
 	return (
 		<Box
+			ref={rowRef}
 			className={classes.container}
 			sx={{
 				outlineStyle: 'solid',
