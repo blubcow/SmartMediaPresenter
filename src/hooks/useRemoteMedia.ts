@@ -1,11 +1,38 @@
-import { useCallback } from 'react';
-import { RemoteStorageMedia } from '../types/presentaitonSycncing';
+import { useCallback, useState, useEffect } from 'react';
+import {
+	RemotelyAvailableMedia,
+	RemoteStorageMedia,
+} from '../types/presentaitonSycncing';
 import { uploadMedia } from '../models/MediaUploader';
 import { ImageResourceExtensions } from '../shared/types/mediaResources';
 import { RemoteUser } from '../types/remote';
 import { storage } from '../models/firebase';
 
 const useRemoteMedia = (remoteUser?: RemoteUser) => {
+	const [remoteMedia, setRemoteMedia] = useState<RemotelyAvailableMedia[]>([]);
+
+	useEffect(() => {
+		if (remoteUser == undefined) {
+			setRemoteMedia([]);
+			return;
+		}
+
+		storage.listRemoteMedia(remoteUser.uid).then((media) =>
+			Promise.all(
+				media.items.map(async (item) => {
+					const fileName = item.fullPath.split('/').pop()!;
+					return {
+						name: fileName,
+						downloadUrl: await storage.getDownloadUrlFromFileName(
+							remoteUser.uid,
+							fileName
+						),
+					};
+				})
+			).then((r) => setRemoteMedia(r))
+		);
+	}, [remoteUser]);
+
 	const uploadRemoteMedia = useCallback(
 		(
 			filePaths: string[],
@@ -72,14 +99,14 @@ const useRemoteMedia = (remoteUser?: RemoteUser) => {
 				)
 			);
 		},
-		[storage]
+		[storage, remoteUser]
 	);
 
 	const deleteSingleFile = useCallback(
 		async (path: string) => {
 			return await storage.deleteFile(remoteUser!.uid, path);
 		},
-		[storage]
+		[storage, remoteUser]
 	);
 
 	const deleteRemoteFiles = useCallback(
@@ -96,7 +123,7 @@ const useRemoteMedia = (remoteUser?: RemoteUser) => {
 				})
 			).then(() => callback());
 		},
-		[]
+		[remoteUser, deleteSingleFile, deleteDir]
 	);
 
 	const createFolder = useCallback(
@@ -153,7 +180,13 @@ const useRemoteMedia = (remoteUser?: RemoteUser) => {
 		[storage, remoteUser]
 	);
 
-	return { uploadRemoteMedia, deleteRemoteFiles, createFolder, getRemoteMedia };
+	return {
+		remoteMedia,
+		uploadRemoteMedia,
+		deleteRemoteFiles,
+		createFolder,
+		getRemoteMedia,
+	};
 };
 
 export default useRemoteMedia;
