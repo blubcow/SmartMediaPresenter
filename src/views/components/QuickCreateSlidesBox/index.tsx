@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
 	Slide,
 	MediaRessource,
@@ -23,6 +23,26 @@ const QuickCreateSlidesBox: React.FC<IQuickCreateSlidesBoxProps> = (props) => {
 
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
 	const classes = useStyles();
+
+	useEffect(() => {
+		const handleKeyPress = (e: KeyboardEvent) => {
+			if (e.key === 'Backspace') {
+				const newSlides = slides
+					.filter((slide) => slide.id !== currentSlide)
+					.map((slide) =>
+						slide.id > currentSlide ? { ...slide, id: slide.id - 1 } : slide
+					);
+				if (newSlides.length === 0) newSlides.push(getEmptySlide());
+				setCurrentSlide(
+					Math.min(newSlides.length - 1, Math.max(currentSlide, 0))
+				);
+				onSlidesDidChange(newSlides);
+			}
+		};
+		document.addEventListener('keydown', handleKeyPress);
+
+		return () => document.removeEventListener('keydown', handleKeyPress);
+	}, [slides, currentSlide]);
 
 	const fillColumnWithDroppedMedia = (
 		column: number,
