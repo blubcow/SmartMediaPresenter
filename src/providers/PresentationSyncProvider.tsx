@@ -24,6 +24,7 @@ import useUserSettingsContext from '../hooks/useUserSettingsContext';
 import useConnectivityContext from '../hooks/useConnectivityContext';
 import useRemoteMedia from '../hooks/useRemoteMedia';
 import usePresentationSyncing from '../hooks/usePresentationSyncing';
+import { clear } from 'console';
 const { ipcRenderer } = window.require('electron');
 export const PresentationSyncContext = createContext({});
 
@@ -33,7 +34,6 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 	const { remoteUser, userLoggedIn } = useRemoteUserContext();
 	const { connected } = useConnectivityContext();
 
-	const [presProgess, setProgress] = useState<Map<number, number>>(new Map());
 	const [downloadingPresentations, setDownloadingPresentations] = useState<
 		string[]
 	>([]);
@@ -69,8 +69,8 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 		getRemotePresentationsFromSyncPaper,
 		addToLocalSyncingQueue,
 		localSyncingQueue,
-		clearSyncPpaer,
-		clearSyncingQueue,
+		clear,
+		presProgess,
 	} = usePresentationSyncing(connected, remoteUser);
 
 	const [storedPresentations, setStoredPresentations] = useState<
@@ -83,9 +83,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				setSyncingAvailable(userLoggedIn && connected);
 			});
 		} else {
-			setProgress(new Map());
-			clearSyncPpaer();
-			clearSyncingQueue();
+			clear();
 			setSyncingAvailable(false);
 		}
 	}, [remoteUser, userLoggedIn, connected]);

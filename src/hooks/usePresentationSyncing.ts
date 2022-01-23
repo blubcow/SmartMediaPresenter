@@ -21,6 +21,7 @@ const usePresentationSyncing = (
 	const [localSyncingQueue, setLocalSyncingQueue] = useState<
 		LocalSyncPresentationItem[]
 	>([]);
+	const [presProgess, setProgress] = useState<Map<number, number>>(new Map());
 
 	const getRemotePresentationsFromSyncPaper = useCallback(
 		(callback?: () => void) => {
@@ -43,8 +44,10 @@ const usePresentationSyncing = (
 		[remoteUser, connected]
 	);
 
-	const clearSyncPpaer = useCallback(() => {
+	const clear = useCallback(() => {
 		setSyncPaper(new Map());
+		setLocalSyncingQueue([]);
+		setProgress(new Map());
 	}, []);
 
 	const addToLocalSyncingQueue = (
@@ -137,17 +140,13 @@ const usePresentationSyncing = (
 		);
 	};
 
-	const clearSyncingQueue = useCallback(() => {
-		setLocalSyncingQueue([]);
-	}, []);
-
 	return {
 		syncPaper,
 		localSyncingQueue,
 		addToLocalSyncingQueue,
 		getRemotePresentationsFromSyncPaper,
-		clearSyncPpaer,
-		clearSyncingQueue,
+		clear,
+		presProgess,
 	};
 };
 
