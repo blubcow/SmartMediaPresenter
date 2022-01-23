@@ -117,17 +117,16 @@ const QuickCreateSlidesBox: React.FC<IQuickCreateSlidesBoxProps> = (props) => {
 			<Box className={classes.slideScrollingContainer}>
 				<HeaderRow
 					onSlideAdded={() => {
-						const newSlide = {
-							id: slides.length,
-							columns: 2,
-							rows: 1,
-							media: [
-								{ id: 0, location: {} },
-								{ id: 1, location: {} },
-							],
-						};
-						onSlidesDidChange([...slides, newSlide]);
-						setCurrentSlide(slides.length);
+						const newSlides = slides.map((slide) =>
+							slide.id > currentSlide ? { ...slide, id: slide.id + 1 } : slide
+						);
+						newSlides.splice(
+							currentSlide + 1,
+							0,
+							getEmptySlide(currentSlide + 1)
+						);
+						onSlidesDidChange(newSlides);
+						setCurrentSlide(currentSlide + 1);
 					}}
 				/>
 				{multiInsertionEnabled ? (
