@@ -21,6 +21,7 @@ const usePresentationCacheContext = () => {
 			remoteId?: string,
 			presentation?: SinglePresentation
 		) => void;
+		updatePresentation: (id: number | string, pres: SinglePresentation) => void;
 	};
 
 	if (context === undefined)

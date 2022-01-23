@@ -11,6 +11,7 @@ import PresentationEditingProvider from '../../providers/PresentationEditingProv
 import PresentationEditingFloatingButtons from '../components/PresentationEditingFloatingButtons';
 import PresentationEditingPreviewRows from '../components/PresentationEditingPreviewRows';
 import LoadingIndicatorPaper from '../components/LoadingIndicatorPaper';
+import usePresentationCacheContext from '../../hooks/usePresentationCacheContext';
 
 const Edit: React.FC<{}> = (props) => {
 	const [id, setId] = useState<string>('');
@@ -18,6 +19,7 @@ const Edit: React.FC<{}> = (props) => {
 	const { storedPresentation, saveChanges } = useSinglePresentation(
 		parseInt(id)
 	);
+	const { updatePresentation } = usePresentationCacheContext();
 	const classes = useStyles();
 
 	useEffect(() => {
@@ -34,6 +36,7 @@ const Edit: React.FC<{}> = (props) => {
 				<PresentationEditingFloatingButtons
 					onSave={(pres) => {
 						saveChanges(pres);
+						updatePresentation(parseInt(id), pres);
 					}}
 				/>
 				<Box className={classes.container}>

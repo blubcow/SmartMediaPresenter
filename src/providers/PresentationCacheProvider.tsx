@@ -115,6 +115,25 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 		[]
 	);
 
+	const updatePresentation = (id: number, pres: SinglePresentation) => {
+		if (cachedPresentations.get(id) === undefined) return;
+
+		const newCache: Map<
+			number | string,
+			{
+				presentation: SinglePresentation;
+				imgs: HTMLImageElement[];
+				loading: boolean;
+				success: boolean;
+				failed?: number;
+			}
+			// @ts-ignore
+		> = new Map([...cachedPresentations]);
+
+		newCache.set(id, { ...cachedPresentations.get(id)!, presentation: pres });
+		setCachedPresentations(newCache);
+	};
+
 	const changeCurrentPresentation = (
 		id?: number,
 		remoteId?: string,
@@ -140,6 +159,7 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 				currentRemotePresentationId: currentRemotePresentationId,
 				cachedPresentations: cachedPresentations,
 				changeCurrentPresentation: changeCurrentPresentation,
+				updatePresentation: updatePresentation,
 			}}
 		>
 			{children}
