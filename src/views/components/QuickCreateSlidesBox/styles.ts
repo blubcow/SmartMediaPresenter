@@ -22,6 +22,7 @@ export default makeStyles((theme: Theme) =>
 			flexDirection: 'column',
 			overflowY: 'scroll',
 			alignItems: 'center',
+			paddingBottom: theme.spacing(2),
 		},
 	})
 );
