@@ -72,7 +72,7 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 			const promises = await presentation.slides.flatMap((slide) => {
 				if (!slide.media) return;
 				return slide.media.map((media) => {
-					return new Promise((resolve, reject) => {
+					return new Promise((resolve) => {
 						if (!media.location?.local && !media.location?.remote) {
 							resolve('no media src present');
 							return;

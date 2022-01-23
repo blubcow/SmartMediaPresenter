@@ -13,7 +13,7 @@ const createWindow = () => {
 			// preload: __dirname + '/../preload.js',
 			nodeIntegration: true,
 			contextIsolation: false,
-			webSecurity: !app.isPackaged,
+			webSecurity: app.isPackaged,
 		},
 		autoHideMenuBar: true,
 	});
