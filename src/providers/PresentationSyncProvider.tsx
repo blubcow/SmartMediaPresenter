@@ -10,13 +10,9 @@ import { useTranslation } from 'react-i18next';
 import useRemoteUserContext from '../hooks/useRemoteUserContext';
 import { i18nNamespace } from '../i18n/i18n';
 import { database } from '../models/firebase';
-import {
-	SinglePresentation,
-	StoredPresentation,
-} from '../shared/types/presentation';
+import { SinglePresentation } from '../shared/types/presentation';
 import { Box, Text } from '../smpUI/components';
 import { SyncableStoredPresentation } from '../types/presentaitonSycncing';
-import { MainProcessMethodIdentifiers } from '../shared/types/identifiers';
 import { useStoredPresentations } from '../hooks/useMainProcessMethods';
 import { useWorkspace } from '../hooks/useMainProcessMethods';
 import ImportLocalPresentationsModal from '../views/components/modals/ImportLocalPresentationsModal';
@@ -24,8 +20,6 @@ import useUserSettingsContext from '../hooks/useUserSettingsContext';
 import useConnectivityContext from '../hooks/useConnectivityContext';
 import useRemoteMedia from '../hooks/useRemoteMedia';
 import usePresentationSyncing from '../hooks/usePresentationSyncing';
-import { clear } from 'console';
-const { ipcRenderer } = window.require('electron');
 export const PresentationSyncContext = createContext({});
 
 const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
@@ -108,40 +102,43 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 					getRemotePresentationsFromSyncPaper();
 				});
 		},
-		[remoteUser]
+		[remoteUser, database, connected]
 	);
 
-	const sortStoredPresentations = (
-		storedPresentations: SyncableStoredPresentation[]
-	): SyncableStoredPresentation[] => {
-		return storedPresentations.sort((a, b) => {
-			if (a.created === undefined && b.created === undefined) {
-				return b.remoteUpdate! > a.remoteUpdate! ? 1 : -1;
-			} else if (a.created === undefined) {
-				return b.created! > a.remoteUpdate! ? 1 : -1;
-			} else if (b.created === undefined) {
-				return b.remoteUpdate! > a.created! ? 1 : -1;
-			}
+	const sortStoredPresentations = useCallback(
+		(
+			storedPresentations: SyncableStoredPresentation[]
+		): SyncableStoredPresentation[] => {
+			return storedPresentations.sort((a, b) => {
+				if (a.created === undefined && b.created === undefined) {
+					return b.remoteUpdate! > a.remoteUpdate! ? 1 : -1;
+				} else if (a.created === undefined) {
+					return b.created! > a.remoteUpdate! ? 1 : -1;
+				} else if (b.created === undefined) {
+					return b.remoteUpdate! > a.created! ? 1 : -1;
+				}
 
-			return b.created! > a.created! ? 1 : -1;
-		});
-	};
+				return b.created! > a.created! ? 1 : -1;
+			});
+		},
+		[]
+	);
 
-	const retrieveRemotePresentationOnce = (
-		remoteId: string,
-		callback: (pres: SinglePresentation) => void
-	) => {
-		if (!syncingAvailable) return;
+	const retrieveRemotePresentationOnce = useCallback(
+		(remoteId: string, callback: (pres: SinglePresentation) => void) => {
+			if (!syncingAvailable) return;
 
-		if (connected)
-			database
-				.getRemotePresentation(remoteUser!.uid, remoteId)
-				.then((snapshot) => {
-					if (snapshot.exists()) {
-						callback(snapshot.val() as SinglePresentation);
-					}
-				});
-	};
+			if (connected)
+				database
+					.getRemotePresentation(remoteUser!.uid, remoteId)
+					.then((snapshot) => {
+						if (snapshot.exists()) {
+							callback(snapshot.val() as SinglePresentation);
+						}
+					});
+		},
+		[database]
+	);
 
 	useEffect(() => {
 		const remotePresentations = Array.from(syncPaper.values());
