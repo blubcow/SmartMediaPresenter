@@ -27,7 +27,6 @@
     "react-redux": "^7.2.5",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
-    "typescript": "^4.1.2",
     "web-vitals": "^1.0.1",
     "xlsx": "^0.17.4"
   },
@@ -82,6 +81,7 @@
     "@types/react-edit-text": "^4.0.1",
     "@types/react-lazy-load-image-component": "^1.5.2",
     "@types/react-router-dom": "^5.3.1",
+    "typescript": "^4.1.2",
     "concurrently": "^6.3.0",
     "cross-env": "^7.0.3",
     "electron": "^15.2.0",
