@@ -1,6 +1,6 @@
 <br/>
 <p align="center">
-  <img src="./public/resources/icon.png" />
+  <img src="./public/resources/icon.png" height='200' width='200' />
 </p>
 <h1 align="center" >
     Smart Media Presenter
@@ -29,3 +29,5 @@ The Smart Media Presenter was developed as an open source desktop application in
 ## Authors
 
 - [@lksjgr](https://www.github.com/lksjgr)
+
+## Supervisor
