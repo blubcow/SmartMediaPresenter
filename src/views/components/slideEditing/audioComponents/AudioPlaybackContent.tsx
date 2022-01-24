@@ -12,7 +12,6 @@ import { PresentationEditingActionIdentifiers } from '../../../../types/identifi
 
 interface IAudioPlaybackContentProps {}
 
-//TODO: fix audio files with duration of less than 1 second display flawed bug
 const AudioPlaybackContent: React.FC<IAudioPlaybackContentProps> = (props) => {
 	const { state, dispatch } = usePresentationEditingContext();
 	const { presentation, currentSlide } = state;

@@ -176,9 +176,7 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 							if (activateMedia) activateMedia(id);
 						}}
 						onBlur={(e) => {
-							// TODO: take focus if the condition matches
 							if (e.relatedTarget?.id === 'mediaOrSlideEditing') {
-								// e.target.focus();
 								return;
 							}
 							if (onMediaSelectionBlur) onMediaSelectionBlur();

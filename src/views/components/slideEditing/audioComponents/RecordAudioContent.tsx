@@ -10,8 +10,6 @@ const RecordAudioContent: React.FC<IRecordAudioContentProps> = (props) => {
 	const { state, dispatch } = usePresentationEditingContext();
 	const { presentationId, presentation, currentSlide } = state;
 
-	//TODO: fix remove audio also removes playback time bug
-
 	return (
 		<Box sx={{ padding: 2 }}>
 			<AudioRecorder

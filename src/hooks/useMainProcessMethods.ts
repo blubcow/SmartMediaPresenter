@@ -22,71 +22,79 @@ export const useStoredPresentations = () => {
 				r.presentations.sort((f, s) => (f.created < s.created ? 1 : -1));
 				setPresentations([...r.presentations]);
 			});
-	}, []);
+	}, [ipcRenderer]);
 
 	useEffect(() => {
 		loadPresentations();
 	}, []);
 
-	const retrieveSinglePresentationOnce = (
-		id: number,
-		callback: (presentation: SinglePresentation) => void
-	) => {
-		if (isNaN(id)) return;
-		ipcRenderer
-			.invoke(MainProcessMethodIdentifiers.GetSinglePresentation, id)
-			.then((r: SinglePresentation) => {
-				callback(r);
+	const retrieveSinglePresentationOnce = useCallback(
+		(id: number, callback: (presentation: SinglePresentation) => void) => {
+			if (isNaN(id)) return;
+			ipcRenderer
+				.invoke(MainProcessMethodIdentifiers.GetSinglePresentation, id)
+				.then((r: SinglePresentation) => {
+					callback(r);
+				});
+		},
+		[ipcRenderer]
+	);
+
+	const createPresentation = useCallback(
+		(
+			callback: (id: number) => any,
+			pres?: SinglePresentation,
+			created?: number
+		) => {
+			ipcRenderer
+				.invoke(MainProcessMethodIdentifiers.CreatePresentation, pres, created)
+				.then((r: StoredPresentation) => {
+					setPresentations([...presentations, r]);
+					callback(r.id);
+				});
+		},
+		[ipcRenderer]
+	);
+
+	const createQuickCreatePresentation = useCallback(
+		(name: string, slides: Slide[], callback: (id: number) => any) => {
+			ipcRenderer
+				.invoke(
+					MainProcessMethodIdentifiers.CreateQuickCreatePresentation,
+					name,
+					slides
+				)
+				.then((r: StoredPresentation) => {
+					setPresentations([...presentations, r]);
+					callback(r.id);
+				});
+		},
+		[ipcRenderer, setPresentations]
+	);
+
+	const removeSinglePresentation = useCallback(
+		(id: number) => {
+			ipcRenderer.invoke(
+				MainProcessMethodIdentifiers.deleteSinglePresentation,
+				id
+			);
+			const filteredPres = [...presentations].filter((pres) => {
+				return pres.id !== id;
 			});
-	};
+			setPresentations(filteredPres);
+		},
+		[ipcRenderer, setPresentations, presentations]
+	);
 
-	const createPresentation = (
-		callback: (id: number) => any,
-		pres?: SinglePresentation,
-		created?: number
-	) => {
-		ipcRenderer
-			.invoke(MainProcessMethodIdentifiers.CreatePresentation, pres, created)
-			.then((r: StoredPresentation) => {
-				setPresentations([...presentations, r]);
-				callback(r.id);
-			});
-	};
-
-	const createQuickCreatePresentation = (
-		name: string,
-		slides: Slide[],
-		callback: (id: number) => any
-	) => {
-		ipcRenderer
-			.invoke(
-				MainProcessMethodIdentifiers.CreateQuickCreatePresentation,
-				name,
-				slides
-			)
-			.then((r: StoredPresentation) => {
-				setPresentations([...presentations, r]);
-				callback(r.id);
-			});
-	};
-
-	const removeSinglePresentation = (id: number) => {
-		ipcRenderer.invoke(
-			MainProcessMethodIdentifiers.deleteSinglePresentation,
-			id
-		);
-		const filteredPres = [...presentations].filter((pres) => {
-			return pres.id !== id;
-		});
-		setPresentations(filteredPres);
-	};
-
-	const removeRemoteAttributesFromPresentation = useCallback((id: number) => {
-		ipcRenderer.invoke(
-			MainProcessMethodIdentifiers.removeRemoteAttributesFromPresentation,
-			id
-		);
-	}, []);
+	const removeRemoteAttributesFromPresentation = useCallback(
+		(id: number) => {
+			ipcRenderer.invoke(
+				MainProcessMethodIdentifiers.removeRemoteAttributesFromPresentation,
+				id
+			);
+		},
+		[ipcRenderer]
+	);
 
 	return {
 		retrieveSinglePresentationOnce,
@@ -116,63 +124,78 @@ export const useSinglePresentation = (id: number) => {
 			});
 	}, [id]);
 
-	const saveChanges = (file: Partial<SinglePresentation>) => {
-		ipcRenderer
-			.invoke(
-				MainProcessMethodIdentifiers.SaveChangesToPresentation,
-				presentationId,
-				file
-			)
-			.then((r: SinglePresentation) => {
-				setStroedPresentation(r);
-			});
-	};
+	const saveChanges = useCallback(
+		(file: Partial<SinglePresentation>) => {
+			ipcRenderer
+				.invoke(
+					MainProcessMethodIdentifiers.SaveChangesToPresentation,
+					presentationId,
+					file
+				)
+				.then((r: SinglePresentation) => {
+					setStroedPresentation(r);
+				});
+		},
+		[ipcRenderer, setStroedPresentation, presentationId]
+	);
 
 	return { storedPresentation, saveChanges };
 };
 
 export const useLocalFileSystem = () => {
-	const getFilesInDir = async (path: string) => {
-		const filesInDir = await ipcRenderer.invoke(
-			MainProcessMethodIdentifiers.LoadFilesFromDirectory,
-			path
-		);
-		return filesInDir;
-	};
+	const getFilesInDir = useCallback(
+		async (path: string) => {
+			const filesInDir = await ipcRenderer.invoke(
+				MainProcessMethodIdentifiers.LoadFilesFromDirectory,
+				path
+			);
+			return filesInDir;
+		},
+		[ipcRenderer]
+	);
 
-	const openFileSelectorDialog = async (type: FileExplorerType) => {
-		const files = await ipcRenderer.invoke(
-			MainProcessMethodIdentifiers.OpenFileSelectorDialog,
-			type
-		);
-		return files;
-	};
+	const openFileSelectorDialog = useCallback(
+		async (type: FileExplorerType) => {
+			const files = await ipcRenderer.invoke(
+				MainProcessMethodIdentifiers.OpenFileSelectorDialog,
+				type
+			);
+			return files;
+		},
+		[ipcRenderer]
+	);
 
-	const openSaveFileDialog = async (
-		title: string,
-		presentation: SinglePresentation
-	) => {
-		ipcRenderer.invoke(
-			MainProcessMethodIdentifiers.openSavePresentationDialog,
-			title,
-			presentation
-		);
-	};
+	const openSaveFileDialog = useCallback(
+		async (title: string, presentation: SinglePresentation) => {
+			ipcRenderer.invoke(
+				MainProcessMethodIdentifiers.openSavePresentationDialog,
+				title,
+				presentation
+			);
+		},
+		[ipcRenderer]
+	);
 
-	const importPresentationFromFileSystem = async (path: string) => {
-		const pres = (await ipcRenderer.invoke(
-			MainProcessMethodIdentifiers.importPresentationFromFS,
-			path
-		)) as SinglePresentation;
-		return pres;
-	};
+	const importPresentationFromFileSystem = useCallback(
+		async (path: string) => {
+			const pres = (await ipcRenderer.invoke(
+				MainProcessMethodIdentifiers.importPresentationFromFS,
+				path
+			)) as SinglePresentation;
+			return pres;
+		},
+		[ipcRenderer]
+	);
 
-	const retriveFullFile = async (path: string) => {
-		return await ipcRenderer.invoke(
-			MainProcessMethodIdentifiers.retriveFullFile,
-			path
-		);
-	};
+	const retriveFullFile = useCallback(
+		async (path: string) => {
+			return await ipcRenderer.invoke(
+				MainProcessMethodIdentifiers.retriveFullFile,
+				path
+			);
+		},
+		[ipcRenderer]
+	);
 
 	return {
 		getFilesInDir,
@@ -184,26 +207,24 @@ export const useLocalFileSystem = () => {
 };
 
 export const useDisplays = () => {
-	const displaysAvailable = async () => {
+	const displaysAvailable = useCallback(async () => {
 		return await ipcRenderer.invoke(
 			MainProcessMethodIdentifiers.DisplaysAvailable
 		);
-	};
+	}, [ipcRenderer]);
 
-	const startPresentationMode = async (
-		slide: number,
-		id?: number,
-		remoteId?: string,
-		display?: number
-	) => {
-		ipcRenderer.invoke(
-			MainProcessMethodIdentifiers.StartPresenterMode,
-			slide,
-			id,
-			remoteId,
-			display
-		);
-	};
+	const startPresentationMode = useCallback(
+		async (slide: number, id?: number, remoteId?: string, display?: number) => {
+			ipcRenderer.invoke(
+				MainProcessMethodIdentifiers.StartPresenterMode,
+				slide,
+				id,
+				remoteId,
+				display
+			);
+		},
+		[ipcRenderer]
+	);
 
 	return { displaysAvailable, startPresentationMode };
 };
@@ -229,9 +250,9 @@ export const usePresentationMode = (startingSlide: number) => {
 		};
 	}, []);
 
-	const terminatePresentationMode = () => {
+	const terminatePresentationMode = useCallback(() => {
 		ipcRenderer.invoke(MainProcessMethodIdentifiers.EndPresenterMode);
-	};
+	}, [ipcRenderer]);
 
 	return {
 		slideNumber,
@@ -242,14 +263,17 @@ export const usePresentationMode = (startingSlide: number) => {
 };
 
 export const useAudioStore = () => {
-	const storeAudio = async (id: number, buffer: Buffer) => {
-		const path = await ipcRenderer.invoke(
-			MainProcessMethodIdentifiers.storeAudioFile,
-			id,
-			buffer
-		);
-		return path;
-	};
+	const storeAudio = useCallback(
+		async (id: number, buffer: Buffer) => {
+			const path = await ipcRenderer.invoke(
+				MainProcessMethodIdentifiers.storeAudioFile,
+				id,
+				buffer
+			);
+			return path;
+		},
+		[ipcRenderer]
+	);
 
 	return { storeAudio };
 };
@@ -275,16 +299,22 @@ export const useUserSettings = () => {
 		reloadUserSettings();
 	}, []);
 
-	const saveUserSettings = (settings: UserSettings) => {
-		ipcRenderer.invoke(MainProcessMethodIdentifiers.saveUserSettings, settings);
-		setUserSettings(settings);
-	};
+	const saveUserSettings = useCallback(
+		(settings: UserSettings) => {
+			ipcRenderer.invoke(
+				MainProcessMethodIdentifiers.saveUserSettings,
+				settings
+			);
+			setUserSettings(settings);
+		},
+		[ipcRenderer, setUserSettings]
+	);
 
 	const reloadUserSettings = useCallback(() => {
 		ipcRenderer
 			.invoke(MainProcessMethodIdentifiers.getUserSettings)
 			.then((r: UserSettings) => setUserSettings(r));
-	}, []);
+	}, [ipcRenderer, setUserSettings]);
 
 	return { userSettings, saveUserSettings, reloadUserSettings };
 };
@@ -304,16 +334,19 @@ export const useWorkspace = () => {
 					);
 				});
 		},
-		[]
+		[ipcRenderer]
 	);
 
-	const importLocalPresentations = useCallback(async (callback: () => void) => {
-		ipcRenderer
-			.invoke(
-				MainProcessMethodIdentifiers.importLocalPresentationsIntoWorkspace
-			)
-			.then((_: any) => callback());
-	}, []);
+	const importLocalPresentations = useCallback(
+		async (callback: () => void) => {
+			ipcRenderer
+				.invoke(
+					MainProcessMethodIdentifiers.importLocalPresentationsIntoWorkspace
+				)
+				.then((_: any) => callback());
+		},
+		[ipcRenderer]
+	);
 
 	return { changeCurrentWorkspace, importLocalPresentations };
 };

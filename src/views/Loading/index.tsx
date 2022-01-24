@@ -16,7 +16,6 @@ const LoadingPage: React.FC<{}> = () => {
 			history.push(SMPRoutes.Login);
 			return;
 		} else {
-			// TODO: sync usersettings whit remote settings and load remotley available presentations
 			history.push(SMPRoutes.Home);
 		}
 	}, [history, remoteUser, userLoggedIn]);

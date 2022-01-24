@@ -102,7 +102,13 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 					getRemotePresentationsFromSyncPaper();
 				});
 		},
-		[remoteUser, database, connected]
+		[
+			remoteUser,
+			database,
+			connected,
+			getRemotePresentationsFromSyncPaper,
+			reloadPresentations,
+		]
 	);
 
 	const sortStoredPresentations = useCallback(
@@ -137,8 +143,12 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 						}
 					});
 		},
-		[database]
+		[database, remoteUser, syncingAvailable, connected]
 	);
+
+	const presentationDidUpdate = useCallback(() => {
+		reloadPresentations();
+	}, [reloadPresentations]);
 
 	useEffect(() => {
 		const remotePresentations = Array.from(syncPaper.values());
@@ -202,6 +212,7 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				deleteRemotePresentation: deleteRemotePresentation,
 				removeRemoteAttributesFromPresentation:
 					removeRemoteAttributesFromPresentation,
+				presentationDidUpdate: presentationDidUpdate,
 			}}
 		>
 			<Box

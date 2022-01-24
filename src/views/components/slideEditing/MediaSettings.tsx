@@ -1,5 +1,4 @@
 import React from 'react';
-import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import { Box } from '../../../smpUI/components';
 import AlignMediaButton from './AlignMediaButton';
 import CropButton from './CropButton';
@@ -13,7 +12,6 @@ import { useSettingsContainerStyles } from './styles';
 interface IMediaSettingsProps {}
 
 const MediaSettings: React.FC<IMediaSettingsProps> = (props) => {
-	const { state } = usePresentationEditingContext();
 	const classes = useSettingsContainerStyles();
 
 	return (

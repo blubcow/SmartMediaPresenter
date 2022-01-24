@@ -25,7 +25,6 @@ const TopBarDisplayingFilename: React.FC<ITopBarDisplayingFilenameProps> = (
 					padding: 2,
 				}}
 			>
-				{/* TODO: show error notification on invalid input */}
 				<Text
 					style={{ minWidth: '25%' }}
 					fontWeight='bold'

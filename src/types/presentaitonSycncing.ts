@@ -48,6 +48,7 @@ export interface IPresentationSyncContext {
 		slides: Slide[],
 		callback: (id: number) => any
 	) => void;
+	presentationDidUpdate: () => void;
 }
 
 export type AddToLocalSyncingQueueHandler = (
