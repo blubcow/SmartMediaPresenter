@@ -10,6 +10,14 @@ import { SinglePresentation } from '../shared/types/presentation';
 
 export const PresentationCacheContext = createContext({});
 
+interface PresentationCacheValue {
+	presentation: SinglePresentation;
+	imgs: HTMLImageElement[];
+	loading: boolean;
+	success: boolean;
+	failed?: number;
+}
+
 const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 	children,
 }) => {
@@ -20,16 +28,7 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 	const [currentRemotePresentationId, setCurrentRemotePresentationId] =
 		useState<string | undefined>();
 	const [cachedPresentations, setCachedPresentations] = useState<
-		Map<
-			number | string,
-			{
-				presentation: SinglePresentation;
-				imgs: HTMLImageElement[];
-				loading: boolean;
-				success: boolean;
-				failed?: number;
-			}
-		>
+		Map<number | string, PresentationCacheValue>
 	>(new Map());
 
 	useEffect(() => {
@@ -120,13 +119,7 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 
 		const newCache: Map<
 			number | string,
-			{
-				presentation: SinglePresentation;
-				imgs: HTMLImageElement[];
-				loading: boolean;
-				success: boolean;
-				failed?: number;
-			}
+			PresentationCacheValue
 			// @ts-ignore
 		> = new Map([...cachedPresentations]);
 
@@ -135,14 +128,52 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 	};
 
 	const unselectLocalPresentation = () => {
+		if (currentPresentaitonId === undefined) return;
+
+		const val = cachedPresentations.get(currentPresentaitonId);
+
+		const newCache: Map<number | string, PresentationCacheValue> = new Map([
+			// @ts-ignore
+			...cachedPresentations,
+		]);
+		newCache.delete(currentPresentaitonId);
+		if (currentRemotePresentationId !== undefined && val)
+			newCache.set(currentRemotePresentationId, val);
+		setCachedPresentations(newCache);
+
 		setCurrentPresentationId(undefined);
 	};
 
 	const selectLocalPresentation = (id: number) => {
 		setCurrentPresentationId(id);
+
+		if (currentRemotePresentationId !== undefined) {
+			const val = cachedPresentations.get(currentRemotePresentationId);
+			if (val) {
+				const newCache: Map<number | string, PresentationCacheValue> = new Map([
+					// @ts-ignore
+					...cachedPresentations,
+				]);
+				newCache.delete(currentRemotePresentationId);
+				newCache.set(id, val);
+				setCachedPresentations(newCache);
+			}
+		}
 	};
 
 	const unselectRemotePresentation = () => {
+		if (currentRemotePresentationId === undefined) return;
+
+		const val = cachedPresentations.get(currentRemotePresentationId);
+		const newCache: Map<number | string, PresentationCacheValue> = new Map([
+			// @ts-ignore
+			...cachedPresentations,
+		]);
+		newCache.delete(currentRemotePresentationId);
+		if (currentPresentaitonId !== undefined && val)
+			newCache.set(currentRemotePresentationId, val);
+		setCachedPresentations(newCache);
+
 		setCurrentRemotePresentationId(undefined);
 	};
 

@@ -443,7 +443,6 @@ export const registerMainProcessMethodHandlers = (
 				y: display.bounds.y + 50,
 				fullscreen: true,
 				webPreferences: {
-					// preload: __dirname + '/../preload.js',
 					nodeIntegration: true,
 					contextIsolation: false,
 					webSecurity: app.isPackaged,

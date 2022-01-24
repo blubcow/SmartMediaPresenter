@@ -33,10 +33,6 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 }) => {
 	const { remoteUser, userLoggedIn } = useRemoteUserContext();
 	const { connected } = useConnectivityContext();
-
-	const [downloadingPresentations, setDownloadingPresentations] = useState<
-		string[]
-	>([]);
 	const [syncingAvailable, setSyncingAvailable] = useState<boolean>(false);
 
 	const [importPresentationsOpen, setImportPresentationOpen] =
@@ -71,6 +67,8 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 		localSyncingQueue,
 		clear,
 		presProgess,
+		downloadAndUpdateLocalPresentation,
+		downloadingPresentations,
 	} = usePresentationSyncing(connected, remoteUser);
 
 	const [storedPresentations, setStoredPresentations] = useState<
@@ -145,54 +143,6 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				});
 	};
 
-	const downloadAndUpdateLocalPresentation = (
-		remoteId: string,
-		callback?: (id: number) => void
-	) => {
-		if (remoteUser === undefined) return;
-		setDownloadingPresentations((curr) => [...curr, remoteId]);
-		if (connected)
-			database
-				.getRemotePresentation(remoteUser.uid, remoteId)
-				.then((snapshot) => {
-					if (snapshot.exists()) {
-						const remotePresentation = snapshot.val() as SinglePresentation;
-						const id = presentations.find(
-							(pres) => pres.remoteId === remoteId
-						)?.id;
-						if (id === undefined) {
-							ipcRenderer
-								.invoke(
-									MainProcessMethodIdentifiers.CreatePresentation,
-									remotePresentation,
-									remotePresentation.remoteUpdate
-								)
-								.then((storedPres: StoredPresentation) => {
-									setDownloadingPresentations((curr) =>
-										curr.filter((id) => id !== remoteId)
-									);
-									reloadPresentations();
-									if (callback) callback(storedPres.id);
-								});
-						} else {
-							ipcRenderer
-								.invoke(
-									MainProcessMethodIdentifiers.SaveChangesToPresentation,
-									id,
-									remotePresentation,
-									remotePresentation.remoteUpdate
-								)
-								.then((_: any) => {
-									setDownloadingPresentations((curr) =>
-										curr.filter((id) => id !== remoteId)
-									);
-									reloadPresentations();
-								});
-						}
-					}
-				});
-	};
-
 	useEffect(() => {
 		const remotePresentations = Array.from(syncPaper.values());
 		const p = sortStoredPresentations([
@@ -239,7 +189,14 @@ const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 				syncPaper: syncPaper,
 				syncingAvailable: syncingAvailable,
 				retrieveRemotePresentationOnce: retrieveRemotePresentationOnce,
-				downloadAndUpdateLocalPresentation: downloadAndUpdateLocalPresentation,
+				downloadAndUpdateLocalPresentation: (
+					remoteId: string,
+					callback?: (id: number) => void
+				) =>
+					downloadAndUpdateLocalPresentation(remoteId, presentations, (id) => {
+						if (callback) callback(id);
+						reloadPresentations();
+					}),
 				downloadingPresentations: downloadingPresentations,
 				getRemoteMedia: getRemoteMedia,
 				createFolder: createFolder,

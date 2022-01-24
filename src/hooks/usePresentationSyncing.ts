@@ -2,7 +2,10 @@ import { useState, useEffect, useCallback } from 'react';
 import { database } from '../models/firebase';
 import { syncLocalPresentation } from '../models/PresentationSyncer';
 import { MainProcessMethodIdentifiers } from '../shared/types/identifiers';
-import { SinglePresentation } from '../shared/types/presentation';
+import {
+	SinglePresentation,
+	StoredPresentation,
+} from '../shared/types/presentation';
 import {
 	LocalSyncPresentationItem,
 	RemotelyAvailableMedia,
@@ -22,6 +25,9 @@ const usePresentationSyncing = (
 		LocalSyncPresentationItem[]
 	>([]);
 	const [presProgess, setProgress] = useState<Map<number, number>>(new Map());
+	const [downloadingPresentations, setDownloadingPresentations] = useState<
+		string[]
+	>([]);
 
 	const getRemotePresentationsFromSyncPaper = useCallback(
 		(callback?: () => void) => {
@@ -140,6 +146,57 @@ const usePresentationSyncing = (
 		);
 	};
 
+	const downloadAndUpdateLocalPresentation = useCallback(
+		(
+			remoteId: string,
+			presentations: StoredPresentation[],
+			callback: (id: number) => void
+		) => {
+			if (remoteUser === undefined) return;
+			setDownloadingPresentations((curr) => [...curr, remoteId]);
+			if (connected)
+				database
+					.getRemotePresentation(remoteUser.uid, remoteId)
+					.then((snapshot) => {
+						if (snapshot.exists()) {
+							const remotePresentation = snapshot.val() as SinglePresentation;
+							const id = presentations.find(
+								(pres) => pres.remoteId === remoteId
+							)?.id;
+							if (id === undefined) {
+								ipcRenderer
+									.invoke(
+										MainProcessMethodIdentifiers.CreatePresentation,
+										remotePresentation,
+										remotePresentation.remoteUpdate
+									)
+									.then((storedPres: StoredPresentation) => {
+										setDownloadingPresentations((curr) =>
+											curr.filter((id) => id !== remoteId)
+										);
+										callback(storedPres.id);
+									});
+							} else {
+								ipcRenderer
+									.invoke(
+										MainProcessMethodIdentifiers.SaveChangesToPresentation,
+										id,
+										remotePresentation,
+										remotePresentation.remoteUpdate
+									)
+									.then((_: any) => {
+										setDownloadingPresentations((curr) =>
+											curr.filter((id) => id !== remoteId)
+										);
+										callback(id);
+									});
+							}
+						}
+					});
+		},
+		[remoteUser, database, connected, setDownloadingPresentations, ipcRenderer]
+	);
+
 	return {
 		syncPaper,
 		localSyncingQueue,
@@ -147,6 +204,8 @@ const usePresentationSyncing = (
 		getRemotePresentationsFromSyncPaper,
 		clear,
 		presProgess,
+		downloadAndUpdateLocalPresentation,
+		downloadingPresentations,
 	};
 };
 

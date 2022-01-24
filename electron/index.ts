@@ -10,7 +10,6 @@ const createWindow = () => {
 		minWidth: 1200,
 		minHeight: 600,
 		webPreferences: {
-			// preload: __dirname + '/../preload.js',
 			nodeIntegration: true,
 			contextIsolation: false,
 			webSecurity: app.isPackaged,
