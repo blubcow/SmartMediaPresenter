@@ -37,4 +37,4 @@ The Smart Media Presenter was developed as an open source desktop application in
 
 ## Supervisor
 
-- Univ.-Prof. Dipl.-Ing. Dr. Erich Schikuta - erich.schikuta@univie.ac.at
+- [Univ.-Prof. Dipl.-Ing. Dr. Erich Schikuta](mailto:erich.schikuta@univie.ac.at)
