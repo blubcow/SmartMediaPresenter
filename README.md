@@ -10,7 +10,7 @@
 
 ## Description
 
-The Smart Media Presenter was developed as an open source desktop application in the process of a Bachelor Thesis. It was built using TypeScript, Electron.js, React.js, MaterialUI and Firebase.
+The Smart Media Presenter was developed as an open source desktop application in the process of a Bachelor Thesis. It was built using TypeScript, Electron.js, React.js, MaterialUI and Firebase. The application focuses on the creation of slide shows for panoramic photos consiting of multiple images. Presentations can be created, edited, presented and synced to the cloud.
 
 <p align="center">
   <img src="./public/resources/home-screenshot.png" width='500' />
@@ -31,8 +31,10 @@ The Smart Media Presenter was developed as an open source desktop application in
 - `npm run dev` will start the desktop application in dev mode. Make sure port 3000 is not occupied by any other process.
 - `npm run dist` will package the application and create an executable for the operating system you are on
 
-## Authors
+## Author
 
 - [@lksjgr](https://www.github.com/lksjgr)
 
 ## Supervisor
+
+- Univ.-Prof. Dipl.-Ing. Dr. Erich Schikuta - erich.schikuta@univie.ac.at
