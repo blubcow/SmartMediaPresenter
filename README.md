@@ -23,7 +23,7 @@ The Smart Media Presenter was developed as an open source desktop application in
 - [node.js](https://nodejs.org/en/download/) has to be installed
 - create a [firebase project](https://console.firebase.google.com/u/0/)
 - fill in the provided .env file with your firebase project's credentials. You will find them in the firebase console, under your project's settings
-- your might also have to adjust the rules for firebase realtime database and firebase storage
+- you might also have to adjust the rules for firebase realtime database and firebase storage
 - execute following command to install all dependecies from the root directory of the project `npm install`
 
 #### Available Scripts
