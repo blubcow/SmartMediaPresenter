@@ -60,12 +60,15 @@ export default makeStyles((theme: Theme) =>
 		notesContainer: {
 			flex: 1,
 			width: '100%',
+			overflow: 'hidden',
 			padding: theme.spacing(1),
 		},
 		notes: {
 			height: '100%',
 			width: '100%',
-			overflow: 'scroll',
+			whiteSpace: 'pre-line',
+			wordBreak: 'break-all',
+			overflowY: 'scroll',
 		},
 		spacer: {
 			height: theme.spacing(2),
