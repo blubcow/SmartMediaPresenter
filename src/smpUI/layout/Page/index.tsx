@@ -18,13 +18,13 @@ const Page: React.FC<PropsWithChildren<IPageProps>> = ({
 	return (
 		<Box className={classes.root}>
 			{TopBar}
-			<Container className={classes.contentContainer} maxWidth='xl'>
+			<Box className={classes.contentContainer}>
 				{centeredContent ? (
 					<Box className={classes.centeredContentBox}>{children}</Box>
 				) : (
 					children
 				)}
-			</Container>
+			</Box>
 		</Box>
 	);
 };

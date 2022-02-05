@@ -122,7 +122,9 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 				onSizeChanged={(width: number, height: number) => {
 					dispatch({
 						type: PresentationEditingActionIdentifiers.editingBoxDimensionsUpdated,
-						payload: { editingBoxDimensions: { width: width, height: height } },
+						payload: {
+							editingBoxDimensions: { width: width, height: height },
+						},
 					});
 				}}
 				presentationFrameEditingEnabled={
@@ -164,6 +166,7 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 				}}
 				editableText
 			/>
+
 			<Box sx={{ width: '100%', paddingLeft: 1 }}>
 				<Text>{`${currentSlide + 1}/${presentation.slides.length}`}</Text>
 			</Box>

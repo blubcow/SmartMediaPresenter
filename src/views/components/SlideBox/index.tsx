@@ -78,7 +78,7 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 
 		return () => {
 			// if (containerRef.current !== undefined)
-			// sizeObserver.unobserve(containerRef.current);
+			// 	sizeObserver.unobserve(containerRef.current);
 		};
 	}, [containerRef.current]);
 

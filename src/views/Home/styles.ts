@@ -11,6 +11,7 @@ export default makeStyles((theme: Theme) =>
 		rowsContainer: {
 			flex: 0.3,
 			minWidth: '450px',
+			maxWidth: '600px',
 			height: '100%',
 		},
 		rowsScrollingContainer: {
@@ -19,7 +20,7 @@ export default makeStyles((theme: Theme) =>
 		},
 		previewContainer: {
 			height: '100%',
-			flex: 0.7,
+			flex: 1,
 		},
 		noPresentationSelectedContainer: {
 			height: '100%',

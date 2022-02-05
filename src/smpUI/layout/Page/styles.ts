@@ -23,6 +23,8 @@ export default makeStyles((theme: Theme) => {
 			display: 'flex',
 			justifyContent: 'center',
 			alignItems: 'center',
+			paddingLeft: theme.spacing(3),
+			paddingRight: theme.spacing(3),
 		},
 	});
 });
