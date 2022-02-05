@@ -169,19 +169,31 @@ const Content: React.FC<IContentProps> = (props) => {
 				// height: `${window.innerHeight}px`,
 				height: '100%',
 				width: '100vw',
-				display: 'flex',
-				alignItems: 'center',
-				justifyContent: 'center',
-				bgcolor: presentation.slides[currentSlide]
-					? presentation.slides[currentSlide].settings?.color ?? '#000'
-					: '#000',
+				position: 'relative',
 			}}
 		>
-			<SlideBox
-				slide={presentation.slides[currentSlide]}
-				theme={{ ...presentation.theme }}
-				presentationFrameEditingEnabled={false}
-			/>
+			{presentation.slides.map((slide) => (
+				<Box
+					sx={{
+						position: 'absolute',
+						opacity: slide.id === currentSlide ? 1 : 0,
+						top: 0,
+						left: 0,
+						height: '100%',
+						width: '100%',
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						bgcolor: slide.settings?.color ?? '#000',
+					}}
+				>
+					<SlideBox
+						slide={slide}
+						theme={{ ...presentation.theme }}
+						presentationFrameEditingEnabled={false}
+					/>
+				</Box>
+			))}
 		</Box>
 	);
 };

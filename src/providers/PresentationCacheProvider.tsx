@@ -83,6 +83,7 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 							resolve(img);
 						};
 						let errCnt = 0;
+
 						img.onerror = () => {
 							errCnt++;
 							if (errCnt < 2 && media.location.local && media.location.remote) {
@@ -111,7 +112,7 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 			// @ts-ignore
 			setCachedPresentations(newCachedPresentations);
 		},
-		[]
+		[cachedPresentations]
 	);
 
 	const updatePresentation = (id: number, pres: SinglePresentation) => {

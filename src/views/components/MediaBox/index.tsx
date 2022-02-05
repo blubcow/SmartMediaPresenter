@@ -162,6 +162,8 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 						ref={imgRef}
 						className={classes.img}
 						src={imgSrc}
+						loading='lazy'
+						placeholder='/resources/icon.png'
 						onError={() => {
 							if (
 								media.location.local &&
