@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import {
@@ -79,6 +79,7 @@ const SlidePreviewRow: React.FC<ISlidePreviewRowProps> = (props) => {
 const ImagePreview = (props: { width: string; location?: MediaLocation }) => {
 	const { width, location } = props;
 	const { t } = useTranslation([i18nNamespace.Presentation]);
+	const [loaded, setLoaded] = useState<boolean>(false);
 
 	return (
 		<Box
@@ -95,9 +96,15 @@ const ImagePreview = (props: { width: string; location?: MediaLocation }) => {
 				<img
 					draggable={false}
 					src={location?.local ?? location?.remote}
-					style={{ height: '100%', width: '100%', objectFit: 'contain' }}
+					style={{
+						height: '100%',
+						width: '100%',
+						objectFit: 'contain',
+						display: loaded ? 'initial' : 'none',
+					}}
 					alt='media'
 					loading='lazy'
+					onLoad={() => setLoaded(true)}
 				/>
 			) : (
 				<Box

@@ -5,50 +5,53 @@ import { getEmptySlide, Slide } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
 import { SlidePreviewRow, SlidesHeaderRow } from '../rows';
 import useStyles from './styles';
+import LazyLoad from 'react-lazyload';
 
 interface IPresentationEditingPreviewRows {}
 
-const PresentationEditingPreviewRows: React.FC<IPresentationEditingPreviewRows> =
-	() => {
-		const { state, dispatch } = usePresentationEditingContext();
-		const { presentation, currentSlide } = state;
-		const classes = useStyles();
-		const [draggedSlide, setDraggedSlide] = useState<Slide | undefined>();
+const PresentationEditingPreviewRows: React.FC<
+	IPresentationEditingPreviewRows
+> = () => {
+	const { state, dispatch } = usePresentationEditingContext();
+	const { presentation, currentSlide } = state;
+	const classes = useStyles();
+	const [draggedSlide, setDraggedSlide] = useState<Slide | undefined>();
 
-		return (
-			<Box className={classes.slidesContainer}>
-				<Box className={classes.rowsScrollingContainer}>
-					<SlidesHeaderRow
-						addNewSlide={() => {
-							dispatch({
-								type: PresentationEditingActionIdentifiers.editingSlideStated,
-							});
-							const newSlideId = currentSlide + 1;
-							const newSlide = getEmptySlide(
-								newSlideId,
-								presentation.theme?.defaultFormat
-							);
-							const newPresentation = { ...presentation };
-							newPresentation.slides = [
-								...presentation.slides.slice(0, newSlideId),
-								newSlide,
-								...presentation.slides
-									.slice(newSlideId)
-									.map((slide) => ({ ...slide, id: slide.id + 1 })),
-							];
-							dispatch({
-								type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
-								payload: {
-									presentation: newPresentation,
-								},
-							});
-							dispatch({
-								type: PresentationEditingActionIdentifiers.changeCurrentSlide,
-								payload: { currentSlide: newSlide.id },
-							});
-						}}
-					/>
-					{presentation.slides.map((slide: Slide, i: number) => (
+	return (
+		<Box className={classes.slidesContainer}>
+			<Box className={classes.rowsScrollingContainer}>
+				<SlidesHeaderRow
+					addNewSlide={() => {
+						dispatch({
+							type: PresentationEditingActionIdentifiers.editingSlideStated,
+						});
+						const newSlideId = currentSlide + 1;
+						const newSlide = getEmptySlide(
+							newSlideId,
+							presentation.theme?.defaultFormat
+						);
+						const newPresentation = { ...presentation };
+						newPresentation.slides = [
+							...presentation.slides.slice(0, newSlideId),
+							newSlide,
+							...presentation.slides
+								.slice(newSlideId)
+								.map((slide) => ({ ...slide, id: slide.id + 1 })),
+						];
+						dispatch({
+							type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+							payload: {
+								presentation: newPresentation,
+							},
+						});
+						dispatch({
+							type: PresentationEditingActionIdentifiers.changeCurrentSlide,
+							payload: { currentSlide: newSlide.id },
+						});
+					}}
+				/>
+				{presentation.slides.map((slide: Slide, i: number) => (
+					<LazyLoad once>
 						<SlidePreviewRow
 							key={i}
 							slide={slide}
@@ -88,10 +91,11 @@ const PresentationEditingPreviewRows: React.FC<IPresentationEditingPreviewRows> 
 								});
 							}}
 						/>
-					))}
-				</Box>
+					</LazyLoad>
+				))}
 			</Box>
-		);
-	};
+		</Box>
+	);
+};
 
 export default PresentationEditingPreviewRows;
