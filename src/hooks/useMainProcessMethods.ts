@@ -53,7 +53,7 @@ export const useStoredPresentations = () => {
 					callback(r.id);
 				});
 		},
-		[ipcRenderer]
+		[ipcRenderer, presentations]
 	);
 
 	const createQuickCreatePresentation = useCallback(
@@ -69,7 +69,7 @@ export const useStoredPresentations = () => {
 					callback(r.id);
 				});
 		},
-		[ipcRenderer, setPresentations]
+		[ipcRenderer, presentations]
 	);
 
 	const removeSinglePresentation = useCallback(
