@@ -24,13 +24,14 @@ import { getFilesInDir, getFileFromPath } from './models/FileSystem';
 import { parse } from './models/PresentationParser';
 import { electron } from 'process';
 
+let globalWorkspace: string | undefined;
+
 export const registerMainProcessMethodHandlers = (
 	userDataPath: string,
 	ipcMain: IpcMain,
 	mainWindow: BrowserWindow
 ) => {
 	const windows: BrowserWindow[] = [mainWindow];
-	let globalWorkspace: string | undefined;
 
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.setWorkspace,

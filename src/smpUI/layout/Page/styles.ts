@@ -5,6 +5,7 @@ export default makeStyles((theme: Theme) => {
 	return createStyles({
 		root: {
 			minHeight: '100vh',
+			width: '100vw',
 			height: '1px',
 			backgroundColor: theme.palette.background.default,
 			display: 'flex',
@@ -15,6 +16,8 @@ export default makeStyles((theme: Theme) => {
 			height: '0px',
 			flex: 1,
 			width: '100%',
+			paddingLeft: theme.spacing(3),
+			paddingRight: theme.spacing(3),
 		},
 		centeredContentBox: {
 			height: '100%',
@@ -23,8 +26,6 @@ export default makeStyles((theme: Theme) => {
 			display: 'flex',
 			justifyContent: 'center',
 			alignItems: 'center',
-			paddingLeft: theme.spacing(3),
-			paddingRight: theme.spacing(3),
 		},
 	});
 });
