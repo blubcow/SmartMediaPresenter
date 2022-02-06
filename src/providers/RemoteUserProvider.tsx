@@ -6,11 +6,17 @@ import React, {
 } from 'react';
 import { auth } from '../models/firebase';
 import { RemoteUser } from '../types/remote';
+import LoadingPage from '../views/Loading';
 
 export const RemoteUserContext = createContext({});
 
 const RemoteUserProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
-	const [currentUser, setCurrentUser] = useState<RemoteUser | undefined>();
+	const [currentUser, setCurrentUser] = useState<RemoteUser | undefined>(
+		auth.currentUser
+			? { uid: auth.currentUser.uid, email: auth.currentUser.email ?? '' }
+			: undefined
+	);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [userLoggedIn, setUserLoggedIn] = useState<boolean | undefined>();
 
 	useEffect(() => {
@@ -20,6 +26,7 @@ const RemoteUserProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
 					user ? { uid: user.uid, email: user.email! } : undefined
 				);
 				setUserLoggedIn(!!user);
+				setIsLoading(false);
 			});
 			return () => authListenerUnsubscribe();
 		} catch (error) {
@@ -32,7 +39,7 @@ const RemoteUserProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
 		<RemoteUserContext.Provider
 			value={{ remoteUser: currentUser, userLoggedIn: userLoggedIn }}
 		>
-			{children}
+			{isLoading ? <></> : children}
 		</RemoteUserContext.Provider>
 	);
 };

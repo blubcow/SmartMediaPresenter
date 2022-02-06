@@ -58,6 +58,7 @@ const firebaseAuth = () => {
 		signOut,
 		listenForAuthChanges,
 		sendForgotPwdEmail,
+		currentUser: fireAuth.currentUser,
 	};
 };
 const auth = firebaseAuth();
