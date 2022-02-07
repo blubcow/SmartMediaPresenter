@@ -22,6 +22,7 @@ const QuickCreateSlidesBox: React.FC<IQuickCreateSlidesBoxProps> = (props) => {
 	const { slides, onSlidesDidChange, multiInsertionEnabled } = props;
 
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
+	const [orderedInserting, setOrderedInserting] = useState<boolean>(false);
 	const classes = useStyles();
 
 	useEffect(() => {
@@ -78,6 +79,13 @@ const QuickCreateSlidesBox: React.FC<IQuickCreateSlidesBoxProps> = (props) => {
 				// @ts-ignore
 				location: { local: 'file://' + file.path },
 			}));
+
+			if (orderedInserting)
+				droppedMedia.sort((a, b) => {
+					const aName = a.location.local.split('/').pop()!;
+					const bName = b.location.local.split('/').pop()!;
+					return aName < bName ? -1 : 1;
+				});
 		}
 		droppedMedia.forEach((droppedMedia) => {
 			const slideToInsertIndex = slidesForInsert.findIndex((slide) => {
@@ -128,6 +136,10 @@ const QuickCreateSlidesBox: React.FC<IQuickCreateSlidesBoxProps> = (props) => {
 						onSlidesDidChange(newSlides);
 						setCurrentSlide(currentSlide + 1);
 					}}
+					orderedInserting={orderedInserting}
+					changeOrderedInserting={(ordered: boolean) =>
+						setOrderedInserting(ordered)
+					}
 				/>
 				{multiInsertionEnabled ? (
 					<MultiInsertion

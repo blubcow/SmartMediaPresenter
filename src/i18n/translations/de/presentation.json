@@ -116,5 +116,6 @@
   "importLocalPresentations": "möchtest du alle {{amount}} lokalen Präsentationen importieren?",
   "yes": "ja",
   "no": "nein",
-  "importingLocalPresentations": "lokale Präsentationen werden importiert"
+  "importingLocalPresentations": "lokale Präsentationen werden importiert",
+  "orderedInsert": "geordnetes Einfügen"
 }

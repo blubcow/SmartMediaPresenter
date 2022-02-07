@@ -116,5 +116,6 @@
   "importLocalPresentations": "do you want to import all {{amount}} local presentations?",
   "yes": "yes",
   "no": "no",
-  "importingLocalPresentations": "importing local presentations"
+  "importingLocalPresentations": "importing local presentations",
+  "orderedInsert": "ordered inserting"
 }
