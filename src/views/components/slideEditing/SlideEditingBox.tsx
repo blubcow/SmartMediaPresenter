@@ -23,12 +23,42 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 		if (activeMedia === undefined) return;
 
 		const handleKeyPress = (e: KeyboardEvent) => {
-			dispatchMediaTranslationTransformation(
-				(e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0) *
-					(shift ? 5 : 1),
-				(e.key === 'ArrowUp' ? 1 : e.key === 'ArrowDown' ? -1 : 0) *
-					(shift ? 5 : 1)
-			);
+			const key = e.key;
+
+			if (key === '+' || key === '-') {
+				const newPresentation = JSON.parse(JSON.stringify(presentation));
+				const scaleSettings = newPresentation.slides[currentSlide].media[
+					activeMedia
+				].settings?.scaling ?? { x: 1, y: 1 };
+
+				const mediaResource = JSON.parse(
+					JSON.stringify(
+						newPresentation.slides[currentSlide].media[activeMedia]
+					)
+				);
+
+				mediaResource.settings = {
+					...mediaResource.settings,
+					scaling: {
+						x: scaleSettings.x * (key === '+' ? 1.01 : 0.99),
+						y: scaleSettings.y * (key === '+' ? 1.01 : 0.99),
+					},
+				};
+
+				newPresentation.slides[currentSlide].media[activeMedia] = mediaResource;
+
+				dispatch({
+					type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+					payload: { presentation: newPresentation },
+				});
+			} else if (key.startsWith('Arrow')) {
+				dispatchMediaTranslationTransformation(
+					(e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0) *
+						(shift ? 5 : 1),
+					(e.key === 'ArrowUp' ? 1 : e.key === 'ArrowDown' ? -1 : 0) *
+						(shift ? 5 : 1)
+				);
+			}
 		};
 
 		document.addEventListener('keydown', handleKeyPress);
