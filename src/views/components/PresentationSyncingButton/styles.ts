@@ -6,6 +6,7 @@ export default makeStyles((theme: Theme) =>
 		button: {
 			height: '65px',
 			width: '65px',
+			minWidth: '65px',
 			borderRadius: '50%',
 			outlineColor: theme.palette.text.primary,
 			outlineStyle: 'solid',
