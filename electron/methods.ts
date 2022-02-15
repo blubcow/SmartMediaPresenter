@@ -498,6 +498,19 @@ export const registerMainProcessMethodHandlers = (
 	);
 
 	ipcMain.handle(
+		MainProcessMethodIdentifiers.quickJumpSlidesPresentationMode,
+		async (_, jump: number) => {
+			windows.forEach((win) =>
+				win.webContents.send(
+					MainProcessMethodIdentifiers.PresenterModeUpdateNotification,
+					jump
+				)
+			);
+			return;
+		}
+	);
+
+	ipcMain.handle(
 		MainProcessMethodIdentifiers.storeAudioFile,
 		async (_, id: number, buffer: Buffer) => {
 			const path = `${userDataPath}/store${

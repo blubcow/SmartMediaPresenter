@@ -231,12 +231,6 @@ export const useDisplays = () => {
 
 export const usePresentationMode = (startingSlide: number) => {
 	const [slideNumber, setSlide] = useState<number>(startingSlide);
-	const [nextSlide] = useState<() => void>(() => () => {
-		ipcRenderer.invoke(MainProcessMethodIdentifiers.NextSlideTrigger);
-	});
-	const [previousSlide] = useState<() => void>(() => () => {
-		ipcRenderer.invoke(MainProcessMethodIdentifiers.PreviousSlideTrigger);
-	});
 
 	useEffect(() => {
 		ipcRenderer.on(
@@ -250,6 +244,24 @@ export const usePresentationMode = (startingSlide: number) => {
 		};
 	}, []);
 
+	const nextSlide = useCallback(() => {
+		ipcRenderer.invoke(MainProcessMethodIdentifiers.NextSlideTrigger);
+	}, [ipcRenderer]);
+
+	const previousSlide = useCallback(() => {
+		ipcRenderer.invoke(MainProcessMethodIdentifiers.PreviousSlideTrigger);
+	}, [ipcRenderer]);
+
+	const quickJump = useCallback(
+		(jump: number) => {
+			ipcRenderer.invoke(
+				MainProcessMethodIdentifiers.quickJumpSlidesPresentationMode,
+				jump
+			);
+		},
+		[ipcRenderer]
+	);
+
 	const terminatePresentationMode = useCallback(() => {
 		ipcRenderer.invoke(MainProcessMethodIdentifiers.EndPresenterMode);
 	}, [ipcRenderer]);
@@ -257,6 +269,7 @@ export const usePresentationMode = (startingSlide: number) => {
 	return {
 		slideNumber,
 		nextSlide,
+		quickJump,
 		previousSlide,
 		terminatePresentationMode,
 	};

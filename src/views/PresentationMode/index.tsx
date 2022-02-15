@@ -42,8 +42,13 @@ const Content = ({
 	handle: any;
 	startingSlide: number;
 }) => {
-	const { slideNumber, nextSlide, previousSlide, terminatePresentationMode } =
-		usePresentationMode(startingSlide);
+	const {
+		slideNumber,
+		nextSlide,
+		previousSlide,
+		quickJump,
+		terminatePresentationMode,
+	} = usePresentationMode(startingSlide);
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const [presentationTimer, setPresentationTimer] = useState<number>(0);
 	const [slideTimer, setSlideTimer] = useState<number>(0);
@@ -59,6 +64,7 @@ const Content = ({
 		)
 	);
 	const [slideAudio] = useState<HTMLAudioElement>(new Audio());
+	const [quickJumpValue, setQuickJumpValue] = useState<number | undefined>();
 
 	const triggerNext = () => {
 		if (slideNumber < presentation.slides.length - 1) {
@@ -112,15 +118,46 @@ const Content = ({
 			switch (e.key) {
 				case 'Escape':
 					terminatePresentationMode();
+					setQuickJumpValue(undefined);
 					break;
 				case 'ArrowLeft':
 					triggerBack();
+					setQuickJumpValue(undefined);
 					break;
 				case 'ArrowRight':
 					triggerNext();
+					setQuickJumpValue(undefined);
 					break;
 				case ' ':
 					setAutoPlayback((curr) => !curr);
+					setQuickJumpValue(undefined);
+					break;
+				case '1':
+				case '2':
+				case '3':
+				case '4':
+				case '5':
+				case '6':
+				case '7':
+				case '8':
+				case '9':
+				case '0':
+					setQuickJumpValue((curr) => parseInt(`${curr ?? ''}${e.key}`));
+					break;
+				case 'Enter':
+					if (quickJumpValue !== undefined) {
+						const val =
+							Math.max(
+								0,
+								Math.min(quickJumpValue - 1, presentation.slides.length - 1)
+							) - slideNumber;
+						quickJump(val);
+					}
+
+					setQuickJumpValue(undefined);
+					break;
+				case 'Backspace':
+					setQuickJumpValue(undefined);
 					break;
 				default:
 					break;
