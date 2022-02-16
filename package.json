@@ -1,6 +1,6 @@
 {
   "name": "smp",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "private": true,
   "main": "build/electron/index.js",
   "author": "Lukas Jäger",
