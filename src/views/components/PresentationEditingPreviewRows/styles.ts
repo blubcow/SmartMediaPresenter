@@ -5,7 +5,7 @@ export default makeStyles((theme: Theme) =>
 	createStyles({
 		slidesContainer: {
 			flex: 0.25,
-			minWidth: '350px',
+			minWidth: '400px',
 			maxWidth: '450px',
 			height: '100%',
 		},
