@@ -32,6 +32,7 @@ export const registerMainProcessMethodHandlers = (
 	mainWindow: BrowserWindow
 ) => {
 	const windows: BrowserWindow[] = [mainWindow];
+	let presentationModePresentationFile: SinglePresentation | undefined;
 
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.setWorkspace,
@@ -439,6 +440,8 @@ export const registerMainProcessMethodHandlers = (
 		) => {
 			if ((await screen.getAllDisplays().length) === 1) return;
 
+			presentationModePresentationFile = presentationFile;
+
 			const currentScreenOfMainWindow = screen.getDisplayNearestPoint(
 				mainWindow.getBounds()
 			);
@@ -481,6 +484,7 @@ export const registerMainProcessMethodHandlers = (
 
 	ipcMain.handle(MainProcessMethodIdentifiers.EndPresenterMode, async () => {
 		const w = windows.pop();
+		presentationModePresentationFile = undefined;
 		w.close();
 	});
 
@@ -493,6 +497,13 @@ export const registerMainProcessMethodHandlers = (
 		);
 		return;
 	});
+
+	ipcMain.handle(
+		MainProcessMethodIdentifiers.presentationModePresentationFileReceived,
+		async () => {
+			return presentationModePresentationFile;
+		}
+	);
 
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.PreviousSlideTrigger,

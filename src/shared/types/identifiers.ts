@@ -24,4 +24,5 @@ export enum MainProcessMethodIdentifiers {
 	importLocalPresentationsIntoWorkspace = 'importLocalPresentationsIntoWorkspace',
 	removeRemoteAttributesFromPresentation = 'removeRemoteAttributesFromPresentation',
 	quickJumpSlidesPresentationMode = 'quickJumpSlidesPresentationMode',
+	presentationModePresentationFileReceived = 'presentationModePresentationFileReceived',
 }

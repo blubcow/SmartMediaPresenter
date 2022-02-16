@@ -8,8 +8,8 @@ import usePresentationCacheContext from '../../hooks/usePresentationCacheContext
 import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
 import { SinglePresentation } from '../../shared/types/presentation';
 import { CircularProgress } from '@mui/material';
-import useRemoteUserContext from '../../hooks/useRemoteUserContext';
 import { time } from 'console';
+import LoadingIndicatorPaper from '../components/LoadingIndicatorPaper';
 
 const PresentationMode = () => {
 	const location = useLocation();
@@ -17,14 +17,12 @@ const PresentationMode = () => {
 		'startingSlide'
 	);
 	const startingSlide = startingSlideString ? parseInt(startingSlideString) : 0;
-	const { slideNumber } = usePresentationMode(
-		startingSlide >= 0 ? startingSlide : 0
-	);
+	const { presentationFile, slideNumber, retrievePresentationFile } =
+		usePresentationMode(startingSlide >= 0 ? startingSlide : 0);
 	const [id, setId] = useState<string>('');
 	const [remoteId, setRemoteId] = useState<string>('');
 	const { storedPresentation } = useSinglePresentation(parseInt(id));
 	const { changeCurrentPresentation } = usePresentationCacheContext();
-	const { remoteUser } = useRemoteUserContext();
 	const { syncingAvailable, retrieveRemotePresentationOnce } =
 		usePresentationSyncContext();
 	const [loadingRemotePresentation, setLoadginRemotePresentation] =
@@ -61,6 +59,10 @@ const PresentationMode = () => {
 		}
 	}, [storedPresentation]);
 
+	useEffect(() => {
+		retrievePresentationFile();
+	}, []);
+
 	return (
 		<Box
 			sx={{
@@ -73,35 +75,52 @@ const PresentationMode = () => {
 				<CircularProgress variant='indeterminate' />
 			) : (
 				<>
-					{storedPresentation || remotePresentation ? (
-						(storedPresentation ?? remotePresentation!).slides.map(
-							(slide, index) => (
-								<Box
-									sx={{
-										position: 'absolute',
-										opacity: slide.id === slideNumber ? 1 : 0,
-										top: 0,
-										left: 0,
-										height: '100%',
-										width: '100%',
-										display: 'flex',
-										alignItems: 'center',
-										justifyContent: 'center',
-										bgcolor: slide.settings?.color ?? '#000',
+					{presentationFile || storedPresentation || remotePresentation ? (
+						(
+							presentationFile ??
+							storedPresentation ??
+							remotePresentation!
+						).slides.map((slide, index) => (
+							<Box
+								key={index}
+								sx={{
+									position: 'absolute',
+									opacity: slide.id === slideNumber ? 1 : 0,
+									top: 0,
+									left: 0,
+									height: '100%',
+									width: '100%',
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'center',
+									bgcolor: slide.settings?.color ?? '#000',
+								}}
+							>
+								<SlideBox
+									slide={slide}
+									theme={{
+										...(
+											presentationFile ??
+											storedPresentation ??
+											remotePresentation!
+										).theme,
 									}}
-								>
-									<SlideBox
-										slide={slide}
-										theme={{
-											...(storedPresentation ?? remotePresentation!).theme,
-										}}
-										presentationFrameEditingEnabled={false}
-									/>
-								</Box>
-							)
-						)
+									presentationFrameEditingEnabled={false}
+								/>
+							</Box>
+						))
 					) : (
-						<></>
+						<Box
+							sx={{
+								height: '100vh',
+								width: '100vw',
+								display: 'flex',
+								justifyContent: 'center',
+								alignItems: 'center',
+							}}
+						>
+							<LoadingIndicatorPaper />
+						</Box>
 					)}
 				</>
 			)}

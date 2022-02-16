@@ -214,13 +214,20 @@ export const useDisplays = () => {
 	}, [ipcRenderer]);
 
 	const startPresentationMode = useCallback(
-		async (slide: number, id?: number, remoteId?: string, display?: number) => {
+		async (
+			slide: number,
+			id?: number,
+			remoteId?: string,
+			display?: number,
+			presentation?: SinglePresentation
+		) => {
 			ipcRenderer.invoke(
 				MainProcessMethodIdentifiers.StartPresenterMode,
 				slide,
 				id,
 				remoteId,
-				display
+				display,
+				presentation
 			);
 		},
 		[ipcRenderer]
@@ -231,11 +238,14 @@ export const useDisplays = () => {
 
 export const usePresentationMode = (startingSlide: number) => {
 	const [slideNumber, setSlide] = useState<number>(startingSlide);
+	const [presentationFile, setPresentationFile] = useState<
+		SinglePresentation | undefined
+	>();
 
 	useEffect(() => {
 		ipcRenderer.on(
 			MainProcessMethodIdentifiers.PresenterModeUpdateNotification,
-			(event: any, slide: number) => {
+			(_: any, slide: number) => {
 				setSlide((curr) => curr + slide);
 			}
 		);
@@ -262,12 +272,24 @@ export const usePresentationMode = (startingSlide: number) => {
 		[ipcRenderer]
 	);
 
+	const retrievePresentationFile = useCallback(() => {
+		ipcRenderer
+			.invoke(
+				MainProcessMethodIdentifiers.presentationModePresentationFileReceived
+			)
+			.then((r?: SinglePresentation) => {
+				setPresentationFile(r);
+			});
+	}, [ipcRenderer]);
+
 	const terminatePresentationMode = useCallback(() => {
 		ipcRenderer.invoke(MainProcessMethodIdentifiers.EndPresenterMode);
 	}, [ipcRenderer]);
 
 	return {
 		slideNumber,
+		presentationFile,
+		retrievePresentationFile,
 		nextSlide,
 		quickJump,
 		previousSlide,

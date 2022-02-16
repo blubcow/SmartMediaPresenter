@@ -44,7 +44,8 @@ const PresentationFloatingButton: React.FC<IPresentationFloatingButtonProps> = (
 								initialSlide ?? 0,
 								presentationId,
 								remoteId,
-								1
+								1,
+								presentation
 							);
 							presentationModeHandle.enter();
 						}
@@ -69,7 +70,8 @@ const PresentationFloatingButton: React.FC<IPresentationFloatingButtonProps> = (
 							initialSlide ?? 0,
 							presentationId,
 							remoteId,
-							displayNumber
+							displayNumber,
+							presentation
 						);
 						presentationModeHandle.enter();
 						setOpen(false);
