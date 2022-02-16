@@ -483,6 +483,7 @@ export const registerMainProcessMethodHandlers = (
 	);
 
 	ipcMain.handle(MainProcessMethodIdentifiers.EndPresenterMode, async () => {
+		if (windows.length === 1) return;
 		const w = windows.pop();
 		presentationModePresentationFile = undefined;
 		w.close();
