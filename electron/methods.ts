@@ -434,10 +434,20 @@ export const registerMainProcessMethodHandlers = (
 			startingSlide: number,
 			id?: number,
 			remoteId?: string,
-			displayNumber?: number
+			displayNumber?: number,
+			presentationFile?: SinglePresentation
 		) => {
 			if ((await screen.getAllDisplays().length) === 1) return;
-			const display = screen.getAllDisplays()[displayNumber ?? 1];
+
+			const currentScreenOfMainWindow = screen.getDisplayNearestPoint(
+				mainWindow.getBounds()
+			);
+
+			const display = screen
+				.getAllDisplays()
+				.filter((disp) => disp.id !== currentScreenOfMainWindow.id)[
+				displayNumber - 1 ?? 0
+			];
 
 			const presentation = new BrowserWindow({
 				x: display.bounds.x + 50,
