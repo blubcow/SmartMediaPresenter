@@ -117,5 +117,6 @@
   "yes": "ja",
   "no": "nein",
   "importingLocalPresentations": "lokale Präsentationen werden importiert",
-  "orderedInsert": "geordnetes Einfügen"
+  "orderedInsert": "geordnetes Einfügen",
+  "resetConfirmation": "sollen die Änderungen der Folie verworfen werden?"
 }

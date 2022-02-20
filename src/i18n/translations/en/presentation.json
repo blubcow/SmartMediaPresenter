@@ -117,5 +117,6 @@
   "yes": "yes",
   "no": "no",
   "importingLocalPresentations": "importing local presentations",
-  "orderedInsert": "ordered inserting"
+  "orderedInsert": "ordered inserting",
+  "resetConfirmation": "do you really want to reset the changes made to the slide?"
 }

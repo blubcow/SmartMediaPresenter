@@ -10,6 +10,7 @@ import { useSettingsContainerStyles } from './styles';
 import SlideFormatButton from './SlideFormatButton';
 import AudioButton from './AudioButton';
 import AutoPlaybackButton from './AutoPlaybackButton';
+import ResetSettingsButton from './ResetSlideSettingsButton';
 
 interface ISlideSettingsProps {}
 
@@ -18,6 +19,8 @@ const SlideSettings: React.FC<ISlideSettingsProps> = () => {
 
 	return (
 		<Box className={classes.container}>
+			<ResetSettingsButton />
+			<Box className={classes.spacer} />
 			<AutoPlaybackButton />
 			<Box className={classes.spacer} />
 			<AudioButton />

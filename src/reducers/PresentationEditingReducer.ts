@@ -53,6 +53,7 @@ const presentationEditingReducer = (
 					action.payload?.presentation,
 					state.initialPresentation
 				),
+				initialSlides: action.payload?.initialSlides ?? state.initialSlides,
 			};
 		case ActionIdentifiers.editingBoxDimensionsUpdated:
 			return {
@@ -91,6 +92,7 @@ export const getInitialState = (
 		initialPresentation: { ...presentation },
 		unsavedChanges: false,
 		presentationId: presentationId,
+		initialSlides: JSON.parse(JSON.stringify(presentation.slides)),
 	};
 };
 

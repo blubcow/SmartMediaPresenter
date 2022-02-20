@@ -38,10 +38,20 @@ const PresentationEditingPreviewRows: React.FC<
 								.slice(newSlideId)
 								.map((slide) => ({ ...slide, id: slide.id + 1 })),
 						];
+
+						const newInitialSlides = [
+							...state.initialSlides.slice(0, newSlideId),
+							JSON.parse(JSON.stringify(newSlide)),
+							...state.initialSlides
+								.slice(newSlideId)
+								.map((slide) => ({ ...slide, id: slide.id + 1 })),
+						];
+
 						dispatch({
 							type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 							payload: {
 								presentation: newPresentation,
+								initialSlides: newInitialSlides,
 							},
 						});
 						dispatch({

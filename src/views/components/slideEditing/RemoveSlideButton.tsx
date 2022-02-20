@@ -25,6 +25,17 @@ const RemoveSlideButton: React.FC<{}> = (props) => {
 						id: slide.id > currentSlide ? slide.id - 1 : slide.id,
 					}));
 
+				const newInitialSlides = (
+					JSON.parse(JSON.stringify(state.initialSlides)) as Slide[]
+				)
+					.filter((slide) => {
+						return slide.id !== currentSlide;
+					})
+					.map((slide) => ({
+						...slide,
+						id: slide.id > currentSlide ? slide.id - 1 : slide.id,
+					}));
+
 				if (slides.length === 0)
 					slides.push(
 						getEmptySlide(undefined, presentation.theme?.defaultFormat)
@@ -34,11 +45,16 @@ const RemoveSlideButton: React.FC<{}> = (props) => {
 
 				dispatch({
 					type: PresentationEditingActionIdentifiers.changeCurrentSlide,
-					payload: { currentSlide: Math.max(currentSlide - 1, 0) },
+					payload: {
+						currentSlide: Math.max(currentSlide - 1, 0),
+					},
 				});
 				dispatch({
 					type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
-					payload: { presentation: newPresentation },
+					payload: {
+						presentation: newPresentation,
+						initialSlides: newInitialSlides,
+					},
 				});
 			}}
 			selected={false}

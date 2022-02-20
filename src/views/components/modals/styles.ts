@@ -1,6 +1,5 @@
 import { makeStyles, createStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
-import { display } from '@mui/system';
 
 export const useCreateProjectModalStyles = makeStyles((theme: Theme) =>
 	createStyles({

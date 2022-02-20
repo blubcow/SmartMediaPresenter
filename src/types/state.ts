@@ -2,6 +2,7 @@ import {
 	Dimensions,
 	PresentationFrameSettings,
 	SinglePresentation,
+	Slide,
 } from '../shared/types/presentation';
 import { PresentationEditingActionIdentifiers } from './identifiers';
 
@@ -23,6 +24,7 @@ export interface PresentationEditingSettings {
 	initialPresentation: SinglePresentation;
 	unsavedChanges: boolean;
 	presentationId: number;
+	initialSlides: Slide[];
 }
 
 export interface PresentationEditingAction {

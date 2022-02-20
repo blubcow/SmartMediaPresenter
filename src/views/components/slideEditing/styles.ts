@@ -43,12 +43,13 @@ export default makeStyles((theme: Theme) =>
 export const useSettingsContainerStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		container: {
-			width: '100%',
+			minWidth: '100%',
+			maxWidth: '100%',
 			display: 'flex',
 			justifyContent: 'flex-end',
 		},
 		spacer: {
-			width: theme.spacing(2),
+			width: theme.spacing(1),
 		},
 	})
 );
