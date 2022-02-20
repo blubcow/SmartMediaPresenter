@@ -56,7 +56,7 @@ const ActiveMediaIdenticator: React.FC<IActiveMediaIdenticatorProps> = (
 					'px',
 				transform: `scale(${mediaElement.settings?.scaling?.x ?? 1}, ${
 					mediaElement.settings?.scaling?.y ?? 1
-				})`,
+				}) rotate(${mediaElement.settings?.rotation ?? 0}deg)`,
 			}}
 			sx={{ outlineColor: 'primary.main' }}
 		/>
