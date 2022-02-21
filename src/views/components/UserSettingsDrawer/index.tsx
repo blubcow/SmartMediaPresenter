@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import ManageRemoteMedia from './ManageRemoteMedia';
 import usePresentationSyncContext from '../../../hooks/usePresentationSyncContext';
+import config from '../../../config/config.firebase';
 
 interface IUserSettingsDrawerProps extends IDrawerProps {}
 
@@ -20,7 +21,7 @@ const UserSettingsDrawer: React.FC<IUserSettingsDrawerProps> = (props) => {
 	return (
 		<Drawer {...props}>
 			<Box className={classes.container}>
-				<RemoteUser />
+				{config.apiKey !== '' && <RemoteUser />}
 				{syncingAvailable && <ManageRemoteMedia />}
 				<ChangeLanguage />
 				<ChangeTheme />

@@ -31,9 +31,16 @@ import {
 import { SinglePresentation } from '../shared/types/presentation';
 import { dbCollection, defaultDBURL } from '../types/remoteCollections';
 
-initializeApp(config);
+let fireAuth: any = {};
+let fireStorage: any = {};
+let fireDatabase: any = {};
 
-const fireAuth = getAuth();
+if (config.apiKey !== '') {
+	initializeApp(config);
+	fireAuth = getAuth();
+	fireStorage = getStorage();
+	fireDatabase = getDatabase(undefined, defaultDBURL);
+}
 
 const firebaseAuth = () => {
 	const createAccount = async (email: string, password: string) =>
@@ -58,12 +65,10 @@ const firebaseAuth = () => {
 		signOut,
 		listenForAuthChanges,
 		sendForgotPwdEmail,
-		currentUser: fireAuth.currentUser,
+		currentUser: fireAuth.currentUser ?? undefined,
 	};
 };
 const auth = firebaseAuth();
-
-const fireStorage = getStorage();
 
 const firebaseStorage = () => {
 	const uploadFile = (
@@ -119,8 +124,6 @@ const firebaseStorage = () => {
 };
 
 const storage = firebaseStorage();
-
-const fireDatabase = getDatabase(undefined, defaultDBURL);
 
 const firebaseDatabase = () => {
 	const uploadPresentation = async (
