@@ -37,7 +37,7 @@ const EditThemeDrawer: React.FC<IEditThemeDrawerProps> = (props) => {
 				</Box>
 				<Box className={classes.btnContainer}>
 					<Button variant='contained' onClick={onFinish}>
-						{t('finsih')}
+						{t('finish')}
 					</Button>
 				</Box>
 			</Box>
