@@ -68,35 +68,41 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 
 			if (presentation.slides === undefined) return;
 
-			const promises = await presentation.slides.flatMap((slide) => {
-				if (!slide.media) return;
-				return slide.media.map((media) => {
-					return new Promise((resolve) => {
-						if (!media.location?.local && !media.location?.remote) {
-							resolve('no media src present');
-							return;
-						}
-						const img = new Image();
-						img.src = media.location.local ?? media.location.remote!;
-						imgs.push(img);
-						img.onload = () => {
-							resolve(img);
-						};
-						let errCnt = 0;
-
-						img.onerror = () => {
-							errCnt++;
-							if (errCnt < 2 && media.location.local && media.location.remote) {
-								img.src = media.location.remote;
-							} else {
-								failed++;
-								resolve(img);
+			const promises = await presentation.slides
+				.slice(0, 10)
+				.flatMap((slide) => {
+					if (!slide.media) return;
+					return slide.media.map((media) => {
+						return new Promise((resolve) => {
+							if (!media.location?.local && !media.location?.remote) {
+								resolve('no media src present');
+								return;
 							}
-							return;
-						};
+							const img = new Image();
+							img.src = media.location.local ?? media.location.remote!;
+							imgs.push(img);
+							img.onload = () => {
+								resolve(img);
+							};
+							let errCnt = 0;
+
+							img.onerror = () => {
+								errCnt++;
+								if (
+									errCnt < 2 &&
+									media.location.local &&
+									media.location.remote
+								) {
+									img.src = media.location.remote;
+								} else {
+									failed++;
+									resolve(img);
+								}
+								return;
+							};
+						});
 					});
 				});
-			});
 
 			await Promise.all(promises);
 
