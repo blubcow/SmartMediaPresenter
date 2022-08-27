@@ -8,7 +8,6 @@ import usePresentationCacheContext from '../../hooks/usePresentationCacheContext
 import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
 import { SinglePresentation } from '../../shared/types/presentation';
 import { CircularProgress } from '@mui/material';
-import { time } from 'console';
 import LoadingIndicatorPaper from '../components/LoadingIndicatorPaper';
 
 const PresentationMode = () => {
@@ -80,35 +79,37 @@ const PresentationMode = () => {
 							presentationFile ??
 							storedPresentation ??
 							remotePresentation!
-						).slides.map((slide, index) => (
-							<Box
-								key={index}
-								sx={{
-									position: 'absolute',
-									opacity: slide.id === slideNumber ? 1 : 0,
-									top: 0,
-									left: 0,
-									height: '100%',
-									width: '100%',
-									display: 'flex',
-									alignItems: 'center',
-									justifyContent: 'center',
-									bgcolor: slide.settings?.color ?? '#000',
-								}}
-							>
-								<SlideBox
-									slide={slide}
-									theme={{
-										...(
-											presentationFile ??
-											storedPresentation ??
-											remotePresentation!
-										).theme,
+						).slides
+							.slice(Math.max(slideNumber - 6, 0), slideNumber + 15)
+							.map((slide, index) => (
+								<Box
+									key={index}
+									sx={{
+										position: 'absolute',
+										opacity: slide.id === slideNumber ? 1 : 0,
+										top: 0,
+										left: 0,
+										height: '100%',
+										width: '100%',
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'center',
+										bgcolor: slide.settings?.color ?? '#000',
 									}}
-									presentationFrameEditingEnabled={false}
-								/>
-							</Box>
-						))
+								>
+									<SlideBox
+										slide={slide}
+										theme={{
+											...(
+												presentationFile ??
+												storedPresentation ??
+												remotePresentation!
+											).theme,
+										}}
+										presentationFrameEditingEnabled={false}
+									/>
+								</Box>
+							))
 					) : (
 						<Box
 							sx={{

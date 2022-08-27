@@ -22,7 +22,6 @@ import xlsx from 'xlsx';
 import { convertJsonToXlsx } from './models/PresentationFileConverter';
 import { getFilesInDir, getFileFromPath } from './models/FileSystem';
 import { parse } from './models/PresentationParser';
-import { electron } from 'process';
 
 let globalWorkspace: string | undefined;
 

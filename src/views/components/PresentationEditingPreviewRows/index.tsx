@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import { getEmptySlide, Slide } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
 import { SlidePreviewRow, SlidesHeaderRow } from '../rows';
 import useStyles from './styles';
-import LazyLoad from 'react-lazyload';
 
 interface IPresentationEditingPreviewRows {}
 
@@ -16,9 +15,51 @@ const PresentationEditingPreviewRows: React.FC<
 	const { presentation, currentSlide } = state;
 	const classes = useStyles();
 	const [draggedSlide, setDraggedSlide] = useState<Slide | undefined>();
+	const root = useRef(null);
+	const [visibilityWindow, setVisibilityWindow] = useState<{
+		start: number;
+		end: number;
+	}>({ start: 0, end: 49 });
+
+	let [visibility, setVisibility] = useState<number>(0);
+
+	useEffect(() => {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				const ids = entries
+					.filter((entry) => entry.isIntersecting)
+					.map((entry) =>
+						parseInt(
+							entry.target.attributes.getNamedItem('data-id')?.value ?? '-1'
+						)
+					);
+				if (ids.length === 0) return;
+
+				setVisibility(ids[ids.length - 1]);
+
+				if (ids[ids.length - 1] === visibilityWindow.end) {
+					const add = Math.min(
+						25,
+						presentation.slides.length - visibilityWindow.end
+					);
+					setVisibilityWindow((curr) => ({
+						start: curr.start,
+						end: curr.end + add,
+					}));
+				}
+			},
+			{ threshold: 1 }
+		);
+
+		document.querySelectorAll('#slide').forEach((element) => {
+			observer.observe(element);
+		});
+
+		return () => observer.disconnect();
+	}, []);
 
 	return (
-		<Box className={classes.slidesContainer}>
+		<Box className={classes.slidesContainer} ref={root}>
 			<Box className={classes.rowsScrollingContainer}>
 				<SlidesHeaderRow
 					addNewSlide={() => {
@@ -60,11 +101,15 @@ const PresentationEditingPreviewRows: React.FC<
 						});
 					}}
 				/>
-				{presentation.slides.map((slide: Slide, i: number) => (
-					<LazyLoad once>
+				{presentation.slides
+					.slice(visibilityWindow.start, visibilityWindow.end + 1)
+					.map((slide: Slide, i: number) => (
 						<SlidePreviewRow
+							id='slide'
+							data-id={i}
 							key={i}
 							slide={slide}
+							isVisible={visibility - 20 <= i && visibility + 20 >= i}
 							selected={currentSlide === i}
 							onSelected={(id: number) => {
 								dispatch({
@@ -101,8 +146,7 @@ const PresentationEditingPreviewRows: React.FC<
 								});
 							}}
 						/>
-					</LazyLoad>
-				))}
+					))}
 			</Box>
 		</Box>
 	);

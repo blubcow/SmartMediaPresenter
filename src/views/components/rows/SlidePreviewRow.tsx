@@ -1,3 +1,4 @@
+import { CircularProgress } from '@mui/material';
 import React, { useRef, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
@@ -14,11 +15,18 @@ interface ISlidePreviewRowProps extends IRowProps {
 	onSelected: (id: number) => void;
 	onDragStarted: (slide: Slide) => void;
 	onDraggedOverSwap: (id: number) => void;
+	isVisible: boolean;
 }
 
 const SlidePreviewRow: React.FC<ISlidePreviewRowProps> = (props) => {
-	const { slide, onSelected, selected, onDragStarted, onDraggedOverSwap } =
-		props;
+	const {
+		slide,
+		onSelected,
+		selected,
+		onDragStarted,
+		onDraggedOverSwap,
+		isVisible = false,
+	} = props;
 	const ref = useRef<any>();
 
 	useEffect(() => {
@@ -67,6 +75,7 @@ const SlidePreviewRow: React.FC<ISlidePreviewRowProps> = (props) => {
 								i * slide.columns,
 								i * slide.columns + slide.columns
 							)}
+							isVisible={isVisible}
 						/>
 					</Box>
 				))}
@@ -76,10 +85,21 @@ const SlidePreviewRow: React.FC<ISlidePreviewRowProps> = (props) => {
 	);
 };
 
-const ImagePreview = (props: { width: string; location?: MediaLocation }) => {
-	const { width, location } = props;
+const ImagePreview = (props: {
+	width: string;
+	location?: MediaLocation;
+	isVisible: boolean;
+}) => {
+	const { width, location, isVisible } = props;
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const [loaded, setLoaded] = useState<boolean>(false);
+
+	useEffect(() => {
+		if (!isVisible) return;
+		const i = new Image();
+		i.src = location?.local ?? location?.remote ?? '';
+		i.onload = () => setLoaded(true);
+	}, [isVisible, location?.local ?? location?.remote]);
 
 	return (
 		<Box
@@ -93,19 +113,23 @@ const ImagePreview = (props: { width: string; location?: MediaLocation }) => {
 			}}
 		>
 			{location?.local || location?.remote ? (
-				<img
-					draggable={false}
-					src={location?.local ?? location?.remote}
-					style={{
-						height: '100%',
-						width: '100%',
-						objectFit: 'contain',
-						display: loaded ? 'initial' : 'none',
-					}}
-					alt='media'
-					loading='lazy'
-					onLoad={() => setLoaded(true)}
-				/>
+				loaded ? (
+					<img
+						draggable={false}
+						src={loaded ? location?.local ?? location?.remote : undefined}
+						style={{
+							height: '100%',
+							width: '100%',
+							objectFit: 'contain',
+							display: loaded ? 'initial' : 'none',
+						}}
+						alt='media'
+						loading='lazy'
+						onLoad={() => setLoaded(true)}
+					/>
+				) : (
+					<CircularProgress />
+				)
 			) : (
 				<Box
 					sx={{
@@ -124,8 +148,14 @@ const ImagePreview = (props: { width: string; location?: MediaLocation }) => {
 	);
 };
 
-const PreviewRow = (props: { height: string; items: MediaRessource[] }) => {
-	const { height, items } = props;
+const PreviewRow = (props: {
+	height: string;
+	items: MediaRessource[];
+	isVisible: boolean;
+	observer?: IntersectionObserver;
+}) => {
+	const { height, items, isVisible } = props;
+
 	return (
 		<Box style={{ height: height, display: 'flex', cursor: 'pointer' }}>
 			{items.map((item, i) => (
@@ -133,6 +163,7 @@ const PreviewRow = (props: { height: string; items: MediaRessource[] }) => {
 					width={`${100 / items.length}%`}
 					location={items.find((item) => item.id === i)?.location}
 					key={i}
+					isVisible={isVisible}
 				/>
 			))}
 		</Box>

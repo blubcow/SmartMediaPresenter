@@ -1,4 +1,3 @@
-import { initial } from 'lodash';
 import React, { useEffect, useState, useRef } from 'react';
 import { FullScreen } from 'react-full-screen';
 import {
@@ -172,28 +171,31 @@ const Content: React.FC<IContentProps> = (props) => {
 				position: 'relative',
 			}}
 		>
-			{presentation.slides.map((slide) => (
-				<Box
-					sx={{
-						position: 'absolute',
-						opacity: slide.id === currentSlide ? 1 : 0,
-						top: 0,
-						left: 0,
-						height: '100%',
-						width: '100%',
-						display: 'flex',
-						alignItems: 'center',
-						justifyContent: 'center',
-						bgcolor: slide.settings?.color ?? '#000',
-					}}
-				>
-					<SlideBox
-						slide={slide}
-						theme={{ ...presentation.theme }}
-						presentationFrameEditingEnabled={false}
-					/>
-				</Box>
-			))}
+			{presentation.slides
+				.slice(Math.max(currentSlide - 6, 0), currentSlide + 15)
+				.map((slide, index) => (
+					<Box
+						key={index}
+						sx={{
+							position: 'absolute',
+							opacity: slide.id === currentSlide ? 1 : 0,
+							top: 0,
+							left: 0,
+							height: '100%',
+							width: '100%',
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center',
+							bgcolor: slide.settings?.color ?? '#000',
+						}}
+					>
+						<SlideBox
+							slide={slide}
+							theme={{ ...presentation.theme }}
+							presentationFrameEditingEnabled={false}
+						/>
+					</Box>
+				))}
 		</Box>
 	);
 };
