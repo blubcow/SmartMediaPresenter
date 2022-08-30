@@ -9,6 +9,7 @@ import {
 } from '../../../shared/types/presentation';
 import { Row, Box, Text } from '../../../smpUI/components';
 import { IRowProps } from '../../../smpUI/components/Row';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface ISlidePreviewRowProps extends IRowProps {
 	slide: Slide;
@@ -114,7 +115,7 @@ const ImagePreview = (props: {
 		>
 			{location?.local || location?.remote ? (
 				loaded ? (
-					<img
+					<LazyLoadImage
 						draggable={false}
 						src={loaded ? location?.local ?? location?.remote : undefined}
 						style={{
