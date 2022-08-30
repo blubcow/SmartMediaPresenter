@@ -37,7 +37,7 @@ const PresentationEditingPreviewRows: React.FC<
 
 				setVisibility(ids[ids.length - 1]);
 
-				if (ids[ids.length - 1] === visibilityWindow.end) {
+				if (ids.includes(visibilityWindow.end)) {
 					const add = Math.min(
 						25,
 						presentation.slides.length - visibilityWindow.end
@@ -56,7 +56,7 @@ const PresentationEditingPreviewRows: React.FC<
 		});
 
 		return () => observer.disconnect();
-	}, []);
+	}, [visibilityWindow]);
 
 	return (
 		<Box className={classes.slidesContainer} ref={root}>
