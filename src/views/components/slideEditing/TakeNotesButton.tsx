@@ -105,6 +105,9 @@ const TakeNotesButton: React.FC<ITakeNotesButtonProps> = (props) => {
 								background: 'transparent',
 								color: 'inherit',
 							}}
+							onResize={null}
+							onResizeCapture={null}
+
 						/>
 					</Box>
 				</Box>
