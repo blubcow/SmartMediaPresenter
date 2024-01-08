@@ -23,7 +23,7 @@ import {
 	DesktopWindows,
 	Cloud,
 } from '@mui/icons-material';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { SMPRoutes } from '../../../types/routes';
 import PresentationFloatingButton from '../PresentationFloatingButton';
 import ActionConfirmationModal from '../modals/ActionConfirmationModal';
@@ -70,7 +70,7 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 	const { unselectLocalPresentation, unselectRemotePresentation } =
 		usePresentationCacheContext();
 
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		setCurrentSlide(0);
@@ -98,7 +98,7 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 						variant='extended'
 						color='primary'
 						onClick={() => {
-							history.push(`${SMPRoutes.Edit}?id=${id}`);
+							navigate(`${SMPRoutes.Edit}?id=${id}`);
 						}}
 					>
 						<Edit sx={{ mr: 1 }} />

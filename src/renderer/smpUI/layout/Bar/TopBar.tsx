@@ -2,7 +2,7 @@ import React from 'react';
 import { AppBar, AppBarProps, Toolbar } from '@mui/material';
 import { IconButton } from '../../components';
 import { ArrowBackIosNew } from '@mui/icons-material';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export interface ITopBarProps extends AppBarProps {
 	withFixedHeight?: string;
@@ -12,7 +12,7 @@ export interface ITopBarProps extends AppBarProps {
 
 const TopBar: React.FC<ITopBarProps> = (props) => {
 	const { withFixedHeight = '75px', canGoBack = false, onGoBack } = props;
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	return (
 		<AppBar
@@ -31,7 +31,7 @@ const TopBar: React.FC<ITopBarProps> = (props) => {
 						icon={ArrowBackIosNew}
 						onClick={() => {
 							if (onGoBack) onGoBack();
-							else history.goBack();
+							else navigate(-1);
 						}}
 					/>
 				)}

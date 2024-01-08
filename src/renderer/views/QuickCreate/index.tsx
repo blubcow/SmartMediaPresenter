@@ -8,12 +8,12 @@ import QuickCreateMediaDropBox from '../components/QuickCreateMediaDropBox';
 import QuickCreateSlidesBox from '../components/QuickCreateSlidesBox';
 import { getEmptySlide, Slide } from '../../shared/types/presentation';
 import { SMPRoutes } from '../../types/routes';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { DataTransferIdentifiers } from '../../types/identifiers';
 import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
 
 const QuickCreate: React.FC<{}> = () => {
-	const history = useHistory();
+	const navigate = useNavigate();
 	const { createQuickCreatePresentation } = usePresentationSyncContext();
 	const [slides, setSlides] = useState<Slide[]>([getEmptySlide()]);
 	const [presentationName, setPresentationName] = useState<string>(
@@ -72,7 +72,7 @@ const QuickCreate: React.FC<{}> = () => {
 					onFilenameChanged={(filename) => setPresentationName(filename)}
 					onCreatePresentation={() => {
 						createQuickCreatePresentation(presentationName, slides, (id) => {
-							history.replace(`${SMPRoutes.Edit}?id=${id}`);
+							navigate(`${SMPRoutes.Edit}?id=${id}`);
 						});
 					}}
 				/>

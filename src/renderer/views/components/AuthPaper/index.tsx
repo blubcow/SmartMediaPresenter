@@ -1,14 +1,14 @@
 import React from 'react';
 import { Paper } from '../../../smpUI/components';
 import AuthViews from '../AuthViews';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { SMPRoutes } from '../../../types/routes';
 
 const AuthPaper: React.FC<{}> = () => {
-	const history = useHistory();
+	const navigate = useNavigate();
 	return (
 		<Paper>
-			<AuthViews onLogin={() => history.replace(SMPRoutes.Home)} />
+			<AuthViews onLogin={() => navigate(SMPRoutes.Home, {replace: true})} />
 		</Paper>
 	);
 };
