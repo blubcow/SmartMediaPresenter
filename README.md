@@ -2,6 +2,12 @@
 - `npm i @mui/material @emotion/react @emotion/styled`
 - `npm i @mui/icons-material @mui/system`
 
+# Firebase API
+- `npm i firebase@^9.6.1` (Version 9 kept for easier upgrading)
+
+# Additional tooling
+- `npm i dotenv i18next lodash xlsx web-vitals`
+
 
 <div align="center">
 
