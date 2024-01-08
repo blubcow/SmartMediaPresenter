@@ -41,9 +41,13 @@ const UserSettingsDrawer: React.FC<IUserSettingsDrawerProps> = (props) => {
 						bgcolor: 'background.default',
 					}}
 				>
+					
+					{/*
+					TODO: Fix this process weirdness!
 					<Text variant='body2'>{`${t('version')}: ${
 						process.env.REACT_APP_VERSION
 					}`}</Text>
+					*/}
 				</Box>
 			</Box>
 		</Drawer>

@@ -1,7 +1,7 @@
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 
-export default makeStyles = makeStyles((theme: Theme) =>
+export default makeStyles((theme: Theme) =>
 	createStyles({
 		container: {
 			height: '100%',

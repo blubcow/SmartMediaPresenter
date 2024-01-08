@@ -12,7 +12,8 @@ import {
 	SyncPaperEntry,
 } from '../types/presentaitonSycncing';
 import { RemoteUser } from '../types/remote';
-const { ipcRenderer } = window.require('electron');
+
+const ipcRenderer = window.electron;
 
 const usePresentationSyncing = (
 	connected: boolean,

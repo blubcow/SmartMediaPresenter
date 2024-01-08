@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ThemeProvider from './providers/ThemeProvider';
 import NavigationProvider from './providers/NavigationProvider';
 import I18NProvider from './providers/I18NProvider';
@@ -9,7 +9,17 @@ import PresentationSyncProvider from './providers/PresentationSyncProvider';
 import PresentationCacheProvider from './providers/PresentationCacheProvider';
 import ConnectivityProvider from './providers/ConnectivityProvider';
 
+
+
 function App() {
+	useEffect(() =>{
+		test();
+	})
+
+	const test = async function(){
+		const ipcRenderer = await window.electron;
+		ipcRenderer.send('test', 'test');
+	}
 	return (
 		<RemoteUserProvider>
 			<UserSettingsProvider>

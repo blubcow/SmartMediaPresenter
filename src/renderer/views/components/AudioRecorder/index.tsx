@@ -40,7 +40,9 @@ const AudioRecorder: React.FC<IAudioRecorderProps> = (props) => {
 		};
 	}, []);
 
-	return (
+	// TODO: What is happening here? Fix this
+	return(null);
+	/*return (
 		<ReactMediaRecorder
 			{...props}
 			video={false}
@@ -78,7 +80,7 @@ const AudioRecorder: React.FC<IAudioRecorderProps> = (props) => {
 				);
 			}}
 		/>
-	);
+	);*/
 };
 
 export default AudioRecorder;

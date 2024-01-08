@@ -3,7 +3,6 @@ import {
 	SinglePresentation,
 } from '../shared/types/presentation';
 import { uploadMedia } from './MediaUploader';
-const { ipcRenderer } = window.require('electron');
 
 interface MediaSyncTask {
 	index: number;
