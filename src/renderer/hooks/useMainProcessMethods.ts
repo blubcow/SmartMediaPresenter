@@ -246,13 +246,13 @@ export const usePresentationMode = (startingSlide: number) => {
 	useEffect(() => {
 		ipcRenderer.on(
 			MainProcessMethodIdentifiers.PresenterModeUpdateNotification,
-			(_: any, slide: number) => {
+			async (_: any, slide: number) => {
 				setSlide((curr) => curr + slide);
 			}
 		);
 		return () => {
 			// TODO: Reverse this hide!
-			//ipcRenderer.removeAllListeners();
+			ipcRenderer.removeAllListeners(MainProcessMethodIdentifiers.PresenterModeUpdateNotification);
 		};
 	}, []);
 
