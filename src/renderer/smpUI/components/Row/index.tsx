@@ -17,11 +17,12 @@ const Row: React.FC<IRowProps> = (props) => {
 	const {
 		title,
 		info,
+		rootContainerStyle,
 		secondaryInfo,
 		iconBadge: IconBadge,
-		rootContainerStyle,
-		height = '135px',
+		height = '135px', // TODO: Do we need this on the box again?
 		selected = false,
+		...boxProps
 	} = props;
 	const classes = useStyles();
 
@@ -29,7 +30,8 @@ const Row: React.FC<IRowProps> = (props) => {
 		<Box className={classes.root} sx={rootContainerStyle}>
 			<Box
 				className={classes.container}
-				{...props}
+				height={height}
+				{...boxProps}
 				sx={{
 					height: height,
 					outlineStyle: 'solid',
