@@ -14,12 +14,12 @@ interface IImportLocalPresentationsModalProps extends IModalProps {
 
 const ImportLocalPresentationsModal: React.FC<IImportLocalPresentationsModalProps> =
 	(props) => {
-		const { onChoose, amnt, importing } = props;
+		const { onChoose, amnt, importing, ...modalProps } = props;
 		const { t } = useTranslation([i18nNamespace.Presentation]);
 		const classes = useImportLocalPresentationsModalStyles();
 
 		return (
-			<Modal {...props}>
+			<Modal {...modalProps}>
 				<Box className={classes.container}>
 					<Text variant='h6' fontWeight={800}>
 						{importing

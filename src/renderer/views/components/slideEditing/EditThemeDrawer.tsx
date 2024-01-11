@@ -18,12 +18,12 @@ interface IEditThemeDrawerProps extends IDrawerProps {
 }
 
 const EditThemeDrawer: React.FC<IEditThemeDrawerProps> = (props) => {
-	const { onFinish } = props;
+	const { onFinish, ...drawerProps } = props;
 	const classes = useEditThemeDrawerStyles();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 
 	return (
-		<Drawer className={classes.container} {...props}>
+		<Drawer className={classes.container} {...drawerProps}>
 			<Box className={classes.content}>
 				<Box className={classes.rowContainer}>
 					<DefaultBackgroundColor />

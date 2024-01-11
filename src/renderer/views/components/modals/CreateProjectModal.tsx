@@ -25,12 +25,13 @@ const CreateProjectModal: React.FC<ICreateProjectModalProps> = (props) => {
 		createPresentationAction,
 		importPresentationAction,
 		enterQuickCreateAction,
+		...modalProps
 	} = props;
 	const classes = useCreateProjectModalStyles();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 
 	return (
-		<Modal {...props}>
+		<Modal {...modalProps}>
 			<Box className={classes.containter}>
 				<Text variant='h4' fontWeight={700}>
 					{t('createNewPresentation')}

@@ -13,7 +13,7 @@ interface ILocalOrRemoteModalProps extends IModalProps {
 }
 
 const LocalOrRemoteModal: React.FC<ILocalOrRemoteModalProps> = (props) => {
-	const { onSelection } = props;
+	const { onSelection, ...modalProps } = props;
 	const classes = useLocalOrRemoteModalStyles();
 	const { t } = useTranslation([i18nNamespace.Remote]);
 
@@ -23,7 +23,7 @@ const LocalOrRemoteModal: React.FC<ILocalOrRemoteModalProps> = (props) => {
 	};
 
 	return (
-		<Modal {...props}>
+		<Modal {...modalProps}>
 			<Box className={classes.container}>
 				<Text variant='h6' fontWeight={800}>
 					{t('chooseLocalOrRemote')}

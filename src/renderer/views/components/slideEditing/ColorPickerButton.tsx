@@ -3,6 +3,7 @@ import EditingButton from './EditingButton';
 import EditButtonLabel from './EditButtonLabel';
 import ColorPicker from '../ColorPicker';
 import ColorPickerIcon from './ColorPickerIcon';
+import _ from 'lodash';
 
 interface IColorPickerButtonProps {
 	label: string;
@@ -14,6 +15,8 @@ const ColorPickerButton: React.FC<IColorPickerButtonProps> = (props) => {
 	const { label, color, onColorPicked } = props;
 	const [colorPickerOpen, setColorPickerOpen] = useState<boolean>(false);
 
+	const editingButtonProps = _.omit(props, ['label', 'color', 'onColorPicked']);
+
 	return (
 		<>
 			<EditingButton
@@ -23,7 +26,7 @@ const ColorPickerButton: React.FC<IColorPickerButtonProps> = (props) => {
 				onClick={() => {
 					setColorPickerOpen(true);
 				}}
-				{...props}
+				{...editingButtonProps}
 			/>
 			<ColorPicker
 				title={label}

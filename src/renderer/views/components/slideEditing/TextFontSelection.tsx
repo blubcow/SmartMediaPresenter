@@ -72,8 +72,8 @@ const TextFontSelection: React.FC<ITextFontSelectionProps> = (props) => {
 						}}
 						options={fonts}
 						style={{ width: '250px' }}
-						renderOption={(props, option) => (
-							<TextFontSelectionOption font={option} {...props} />
+						renderOption={(htmlAttributes, option) => (
+							<TextFontSelectionOption font={option} {...htmlAttributes} />
 						)}
 						renderInput={(params) => {
 							params.inputProps.style = {

@@ -7,10 +7,10 @@ export interface IIconButtonProps extends IconButtonProps {
 }
 
 const IconButton: React.FC<IIconButtonProps> = (props) => {
-	const { icon: Icon } = props;
+	const { icon: Icon, ...muiIconButtonProps } = props;
 
 	return (
-		<MUIIconButton sx={{ color: 'text.primary' }} size='large' {...props}>
+		<MUIIconButton sx={{ color: 'text.primary' }} size='large' {...muiIconButtonProps}>
 			<Icon />
 		</MUIIconButton>
 	);

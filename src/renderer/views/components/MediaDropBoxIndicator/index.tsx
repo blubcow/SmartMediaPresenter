@@ -19,12 +19,13 @@ const MediaDropBoxIndicator: React.FC<IMediaDropBoxIndicatorProps> = (
 		label = `${t('dropMediaHere')}`,
 		labelSize,
 		canTapToOpenFileInspector = false,
+		...boxProps
 	} = props;
 	const [draggedOver, setDraggedOver] = useState<boolean>(false);
 	const classes = useStyles();
 
 	return (
-		<Box className={classes.droppingArea} {...props}>
+		<Box className={classes.droppingArea} {...boxProps}>
 			<Box
 				className={
 					draggedOver

@@ -26,7 +26,7 @@ interface IRemoteFileExplorerPorps extends IModalProps {
 }
 
 const RemoteFileExplorer: React.FC<IRemoteFileExplorerPorps> = (props) => {
-	const { filterItems, onMediaChoosen } = props;
+	const { filterItems, onMediaChoosen, ...modalProps } = props;
 	const classes = useStyles();
 
 	const { getRemoteMedia } = usePresentationSyncContext();
@@ -66,7 +66,7 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerPorps> = (props) => {
 
 	return (
 		<Modal
-			{...props}
+			{...modalProps}
 			maxWidth={false}
 			PaperProps={{ onClick: () => setCurrentSelection(undefined) }}
 		>

@@ -13,14 +13,14 @@ interface IIMageCroppingModalProps extends IModalProps {
 }
 
 const ImageCroppingModal: React.FC<IIMageCroppingModalProps> = (props) => {
-	const { close } = props;
+	const { close, ...modalProps } = props;
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const { state, dispatch } = usePresentationEditingContext();
 	const { presentation, currentSlide, activeMedia } = state;
 	const [crop, setCrop] = useState<MediaCrop>();
 
 	return (
-		<Modal {...props}>
+		<Modal {...modalProps}>
 			<Box sx={{ width: '500px' }}>
 				<CroppableImage
 					mediaElement={presentation.slides[currentSlide].media[activeMedia!]}

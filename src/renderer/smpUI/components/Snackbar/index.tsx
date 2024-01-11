@@ -12,9 +12,9 @@ export interface ISnackbarProps extends SnackbarProps {
 }
 
 const Snackbar: React.FC<ISnackbarProps> = (props) => {
-	const { severity = 'info', message, title } = props;
+	const { severity = 'info', message, title, ...muiSnackbarProps } = props;
 	return (
-		<MuiSnackbar {...props}>
+		<MuiSnackbar {...muiSnackbarProps}>
 			<Alert severity={severity} variant='filled'>
 				{title && <AlertTitle>{title}</AlertTitle>}
 				{message && <Text variant='body1'>{message}</Text>}

@@ -11,11 +11,11 @@ interface IQuickCreateTopBarProps extends ITopBarDisplayingFilenameProps {
 }
 
 const QuickCreateTopBar: React.FC<IQuickCreateTopBarProps> = (props) => {
-	const { onCreatePresentation } = props;
+	const { onCreatePresentation, ...topBarDisplayingFilenameProps } = props;
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 
 	return (
-		<TopBarDisplayingFilename {...props}>
+		<TopBarDisplayingFilename {...topBarDisplayingFilenameProps}>
 			<Box sx={{ flex: 1, display: 'flex', justifyContent: 'space-between' }}>
 				<Box />
 				<Button variant='contained' onClick={onCreatePresentation}>

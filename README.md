@@ -1,6 +1,7 @@
 # Material UI - a popupar React UI framework
 - `npm i @mui/material @emotion/react @emotion/styled`
 - `npm i @mui/icons-material @mui/system`
+- `npm i @mui/styles --force` (This is incompatible with react v18)
 
 # Firebase API
 - `npm i firebase@^9.6.1` (Version 9 kept for easier upgrading)
@@ -10,6 +11,9 @@
 
 # React packages
 - `npm i react-color react-edit-text react-full-screen react-i18next react-image-crop react-lazy-load-image-component react-media-recorder react-redux`
+
+- `npm install @types/react-edit-text --save-dev`
+- `npm install @types/lodash --save-dev`
 
 
 <div align="center">

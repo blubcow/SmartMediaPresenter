@@ -12,7 +12,7 @@ interface IColorPickerProps extends IModalProps {
 }
 
 const ColorPicker: React.FC<IColorPickerProps> = (props) => {
-	const { initialColor, onColorPicked, onCancel, title } = props;
+	const { initialColor, onColorPicked, onCancel, title, ...modalProps } = props;
 	const [color, setColor] = useState<string>(initialColor);
 	const classes = useStyles();
 
@@ -32,7 +32,7 @@ export interface PhotoshopPickerStylesProps {
    */
 
 	return (
-		<Modal {...props}>
+		<Modal {...modalProps}>
 			<PhotoshopPicker
 				styles={{
 					default: {

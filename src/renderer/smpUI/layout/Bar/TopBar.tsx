@@ -3,6 +3,7 @@ import { AppBar, AppBarProps, Toolbar } from '@mui/material';
 import { IconButton } from '../../components';
 import { ArrowBackIosNew } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import _ from 'lodash';
 
 export interface ITopBarProps extends AppBarProps {
 	withFixedHeight?: string;
@@ -14,6 +15,8 @@ const TopBar: React.FC<ITopBarProps> = (props) => {
 	const { withFixedHeight = '75px', canGoBack = false, onGoBack } = props;
 	const navigate = useNavigate();
 
+	const appBarProps = _.omit(props, ['withFixedHeight', 'canGoBack', 'onGoBack']);
+
 	return (
 		<AppBar
 			variant='elevation'
@@ -23,7 +26,7 @@ const TopBar: React.FC<ITopBarProps> = (props) => {
 				maxHeight: withFixedHeight,
 				height: withFixedHeight,
 			}}
-			{...props}
+			{...appBarProps}
 		>
 			<Toolbar sx={{ height: '100%' }}>
 				{canGoBack && (

@@ -22,7 +22,7 @@ const Row: React.FC<IRowProps> = (props) => {
 		iconBadge: IconBadge,
 		height = '135px', // TODO: Do we need this on the box again?
 		selected = false,
-		...boxProps
+		...boxProps // Append other props to box | TODO: this is only needed because the click functionality is added with props
 	} = props;
 	const classes = useStyles();
 

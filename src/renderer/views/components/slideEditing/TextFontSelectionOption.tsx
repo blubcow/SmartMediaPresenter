@@ -10,11 +10,11 @@ interface ITextFontSelectionOptionProps
 const TextFontSelectionOption: React.FC<ITextFontSelectionOptionProps> = (
 	props
 ) => {
-	const { font } = props;
+	const { font, ...liProps } = props;
 	const classes = useTextFontSelectionOptionStyles();
 
 	return (
-		<li className={classes.container} {...props}>
+		<li className={classes.container} {...liProps}>
 			<Text fontFamily={font}>{font}</Text>
 		</li>
 	);
