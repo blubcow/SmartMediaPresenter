@@ -8,6 +8,7 @@ import RemoteUserProvider from './providers/RemoteUserProvider';
 import PresentationSyncProvider from './providers/PresentationSyncProvider';
 import PresentationCacheProvider from './providers/PresentationCacheProvider';
 import ConnectivityProvider from './providers/ConnectivityProvider';
+import { ElectronHandler } from '../main/preload';
 
 
 
@@ -17,7 +18,9 @@ function App() {
 	})
 
 	const test = async function(){
-		const ipcRenderer = await window.electron;
+		//const { ipcRenderer } = window.require('electron');
+		//const ipcRenderer:ElectronHandler = await window.electron;
+		const ipcRenderer = window.electron;
 		ipcRenderer.send('test', 'test');
 	}
 	return (

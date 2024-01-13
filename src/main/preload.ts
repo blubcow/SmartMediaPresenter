@@ -29,7 +29,17 @@ const electronHandler = {
 
 //contextBridge.exposeInMainWorld('electron', electronHandler);
 
-contextBridge.exposeInMainWorld('electron', ipcRenderer);
+// With context isolation enabled!!
+//contextBridge.exposeInMainWorld('electron', ipcRenderer);
+
+// With context isolation disabled!!
+window.electron = ipcRenderer;
+
+/*
+export const electron = new Promise((resolve,reject) => {
+  resolve(ipcRenderer);
+});
+*/
 
 //export type ElectronHandler = typeof electronHandler;
 export type ElectronHandler = typeof ipcRenderer;

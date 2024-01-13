@@ -9,7 +9,7 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell, ipcMain, IpcRenderer } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -75,12 +75,23 @@ const createWindow = async () => {
     width: 1024,
     height: 728,
     icon: getAssetPath('icon.png'),
+    // TODO: Reverse settings (also see methods.ts)
     webPreferences: {
-      contextIsolation: true, // TODO: Check how to remove this!
+      nodeIntegration: true,
+			contextIsolation: false,
+			webSecurity: false,
+      preload: app.isPackaged
+        ? path.join(__dirname, 'preload.js')
+        : path.join(__dirname, '../../.erb/dll/preload.js')
+    }
+    /*
+    webPreferences: {
+      contextIsolation: true,
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
         : path.join(__dirname, '../../.erb/dll/preload.js'),
     },
+    */
   });
 
   mainWindow.loadURL(resolveHtmlPath('index.html'));
@@ -149,3 +160,4 @@ app
     });
   })
   .catch(console.log);
+  
