@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 
-
+/**
+ * Use the Media Capture and Streams API to record audio and video files
+ * https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API
+ * https://www.w3.org/TR/mediacapture-streams/
+ * @returns {boolean} isRecording
+ * @returns {function} startRecording
+ * @returns {function} stopRecording
+ */
 const useMediaStreamRecorder = () => {
 
     const [isRecording, setIsRecording] = useState<boolean>(false);
