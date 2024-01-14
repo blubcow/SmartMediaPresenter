@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { formatTimer } from '../../../util/Formatter';
 import { IBoxProps } from '../../../smpUI/components/Box';
+import useMediaStreamRecorder from '../../../hooks/useMediaStreamRecorder';
 
 
 interface IAudioRecorderProps extends IBoxProps {
@@ -19,10 +20,13 @@ const AudioRecorder: React.FC<IAudioRecorderProps> = (props) => {
 	const { storeAudio } = useAudioStore();
 	const classes = useStyles();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
-
-	const [isRecording, setIsRecording] = useState<boolean>(false);
-	const [recorder, setRecorder] = useState<MediaRecorder>();
 	const [timer, setTimer] = useState<number>(0);
+
+	const {
+		isRecording,
+		startRecording,
+		stopRecording
+	} = useMediaStreamRecorder();
 
 	// Visual timer representation when recording has started
 	useEffect(() => {
@@ -35,109 +39,6 @@ const AudioRecorder: React.FC<IAudioRecorderProps> = (props) => {
 		}
 	}, [isRecording]);
 
-	// On dismount, stop recording without saving file
-	useEffect(() => {
-		return function cleanup(){
-			if (isRecording) stopRecording(false);
-		};
-	}, []);
-
-	async function startRecording(){
-		// TODO: in mac osx, "systemPreferences.askForMediaAccess('microphone')" needs to run on main process
-
-		// TODO: Add a try catch block with a popup, to show the error to the user (mime type etc.?)
-		const stream:MediaStream = await navigator.mediaDevices.getUserMedia(getAudioCaptureConstraints());
-		//Use "stream.addTrack()" to add audio to video tracks 
-		
-		const options = { mimeType: '' };
-		if(MediaRecorder.isTypeSupported('audio/webm; codecs="opus"')){
-			options.mimeType = 'audio/webm; codecs="opus"';
-		}else if(MediaRecorder.isTypeSupported('audio/webm')){
-			options.mimeType = 'audio/webm';
-		}else{
-			throw new Error("WebM audio recording is not supported");
-		}
-
-		const recorder = new MediaRecorder(stream, options);
-		setRecorder(recorder);
-		
-		recorder.start();
-		setIsRecording(true);
-	}
-
-	function stopRecording(saveToFile:boolean = true){
-		setIsRecording(false);
-		if(recorder){
-			if(saveToFile){
-				recorder.addEventListener('dataavailable', (e:BlobEvent) => {
-					//let blobUrl = URL.createObjectURL(e.data);
-					saveBlobToFile(e.data);
-				});
-			}
-			recorder.stop();
-			setRecorder(undefined);
-		}
-	}
-
-	async function saveBlobToFile(blob:Blob){
-		// For debugging
-		// window.electron.invoke('saveBufferToFile', buffer);
-		const buffer = Buffer.from(await blob.arrayBuffer());
-		const filePath = await storeAudio(presId, buffer);
-		onRecordingReceived(filePath);
-	}
-
-	const videoProps = {
-		minWidth: 1280,
-		maxWidth: 1280,
-		minHeight: 720,
-		maxHeight: 720
-	}
-	
-	/**
-	 * To capture video from a source provided by desktopCapturer the constraints passed to navigator.webkitGetUserMedia 
-	 * must include chromeMediaSource: 'desktop', and audio: false.
-	 */
-	function getVideoCaptureConstraints(sourceId:number): MediaStreamConstraints {
-		return {
-			audio: false,
-			video: {
-				mandatory: {
-					chromeMediaSource: 'desktop',
-					chromeMediaSourceId: sourceId,
-					...videoProps
-				}
-			} as MediaTrackConstraints // TODO: cast to "MediaTrackConstrains, but it doesn't include mandatory property
-		}
-	}
-	
-	/**
-	 * To capture both audio and video from the entire desktop the constraints passed to navigator.mediaDevices.getUserMedia 
-	 * must include chromeMediaSource: 'desktop', for both audio and video, but should not include a chromeMediaSourceId constraint.
-	 */
-	function getAudioVideoCaptureConstraints(): MediaStreamConstraints {
-		return {
-			audio: {
-				mandatory: {
-					chromeMediaSource: 'desktop',
-				}
-			} as MediaTrackConstraints, // TODO: cast to "MediaTrackConstrains, but it doesn't include mandatory property
-				video: {
-					mandatory: {
-					chromeMediaSource: 'desktop',
-					...videoProps
-				}
-			} as MediaTrackConstraints // TODO: cast to "MediaTrackConstrains, but it doesn't include mandatory property
-		}
-	}
-	
-	function getAudioCaptureConstraints(): MediaStreamConstraints {
-		return {
-			audio: true, // TODO: cast to "MediaTrackConstrains, but it doesn't include mandatory property
-			video: false
-		}
-	}
-
 	return (<Box className={classes.container} {...boxProps}>
 		<Box className={classes.iconTimerContainer}>
 			<AudioRecordingIcon isRecording={isRecording} />
@@ -146,11 +47,18 @@ const AudioRecorder: React.FC<IAudioRecorderProps> = (props) => {
 		<Button
 			variant='contained'
 			color='secondary'
-			onClick={() => {
+			onClick={async () => {
 				if (!isRecording) {
 					startRecording();
 				} else {
-					stopRecording();
+					const blob = await stopRecording();
+
+					// For debugging
+					// window.electron.invoke('saveBufferToFile', buffer);
+					// const blobUrl = URL.createObjectURL(blob);
+					const buffer = Buffer.from(await blob.arrayBuffer());
+					const filePath = await storeAudio(presId, buffer);
+					onRecordingReceived(filePath);
 				}
 			}}
 		>
