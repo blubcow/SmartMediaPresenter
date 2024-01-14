@@ -16,8 +16,8 @@ export interface ITextProps extends TypographyProps {
 	onInvalidInput?: () => void;
 	parseInput?: (newValue: string) => string;
 
-	// TODO: This was not available in the type - what is the new one?
-	placeholder: string;
+	// TODO: This was not available in the type "TypographyProps" - what is the new one?
+	placeholder?: string;
 }
 
 const Text: React.FC<ITextProps> = (props) => {

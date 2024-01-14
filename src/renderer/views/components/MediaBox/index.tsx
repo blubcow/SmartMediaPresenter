@@ -68,10 +68,10 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 		openFileSelectorDialog('media').then((file: any[]) => {
 			if (didReceiveMediaFile && canReceiveMedia && file.length > 0) {
 				didReceiveMediaFile(
+					// TODO: use object "as File"
 					// @ts-ignore
 					{
 						name: file[0].name,
-						// @ts-ignore
 						path: file[0].location.local.substring(7),
 					},
 					id

@@ -43,7 +43,7 @@ const UserSettingsDrawer: React.FC<IUserSettingsDrawerProps> = (props) => {
 				>
 					
 					{/*
-					TODO: Fix this process weirdness!
+					TODO: Fix no access to process env!
 					<Text variant='body2'>{`${t('version')}: ${
 						process.env.REACT_APP_VERSION
 					}`}</Text>

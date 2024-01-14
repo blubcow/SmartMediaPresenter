@@ -10,7 +10,7 @@
 - `npm i dotenv i18next lodash xlsx web-vitals`
 
 # React packages
-- `npm i react-color react-edit-text react-full-screen react-i18next react-image-crop react-lazy-load-image-component react-media-recorder react-redux`
+- `npm i react-color react-edit-text react-full-screen react-i18next react-image-crop react-lazy-load-image-component react-redux`
 
 - `npm install @types/react-edit-text --save-dev`
 - `npm install @types/lodash --save-dev`

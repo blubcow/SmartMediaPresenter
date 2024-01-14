@@ -1,9 +1,9 @@
 // Disable no-unused-vars, broken for spread args
 /* eslint no-unused-vars: off */
-import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
+import { BrowserWindow, contextBridge, dialog, ipcRenderer, IpcRendererEvent, SaveDialogReturnValue } from 'electron';
 import { MainProcessMethodIdentifiers } from '../renderer/shared/types/identifiers';
-
 export type Channels = 'ipc-example';
+import * as fs from 'fs';
 
 /*
 const electronHandler = {
@@ -34,6 +34,9 @@ const electronHandler = {
 
 // With context isolation disabled!!
 window.electron = ipcRenderer;
+
+//window.desktopCapturer = desktopCapturer;
+//window.Menu = Menu;
 
 /*
 export const electron = new Promise((resolve,reject) => {

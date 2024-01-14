@@ -1,6 +1,7 @@
 import {
 	app,
 	BrowserWindow,
+	desktopCapturer,
 	dialog,
 	IpcMain,
 	SaveDialogOptions,
@@ -407,22 +408,24 @@ export const registerMainProcessMethodHandlers = (
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.OpenFileSelectorDialog,
 		async (_, type: FileExplorerType) => {
+			// TODO: This is selecting a folder, not files!
 			const files = dialog.showOpenDialogSync(mainWindow, {
 				...FileExpolorerOptions[type],
 			});
 
 			if (!files || !files.length) return [];
 
-            // TODO: not working await call
-            /*
-			return await files.reduce(
-				async (prev, file) =>
-					path.extname(file) === ''
-						? [...(await prev), ...(await getFilesInDir(file))]
-						: [...(await prev), getFileFromPath(file)],
-				Promise.resolve([])
+			const returnArray = files.reduce<any[]>(
+				(prev, file) => {
+					const arr = path.extname(file) === ''
+						? [...prev, ...getFilesInDir(file)]
+						: [...prev, getFileFromPath(file)];
+					return arr;
+				},
+				[]
 			);
-            */
+
+			return returnArray;
 		}
 	);
 
@@ -540,7 +543,7 @@ export const registerMainProcessMethodHandlers = (
 				globalWorkspace ? '/' + globalWorkspace : ''
 			}/audio`;
 			const presPath = `/${id}`;
-			const fileName = `/${Date.now()}.wav`;
+			const fileName = `/${Date.now()}.webm`;
 
 			if (!fs.existsSync(path)) {
 				await fs.mkdirSync(path);
@@ -636,6 +639,33 @@ export const registerMainProcessMethodHandlers = (
 		MainProcessMethodIdentifiers.retriveFullFile,
 		async (_, path: string) => {
 			return fs.readFileSync(path);
+		}
+	);
+
+	ipcMain.handle(
+		'getCurrentWindowMediaSourceId',
+		async (_) => {
+			/*
+			This does not work because of bug in electron !!
+			const inputSources = await desktopCapturer.getSources({
+				types: ['window', 'screen']
+			});
+			*/
+			const windowSourceId = mainWindow.getMediaSourceId();
+			return windowSourceId;
+		}
+	);
+
+	// Mainly used for debugging buffer file output
+	ipcMain.handle(
+		'saveBufferToFile',
+		async (_, buffer: Buffer) => {
+			const { canceled, filePath } = await dialog.showSaveDialog(mainWindow, {
+				title:'saveBufferToFile'
+			})
+			if (!canceled && filePath !== undefined) {
+				fs.writeFileSync(filePath, buffer);
+			}
 		}
 	);
 };
