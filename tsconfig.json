@@ -22,6 +22,7 @@
     "noImplicitAny": false,
     "noImplicitThis": false,
     "strictNullChecks": false,
+    "jsx": "react-jsx",
 
     "noUnusedLocals": false,
     "noUnusedParameters": false,
@@ -35,14 +36,13 @@
 
     "noImplicitOverride": false,
     "noImplicitReturns": false,
-
-    "jsx": "react-jsx",
-
     "noUncheckedIndexedAccess": false,
     "noPropertyAccessFromIndexSignature": false,
+    "noStrictGenericChecks": false,
+
     "exactOptionalPropertyTypes": false,
     "suppressImplicitAnyIndexErrors": true,
-    "suppressExcessPropertyErrors": true
+    "suppressExcessPropertyErrors": true,
   },
   "include": [
     "src"
