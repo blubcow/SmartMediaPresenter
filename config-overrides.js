@@ -5,8 +5,8 @@ const { useBabelRc, addBabelPlugins, override } = require("customize-cra");
 //module.exports = override(useBabelRc());
 
 module.exports = override(
-    ...addBabelPlugins(
-      "@babel/plugin-proposal-nullish-coalescing-operator"
-      /* Add plug-in names here (separate each value by a comma) */
-    )
-  );
+	...addBabelPlugins(
+		"@babel/plugin-proposal-nullish-coalescing-operator"
+		/* Add plug-in names here (separate each value by a comma) */
+	)
+);
