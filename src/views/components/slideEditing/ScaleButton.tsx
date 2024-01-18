@@ -57,8 +57,8 @@ const ScaleButton: React.FC<IScaleButtonProps> = (props) => {
 						y: 1,
 					};
 					const currentTransformation = {
-						x: parseFloat(scaleValue.x ?? 1),
-						y: parseFloat(scaleValue.y ?? 1),
+						x: parseFloat(scaleValue.x ?? '1'),
+						y: parseFloat(scaleValue.y ?? '1'),
 					};
 
 					const mediaSettings = { ...mediaResource.settings };

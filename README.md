@@ -1,3 +1,9 @@
+![node-js](https://img.shields.io/badge/node--js-18.19.0-limegreen) &nbsp; 
+![electron](https://img.shields.io/badge/electron-15.2.0-cyan) &nbsp; 
+![react](https://img.shields.io/badge/react-17.0.2-red) &nbsp; 
+![create-react-app](https://img.shields.io/badge/create--react--app-4.0.3-red) &nbsp; 
+![firebase](https://img.shields.io/badge/firebase-9.6.1-red) &nbsp; 
+
 <br/>
 <p align="center">
   <img src="./public/resources/icon.png" height='200' width='200' />
