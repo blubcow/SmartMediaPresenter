@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { useState, useEffect } from 'react';
 import { Dimensions, TextElement } from '../../../shared/types/presentation';
 import { Text } from '../../../smpUI/components';
@@ -12,6 +13,7 @@ interface ISlideTextElementProps extends ITextProps {
 
 const SlideTextElement: React.FC<ISlideTextElementProps> = (props) => {
 	const { textElement, parentSize, editable } = props;
+	const textProps = _.omit(props, ['textElement', 'parentSize']);
 
 	const [heightMultiplier, setHeightMultiplier] = useState<number>(
 		parentSize.height / textElement.position.rel.height
@@ -71,7 +73,7 @@ const SlideTextElement: React.FC<ISlideTextElementProps> = (props) => {
 					widthMulitplier={widthMultiplier}
 				/>
 			) : (
-				<Text color={textElement.color} style={style} {...props}>
+				<Text color={textElement.color} style={style} {...textProps}>
 					{textElement.text}
 				</Text>
 			)}

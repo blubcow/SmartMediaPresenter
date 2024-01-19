@@ -27,6 +27,7 @@ const SlidePreviewRow: React.FC<ISlidePreviewRowProps> = (props) => {
 		onDragStarted,
 		onDraggedOverSwap,
 		isVisible = false,
+		...rowProps
 	} = props;
 	const ref = useRef<any>();
 
@@ -41,7 +42,7 @@ const SlidePreviewRow: React.FC<ISlidePreviewRowProps> = (props) => {
 	return (
 		<>
 			<Row
-				{...props}
+				{...rowProps}
 				draggable
 				sx={{
 					height: `${slide.rows * 100}px`,

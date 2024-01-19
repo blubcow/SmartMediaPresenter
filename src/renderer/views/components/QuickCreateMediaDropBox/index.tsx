@@ -30,6 +30,7 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 		selectedRows,
 		clearSelectedRows,
 		setMultiInsertionEnabled,
+		...boxProps
 	} = props;
 
 	const [files, setFiles] = useState<QuickCreateMediaResource[]>([]);
@@ -136,7 +137,7 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 
 	return (
 		<Box
-			{...props}
+			{...boxProps}
 			className={classes.container}
 			onDragOver={(e) => {
 				e.preventDefault();

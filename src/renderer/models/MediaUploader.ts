@@ -1,7 +1,7 @@
 import { MainProcessMethodIdentifiers } from '../shared/types/identifiers';
 import { storage } from './firebase';
 
-const { ipcRenderer } = window.require('electron');
+const ipcRenderer = window.electron;
 
 interface UploadFile {
 	path: string;

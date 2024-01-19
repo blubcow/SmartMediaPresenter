@@ -1,6 +1,5 @@
-import { makeStyles, createStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
-import { cursorTo } from 'readline';
 
 export default makeStyles((theme: Theme) =>
 	createStyles({

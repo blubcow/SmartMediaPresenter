@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Typography, TypographyProps } from '@mui/material';
 import { EditText, EditTextarea } from 'react-edit-text';
 import useStyles from './styles';
+import _ from 'lodash';
 
 export interface ITextProps extends TypographyProps {
-	editable?: boolean;
+	editable?: boolean | string;
 	multiLineEditable?: boolean;
 	editableTextDidChange?: (
 		prev: string,
@@ -14,6 +15,9 @@ export interface ITextProps extends TypographyProps {
 	minLength?: number;
 	onInvalidInput?: () => void;
 	parseInput?: (newValue: string) => string;
+
+	// TODO: This was not available in the type "TypographyProps" - what is the new one?
+	placeholder?: string;
 }
 
 const Text: React.FC<ITextProps> = (props) => {
@@ -33,6 +37,8 @@ const Text: React.FC<ITextProps> = (props) => {
 	const classes = useStyles();
 	const textareaRef = useRef<any>();
 
+	const typographyProps = _.omit(props, ['editable', 'multiLineEditable', 'editableTextDidChange', 'minLength', 'onInvalidInput', 'parseInput', 'placeholder']);
+
 	useEffect(() => {
 		setEditableText(`${props.children ?? ''}`);
 	}, [props.children]);
@@ -40,7 +46,8 @@ const Text: React.FC<ITextProps> = (props) => {
 	return (
 		<Typography
 			fontWeight='medium'
-			{...props}
+			component={'span'}
+			{...typographyProps}
 			sx={{
 				bgcolor: isEditing && !multiLineEditable ? 'divider' : 'transparent',
 			}}
@@ -52,9 +59,9 @@ const Text: React.FC<ITextProps> = (props) => {
 						// className={classes.editableText}
 						value={editableText}
 						style={{ display: 'block', resize: 'none' }}
-						onChange={(value) => {
-							if (parseInput) setEditableText(parseInput(value));
-							else setEditableText(value);
+						onChange={(e) => {
+							if (parseInput) setEditableText(parseInput(e.target.value));
+							else setEditableText(e.target.value);
 						}} // @ts-ignore
 						onBlur={() => {
 							setIsEditing(false);
@@ -62,14 +69,14 @@ const Text: React.FC<ITextProps> = (props) => {
 						onEditMode={() => {
 							setIsEditing(true);
 						}}
-						onSave={(value) => {
-							if (value.value.length < minLength) {
-								setEditableText(value.previousValue);
+						onSave={({ name, value, previousValue }) => {
+							if (value.length < minLength) {
+								setEditableText(previousValue);
 								return;
 							}
 
 							if (editableTextDidChange)
-								editableTextDidChange(value.previousValue, editableText);
+								editableTextDidChange(previousValue, editableText);
 						}}
 					/>
 				) : (
@@ -77,9 +84,9 @@ const Text: React.FC<ITextProps> = (props) => {
 						placeholder={placeholder}
 						className={classes.editableText}
 						value={editableText}
-						onChange={(value) => {
-							if (parseInput) setEditableText(parseInput(value));
-							else setEditableText(value);
+						onChange={(e) => {
+							if (parseInput) setEditableText(parseInput(e.target.value));
+							else setEditableText(e.target.value);
 						}}
 						// @ts-ignore
 						onBlur={() => {
@@ -88,14 +95,14 @@ const Text: React.FC<ITextProps> = (props) => {
 						onEditMode={() => {
 							setIsEditing(true);
 						}}
-						onSave={(value) => {
-							if (value.value.length < minLength) {
-								setEditableText(value.previousValue);
+						onSave={({ name, value, previousValue }) => {
+							if (value.length < minLength) {
+								setEditableText(previousValue);
 								return;
 							}
 
 							if (editableTextDidChange)
-								editableTextDidChange(value.previousValue, editableText);
+								editableTextDidChange(previousValue, editableText);
 						}}
 					/>
 				)

@@ -11,11 +11,11 @@ interface IPresentationDispalaySelectionModalProps extends IModalProps {
 
 const PresentationDispalaySelectionModal: React.FC<IPresentationDispalaySelectionModalProps> =
 	(props) => {
-		const { onDisplaySelected, displaysAmount } = props;
+		const { onDisplaySelected, displaysAmount, ...modalProps } = props;
 		const { t } = useTranslation([i18nNamespace.Presentation]);
 
 		return (
-			<Modal {...props}>
+			<Modal {...modalProps}>
 				<Box
 					sx={{
 						display: 'flex',

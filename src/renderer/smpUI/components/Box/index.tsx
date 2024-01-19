@@ -7,10 +7,10 @@ export interface IBoxProps extends BoxProps {
 
 const Box: React.FC<PropsWithChildren<IBoxProps>> = React.forwardRef(
 	(props, ref) => {
-		const { clickable = false } = props;
+		const { clickable = false, ...muiBoxProps } = props;
 
 		return (
-			<MUIBox {...props} ref={ref}>
+			<MUIBox {...muiBoxProps} ref={ref}>
 				{clickable && (
 					<ButtonBase
 						style={{

@@ -1,8 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import {
-	ReactMediaRecorder,
-	ReactMediaRecorderProps,
-} from 'react-media-recorder';
 import { useAudioStore } from '../../../hooks/useMainProcessMethods';
 import { Box, Button, Text } from '../../../smpUI/components';
 import AudioRecordingIcon from '../AnimatedIcon/AudioRecordingIcon';
@@ -10,75 +6,65 @@ import useStyles from './styles';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { formatTimer } from '../../../util/Formatter';
+import { IBoxProps } from '../../../smpUI/components/Box';
+import useMediaStreamRecorder from '../../../hooks/useMediaStreamRecorder';
 
-interface IAudioRecorderProps extends Omit<ReactMediaRecorderProps, 'render'> {
+
+interface IAudioRecorderProps extends IBoxProps {
 	presId: number;
 	onRecordingReceived: (path: string) => void;
 }
 
 const AudioRecorder: React.FC<IAudioRecorderProps> = (props) => {
-	const { presId, onRecordingReceived } = props;
+	const { presId, onRecordingReceived, ...boxProps } = props;
 	const { storeAudio } = useAudioStore();
 	const classes = useStyles();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
-
-	const [recording, setRecording] = useState<boolean>(false);
-	const [stopRecording, setStopRecording] = useState<() => void>();
 	const [timer, setTimer] = useState<number>(0);
 
+	const {
+		isRecording,
+		startRecording,
+		stopRecording
+	} = useMediaStreamRecorder();
+
+	// Visual timer representation when recording has started
 	useEffect(() => {
-		if (!recording) return;
+		if (!isRecording) return;
 		setTimer(0);
 		const timer = setInterval(() => setTimer((curr) => curr + 1), 1000);
 
-		return () => clearInterval(timer);
-	}, [recording]);
+		return function cleanup(){
+			clearInterval(timer);
+		}
+	}, [isRecording]);
 
-	useEffect(() => {
-		return () => {
-			if (recording && stopRecording) stopRecording();
-		};
-	}, []);
+	return (<Box className={classes.container} {...boxProps}>
+		<Box className={classes.iconTimerContainer}>
+			<AudioRecordingIcon isRecording={isRecording} />
+			<Text variant='h6'>{formatTimer(timer)}</Text>
+		</Box>
+		<Button
+			variant='contained'
+			color='secondary'
+			onClick={async () => {
+				if (!isRecording) {
+					startRecording();
+				} else {
+					const blob = await stopRecording();
 
-	return (
-		<ReactMediaRecorder
-			{...props}
-			video={false}
-			audio
-			onStop={async (_, blob) => {
-				if (recording) return;
-				const buffer = Buffer.from(await blob.arrayBuffer());
-				const filePath = await storeAudio(presId, buffer);
-				onRecordingReceived(filePath);
+					// For debugging
+					// window.electron.invoke('saveBufferToFile', buffer);
+					// const blobUrl = URL.createObjectURL(blob);
+					const buffer = Buffer.from(await blob.arrayBuffer());
+					const filePath = await storeAudio(presId, buffer);
+					onRecordingReceived(filePath);
+				}
 			}}
-			render={({ startRecording, stopRecording }) => {
-				return (
-					<Box className={classes.container}>
-						<Box className={classes.iconTimerContainer}>
-							<AudioRecordingIcon isRecording={recording} />
-							<Text variant='h6'>{formatTimer(timer)}</Text>
-						</Box>
-						<Button
-							variant='contained'
-							color='secondary'
-							onClick={() => {
-								if (!recording) {
-									setRecording(true);
-									startRecording();
-									setStopRecording(stopRecording);
-								} else {
-									setRecording(false);
-									stopRecording();
-								}
-							}}
-						>
-							{t(recording ? 'stopRecording' : 'startRecording')}
-						</Button>
-					</Box>
-				);
-			}}
-		/>
-	);
+		>
+			{t(isRecording ? 'stopRecording' : 'startRecording')}
+		</Button>
+	</Box>);
 };
 
 export default AudioRecorder;

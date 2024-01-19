@@ -13,7 +13,7 @@ interface IMediaEditingModalProps extends IModalProps {
 }
 
 const MediaEditingModal: React.FC<IMediaEditingModalProps> = (props) => {
-	const { title, onEditingFinished, onCancel, content } = props;
+	const { title, onEditingFinished, onCancel, content, ...modalProps } = props;
 	const classes = useMediaEditingModalStyles();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 
@@ -41,7 +41,7 @@ const MediaEditingModal: React.FC<IMediaEditingModalProps> = (props) => {
 	}, [onEditingFinished, props.open]);
 
 	return (
-		<Modal {...props}>
+		<Modal {...modalProps}>
 			<Box className={classes.container}>
 				<Text variant='h3'>{title}</Text>
 				<Box className={classes.contentContainer}>{content}</Box>

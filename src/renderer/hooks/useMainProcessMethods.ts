@@ -9,7 +9,8 @@ import {
 } from '../shared/types/presentation';
 import { UserSettings } from '../shared/types/userSettings';
 import { WorkspaceChangeResult } from '../shared/types/workspace';
-const { ipcRenderer } = window.require('electron');
+
+const ipcRenderer = window.electron;
 
 export const useStoredPresentations = () => {
 	const [presentations, setPresentations] = useState<StoredPresentation[]>([]);
@@ -243,15 +244,18 @@ export const usePresentationMode = (startingSlide: number) => {
 	>();
 
 	useEffect(() => {
+		// TODO: ipcRenderer.on is not a function!!
+		/*
 		ipcRenderer.on(
 			MainProcessMethodIdentifiers.PresenterModeUpdateNotification,
-			(_: any, slide: number) => {
+			async (_: any, slide: number) => {
 				setSlide((curr) => curr + slide);
 			}
 		);
 		return () => {
-			ipcRenderer.removeAllListeners();
+			ipcRenderer.removeAllListeners(MainProcessMethodIdentifiers.PresenterModeUpdateNotification);
 		};
+		*/
 	}, []);
 
 	const nextSlide = useCallback(() => {

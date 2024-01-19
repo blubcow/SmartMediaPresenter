@@ -1,4 +1,4 @@
-import { makeStyles, createStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 
 export const useCreateProjectModalStyles = makeStyles((theme: Theme) =>

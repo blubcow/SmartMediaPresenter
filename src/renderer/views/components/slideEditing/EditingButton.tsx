@@ -12,7 +12,7 @@ export interface IEditingButtonProps extends ICardProps {
 }
 
 const EditingButton: React.FC<IEditingButtonProps> = (props) => {
-	const { icon, secondaryNode, selected, highlighted = false } = props;
+	const { icon, secondaryNode, selected, highlighted = false, ...cardProps } = props;
 	const classes = useStyles();
 
 	return (
@@ -24,7 +24,7 @@ const EditingButton: React.FC<IEditingButtonProps> = (props) => {
 				outlineWidth: selected ? '2px' : 0,
 				bgcolor: highlighted ? 'secondary.main' : undefined,
 			}}
-			{...props}
+			{...cardProps}
 		>
 			<ButtonBase className={classes.container} id='mediaOrSlideEditing'>
 				<Box className={classes.iconContainer}>{icon}</Box>

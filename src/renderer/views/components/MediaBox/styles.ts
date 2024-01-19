@@ -1,7 +1,7 @@
-import { makeStyles, createStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 
-export default makeStyles<Theme>((theme: Theme) =>
+export default makeStyles((theme: Theme) =>
 	createStyles({
 		img: {
 			maxWidth: '100%',

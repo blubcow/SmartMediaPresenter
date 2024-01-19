@@ -9,11 +9,12 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell, ipcMain, IpcRenderer, session, desktopCapturer, Menu } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import { registerMainProcessMethodHandlers } from './ipc/methods';
 
 class AppUpdater {
   constructor() {
@@ -74,11 +75,25 @@ const createWindow = async () => {
     width: 1024,
     height: 728,
     icon: getAssetPath('icon.png'),
+    // TODO: Reverse settings (also see methods.ts)
     webPreferences: {
+      nodeIntegration: true,
+			contextIsolation: false,
+			webSecurity: false,
+      allowRunningInsecureContent: true,
+      plugins: true,
+      preload: app.isPackaged
+        ? path.join(__dirname, 'preload.js')
+        : path.join(__dirname, '../../.erb/dll/preload.js')
+    }
+    /*
+    webPreferences: {
+      contextIsolation: true,
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
         : path.join(__dirname, '../../.erb/dll/preload.js'),
     },
+    */
   });
 
   mainWindow.loadURL(resolveHtmlPath('index.html'));
@@ -110,6 +125,18 @@ const createWindow = async () => {
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
   new AppUpdater();
+
+  // 
+  // TODO: How to register really?
+  /**
+   * Register IPC methods
+   * All methods that are calling "ipcMain.handle(...)" are set up with this function
+   */
+  registerMainProcessMethodHandlers(
+    app.getPath('userData'),
+    ipcMain,
+    mainWindow
+  );
 };
 
 /**
@@ -124,14 +151,67 @@ app.on('window-all-closed', () => {
   }
 });
 
+
+/*
+// Does not work with "blob:"
+const setContentPolicy = function(): void {
+  session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+    callback({
+      responseHeaders: {
+        ...details.responseHeaders,
+        'Content-Security-Policy': ["worker-src 'self' 'unsafe-inline' * blob:;"]
+      }
+    })
+  })
+}
+*/
+
 app
   .whenReady()
   .then(() => {
+    //setContentPolicy();
     createWindow();
     app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the
       // dock icon is clicked and there are no other windows open.
+      //setContentPolicy();
       if (mainWindow === null) createWindow();
     });
+
+    //initDesktopCapturer();
+    //getVideoSources();
   })
   .catch(console.log);
+
+/*
+const initDesktopCapturer = function():void{
+  desktopCapturer.getSources({ types: ['window', 'screen'] }).then(async sources => {
+    if(!mainWindow)
+      throw new Error("Execute 'initDesktopCapturer()' after 'createWindow()'");
+    for (const source of sources) {
+      if (source.name === 'Electron') {
+        mainWindow.webContents.send('SET_SOURCE', source.id)
+        return
+      }
+    }
+  })
+}
+
+async function getVideoSources() {
+  const inputSources = await desktopCapturer.getSources({
+    types: ['window', 'screen']
+  });
+  
+  const videoOptionsMenu = Menu.buildFromTemplate(
+    inputSources.map(source => {
+    return {
+      label: source.name,
+      //click: () => selectSource(source)
+    };
+    })
+  );
+  
+  
+  videoOptionsMenu.popup();
+}
+*/

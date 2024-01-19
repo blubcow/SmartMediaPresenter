@@ -2,6 +2,7 @@ import React from 'react';
 import { TopBar } from '../../../smpUI/layout';
 import { Box, Text } from '../../../smpUI/components';
 import { ITopBarProps } from '../../../smpUI/layout/Bar/TopBar';
+import _ from 'lodash';
 
 export interface ITopBarDisplayingFilenameProps extends ITopBarProps {
 	fileName?: string;
@@ -12,10 +13,10 @@ export interface ITopBarDisplayingFilenameProps extends ITopBarProps {
 const TopBarDisplayingFilename: React.FC<ITopBarDisplayingFilenameProps> = (
 	props
 ) => {
-	const { fileName, onFilenameChanged, onGoBack } = props;
+	const { fileName, onFilenameChanged, onGoBack, ...topBarProps } = props;
 
 	return (
-		<TopBar canGoBack onGoBack={onGoBack} {...props}>
+		<TopBar canGoBack onGoBack={onGoBack} {...topBarProps}>
 			<Box
 				sx={{
 					width: '100%',

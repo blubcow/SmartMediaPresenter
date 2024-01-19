@@ -22,14 +22,15 @@ const ChangeLanguage: React.FC<{}> = (props) => {
 				<SelectionPicker
 					sx={{ minWidth: '90px' }}
 					label={t('language')}
-					defaultValue={userSettings.language}
+					value={userSettings.language}
+					// using "value" - "defaultValue" by definition has to be constant through out render cycle 
 					onChange={(e) => {
 						const lng = e.target.value as AvailableLanguage;
 						saveUserSettings({ ...userSettings, language: lng });
 					}}
 				>
 					{AvailableLanguages.map((lng, i) => (
-						<SelectionPickerOption value={lng}>{t(lng)}</SelectionPickerOption>
+						<SelectionPickerOption key={i} value={lng}>{t(lng)}</SelectionPickerOption>
 					))}
 				</SelectionPicker>
 			}

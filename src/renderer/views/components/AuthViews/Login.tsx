@@ -21,6 +21,8 @@ const Login: React.FC<ILoginProps> = (props) => {
 	const classes = useStyles();
 	const { t } = useTranslation([i18nNamespace.Auth]);
 
+	const { onLogin } = props;
+
 	return (
 		<Box className={classes.container}>
 			<img src={logo.logo} className={classes.img} alt='SMP-Logo' />
@@ -28,7 +30,7 @@ const Login: React.FC<ILoginProps> = (props) => {
 				{t('login')}
 			</Text>
 			<FormContainer {...props} />
-			<AuthButtonContainer onAccountCreated={props.onLogin} />
+			<AuthButtonContainer onAccountCreated={onLogin} />
 		</Box>
 	);
 };

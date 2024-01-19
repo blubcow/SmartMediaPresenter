@@ -10,11 +10,11 @@ interface IIconBadgeProps extends IBoxProps {
 }
 
 const IconBadge: React.FC<IIconBadgeProps> = (props) => {
-	const { icon: Icon, iconSize = '55px' } = props;
+	const { icon: Icon, iconSize = '55px', ...boxProps } = props;
 	const classes = useStyles();
 
 	return (
-		<Box className={classes.container} {...props}>
+		<Box className={classes.container} {...boxProps}>
 			<Icon style={{ fontSize: iconSize }} />
 		</Box>
 	);

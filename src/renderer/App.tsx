@@ -1,50 +1,45 @@
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import icon from '../../assets/icon.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import ThemeProvider from './providers/ThemeProvider';
+import NavigationProvider from './providers/NavigationProvider';
+import I18NProvider from './providers/I18NProvider';
+import 'react-image-crop/dist/ReactCrop.css';
+import UserSettingsProvider from './providers/UserSettingsProvider';
+import RemoteUserProvider from './providers/RemoteUserProvider';
+import PresentationSyncProvider from './providers/PresentationSyncProvider';
+import PresentationCacheProvider from './providers/PresentationCacheProvider';
+import ConnectivityProvider from './providers/ConnectivityProvider';
+import { ElectronHandler } from '../main/preload';
 
-function Hello() {
-  return (
-    <div>
-      <div className="Hello">
-        <img width="200" alt="icon" src={icon} />
-      </div>
-      <h1>electron-react-boilerplate</h1>
-      <div className="Hello">
-        <a
-          href="https://electron-react-boilerplate.js.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              📚
-            </span>
-            Read our docs
-          </button>
-        </a>
-        <a
-          href="https://github.com/sponsors/electron-react-boilerplate"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="folded hands">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
-      </div>
-    </div>
-  );
+
+
+function App() {
+	useEffect(() =>{
+		test();
+	})
+
+	const test = async function(){
+		//const { ipcRenderer } = window.require('electron');
+		//const ipcRenderer:ElectronHandler = await window.electron;
+		const ipcRenderer = window.electron;
+		ipcRenderer.send('test', 'test');
+	}
+	return (
+		<RemoteUserProvider>
+			<UserSettingsProvider>
+				<I18NProvider>
+					<ThemeProvider>
+						<ConnectivityProvider>
+							<PresentationCacheProvider>
+								<PresentationSyncProvider>
+									<NavigationProvider />
+								</PresentationSyncProvider>
+							</PresentationCacheProvider>
+						</ConnectivityProvider>
+					</ThemeProvider>
+				</I18NProvider>
+			</UserSettingsProvider>
+		</RemoteUserProvider>
+	);
 }
 
-export default function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Hello />} />
-      </Routes>
-    </Router>
-  );
-}
+export default App;

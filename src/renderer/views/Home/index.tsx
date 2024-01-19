@@ -6,7 +6,7 @@ import { ProjectsHeaderRow } from '../components/rows';
 import useStyles from './styles';
 import { CircularProgress, Divider } from '@mui/material';
 import { useLocalFileSystem } from '../../hooks/useMainProcessMethods';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { SMPRoutes } from '../../types/routes';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
@@ -19,7 +19,7 @@ import PresentationSyncingButton from '../components/PresentationSyncingButton';
 
 const Home: React.FC<{}> = () => {
 	const classes = useStyles();
-	const history = useHistory();
+	const navigate = useNavigate();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const { openFileSelectorDialog, importPresentationFromFileSystem } =
 		useLocalFileSystem();
@@ -54,11 +54,11 @@ const Home: React.FC<{}> = () => {
 						<ProjectsHeaderRow
 							ceratePresentationAction={() => {
 								createPresentation((id: number) => {
-									history.push(`${SMPRoutes.Edit}?id=${id}`);
+									navigate(`${SMPRoutes.Edit}?id=${id}`);
 								});
 							}}
 							enterQuickCreateAction={() => {
-								history.push(SMPRoutes.QuickCreate);
+								navigate(SMPRoutes.QuickCreate);
 							}}
 							importPresentationAction={async () => {
 								const files = await openFileSelectorDialog('presentation');
@@ -70,7 +70,7 @@ const Home: React.FC<{}> = () => {
 										filePath
 									)) as SinglePresentation;
 									createPresentation((id: number) => {
-										history.push(`${SMPRoutes.Edit}?id=${id}`);
+										navigate(`${SMPRoutes.Edit}?id=${id}`);
 									}, pres);
 								}
 							}}

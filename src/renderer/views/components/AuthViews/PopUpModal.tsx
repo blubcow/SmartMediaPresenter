@@ -8,9 +8,9 @@ interface IPopUpModalProps extends IModalProps {
 }
 
 const PopUpModal: React.FC<IPopUpModalProps> = (props) => {
-	const { goBack } = props;
+	const { goBack, ...modalProps } = props;
 	return (
-		<Modal {...props}>
+		<Modal {...modalProps}>
 			<IconButton icon={ArrowBackIosNew} onClick={goBack} />
 			{props.children}
 		</Modal>

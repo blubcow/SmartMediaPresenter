@@ -17,11 +17,11 @@ interface IMediaAlignmentPopoverProps extends IPopoverProps {
 const MediaAlignemntPopover: React.FC<IMediaAlignmentPopoverProps> = (
 	props
 ) => {
-	const { alignment, handleAlignment } = props;
+	const { alignment, handleAlignment, ...popoverProps } = props;
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 
 	return (
-		<Popover {...props}>
+		<Popover {...popoverProps}>
 			<Box
 				sx={{
 					padding: 2,

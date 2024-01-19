@@ -1,14 +1,22 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { PresentationFileAvailableExtensions } from '../../src/shared/types/presentationFormat';
-import { allowedFiles } from '../../src/shared/types/mediaResources';
+import { PresentationFileAvailableExtensions } from '../../../renderer/shared/types/presentationFormat';
+import { allowedFiles } from '../../../renderer/shared/types/mediaResources';
 
-export const getFileFromPath = (path: string) => {
-	const extension = path.split('.').pop();
+export interface IFileInfo{
+	name: string,
+	location: {
+		local: string
+	},
+	added: number // Timestamp
+}
+
+export const getFileFromPath = (path: string): IFileInfo => {
+	const extension = path.split('.').reverse()[0];
 	const presExtensions = [...PresentationFileAvailableExtensions] as string[];
 
 	return {
-		name: path.split('/').pop(),
+		name: path.split('/').reverse()[0],
 		location: {
 			local: `${presExtensions.includes(extension) ? '' : 'file://'}${path}`,
 		},
@@ -16,19 +24,20 @@ export const getFileFromPath = (path: string) => {
 	};
 };
 
-export const getFilesInDir = async (dirPath: string) => {
-	return await fs
-		.readdirSync(dirPath)
+export const getFilesInDir = (dirPath: string): IFileInfo[] => {
+	// TODO: Do we have to use async in production? Better use async... look at async version of "readdirSync"
+	return fs.readdirSync(dirPath)
 		.filter((value) => allowedFiles.includes(path.extname(value)))
-		.reduce(
-			(prev, value) => [
-				...prev,
-				{
+		.reduce<IFileInfo[]>(
+			(prev, value) => {
+				const newVal:IFileInfo = {
 					name: value,
 					location: { local: `file://${dirPath}/${value}` },
 					added: Date.now(),
-				},
-			],
+				};
+				prev.push(newVal);
+				return prev;
+			},
 			[]
 		);
 };

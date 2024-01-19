@@ -11,20 +11,22 @@ interface IButtonProps extends ButtonProps {
 }
 
 const Button: React.FC<IButtonProps> = (props) => {
-	const { isLoading = false, minWidth = '150px', variant, color } = props;
+	//const { isLoading = false, minWidth = '150px', variant, color } = props;
+
+	const { isLoading = false, minWidth = '150px', ...muiButtonProps } = props;
 
 	return (
 		<MUIButton
 			style={{
 				minHeight: '45px',
 				minWidth: minWidth,
-				fontWeight: variant === 'contained' ? 800 : 500,
+				fontWeight: muiButtonProps.variant === 'contained' ? 800 : 500,
 			}}
-			{...props}
+			{...muiButtonProps}
 		>
 			{isLoading ? (
 				<LinearProgress
-					color={variant !== 'contained' ? color : 'secondary'}
+					color={muiButtonProps.variant !== 'contained' ? muiButtonProps.color : 'secondary'}
 					style={{ width: '100%' }}
 				/>
 			) : (

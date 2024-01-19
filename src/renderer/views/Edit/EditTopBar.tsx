@@ -8,7 +8,7 @@ import TopBarDisplayingFilename, {
 import MediaSettings from '../components/slideEditing/MediaSettings';
 import SlideSettings from '../components/slideEditing/SlideSettings';
 import ActionConfirmationModal from '../components/modals/ActionConfirmationModal';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import TextSettings from '../components/slideEditing/TextSettings';
@@ -19,7 +19,7 @@ const EditTopBar: React.FC<IEditTopBarProps> = (props) => {
 	const { state, dispatch } = usePresentationEditingContext();
 	const { presentation, editingControls, unsavedChanges } = state;
 	const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
-	const history = useHistory();
+	const navigate = useNavigate();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 
 	return (
@@ -62,7 +62,7 @@ const EditTopBar: React.FC<IEditTopBarProps> = (props) => {
 				onClose={() => setOpenConfirmation(false)}
 				onConfirm={() => {
 					setOpenConfirmation(false);
-					history.goBack();
+					navigate(-1);
 				}}
 			/>
 		</>
