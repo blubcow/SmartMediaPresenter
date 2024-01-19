@@ -8,6 +8,7 @@ import RemoveMediaButton from './RemoveMediaButton';
 import RotateButton from './RotateButton';
 import ScaleButton from './ScaleButton';
 import { useSettingsContainerStyles } from './styles';
+import ColorTransferButton from './ColorTransferButton';
 
 interface IMediaSettingsProps {}
 
@@ -16,6 +17,8 @@ const MediaSettings: React.FC<IMediaSettingsProps> = (props) => {
 
 	return (
 		<Box className={classes.container}>
+			<ColorTransferButton />
+			<Box className={classes.spacer} />
 			<AlignMediaButton />
 			<Box className={classes.spacer} />
 			<MoveButton />

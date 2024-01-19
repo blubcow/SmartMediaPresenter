@@ -15,6 +15,7 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import { registerMainProcessMethodHandlers } from './ipc/methods';
+import { registerMainProcessPythonHandlers } from './ipc/python';
 
 class AppUpdater {
   constructor() {
@@ -136,6 +137,13 @@ const createWindow = async () => {
     app.getPath('userData'),
     ipcMain,
     mainWindow
+  );
+
+  registerMainProcessPythonHandlers(
+    app.getPath('userData'),
+    ipcMain,
+    mainWindow,
+    getAssetPath
   );
 };
 
