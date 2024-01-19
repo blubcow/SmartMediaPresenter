@@ -6,18 +6,18 @@ import {
 	SaveDialogOptions,
 	screen,
 } from 'electron';
-import { MainProcessMethodIdentifiers } from '../src/shared/types/identifiers';
+import { MainProcessMethodIdentifiers } from '../../renderer/shared/types/identifiers';
 import * as path from 'path';
 import * as fs from 'fs';
 import { FileExpolorerOptions } from './types/fileExplorer';
-import { FileExplorerType } from '../src/shared/types/fileExplorer';
+import { FileExplorerType } from '../../renderer/shared/types/fileExplorer';
 import { getFonts } from 'font-list';
-import { UserSettings } from '../src/shared/types/userSettings';
+import { UserSettings } from '../../renderer/shared/types/userSettings';
 import {
 	SinglePresentation,
 	StoredPresentations,
-} from '../src/shared/types/presentation';
-import { WorkspaceChangeResult } from '../src/shared/types/workspace';
+} from '../../renderer/shared/types/presentation';
+import { WorkspaceChangeResult } from '../../renderer/shared/types/workspace';
 import xlsx from 'xlsx';
 import { convertJsonToXlsx } from './models/PresentationFileConverter';
 import { getFilesInDir, getFileFromPath } from './models/FileSystem';
@@ -413,6 +413,8 @@ export const registerMainProcessMethodHandlers = (
 
 			if (!files || !files.length) return [];
 
+            // TODO: not working await call
+            /*
 			return await files.reduce(
 				async (prev, file) =>
 					path.extname(file) === ''
@@ -420,6 +422,7 @@ export const registerMainProcessMethodHandlers = (
 						: [...(await prev), getFileFromPath(file)],
 				Promise.resolve([])
 			);
+            */
 		}
 	);
 
@@ -444,12 +447,11 @@ export const registerMainProcessMethodHandlers = (
 			const currentScreenOfMainWindow = screen.getDisplayNearestPoint(
 				mainWindow.getBounds()
 			);
-
+            
+            const displayIndex = (displayNumber && displayNumber > 1) ? displayNumber - 1 : 0;
 			const display = screen
 				.getAllDisplays()
-				.filter((disp) => disp.id !== currentScreenOfMainWindow.id)[
-				displayNumber - 1 ?? 0
-			];
+				.filter((disp) => disp.id !== currentScreenOfMainWindow.id)[displayIndex];
 
 			const presentation = new BrowserWindow({
 				x: display.bounds.x + 50,
@@ -485,7 +487,7 @@ export const registerMainProcessMethodHandlers = (
 		if (windows.length === 1) return;
 		const w = windows.pop();
 		presentationModePresentationFile = undefined;
-		w.close();
+		if(w) w.close();
 	});
 
 	ipcMain.handle(MainProcessMethodIdentifiers.NextSlideTrigger, async () => {
@@ -593,8 +595,8 @@ export const registerMainProcessMethodHandlers = (
 			});
 
 			if (!canceled && filePath !== undefined) {
-				const fileExtension = filePath.split('.').pop();
-				const fileName = filePath.split('/').pop().split('.').shift();
+				const fileExtension = filePath.split('.').reverse()[0];
+				const fileName = filePath.split('/').reverse()[0].split('.')[0];
 
 				if (fileExtension === 'json') {
 					fs.writeFileSync(
@@ -617,9 +619,14 @@ export const registerMainProcessMethodHandlers = (
 	ipcMain.handle(
 		MainProcessMethodIdentifiers.importPresentationFromFS,
 		async (_, path: string) => {
-			const fileExtension = path.split('.').pop();
-
-			const file = parse.get(fileExtension)(path);
+			const fileExtension:string = path.split('.').reverse()[0];
+			
+			// TODO: Check what happens to "throw Error in Electron"
+			const fileParser = parse.get(fileExtension)
+			if(!fileParser){
+				throw new Error('PresentationParser can not show extension ' + fileExtension);
+			}
+			const file = fileParser(path);
 
 			return file;
 		}

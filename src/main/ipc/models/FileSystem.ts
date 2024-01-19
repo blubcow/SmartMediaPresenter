@@ -1,14 +1,14 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { PresentationFileAvailableExtensions } from '../../src/shared/types/presentationFormat';
-import { allowedFiles } from '../../src/shared/types/mediaResources';
+import { PresentationFileAvailableExtensions } from '../../../renderer/shared/types/presentationFormat';
+import { allowedFiles } from '../../../renderer/shared/types/mediaResources';
 
 export const getFileFromPath = (path: string) => {
-	const extension = path.split('.').pop();
+	const extension = path.split('.').reverse()[0];
 	const presExtensions = [...PresentationFileAvailableExtensions] as string[];
 
 	return {
-		name: path.split('/').pop(),
+		name: path.split('/').reverse()[0],
 		location: {
 			local: `${presExtensions.includes(extension) ? '' : 'file://'}${path}`,
 		},
@@ -17,7 +17,9 @@ export const getFileFromPath = (path: string) => {
 };
 
 export const getFilesInDir = async (dirPath: string) => {
-	return await fs
+	return [];
+	// TODO: Wrong reduce, doesn't work
+	/*return await fs
 		.readdirSync(dirPath)
 		.filter((value) => allowedFiles.includes(path.extname(value)))
 		.reduce(
@@ -30,5 +32,5 @@ export const getFilesInDir = async (dirPath: string) => {
 				},
 			],
 			[]
-		);
+		);*/
 };

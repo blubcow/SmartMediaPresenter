@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { SinglePresentation } from '../../src/shared/types/presentation';
+import { SinglePresentation } from '../../../renderer/shared/types/presentation';
 import xlsx from 'xlsx';
 import { convertXlsxPresentationToJson } from './PresentationFileConverter';
 

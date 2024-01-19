@@ -9,7 +9,8 @@ import {
 } from '../shared/types/presentation';
 import { UserSettings } from '../shared/types/userSettings';
 import { WorkspaceChangeResult } from '../shared/types/workspace';
-const { ipcRenderer } = window.require('electron');
+
+const ipcRenderer = window.electron;
 
 export const useStoredPresentations = () => {
 	const [presentations, setPresentations] = useState<StoredPresentation[]>([]);
@@ -250,7 +251,8 @@ export const usePresentationMode = (startingSlide: number) => {
 			}
 		);
 		return () => {
-			ipcRenderer.removeAllListeners();
+			// TODO: Reverse this hide!
+			//ipcRenderer.removeAllListeners();
 		};
 	}, []);
 

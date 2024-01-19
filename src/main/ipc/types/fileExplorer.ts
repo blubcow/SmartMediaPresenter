@@ -1,8 +1,8 @@
 import {
 	AudioResourceExtensions,
 	ImageResourceExtensions,
-} from '../../src/shared/types/mediaResources';
-import { PresentationFileAvailableExtensions } from '../../src/shared/types/presentationFormat';
+} from '../../../renderer/shared/types/mediaResources';
+import { PresentationFileAvailableExtensions } from '../../../renderer/shared/types/presentationFormat';
 
 type FileExplorereProperties = (
 	| 'openFile'
