@@ -1,8 +1,6 @@
-import { makeStyles, createStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
-import { cursorTo } from 'readline';
+import { createStyles, makeStyles, Theme } from '@mui/material';
 
-export default makeStyles((theme: Theme) =>
+export default makeStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		container: {
 			height: '100%',

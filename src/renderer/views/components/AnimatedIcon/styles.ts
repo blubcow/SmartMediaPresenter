@@ -1,5 +1,4 @@
-import { makeStyles, createStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import { createStyles, makeStyles, Theme } from '@mui/material';
 
 export const useIconFrameStyles = makeStyles((theme: Theme) =>
 	createStyles({
