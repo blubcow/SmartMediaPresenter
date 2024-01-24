@@ -1,3 +1,8 @@
+<%
+  const iconImg = require('../../assets/icon.png'); 
+%>
+<% /* Access htmlWebpackPlugin options with: 'htmlWebpackPlugin.options.env'  */ %>
+<% /* Access EnvironmentPlugin options with: 'process.env.NODE_ENV'  */ %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -6,9 +11,18 @@
       http-equiv="Content-Security-Policy"
       content="script-src 'self' 'unsafe-inline'"
     />
-    <title>Hello Electron React!</title>
+
+    <title>Smart Media Presenter</title>
+    <!-- TODO: follow https://www.electron.build/icons -->
+    <link rel="icon" href="<%= iconImg %>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    </style>
   </head>
-  <body>
+  <body>    
     <div id="root"></div>
   </body>
 </html>

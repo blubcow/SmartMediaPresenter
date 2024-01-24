@@ -26,7 +26,7 @@
 </div>
 <br/>
 <p align="center">
-  <img src="./assets/resources/icon.png" height='200' width='200' />
+  <img src="./assets/icon.png" height='200' width='200' />
 </p>
 <h1 align="center" >
     Smart Media Presenter

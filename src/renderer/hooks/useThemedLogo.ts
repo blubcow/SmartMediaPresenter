@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
 import { darkTheme } from '../smpUI/smpUITheme';
 import usePreferredTheme from './usePreferredTheme';
+import toolBarLogoLight from '../../../assets/resources/toolbar-logo-light.png';
+import toolBarLogoDark from '../../../assets/resources/toolbar-logo-dark.png';
+import logoLight from '../../../assets/resources/logo-light.png';
+import logoDark from '../../../assets/resources/logo-dark.png';
 
 const logoRefs = {
-	toolbarLight: 'resources/toolbar-logo-light.png',
-	toolbarDark: 'resources/toolbar-logo-dark.png',
-	logoLight: 'resources/logo-light.png',
-	logoDark: 'resources/logo-dark.png',
+	toolbarLight: toolBarLogoLight,
+	toolbarDark: toolBarLogoDark,
+	logoLight: logoLight,
+	logoDark: logoDark,
 };
 
 const useThemedLogo = () => {
