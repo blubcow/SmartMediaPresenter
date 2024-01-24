@@ -13,6 +13,7 @@ import useStyles from './styles';
 import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
 import LocalOrRemoteModal from '../modals/LocalOrRemoteModal';
 import RemoteFileExplorer from '../RemoteFileExplorer';
+import iconImg from '../../../../../assets/icon.png';
 
 interface IMediaBox {
 	id: number;
@@ -164,7 +165,7 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 						className={classes.img}
 						src={imgSrc}
 						loading='lazy'
-						placeholder='/resources/icon.png'
+						placeholder={iconImg}
 						onError={() => {
 							if (
 								media.location.local &&
