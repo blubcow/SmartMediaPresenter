@@ -99,6 +99,7 @@ export interface ImageManipulationEntity {
 export interface MediaLocation {
 	local?: string;
 	remote?: string;
+	updatedOn?: number; // Timestamp
 }
 
 export const getEmptySlide = (

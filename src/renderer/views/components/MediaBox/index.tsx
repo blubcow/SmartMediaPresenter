@@ -82,7 +82,11 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 	};
 
 	useEffect(() => {
-		setImgSrc(media?.location?.local ?? media?.location?.remote);
+		let src = media?.location?.local ?? media?.location?.remote;
+		if(src && media?.location?.updatedOn){
+			src = src + '?time=' + media.location.updatedOn;
+		}
+		setImgSrc(src);
 	}, [media]);
 
 	return (

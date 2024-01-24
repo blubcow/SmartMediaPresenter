@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { MediaAlignment } from '../../../shared/types/presentation';
+import { MediaAlignment, MediaLocation, SinglePresentation, Slide } from '../../../shared/types/presentation';
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import MediaAlignemntPopover from './MediaAlignmentPopover';
 
@@ -42,18 +42,32 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 		const sourceMediaIdx:number = activeMedia! == 0 ? 1 : 0; // The color source
 		const targetMediaIdx:number = activeMedia!; // The image to transform
 
+		// run transfer script
 		let tmpImgPath = await window.electron.invoke('pythontest',
 			presentation.slides[currentSlide].media[sourceMediaIdx!].location.local!.replace('file://',''),
 			presentation.slides[currentSlide].media[targetMediaIdx!].location.local!.replace('file://',''),
 		);
 
 		// Need to always have the latest version!
-		tmpImgPath = tmpImgPath + '?time=' + (new Date()).getTime();
+		tmpImgPath = tmpImgPath;
 
-		setAnchorElement(e.currentTarget);
+		// TODO: Do we really need this?
+		//setAnchorElement(e.currentTarget);
 
-		const newPresentation = JSON.parse(JSON.stringify(presentation));
-		newPresentation.slides[currentSlide].media[activeMedia!].location.local = tmpImgPath;
+		// TODO: Create a function to replace settings easily
+
+		// Create override if it doesn't exist
+		/*
+		slide.mediaOverride = [];
+		slide.mediaOverride[activeMedia!] = {
+			location: tmpImgPath,
+			// settings // TODO: add settings?
+		}
+		*/
+		const newPresentation:SinglePresentation = JSON.parse(JSON.stringify(presentation));
+		const newLocation:MediaLocation = newPresentation.slides[currentSlide!].media[activeMedia!].location;
+		newLocation.local = 'file://' + tmpImgPath;
+		newLocation.updatedOn = (new Date()).getTime();
 		dispatch({
 			type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
 			payload: { presentation: newPresentation },
