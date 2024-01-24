@@ -9,8 +9,7 @@ import PresentationSyncProvider from './providers/PresentationSyncProvider';
 import PresentationCacheProvider from './providers/PresentationCacheProvider';
 import ConnectivityProvider from './providers/ConnectivityProvider';
 import { ElectronHandler } from '../main/preload';
-
-
+import './App.css';
 
 function App() {
 	useEffect(() =>{

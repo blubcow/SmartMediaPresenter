@@ -3,6 +3,10 @@
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
 
+* {
+  box-sizing: border-box;
+}
+
 body {
 	margin: 0;
 	font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
