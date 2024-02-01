@@ -124,6 +124,8 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
     "@electron/notarize": "^2.1.0",
     "@electron/rebuild": "^3.3.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
@@ -142,6 +144,11 @@
     "@types/webpack-bundle-analyzer": "^4.6.0",
     "@typescript-eslint/eslint-plugin": "^6.7.0",
     "@typescript-eslint/parser": "^6.7.0",
+    "babel-loader": "^9.1.3",
+    "babel-plugin-react-add-property": "^0.1.2",
+    "babel-plugin-react-component-data-attribute": "^0.6.0",
+    "babel-plugin-react-component-trace-data-attr": "^0.2.7",
+    "babel-plugin-react-generate-property": "^1.1.2",
     "browserslist-config-erb": "^0.0.3",
     "chalk": "^4.1.2",
     "concurrently": "^8.2.1",

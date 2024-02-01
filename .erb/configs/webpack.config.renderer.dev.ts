@@ -10,6 +10,12 @@ import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import baseConfig from './webpack.config.base';
 import webpackPaths from './webpack.paths';
 import checkNodeEnv from '../scripts/check-node-env';
+import "babel-plugin-react-generate-property";
+import "babel-plugin-react-component-data-attribute";
+import "babel-plugin-react-add-property";
+import "babel-plugin-react-component-trace-data-attr";
+import "@babel/preset-typescript";
+import "@babel/preset-react";
 
 // When an ESLint server is running, we can't set the NODE_ENV so we'll check if it's
 // at the dev webpack config is not accidentally run in a production environment
@@ -60,8 +66,28 @@ const configuration: webpack.Configuration = {
     },
   },
 
+
   module: {
     rules: [
+      {
+        test: /\.[jt]sx?$/,
+        exclude: /node_modules/,
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            presets: ["@babel/preset-typescript"],
+            //presets: ["@babel/preset-react"],
+            plugins: [
+              //["react-add-property", { "property": "data-add-property" }],
+              ["react-component-trace-data-attr", { "attribute": "data-trace-data-attr" }],
+              //["react-component-data-attribute"],
+              ["babel-plugin-react-generate-property", { "customProperty": "data-generate-property", "slashChar": "\\", "dirLevel": 3 }]
+            ]
+          }
+        }],
+      },
+
+
       {
         test: /\.s?(c|a)ss$/,
         use: [
