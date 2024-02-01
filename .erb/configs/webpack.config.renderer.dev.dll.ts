@@ -31,7 +31,10 @@ const configuration: webpack.Configuration = {
   module: require('./webpack.config.renderer.dev').default.module,
 
   entry: {
-    renderer: Object.keys(dependencies || {}),
+    //renderer: Object.keys(dependencies || {}),
+
+    // Remove firebase from entry point (compile error)
+    renderer: Object.keys(dependencies || {}).filter((it) => it !== 'firebase'),
   },
 
   output: {
