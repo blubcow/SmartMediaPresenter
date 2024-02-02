@@ -24,7 +24,7 @@ const presentationEditingReducer = (
 			return {
 				...state,
 				editingControls: 'media',
-				activeMedia: action.payload?.activeMedia ?? state.activeMedia,
+				activeMedia: action.payload?.activeMedia ?? state.activeMedia!,
 				activeComponent: undefined,
 				waitForSecondActiveMedia: true,
 				secondActiveMedia: action.payload?.secondActiveMedia ?? state.secondActiveMedia

@@ -15,8 +15,9 @@ const ColorTransferPopover: React.FC<IColorTransferPopoverProps> = (props) => {
 	const { state, dispatch } = usePresentationEditingContext();
 
 	useEffect(() => {
+    // TODO: What to do? We will never close as long as the button is visible...
 		return onClose;
-	});
+	}, []);
 
 	return (
 		<Popper placement='bottom' {...popoverProps} sx={{ zIndex: 1300 }}>

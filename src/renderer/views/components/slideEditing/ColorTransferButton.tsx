@@ -17,43 +17,56 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 	const { state, dispatch } = usePresentationEditingContext();
 	const { presentation, currentSlide, activeMedia, secondActiveMedia } = state;
 
-	const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | undefined>(undefined);
-	//const [activated, setActivated] = useState<boolean>(false);
-
-	//const isActive = ():boolean => anchorEl != undefined;
-	const [active, setActive] = React.useState<boolean>(false);
+	//const [active, setActive] = useState<boolean>(false);
+	const isActive = useRef<boolean>(false);
+	const originalSlide = useRef<Slide | undefined>(undefined);
 	const anchorElRef = useRef(null);
 
 	const onPopoverOpen = () => {
-		setActive(true);
+		originalSlide.current = presentation.slides[currentSlide];
+		isActive.current = true;
+		//setActive(true);
 		dispatch({ type: PresentationEditingActionIdentifiers.selectSecondMedia });
 	};
 
 	const onPopoverClose = () => {
-		setActive(false);
-		// TODO: See in function how to make it better
+		//setActive(false);
+		isActive.current = false;
+		revertImage();
+		originalSlide.current = undefined;
 		dispatch({ type: PresentationEditingActionIdentifiers.editingMediaStarted });
 	};
 
 	useEffect(() => {
 		return function onClose() {
-
+			//setActive(false);
+			isActive.current = false;
+			revertImage();
 		};
-	});
+	}, []);
 
 	// Second media selected!
 	useEffect(() => {
 		if (secondActiveMedia != undefined) {
 			transferColors();
-
-			// TODO: Get original file, reset the file on quit somehow
 		}
 	}, [secondActiveMedia])
 
-
+	const revertImage = () => {
+		if (originalSlide.current) {
+			const newPresentation: SinglePresentation = JSON.parse(JSON.stringify(presentation));
+			newPresentation.slides[currentSlide!] = originalSlide.current;
+			/*const newLocation: MediaLocation = newPresentation.slides[currentSlide!].media[activeMedia!].location;
+			newLocation.local = originalImgSrc.current!;
+			newLocation.updatedOn = undefined;*/
+			dispatch({
+				type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+				payload: { presentation: newPresentation },
+			});
+		}
+	}
 
 	const transferColors = async () => {
-		console.log(presentation);
 
 		const sourceMediaIdx: number = secondActiveMedia!; // The color source
 		const targetMediaIdx: number = activeMedia!; // The image to transform
@@ -64,22 +77,21 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 			presentation.slides[currentSlide].media[targetMediaIdx!].location.local!.replace('file://', ''),
 		);
 
-		// Need to always have the latest version!
-		tmpImgPath = tmpImgPath;
-
 		// TODO: Do we really need this?
 		//setAnchorElement(e.currentTarget);
 
 		// TODO: Create a function to replace settings easily
 
-		const newPresentation: SinglePresentation = JSON.parse(JSON.stringify(presentation));
-		const newLocation: MediaLocation = newPresentation.slides[currentSlide!].media[activeMedia!].location;
-		newLocation.local = 'file://' + tmpImgPath;
-		newLocation.updatedOn = (new Date()).getTime();
-		dispatch({
-			type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
-			payload: { presentation: newPresentation },
-		});
+		if (isActive.current && (targetMediaIdx == activeMedia!)) {
+			const newPresentation: SinglePresentation = JSON.parse(JSON.stringify(presentation));
+			const newLocation: MediaLocation = newPresentation.slides[currentSlide!].media[activeMedia!].location;
+			newLocation.local = 'file://' + tmpImgPath;
+			newLocation.updatedOn = (new Date()).getTime();
+			dispatch({
+				type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+				payload: { presentation: newPresentation },
+			});
+		}
 
 		// TODO: when the change is reverted, the image info is lost (The info is not dispatched, the presentation is not updated)
 
@@ -100,13 +112,13 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 				secondaryNode={
 					<EditButtonLabel>{t('colortransfer')}</EditButtonLabel>
 				}
-				selected={active}
-				onClick={(e) => active ? onPopoverClose() : onPopoverOpen()}
+				selected={isActive.current}
+				onClick={(e) => isActive.current ? onPopoverClose() : onPopoverOpen()}
 				ref={anchorElRef}
 				{...props}
 			/>
 			<ColorTransferPopover
-				open={active}
+				open={isActive.current}
 				anchorEl={anchorElRef.current}
 			/>
 			{/*<MediaAlignemntPopover

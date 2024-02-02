@@ -134,22 +134,22 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 				activeMedia={activeMedia}
 				secondActiveMedia={secondActiveMedia}
 				onActivateMedia={(id: number) => {
-					// Abort if same image is selected
-					if (activeMedia == id) {
-						alert('Same image is not allowed');
-					} else {
-						// Either select second image or current image to edit
-						if (waitForSecondActiveMedia) {
-							dispatch({
-								type: PresentationEditingActionIdentifiers.selectSecondMedia,
-								payload: { secondActiveMedia: id },
-							});
-						} else {
-							dispatch({
-								type: PresentationEditingActionIdentifiers.editingMediaStarted,
-								payload: { activeMedia: id },
-							});
+					// Select second image
+					if (waitForSecondActiveMedia) {
+						// Abort if same image is selected
+						if(activeMedia == id) {
+							alert('Same image is not allowed');
+							return;
 						}
+						dispatch({
+							type: PresentationEditingActionIdentifiers.selectSecondMedia,
+							payload: { secondActiveMedia: id },
+						});
+					} else {
+						dispatch({
+							type: PresentationEditingActionIdentifiers.editingMediaStarted,
+							payload: { activeMedia: id },
+						});
 					}
 				}}
 				onSelectedMediaBlur={() =>
