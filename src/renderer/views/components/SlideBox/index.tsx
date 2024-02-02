@@ -21,7 +21,9 @@ export interface ISlideBoxProps extends IBoxProps {
 	didReceiveRemoteMediaUrl?: (url: string, id: number) => void;
 	mediaBoxesCanReceiveMedia?: boolean;
 	activeMedia?: number;
+	secondActiveMedia?: number;
 	onActivateMedia?: (id: number) => void;
+	onActivateSecondMedia?: (id: number) => void;
 	onSelectedMediaBlur?: () => void;
 	onSlideBackgroundClicked?: () => void;
 	onSizeChanged?: (width: number, height: number) => void;
@@ -43,6 +45,7 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 		didReceiveRemoteMediaUrl,
 		mediaBoxesCanReceiveMedia = false,
 		activeMedia,
+		secondActiveMedia,
 		onActivateMedia,
 		onSelectedMediaBlur,
 		onSlideBackgroundClicked,
@@ -147,6 +150,7 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 											isActive={
 												activeMedia !== undefined && activeMedia! === media.id
 											}
+											isActiveSecond={secondActiveMedia !== undefined && secondActiveMedia! == media.id}
 											onMediaSelectionBlur={onSelectedMediaBlur}
 											activateMedia={(id: number) => {
 												if (onActivateMedia) onActivateMedia(id);

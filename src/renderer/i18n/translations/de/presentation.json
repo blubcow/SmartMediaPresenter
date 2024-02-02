@@ -118,5 +118,8 @@
 	"no": "nein",
 	"importingLocalPresentations": "lokale Präsentationen werden importiert",
 	"orderedInsert": "geordnetes Einfügen",
-	"resetConfirmation": "sollen die Änderungen der Folie verworfen werden?"
+	"resetConfirmation": "sollen die Änderungen der Folie verworfen werden?",
+	"colorTransfer": {
+		"chooseSourceImage": "Wählen Sie nun das Bild mit den gewünschten Farbwerten aus"
+	}
 }

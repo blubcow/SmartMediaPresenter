@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import EditingButton from './EditingButton';
 import { CropOriginal } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
@@ -8,44 +8,60 @@ import usePresentationEditingContext from '../../../hooks/usePresentationEditing
 import { MediaAlignment, MediaLocation, SinglePresentation, Slide } from '../../../shared/types/presentation';
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import MediaAlignemntPopover from './MediaAlignmentPopover';
+import ColorTransferPopover from './ColorTransferPopover';
 
 interface IColorTransferButtonProps { }
 
 const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 	const { t } = useTranslation([i18nNamespace.Presentation]);
-	const [anchorElement, setAnchorElement] = useState<HTMLDivElement | undefined>(undefined);
-
 	const { state, dispatch } = usePresentationEditingContext();
-	const { presentation, currentSlide, activeMedia } = state;
+	const { presentation, currentSlide, activeMedia, secondActiveMedia } = state;
 
-	const handleClose = () => {
-		setAnchorElement(undefined);
+	const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | undefined>(undefined);
+	//const [activated, setActivated] = useState<boolean>(false);
+
+	//const isActive = ():boolean => anchorEl != undefined;
+	const [active, setActive] = React.useState<boolean>(false);
+	const anchorElRef = useRef(null);
+
+	const onPopoverOpen = () => {
+		setActive(true);
+		dispatch({ type: PresentationEditingActionIdentifiers.selectSecondMedia });
 	};
 
-	const handleAlignment = (align: MediaAlignment) => {
-		/*
-		const newPresentation = JSON.parse(JSON.stringify(presentation));
-		newPresentation.slides[currentSlide].media[activeMedia!].settings = {
-			...newPresentation.slides[currentSlide].media[activeMedia!].settings,
-			alignment: align,
+	const onPopoverClose = () => {
+		setActive(false);
+		// TODO: See in function how to make it better
+		dispatch({ type: PresentationEditingActionIdentifiers.editingMediaStarted });
+	};
+
+	useEffect(() => {
+		return function onClose() {
+
 		};
-		dispatch({
-			type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
-			payload: { presentation: newPresentation },
-		});
-		*/
-	};
+	});
 
-	const onEditButtonClicked = async (e:React.MouseEvent<HTMLDivElement>) => {
+	// Second media selected!
+	useEffect(() => {
+		if (secondActiveMedia != undefined) {
+			transferColors();
+
+			// TODO: Get original file, reset the file on quit somehow
+		}
+	}, [secondActiveMedia])
+
+
+
+	const transferColors = async () => {
 		console.log(presentation);
 
-		const sourceMediaIdx:number = activeMedia! == 0 ? 1 : 0; // The color source
-		const targetMediaIdx:number = activeMedia!; // The image to transform
+		const sourceMediaIdx: number = secondActiveMedia!; // The color source
+		const targetMediaIdx: number = activeMedia!; // The image to transform
 
 		// run transfer script
 		let tmpImgPath = await window.electron.invoke('pythontest',
-			presentation.slides[currentSlide].media[sourceMediaIdx!].location.local!.replace('file://',''),
-			presentation.slides[currentSlide].media[targetMediaIdx!].location.local!.replace('file://',''),
+			presentation.slides[currentSlide].media[sourceMediaIdx!].location.local!.replace('file://', ''),
+			presentation.slides[currentSlide].media[targetMediaIdx!].location.local!.replace('file://', ''),
 		);
 
 		// Need to always have the latest version!
@@ -56,16 +72,8 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 
 		// TODO: Create a function to replace settings easily
 
-		// Create override if it doesn't exist
-		/*
-		slide.mediaOverride = [];
-		slide.mediaOverride[activeMedia!] = {
-			location: tmpImgPath,
-			// settings // TODO: add settings?
-		}
-		*/
-		const newPresentation:SinglePresentation = JSON.parse(JSON.stringify(presentation));
-		const newLocation:MediaLocation = newPresentation.slides[currentSlide!].media[activeMedia!].location;
+		const newPresentation: SinglePresentation = JSON.parse(JSON.stringify(presentation));
+		const newLocation: MediaLocation = newPresentation.slides[currentSlide!].media[activeMedia!].location;
 		newLocation.local = 'file://' + tmpImgPath;
 		newLocation.updatedOn = (new Date()).getTime();
 		dispatch({
@@ -74,7 +82,11 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 		});
 
 		// TODO: when the change is reverted, the image info is lost (The info is not dispatched, the presentation is not updated)
+
 	}
+
+
+
 
 	return (
 		<>
@@ -88,9 +100,14 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 				secondaryNode={
 					<EditButtonLabel>{t('colortransfer')}</EditButtonLabel>
 				}
-				selected={!!anchorElement}
-				onClick={onEditButtonClicked}
+				selected={active}
+				onClick={(e) => active ? onPopoverClose() : onPopoverOpen()}
+				ref={anchorElRef}
 				{...props}
+			/>
+			<ColorTransferPopover
+				open={active}
+				anchorEl={anchorElRef.current}
 			/>
 			{/*<MediaAlignemntPopover
 				open={!!anchorElement}

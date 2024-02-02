@@ -21,10 +21,8 @@ export const useActiveMediaIndicatorStyles = makeStyles((theme: Theme) =>
 		indicator: {
 			outlineWidth: '2px',
 			outlineStyle: 'dashed',
-			outlineColor: 'white',
-			borderWidth: '2px',
+			borderWidth: '1px',
 			borderStyle: 'solid',
-			borderColor: theme.palette.primary.main,
 			position: 'absolute',
 			pointerEvents: 'none',
 			touchAction: 'none',

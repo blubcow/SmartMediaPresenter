@@ -3,8 +3,9 @@ import { Card as MUICard, CardProps } from '@mui/material';
 
 export interface ICardProps extends CardProps {}
 
-const Card: React.FC<ICardProps> = (props) => {
-	return <MUICard {...props} />;
-};
+// TODO: Remove this whole component???
+const Card: React.FC<ICardProps> = React.forwardRef((props, ref) => {
+	return <MUICard {...props} ref={ref} />;
+});
 
 export default Card;

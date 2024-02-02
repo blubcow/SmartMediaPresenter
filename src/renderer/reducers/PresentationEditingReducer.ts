@@ -17,6 +17,17 @@ const presentationEditingReducer = (
 				editingControls: 'media',
 				activeMedia: action.payload?.activeMedia ?? state.activeMedia,
 				activeComponent: undefined,
+				waitForSecondActiveMedia: false,
+				secondActiveMedia: undefined
+			};
+		case ActionIdentifiers.selectSecondMedia:
+			return {
+				...state,
+				editingControls: 'media',
+				activeMedia: action.payload?.activeMedia ?? state.activeMedia,
+				activeComponent: undefined,
+				waitForSecondActiveMedia: true,
+				secondActiveMedia: action.payload?.secondActiveMedia ?? state.secondActiveMedia
 			};
 		case ActionIdentifiers.editingSlideStated:
 			return {
@@ -24,6 +35,8 @@ const presentationEditingReducer = (
 				editingControls: 'slide',
 				activeMedia: undefined,
 				activeComponent: undefined,
+				waitForSecondActiveMedia: false,
+				secondActiveMedia: undefined
 			};
 		case ActionIdentifiers.editingPresentationFrameStarted:
 			return {
@@ -31,12 +44,16 @@ const presentationEditingReducer = (
 				editingControls: 'presentationFrame',
 				activeMedia: undefined,
 				activeComponent: undefined,
+				waitForSecondActiveMedia: false,
+				secondActiveMedia: undefined
 			};
 		case ActionIdentifiers.editingTextStarted:
 			return {
 				...state,
 				editingControls: 'text',
 				activeMedia: undefined,
+				waitForSecondActiveMedia: false,
+				secondActiveMedia: undefined,
 				activeComponent:
 					action.payload?.activeComponent ?? state.activeComponent,
 			};
@@ -74,7 +91,10 @@ const presentationEditingReducer = (
 				unsavedChanges: false,
 			};
 		case ActionIdentifiers.lastFontChanged:
-			return { ...state, lastFont: action.payload?.lastFont ?? state.lastFont };
+			return {
+				...state,
+				lastFont: action.payload?.lastFont ?? state.lastFont
+			};
 		default:
 			return state;
 	}
@@ -93,6 +113,7 @@ export const getInitialState = (
 		unsavedChanges: false,
 		presentationId: presentationId,
 		initialSlides: JSON.parse(JSON.stringify(presentation.slides)),
+		waitForSecondActiveMedia: false
 	};
 };
 

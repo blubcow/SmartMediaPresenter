@@ -6,12 +6,13 @@ import { useActiveMediaIndicatorStyles } from './styles';
 interface IActiveMediaIdenticatorProps {
 	image: HTMLImageElement;
 	mediaElement: MediaRessource;
+  outlineColor?: string;
 }
 
 const ActiveMediaIdenticator: React.FC<IActiveMediaIdenticatorProps> = (
-	props
+  props
 ) => {
-	const { image, mediaElement } = props;
+	const { image, mediaElement, outlineColor = 'primary.main' } = props;
 	const { indicator } = useActiveMediaIndicatorStyles();
 	const [hidden, setHidden] = useState<boolean>(false);
 
@@ -58,7 +59,7 @@ const ActiveMediaIdenticator: React.FC<IActiveMediaIdenticatorProps> = (
 					mediaElement.settings?.scaling?.y ?? 1
 				}) rotate(${mediaElement.settings?.rotation ?? 0}deg)`,
 			}}
-			sx={{ outlineColor: 'primary.main' }}
+			sx={{ outlineColor: outlineColor, borderColor: outlineColor }}
 		/>
 	);
 };
