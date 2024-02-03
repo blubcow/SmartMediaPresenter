@@ -9,41 +9,63 @@ import { MediaAlignment, MediaLocation, SinglePresentation, Slide } from '../../
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import MediaAlignemntPopover from './MediaAlignmentPopover';
 import ColorTransferPopover from './ColorTransferPopover';
+import { useMediaSettingsContext } from '../../../providers/MediaSettingsProvider';
 
 interface IColorTransferButtonProps { }
 
 const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const { state, dispatch } = usePresentationEditingContext();
+	const { ref: mediaSettingsRef } = useMediaSettingsContext();
 	const { presentation, currentSlide, activeMedia, secondActiveMedia } = state;
 
-	//const [active, setActive] = useState<boolean>(false);
+	// useRef since state didn't work with async functions (and should not change on render anyways)
+	// Apparently isActive will not change in the async function
 	const isActive = useRef<boolean>(false);
 	const originalSlide = useRef<Slide | undefined>(undefined);
-	const anchorElRef = useRef(null);
+	const anchorElRef = useRef<HTMLDivElement>(null);
 
-	const onPopoverOpen = () => {
+	// Opening and activating
+	const activate = () => {
+		if (mediaSettingsRef.current) {
+			mediaSettingsRef.current.addEventListener("mousedown", onMediaSettingsClicked, true);
+		}
 		originalSlide.current = presentation.slides[currentSlide];
 		isActive.current = true;
-		//setActive(true);
 		dispatch({ type: PresentationEditingActionIdentifiers.selectSecondMedia });
 	};
 
-	const onPopoverClose = () => {
-		//setActive(false);
-		isActive.current = false;
-		revertImage();
-		originalSlide.current = undefined;
+	// Closing and exiting ========================
+
+	// Close with same button
+	const deActivate = () => {
+		destroy();
 		dispatch({ type: PresentationEditingActionIdentifiers.editingMediaStarted });
 	};
 
+	// Any other button on top edit navigation clicked
+	const onMediaSettingsClicked = (e: MouseEvent) => {
+		if (anchorElRef.current && !anchorElRef.current.contains(e.target as Node)) {
+			destroy();
+		}
+	}
+
+	// Exit for some other reason
 	useEffect(() => {
-		return function onClose() {
-			//setActive(false);
-			isActive.current = false;
-			revertImage();
-		};
+		return destroy; // on Close
 	}, []);
+
+	// Main destructor
+	const destroy = () => {
+		if (mediaSettingsRef.current) {
+			mediaSettingsRef.current.removeEventListener("mousedown", onMediaSettingsClicked, true);
+		}
+		isActive.current = false;
+		if (originalSlide.current) {
+			updatePresentationSlide(currentSlide, originalSlide.current);
+		}
+		originalSlide.current = undefined;
+	}
 
 	// Second media selected!
 	useEffect(() => {
@@ -52,18 +74,15 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 		}
 	}, [secondActiveMedia])
 
-	const revertImage = () => {
-		if (originalSlide.current) {
-			const newPresentation: SinglePresentation = JSON.parse(JSON.stringify(presentation));
-			newPresentation.slides[currentSlide!] = originalSlide.current;
-			/*const newLocation: MediaLocation = newPresentation.slides[currentSlide!].media[activeMedia!].location;
-			newLocation.local = originalImgSrc.current!;
-			newLocation.updatedOn = undefined;*/
-			dispatch({
-				type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
-				payload: { presentation: newPresentation },
-			});
-		}
+
+	// TODO: Put this somewhere else
+	const updatePresentationSlide = (slideIndex:number, slide: Slide) => {
+		const newPresentation: SinglePresentation = JSON.parse(JSON.stringify(presentation));
+		newPresentation.slides[slideIndex!] = slide;
+		dispatch({
+			type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+			payload: { presentation: newPresentation },
+		});
 	}
 
 	const transferColors = async () => {
@@ -113,7 +132,7 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 					<EditButtonLabel>{t('colortransfer')}</EditButtonLabel>
 				}
 				selected={isActive.current}
-				onClick={(e) => isActive.current ? onPopoverClose() : onPopoverOpen()}
+				onClick={(e) => isActive.current ? deActivate() : activate()}
 				ref={anchorElRef}
 				{...props}
 			/>
@@ -121,16 +140,6 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 				open={isActive.current}
 				anchorEl={anchorElRef.current}
 			/>
-			{/*<MediaAlignemntPopover
-				open={!!anchorElement}
-				onClose={handleClose}
-				anchorEl={anchorElement}
-				alignment={
-					presentation.slides[currentSlide].media[activeMedia!].settings
-						?.alignment ?? presentation?.theme?.defaultMediaAlignment
-				}
-				handleAlignment={handleAlignment}
-			/>*/}
 		</>
 	);
 };

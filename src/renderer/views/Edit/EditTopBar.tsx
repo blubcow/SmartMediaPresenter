@@ -12,8 +12,9 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import TextSettings from '../components/slideEditing/TextSettings';
+import { MediaSettingsProvider } from '../../providers/MediaSettingsProvider';
 
-interface IEditTopBarProps extends ITopBarDisplayingFilenameProps {}
+interface IEditTopBarProps extends ITopBarDisplayingFilenameProps { }
 
 const EditTopBar: React.FC<IEditTopBarProps> = (props) => {
 	const { state, dispatch } = usePresentationEditingContext();
@@ -30,8 +31,8 @@ const EditTopBar: React.FC<IEditTopBarProps> = (props) => {
 				onGoBack={
 					unsavedChanges
 						? () => {
-								setOpenConfirmation(true);
-						  }
+							setOpenConfirmation(true);
+						}
 						: undefined
 				}
 				onFilenameChanged={(filename) => {
@@ -47,7 +48,9 @@ const EditTopBar: React.FC<IEditTopBarProps> = (props) => {
 					sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}
 				>
 					{editingControls === 'media' ? (
-						<MediaSettings />
+						<MediaSettingsProvider>
+							<MediaSettings />
+						</MediaSettingsProvider>
 					) : editingControls === 'text' ? (
 						<TextSettings />
 					) : (
