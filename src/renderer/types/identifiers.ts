@@ -16,4 +16,7 @@ export enum PresentationEditingActionIdentifiers {
 	presentationFrameUpdated = 'pfu',
 	savePresentationChanges = 'spc',
 	lastFontChanged = 'lfc',
+
+	selectSecondMedia ='ssm',
+	abortSelectSecondMedia = 'assm'
 }

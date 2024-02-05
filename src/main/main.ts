@@ -15,6 +15,9 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import { registerMainProcessMethodHandlers } from './ipc/methods';
+import { registerMainProcessPythonHandlers } from './ipc/python';
+import * as os from 'os';
+import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 
 class AppUpdater {
   constructor() {
@@ -77,6 +80,7 @@ const createWindow = async () => {
     icon: getAssetPath('icon.png'),
     // TODO: Reverse settings (also see methods.ts)
     webPreferences: {
+      //sandbox: true,
       nodeIntegration: true,
 			contextIsolation: false,
 			webSecurity: false,
@@ -126,7 +130,7 @@ const createWindow = async () => {
   // eslint-disable-next-line
   new AppUpdater();
 
-  // 
+  //
   // TODO: How to register really?
   /**
    * Register IPC methods
@@ -136,6 +140,14 @@ const createWindow = async () => {
     app.getPath('userData'),
     ipcMain,
     mainWindow
+  );
+
+  registerMainProcessPythonHandlers(
+    app.getPath('userData'),
+    ipcMain,
+    mainWindow,
+    getAssetPath,
+    isDebug
   );
 };
 
@@ -166,11 +178,25 @@ const setContentPolicy = function(): void {
 }
 */
 
+/*
+const reactDevToolsPath = path.join(
+  os.homedir(),
+  'AppData/Local/Google/Chrome/User Data/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/5.0.0_0'
+)
+*/
+
 app
   .whenReady()
-  .then(() => {
+  .then(async () => {
+    /*
+    await session.defaultSession.loadExtension(reactDevToolsPath, {
+      allowFileAccess: true
+    });
+    */
+
     //setContentPolicy();
     createWindow();
+
     app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the
       // dock icon is clicked and there are no other windows open.
@@ -201,7 +227,7 @@ async function getVideoSources() {
   const inputSources = await desktopCapturer.getSources({
     types: ['window', 'screen']
   });
-  
+
   const videoOptionsMenu = Menu.buildFromTemplate(
     inputSources.map(source => {
     return {
@@ -210,8 +236,8 @@ async function getVideoSources() {
     };
     })
   );
-  
-  
+
+
   videoOptionsMenu.popup();
 }
 */

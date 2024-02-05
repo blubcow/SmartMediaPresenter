@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { PropsWithChildren, ReactNode } from 'react';
 import { Box, Card } from '../../../smpUI/components';
 import { ButtonBase } from '@mui/material';
 import { ICardProps } from '../../../smpUI/components/Card';
@@ -11,7 +11,7 @@ export interface IEditingButtonProps extends ICardProps {
 	highlighted?: boolean;
 }
 
-const EditingButton: React.FC<IEditingButtonProps> = (props) => {
+const EditingButton: React.FC<IEditingButtonProps> = React.forwardRef((props, ref) => {
 	const { icon, secondaryNode, selected, highlighted = false, ...cardProps } = props;
 	const classes = useStyles();
 
@@ -25,6 +25,7 @@ const EditingButton: React.FC<IEditingButtonProps> = (props) => {
 				bgcolor: highlighted ? 'secondary.main' : undefined,
 			}}
 			{...cardProps}
+			ref={ref}
 		>
 			<ButtonBase className={classes.container} id='mediaOrSlideEditing'>
 				<Box className={classes.iconContainer}>{icon}</Box>
@@ -32,6 +33,6 @@ const EditingButton: React.FC<IEditingButtonProps> = (props) => {
 			</ButtonBase>
 		</Card>
 	);
-};
+});
 
 export default EditingButton;

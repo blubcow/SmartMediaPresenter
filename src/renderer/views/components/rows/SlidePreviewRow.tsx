@@ -103,6 +103,14 @@ const ImagePreview = (props: {
 		i.onload = () => setLoaded(true);
 	}, [isVisible, location?.local ?? location?.remote]);
 
+	const getSrc = ()=>{
+		let src = loaded ? location?.local ?? location?.remote : undefined;
+		if(location?.updatedOn){
+			src = src ? src + '?time=' + location.updatedOn : undefined;
+		}
+		return src;
+	}
+
 	return (
 		<Box
 			sx={{
@@ -118,7 +126,7 @@ const ImagePreview = (props: {
 				loaded ? (
 					<LazyLoadImage
 						draggable={false}
-						src={loaded ? location?.local ?? location?.remote : undefined}
+						src={getSrc()}
 						style={{
 							height: '100%',
 							width: '100%',

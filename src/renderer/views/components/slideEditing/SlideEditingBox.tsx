@@ -10,12 +10,12 @@ import {
 import SlideBox from '../SlideBox';
 import { useHeldKeys } from '../../../hooks/useHeldKeys';
 
-interface ISlideEditingBoxProps {}
+interface ISlideEditingBoxProps { }
 
 const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 	const { state, dispatch, dispatchMediaTranslationTransformation } =
 		usePresentationEditingContext();
-	const { presentation, currentSlide, activeMedia, editingControls } = state;
+	const { presentation, currentSlide, activeMedia, editingControls, waitForSecondActiveMedia, secondActiveMedia } = state;
 	const { shift } = useHeldKeys();
 	const [dragToSwapId, setDragToSwapId] = useState<number | undefined>();
 
@@ -54,9 +54,9 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 			} else if (key.startsWith('Arrow')) {
 				dispatchMediaTranslationTransformation(
 					(e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0) *
-						(shift ? 5 : 1),
+					(shift ? 5 : 1),
 					(e.key === 'ArrowUp' ? 1 : e.key === 'ArrowDown' ? -1 : 0) *
-						(shift ? 5 : 1)
+					(shift ? 5 : 1)
 				);
 			}
 		};
@@ -132,11 +132,25 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 					onRemoteUrlReceived(url, id, presentation, currentSlide)
 				}
 				activeMedia={activeMedia}
+				secondActiveMedia={secondActiveMedia}
 				onActivateMedia={(id: number) => {
-					dispatch({
-						type: PresentationEditingActionIdentifiers.editingMediaStarted,
-						payload: { activeMedia: id },
-					});
+					// Select second image
+					if (waitForSecondActiveMedia) {
+						// Abort if same image is selected
+						if(activeMedia == id) {
+							alert('Same image is not allowed');
+							return;
+						}
+						dispatch({
+							type: PresentationEditingActionIdentifiers.selectSecondMedia,
+							payload: { secondActiveMedia: id },
+						});
+					} else {
+						dispatch({
+							type: PresentationEditingActionIdentifiers.editingMediaStarted,
+							payload: { activeMedia: id },
+						});
+					}
 				}}
 				onSelectedMediaBlur={() =>
 					dispatch({
@@ -182,8 +196,8 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 								media.id === id
 									? dragToSwapId
 									: media.id === dragToSwapId
-									? id
-									: media.id,
+										? id
+										: media.id,
 						}))
 						.sort((a, b) => (a.id > b.id ? 1 : -1));
 

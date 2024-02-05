@@ -47,6 +47,7 @@ i18n.use(initReactI18next).init({
 			remote: remoteDE,
 		},
 	},
+	keySeparator: '.'
 });
 
 export default i18n;

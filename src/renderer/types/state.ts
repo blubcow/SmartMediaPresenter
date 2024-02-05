@@ -15,7 +15,7 @@ export type PresentationEditingControls =
 export interface PresentationEditingSettings {
 	editingControls: PresentationEditingControls;
 	currentSlide: number;
-	activeMedia?: number;
+	activeMedia?: number; // selected media to edit
 	activeComponent?: number;
 	lastFont?: string;
 	editingBoxDimensions: Dimensions;
@@ -25,6 +25,9 @@ export interface PresentationEditingSettings {
 	unsavedChanges: boolean;
 	presentationId: number;
 	initialSlides: Slide[];
+
+	waitForSecondActiveMedia: boolean;
+	secondActiveMedia?: number; // second selected media (eg. for color transfer)
 }
 
 export interface PresentationEditingAction {

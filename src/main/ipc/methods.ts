@@ -455,6 +455,12 @@ export const registerMainProcessMethodHandlers = (
 			const display = screen
 				.getAllDisplays()
 				.filter((disp) => disp.id !== currentScreenOfMainWindow.id)[displayIndex];
+			
+
+			// TODO: fix this bug
+			alert('Second window not working yet...');
+			return;
+			
 
 			const presentation = new BrowserWindow({
 				x: display.bounds.x + 50,

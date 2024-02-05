@@ -23,6 +23,7 @@ interface IMediaBox {
 	media?: MediaRessource;
 	themeAlignment?: MediaAlignment;
 	isActive?: boolean;
+	isActiveSecond?: boolean;
 	activateMedia?: (id: number) => void;
 	onMediaSelectionBlur?: () => void;
 	didReceiveMediaFile?: (file: File, id: number) => void;
@@ -44,6 +45,7 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 		media,
 		themeAlignment,
 		isActive,
+		isActiveSecond,
 		activateMedia,
 		onMediaSelectionBlur,
 		slideEditingBoxDimensions,
@@ -82,7 +84,11 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 	};
 
 	useEffect(() => {
-		setImgSrc(media?.location?.local ?? media?.location?.remote);
+		let src = media?.location?.local ?? media?.location?.remote;
+		if (src && media?.location?.updatedOn) {
+			src = src + '?time=' + media.location.updatedOn;
+		}
+		setImgSrc(src);
 	}, [media]);
 
 	return (
@@ -102,7 +108,7 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 						: undefined,
 				width:
 					(media?.location?.local || media?.location?.remote) &&
-					(!alignment || alignment === 'auto')
+						(!alignment || alignment === 'auto')
 						? undefined
 						: width,
 				display: 'flex',
@@ -112,8 +118,8 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 						? alignment === 'left'
 							? 'start'
 							: alignment === 'center'
-							? 'center'
-							: 'end'
+								? 'center'
+								: 'end'
 						: undefined,
 				justifyContent: 'center',
 				overflow: 'visible',
@@ -147,6 +153,9 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 		>
 			{isActive && media && (
 				<ActiveMediaIdenticator image={imgRef.current} mediaElement={media} />
+			)}
+			{isActiveSecond && media && (
+				<ActiveMediaIdenticator image={imgRef.current} mediaElement={media} outlineColor='warning.main' />
 			)}
 			{media?.location?.local || media?.location?.remote ? (
 				<>
