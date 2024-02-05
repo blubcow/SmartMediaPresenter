@@ -1,5 +1,5 @@
 {
-  "description": "A foundation for scalable desktop apps",
+  "description": "Slide shows for panoramic photos",
   "keywords": [
     "electron",
     "boilerplate",
@@ -194,14 +194,15 @@
     "webpack-merge": "^5.9.0"
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.erb.ElectronReact",
+    "productName": "Smart Media Presenter",
+    "appId": "com.jaeger.smartmediapresenter",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [
       "dist",
       "node_modules",
-      "package.json"
+      "package.json",
+      "assets/python"
     ],
     "afterSign": ".erb/scripts/notarize.js",
     "mac": {

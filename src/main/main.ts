@@ -146,7 +146,8 @@ const createWindow = async () => {
     app.getPath('userData'),
     ipcMain,
     mainWindow,
-    getAssetPath
+    getAssetPath,
+    isDebug
   );
 };
 

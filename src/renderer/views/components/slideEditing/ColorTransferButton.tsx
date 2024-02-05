@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import EditingButton from './EditingButton';
-import { CropOriginal } from '@mui/icons-material';
+import { CropOriginal, SwitchAccessShortcut } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
@@ -91,7 +91,7 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 		const targetMediaIdx: number = activeMedia!; // The image to transform
 
 		// run transfer script
-		let tmpImgPath = await window.electron.invoke('pythontest',
+		let tmpImgPath = await window.electron.invoke('python.simpleColorTransfer',
 			presentation.slides[currentSlide].media[sourceMediaIdx!].location.local!.replace('file://', ''),
 			presentation.slides[currentSlide].media[targetMediaIdx!].location.local!.replace('file://', ''),
 		);
@@ -126,7 +126,7 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 					presentation.slides[currentSlide].media[activeMedia!].settings?.alignment !== undefined
 				}
 				icon={
-					<CropOriginal sx={{ color: 'text.primary', height: '100%', width: '100%' }} />
+					<SwitchAccessShortcut sx={{ color: 'text.primary', height: '100%', width: '100%' }} />
 				}
 				secondaryNode={
 					<EditButtonLabel>{t('colortransfer')}</EditButtonLabel>
