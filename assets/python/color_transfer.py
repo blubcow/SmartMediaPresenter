@@ -4,14 +4,18 @@
 # import the necessary packages
 import sys
 from tkinter import Image
-from color_transfer import color_transfer
+from color_transfer_jrosebr1 import color_transfer as color_transfer_jrosebr1
+from color_transfer_pengbo_learn import color_transfer as color_transfer_pengbo_learn
+from color_transfer_pengbo_learn import color_transfer_pdf_regrain as color_transfer_pengbo_learn_pdf_regrain
+#from color_transfer_dstein64 import color_transfer
+#from color_transfer_anant-mishra1729 import color_transfer
 import numpy as np
 import argparse
 import cv2
 from os.path import exists
 #from cv2.typing import MatLike
 
-sys.stdout.write('TEST-------------\n')
+sys.stdout.write('color transfer running -------------\n')
 sys.stdout.write(''.join(str(x) for x in sys.argv) + '\n')
 sys.stdout.writelines(sys.argv)
 sys.stdout.write('\n')
@@ -47,6 +51,8 @@ ap.add_argument("-c", "--clip", type = str2bool, default = 't',
 ap.add_argument("-p", "--preservePaper", type = str2bool, default = 't',
 	help = "Should color transfer strictly follow methodology layed out in original paper?")
 ap.add_argument("-o", "--output", help = "Path to the output image (optional)")
+ap.add_argument("-m", "--method", required = False,
+	help = "Path to the source image")
 args = vars(ap.parse_args())
 
 # Check if files exist
@@ -57,17 +63,27 @@ if(not exists(args["source"]) or not exists(args["target"])):
 source = cv2.imread(args["source"])
 target = cv2.imread(args["target"])
 
+#raise FileNotFoundError("The input files cound't be read")
+
 
 # transfer the color distribution from the source image
 # to the target image
-transfer = color_transfer(source, target, clip=args["clip"], preserve_paper=args["preservePaper"])
+method = args["method"] or "0"
+match method:
+	case "0":
+		transfer = color_transfer_jrosebr1(source, target, clip=args["clip"], preserve_paper=args["preservePaper"])
+	case "1":
+		transfer = color_transfer_pengbo_learn(source, target)
+	case "2":
+		transfer = color_transfer_pengbo_learn_pdf_regrain(source, target)
+
 
 # check to see if the output image should be saved
 if args["output"] is not None:
 	cv2.imwrite(args["output"], transfer)
-
-# show the images and wait for a key press
-#show_image("Source", source)
-#show_image("Target", target)
-#show_image("Transfer", transfer)
-#cv2.waitKey(0)
+else:
+	# show the images and wait for a key press
+	show_image("Source", source)
+	show_image("Target", target)
+	show_image("Transfer", transfer)
+	cv2.waitKey(0)

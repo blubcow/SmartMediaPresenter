@@ -1,38 +1,71 @@
 import { useTranslation } from "react-i18next";
-import { Box, Popover } from "../../../smpUI/components";
-import { IPopoverProps } from '../../../smpUI/components/Popover';
 import { i18nNamespace } from "../../../i18n/i18n";
-import { padding } from "@mui/system";
-import { Box as MUIBox, Paper, Popper, PopperProps } from '@mui/material';
+import { Box, Button, CircularProgress, Box as MUIBox, Paper, Popper, PopperProps, Stack } from '@mui/material';
 import usePresentationEditingContext from "../../../hooks/usePresentationEditingContext";
-import { useEffect } from "react";
+import { forwardRef, useEffect } from "react";
 
-type IColorTransferPopoverProps = PopperProps & { onClose?: () => void };
+type IColorTransferPopoverProps = PopperProps & {
+	//onClose?: () => void,
+	isLoading: boolean,
+	onChooseMethod: (method:number, options?:string) => void
+};
 
-const ColorTransferPopover: React.FC<IColorTransferPopoverProps> = (props) => {
-	const { onClose, ...popoverProps } = props;
+const ColorTransferPopover: React.FC<IColorTransferPopoverProps> = forwardRef((props, ref) => {
+	const { /*onClose,*/ isLoading, onChooseMethod, ...popoverProps } = props;
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const { state, dispatch } = usePresentationEditingContext();
+	const { secondActiveMedia } = state;
 
 	useEffect(() => {
     // TODO: What to do? We will never close as long as the button is visible...
-		return onClose;
+		//return onClose;
 	}, []);
 
 	return (
 		<Popper placement='bottom' {...popoverProps} sx={{ zIndex: 1300 }}>
-			<Paper elevation={8}>
+			<Paper elevation={8} ref={ref}>
 				<MUIBox sx={{
 					padding: 2,
 					display: 'flex',
 					flexDirection: 'column',
 					alignItems: 'center'
 				}}>
-					{t('colorTransfer.chooseSourceImage')}
+					{isLoading ? <CircularProgress color="primary" /> : (
+
+						!(secondActiveMedia != undefined) ? t('colorTransfer.chooseSourceImage') : (
+
+							<>
+								<Stack direction="row" spacing={0.5}>
+									<Box sx={{ fontSize: '0.8125rem', padding: '4px' }}>Package build:</Box>
+									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(0)} size="small">Method 1</Button>
+									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(1)} size="small">Method 2</Button>
+									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(2)} size="small">Method 3</Button>
+								</Stack>
+								<Stack direction="row" spacing={0.5}>
+									<Box sx={{ fontSize: '0.8125rem', padding: '4px' }}>Single file build:</Box>
+									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(0, 'single')} size="small">Method 1</Button>
+									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(1, 'single')} size="small">Method 2</Button>
+									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(2, 'single')} size="small">Method 3</Button>
+								</Stack>
+								<Stack direction="row" spacing={0.5}>
+									<Box sx={{ fontSize: '0.8125rem', padding: '4px' }}>Wrap paths in quotes:</Box>
+									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(0, 'quotes')} size="small">Method 1</Button>
+									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(1, 'quotes')} size="small">Method 2</Button>
+									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(2, 'quotes')} size="small">Method 3</Button>
+								</Stack>
+								<Stack direction="row" spacing={0.5}>
+									<Box sx={{ fontSize: '0.8125rem', padding: '4px' }}>Python call:</Box>
+									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(0, 'python')} size="small">Method 1</Button>
+									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(1, 'python')} size="small">Method 2</Button>
+									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(2, 'python')} size="small">Method 3</Button>
+								</Stack>
+							</>
+						)
+					)}
 				</MUIBox>
 			</Paper>
 		</Popper>
 	);
-}
+})
 
 export default ColorTransferPopover;
