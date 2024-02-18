@@ -53,7 +53,7 @@ export const registerMainProcessPythonHandlers = (
 			}else if(options == 'single'){
 				return simpleColorTransfer(assetPath, args, outputImgPath, '/dist/color_transfer.exe');
 			}else{
-				return simpleColorTransfer(assetPath, args, outputImgPath);
+				return simpleColorTransfer(assetPath, args, outputImgPath, '/dist/color_transfer/color_transfer.exe', options);
 			}
 
 			/*
@@ -66,17 +66,19 @@ export const registerMainProcessPythonHandlers = (
 		}
 	);
 
-	function simpleColorTransfer(assetPath:string, args: string[], outputImgPath: string, scriptFile?: string): Promise<string> {
+	function simpleColorTransfer(assetPath:string, args: string[], outputImgPath: string, scriptFile?: string, options?: string): Promise<string> {
 		if(!scriptFile){
 			scriptFile = '/dist/color_transfer/color_transfer.exe';
 		}
 
 		return new Promise<string>((resolve, reject) => {
 			//const scriptPath = assetPath + '/dist/color_transfer/color_transfer.exe'; // packaged without "--onefile"
-			const scriptPath = assetPath + scriptFile;
+			let scriptPath = assetPath + scriptFile;
 			// Put error buffer into single string
 			let errorMsg:string = '';
 
+			if(options == 'cmdquotes')
+				scriptPath = '"'+scriptPath+'"';
 			const process: ChildProcessWithoutNullStreams = spawn(scriptPath, args, {shell: false});
 			
 			// Could not find file to execute (usually)
