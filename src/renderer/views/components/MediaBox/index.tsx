@@ -174,7 +174,11 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 						className={classes.img}
 						src={imgSrc}
 						loading='lazy'
-						placeholder={iconImg}
+
+						// TODO: Placeholder doesn't work
+						//placeholder={iconImg}
+
+
 						onError={() => {
 							if (
 								media.location.local &&
@@ -188,12 +192,15 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 							e.stopPropagation();
 							if (activateMedia) activateMedia(id);
 						}}
+						// TODO: Remove this
+						/*
 						onBlur={(e) => {
 							if (e.relatedTarget?.id === 'mediaOrSlideEditing') {
 								return;
 							}
 							if (onMediaSelectionBlur) onMediaSelectionBlur();
 						}}
+						*/
 						tabIndex={id}
 						style={{
 							transform: `translate(${

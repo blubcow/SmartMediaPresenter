@@ -152,11 +152,12 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 						});
 					}
 				}}
-				onSelectedMediaBlur={() =>
+				/*onSelectedMediaBlur={() =>
+					// TODO: Remove this!
 					dispatch({
 						type: PresentationEditingActionIdentifiers.editingSlideStated,
 					})
-				}
+				}*/
 				onSlideBackgroundClicked={() =>
 					dispatch({
 						type: PresentationEditingActionIdentifiers.editingSlideStated,

@@ -25,6 +25,8 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 	const originalSlide = useRef<Slide | undefined>(undefined);
 	const anchorElRef = useRef<HTMLDivElement>(null);
 
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+
 	// Opening and activating
 	const activate = () => {
 		if (mediaSettingsRef.current) {
@@ -46,7 +48,7 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 	// Any other button on top edit navigation clicked
 	const onMediaSettingsClicked = (e: MouseEvent) => {
 		if (anchorElRef.current && !anchorElRef.current.contains(e.target as Node)) {
-			destroy();
+			deActivate();
 		}
 	}
 
@@ -67,13 +69,22 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 		originalSlide.current = undefined;
 	}
 
+	// Main functionality ========================
+
+	const onChooseMethod = (method:number, options?:string) => {
+		if(secondActiveMedia != undefined) {
+			transferColors(method, options);
+		}else{
+			alert('Could not select second media...');
+		}
+	}
+
 	// Second media selected!
-	useEffect(() => {
+	/*useEffect(() => {
 		if (secondActiveMedia != undefined) {
 			transferColors();
 		}
-	}, [secondActiveMedia])
-
+	}, [secondActiveMedia])*/
 
 	// TODO: Put this somewhere else
 	const updatePresentationSlide = (slideIndex:number, slide: Slide) => {
@@ -85,35 +96,45 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 		});
 	}
 
-	const transferColors = async () => {
+	const transferColors = async (method:number, options?:string) => {
+		setIsLoading(true);
 
 		const sourceMediaIdx: number = secondActiveMedia!; // The color source
 		const targetMediaIdx: number = activeMedia!; // The image to transform
 
-		// run transfer script
-		let tmpImgPath = await window.electron.invoke('python.simpleColorTransfer',
-			presentation.slides[currentSlide].media[sourceMediaIdx!].location.local!.replace('file://', ''),
-			presentation.slides[currentSlide].media[targetMediaIdx!].location.local!.replace('file://', ''),
-		);
+		try{
+			// run transfer script
+			let tmpImgPath = await window.electron.invoke('python.simpleColorTransfer',
+				originalSlide.current!.media[sourceMediaIdx!].location.local!.replace('file://', ''),
+				originalSlide.current!.media[targetMediaIdx!].location.local!.replace('file://', ''),
+				//presentation.slides[currentSlide].media[sourceMediaIdx!].location.local!.replace('file://', ''),
+				//presentation.slides[currentSlide].media[targetMediaIdx!].location.local!.replace('file://', ''),
+				method,
+				options
+			);
+		
 
-		// TODO: Do we really need this?
-		//setAnchorElement(e.currentTarget);
+			// TODO: Do we really need this?
+			//setAnchorElement(e.currentTarget);
 
-		// TODO: Create a function to replace settings easily
+			// TODO: Create a function to replace settings easily
 
-		if (isActive.current && (targetMediaIdx == activeMedia!)) {
-			const newPresentation: SinglePresentation = JSON.parse(JSON.stringify(presentation));
-			const newLocation: MediaLocation = newPresentation.slides[currentSlide!].media[activeMedia!].location;
-			newLocation.local = 'file://' + tmpImgPath;
-			newLocation.updatedOn = (new Date()).getTime();
-			dispatch({
-				type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
-				payload: { presentation: newPresentation },
-			});
+			if (isActive.current && (targetMediaIdx == activeMedia!)) {
+				const newPresentation: SinglePresentation = JSON.parse(JSON.stringify(presentation));
+				const newLocation: MediaLocation = newPresentation.slides[currentSlide!].media[activeMedia!].location;
+				newLocation.local = 'file://' + tmpImgPath;
+				newLocation.updatedOn = (new Date()).getTime();
+				dispatch({
+					type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+					payload: { presentation: newPresentation },
+				});
+			}
+
+			// TODO: when the change is reverted, the image info is lost (The info is not dispatched, the presentation is not updated)
+		}catch(err){
+			// do nothing
 		}
-
-		// TODO: when the change is reverted, the image info is lost (The info is not dispatched, the presentation is not updated)
-
+		setIsLoading(false);
 	}
 
 
@@ -139,6 +160,8 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 			<ColorTransferPopover
 				open={isActive.current}
 				anchorEl={anchorElRef.current}
+				isLoading={isLoading}
+				onChooseMethod={onChooseMethod}
 			/>
 		</>
 	);

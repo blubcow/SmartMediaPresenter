@@ -12,6 +12,7 @@ import { ElectronHandler } from '../main/preload';
 import './App.css';
 
 function App() {
+	/*
 	useEffect(() =>{
 		test();
 	})
@@ -22,6 +23,7 @@ function App() {
 		const ipcRenderer = window.electron;
 		ipcRenderer.send('test', 'test');
 	}
+	*/
 	return (
 		<RemoteUserProvider>
 			<UserSettingsProvider>
