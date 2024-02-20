@@ -120,6 +120,12 @@
 	"orderedInsert": "ordered inserting",
 	"resetConfirmation": "do you really want to reset the changes made to the slide?",
 	"colorTransfer": {
-		"chooseSourceImage": "Now choose another image with the desired colors"
+		"editButtonLabel": "Color Transfer",
+		"chooseSourceImage": "Choose another image with the desired colors"
+	},
+	"autoAlignment": {
+		"editButtonLabel": "Auto Alignment",
+		"chooseSecondImage": "Choose the second image that should be\nvertically alined with your current selected image",
+		"choosePosition": "On which position should the second image be appended?"
 	}
 }
