@@ -1,11 +1,11 @@
 from typing import List
 import cv2
 import numpy as np
-from config import EXTRAPOLATE_BORDER_TOTAL, EXTRAPOLATE_IMG_HEIGHT, IMG_HEIGHT
-from types import CoordinateLimits, CorrelationTransforms, Transform
-from extrapolated_cutter import cutExtrapolatedImageSliceAtScale, cutExtrapolatedImageSlice
-from utils import blurHorizontal, plotCorrTransformedImages, plotCvtImg, plotRePosImages
-from align_images import align
+from .config import EXTRAPOLATE_BORDER_TOTAL, EXTRAPOLATE_IMG_HEIGHT, IMG_HEIGHT
+from .types import CoordinateLimits, CorrelationTransforms, Transform
+from .extrapolated_cutter import cutExtrapolatedImageSliceAtScale, cutExtrapolatedImageSlice
+from .utils import blurHorizontal, plotCorrTransformedImages, plotCvtImg, plotRePosImages
+from .align_images import align
 
 def getCutoffFromCorrelation(corrTransforms:CorrelationTransforms) -> float:
     LY: CoordinateLimits; RY: CoordinateLimits

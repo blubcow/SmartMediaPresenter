@@ -2,7 +2,7 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 
-from types import CorrelationTransforms, Transform
+from .types import CorrelationTransforms, Transform
 
 # Rezising image by width or height proportionally
 # taken from: https://stackoverflow.com/questions/44650888/resize-an-image-without-distortion-opencv

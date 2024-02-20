@@ -19,11 +19,10 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-l", "--left", required = True, help = "Path to the left image")
 ap.add_argument("-r", "--right", required = True, help = "Path to the right image")
 ap.add_argument("-o", "--output", help = "Path to the output image (optional)")
-#ap.add_argument("-m", "--method", required = False, help = "Path to the source image")
 args = vars(ap.parse_args())
 
 # Check if files exist
-if(not exists(args["source"]) or not exists(args["target"])):
+if(not exists(args["left"]) or not exists(args["left"])):
 	raise FileNotFoundError("The input files couldn't be read")
 
 # load the images

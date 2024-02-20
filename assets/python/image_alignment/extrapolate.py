@@ -2,7 +2,7 @@ from patchmatch import patch_match
 import cv2
 import numpy as np
 
-from config import EXTRAPOLATE_BORDER, EXTRAPOLATE_PATCH_SIZE, EXTRAPOLATE_STEPS
+from .config import EXTRAPOLATE_BORDER, EXTRAPOLATE_PATCH_SIZE, EXTRAPOLATE_STEPS
 
 def extrapolateRecursively(img, level=0):
     '''

@@ -73,7 +73,7 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 
 	const onChooseMethod = (method:number, options?:string) => {
 		if(secondActiveMedia != undefined) {
-			transferColors(method, options);
+			transferColors(method, options);; // async
 		}else{
 			alert('Could not select second media...');
 		}
@@ -143,14 +143,12 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 	return (
 		<>
 			<EditingButton
-				highlighted={
-					presentation.slides[currentSlide].media[activeMedia!].settings?.alignment !== undefined
-				}
+				highlighted={ isLoading }
 				icon={
 					<SwitchAccessShortcut sx={{ color: 'text.primary', height: '100%', width: '100%' }} />
 				}
 				secondaryNode={
-					<EditButtonLabel>{t('colortransfer')}</EditButtonLabel>
+					<EditButtonLabel>{t('colorTransfer.editButtonLabel')}</EditButtonLabel>
 				}
 				selected={isActive.current}
 				onClick={(e) => isActive.current ? deActivate() : activate()}

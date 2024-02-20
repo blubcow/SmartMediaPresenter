@@ -18,5 +18,5 @@ export enum PresentationEditingActionIdentifiers {
 	lastFontChanged = 'lfc',
 
 	selectSecondMedia ='ssm',
-	abortSelectSecondMedia = 'assm'
+	abortSelectSecondMedia = 'assm',
 }

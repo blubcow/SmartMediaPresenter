@@ -1,6 +1,6 @@
 import cv2
 
-from config import IMG_HEIGHT
+from .config import IMG_HEIGHT
 
 def cutExtrapolatedImageSliceAtScale(img:cv2.typing.MatLike, pos='left', 
                                      border:int=0, sliceWidth:int=100, sliceHeight:int=IMG_HEIGHT, innerXPos:int=100,

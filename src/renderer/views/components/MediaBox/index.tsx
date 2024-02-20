@@ -151,10 +151,10 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 				}
 			}}
 		>
-			{isActive && media && (
+			{isActive && media && imgRef.current && (
 				<ActiveMediaIdenticator image={imgRef.current} mediaElement={media} />
 			)}
-			{isActiveSecond && media && (
+			{isActiveSecond && media && imgRef.current && (
 				<ActiveMediaIdenticator image={imgRef.current} mediaElement={media} outlineColor='warning.main' />
 			)}
 			{media?.location?.local || media?.location?.remote ? (

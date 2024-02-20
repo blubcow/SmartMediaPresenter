@@ -1,11 +1,11 @@
 from typing import List
 import cv2
 import numpy as np
-from types import CoordinateLimits
-from correlate import findBestCorrelation, getNormalizedCorrelationBorders
-from extrapolate import extrapolateRecursively
-from config import IMG_HEIGHT
-from utils import plotCorrTransformedImages, plotCvtImg, resizeImage
+from .types import CoordinateLimits
+from .correlate import findBestCorrelation, getNormalizedCorrelationBorders
+from .extrapolate import extrapolateRecursively
+from .config import IMG_HEIGHT
+from .utils import plotCorrTransformedImages, plotCvtImg, resizeImage
 
 def alignImages(leftImg:cv2.typing.MatLike, rightImg:cv2.typing.MatLike) -> List[cv2.typing.MatLike]:
     

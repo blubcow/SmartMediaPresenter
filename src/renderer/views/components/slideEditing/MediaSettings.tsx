@@ -10,6 +10,7 @@ import ScaleButton from './ScaleButton';
 import { useSettingsContainerStyles } from './styles';
 import ColorTransferButton from './ColorTransferButton';
 import { MediaSettingsProvider, useMediaSettingsContext } from '../../../providers/MediaSettingsProvider';
+import AutoAlignmentButton from './AutoAlignmentButton';
 
 interface IMediaSettingsProps { }
 
@@ -19,6 +20,8 @@ const MediaSettings: React.FC<IMediaSettingsProps> = (props) => {
 
 	return (
 		<Box className={classes.container} ref={ref}>
+			<AutoAlignmentButton />
+			<Box className={classes.spacer} />
 			<ColorTransferButton />
 			<Box className={classes.spacer} />
 			<AlignMediaButton />

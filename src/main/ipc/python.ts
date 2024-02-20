@@ -15,22 +15,49 @@ export const registerMainProcessPythonHandlers = (
 ) => {
 	const windows: BrowserWindow[] = [mainWindow];
 
+	// Python storage in /userDataPath + /store + /<<folder>>
+	function createPythonStorePath(folder:string): string{
+		const storePath = path.join(userDataPath, 'store', folder)
+		if (!fs.existsSync(storePath)) {
+			fs.mkdirSync(storePath);
+		}
+		return storePath
+	}
+
+	// Image alignment
+	ipcMain.handle(
+		'python.imageAlignment',
+		async (_: IpcMainInvokeEvent, leftImgPath: string, rightImgPath: string): Promise<string> => {
+
+			// prepare output
+			const outputImgPath = path.join(createPythonStorePath('imagealignment'), 'current_result.jpg');
+
+			// prepare script
+			const args = [
+				'--left', leftImgPath,
+				'--right', rightImgPath,
+				'--output', outputImgPath
+			];
+
+			// Switch to running python directly while developing
+			if(isDebug){
+				return runPython('image_alignment.py', args, outputImgPath);
+			}else{
+				return runExecutable('dist/image_alignment/image_alignment.exe', args, outputImgPath);
+			}
+		}
+	);
+	
+	// Color transfer
+	// TODO: Remove options - check what was working, and what was not (all options except "quotes" and "cmdquotes" work on my machine)
 	ipcMain.handle(
 		'python.simpleColorTransfer',
 		async (_: IpcMainInvokeEvent, sourceImgPath: string, targetImgPath: string, method: number = 0, options?:string): Promise<string> => {
 
-			console.log('userDataPath: ' + userDataPath);
-			console.log('getAssetPath: ' + getAssetPath(''));
-
 			// prepare output
-			const storePath = userDataPath + '/store/colortransfer';
-			if (!fs.existsSync(storePath)) {
-				fs.mkdirSync(storePath);
-			}
-			const outputImgPath = storePath + '/current_result.jpg';
+			const outputImgPath = path.join(createPythonStorePath('colortransfer'), 'current_result.jpg');
 
 			// prepare script
-			const assetPath = getAssetPath('python');
 			let args;
 			if(options == "quotes"){
 				args = [
@@ -49,11 +76,11 @@ export const registerMainProcessPythonHandlers = (
 			}
 
 			if(options == 'python'){
-				return simpleColorTransferDebug(assetPath, args, outputImgPath);
+				return runPython('color_transfer.py', args, outputImgPath);
 			}else if(options == 'single'){
-				return simpleColorTransfer(assetPath, args, outputImgPath, '/dist/color_transfer.exe');
+				return runExecutable('dist/color_transfer.exe', args, outputImgPath, );
 			}else{
-				return simpleColorTransfer(assetPath, args, outputImgPath, '/dist/color_transfer/color_transfer.exe', options);
+				return runExecutable('dist/color_transfer/color_transfer.exe', args, outputImgPath,  options);
 			}
 
 			/*
@@ -66,27 +93,32 @@ export const registerMainProcessPythonHandlers = (
 		}
 	);
 
-	function simpleColorTransfer(assetPath:string, args: string[], outputImgPath: string, scriptFile?: string, options?: string): Promise<string> {
-		if(!scriptFile){
-			scriptFile = '/dist/color_transfer/color_transfer.exe';
-		}
-
+	/**
+	 * Run compiled program
+	 * @param executablePath Should be relative to "assets/python"
+	 * @param args Arguments passed on to the python script
+	 * @param returnValue Value returned when resolving.
+	 * @param options TODO: Remove this -----------------------------------
+	 * @returns returnValue Promise
+	 */
+	function runExecutable(executablePath: string, args: string[], returnValue: string, options?: string): Promise<string> {
 		return new Promise<string>((resolve, reject) => {
-			//const scriptPath = assetPath + '/dist/color_transfer/color_transfer.exe'; // packaged without "--onefile"
-			let scriptPath = assetPath + scriptFile;
 			// Put error buffer into single string
 			let errorMsg:string = '';
 
-			if(options == 'cmdquotes')
-				scriptPath = '"'+scriptPath+'"';
-			const process: ChildProcessWithoutNullStreams = spawn(scriptPath, args, {shell: false});
+			let process: ChildProcessWithoutNullStreams;
+			if(options == 'cmdquotes'){
+				process = spawn('"'+getAssetPath('python', executablePath)+'"', args, {shell: false});
+			}else{
+				process = spawn(getAssetPath('python', executablePath), args, {shell: false});
+			}
 			
 			// Could not find file to execute (usually)
 			process.on('error', function(err:Error){
 				errorMsg += err.toString() + "\n";
 			});
 
-			console.log('spawn process command: ' + scriptPath + ' ' + args.join(' '));
+			console.log('spawn process command: ' + executablePath + ' ' + args.join(' '));
 
 			process.stdout.on('data', (data:Buffer) => {
 				console.log('process message: ' + data.toString() + '\n');
@@ -98,22 +130,27 @@ export const registerMainProcessPythonHandlers = (
 
 			process.on('close', (code) => {
 				if(code == 0){
-					resolve(outputImgPath);
+					resolve(returnValue);
 				}else{
-					handleProcessError(errorMsg, scriptPath, args);
+					handleProcessError(errorMsg, executablePath, args);
 					reject('process error');
 				}
 			});
 		});
 	};
 
-	function simpleColorTransferDebug(assetPath:string, args: string[], outputImgPath: string): Promise<string> {
+	/**
+	 * Run python file with "PythonShell"
+	 * @param scriptPath Should be relative to "assets/python"
+	 * @param args Arguments passed on to the python script
+	 * @param returnValue Value returned when resolving
+	 * @returns returnValue Promise
+	 */
+	function runPython(scriptPath: string, args: string[], returnValue: string): Promise<string> {
 		return new Promise<string>((resolve, reject) => {
-			const scriptPath = assetPath + '/color_transfer.py';
+			const pythonShell: PythonShell = new PythonShell(getAssetPath('python', scriptPath), { args });
 
-			const pythonShell: PythonShell = new PythonShell(scriptPath, { args });
-
-			console.log('python command: ' + pythonShell.command);
+			console.log('python-shell command: ' + pythonShell.command);
 
 			pythonShell.on('message', function (message) {
 				console.log('python message: ' + message + '\n');
@@ -121,7 +158,7 @@ export const registerMainProcessPythonHandlers = (
 
 			pythonShell.end(function (err) {
 				if (!err) {
-					resolve(outputImgPath);
+					resolve(returnValue);
 				} else {
 					handlePythonError(err, scriptPath, args);
 					reject('python error');
@@ -130,18 +167,22 @@ export const registerMainProcessPythonHandlers = (
 		});
 	}
 
-	async function handleProcessError(message: string|number, scriptName:string, args:string[]): Promise<void>{
+	/**
+	 * Error handling for child_process.spawn command
+	 * @param scriptName The python file name to display
+	 */
+	async function handleProcessError(message: string|number, processName:string, args:string[]): Promise<void>{
 		const messageBoxOptions: MessageBoxSyncOptions = {
 			type: "error",
 			title: "Process Error",
-			message: "The process '" + scriptName + "' has encountered an error",
+			message: "The process '" + processName + "' has encountered an error",
 			detail: "Arguments used: " + args.join(' ') + "\n\n" + message.toString()
 		};
 		dialog.showMessageBoxSync(messageBoxOptions);
 	}
 	
 	/**
-	 * Error handling for python-shell (debug mode)
+	 * Error handling for python-shell execution
 	 * @param scriptName The python file name to display
 	 */
 	async function handlePythonError(e: PythonShellError, scriptName: string, args:string[]): Promise<void>{
