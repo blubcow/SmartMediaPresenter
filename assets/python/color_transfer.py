@@ -7,7 +7,7 @@ from tkinter import Image
 from color_transfer_jrosebr1 import color_transfer as color_transfer_jrosebr1
 from color_transfer_pengbo_learn import color_transfer as color_transfer_pengbo_learn
 from color_transfer_pengbo_learn import color_transfer_pdf_regrain as color_transfer_pengbo_learn_pdf_regrain
-#from color_transfer_dstein64 import color_transfer
+from color_transfer_dstein64 import color_transfer_reinhard as color_transfer_dstein64_reinhard
 #from color_transfer_anant-mishra1729 import color_transfer
 import numpy as np
 import argparse
@@ -76,6 +76,8 @@ match method:
 		transfer = color_transfer_pengbo_learn(source, target)
 	case "2":
 		transfer = color_transfer_pengbo_learn_pdf_regrain(source, target)
+	case "3":
+		transfer = color_transfer_dstein64_reinhard(source, target)
 
 
 # check to see if the output image should be saved

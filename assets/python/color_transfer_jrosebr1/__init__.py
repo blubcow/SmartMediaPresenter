@@ -67,11 +67,27 @@ def color_transfer(source, target, clip=True, preserve_paper=True):
 	a += aMeanSrc
 	b += bMeanSrc
 
+	'''
+	# TODO: Check if the above "paper" / "non paper" propositions are really correct
+	# Next up, all other codes are using "reciprocal of paper proposed" ... hmm (code from "pengbo_learn")
+	# (img_arr_in - mean_in) / std_in * std_ref + mean_ref
+	
+	# IN = TARGET, REF = SOURCE
+	(l, a, b) = cv2.split(target)
+	l = (l - lMeanTar) / lStdTar * lStdSrc + lMeanSrc
+	a = (a - aMeanTar) / aStdTar * aStdSrc + aMeanSrc
+	b = (b - bMeanTar) / bStdTar * bStdSrc + bMeanSrc
+	'''
+	# TODO END ==========================================
+
+
 	# clip/scale the pixel intensities to [0, 255] if they fall
 	# outside this range
+	'''
 	l = _scale_array(l, clip=clip)
 	a = _scale_array(a, clip=clip)
 	b = _scale_array(b, clip=clip)
+	'''
 
 	# merge the channels together and convert back to the RGB color
 	# space, being sure to utilize the 8-bit unsigned integer data
