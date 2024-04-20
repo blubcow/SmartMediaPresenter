@@ -25,6 +25,7 @@ def alignImages(leftImg:cv2.typing.MatLike, rightImg:cv2.typing.MatLike) -> List
     corrTransforms = findBestCorrelation(extrapleftImg, extrapRightImg)
     if(corrTransforms == None):
         raise Exception("Could not find correlation")
+    
     #print(corrTransforms)
     #plotCorrTransformedImages(resizedLeftImg, resizedRightImg, corrTransforms)
 

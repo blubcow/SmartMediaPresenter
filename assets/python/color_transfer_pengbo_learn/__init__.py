@@ -1,3 +1,5 @@
+# Source: https://github.com/pengbo-learn/python-color-transfer
+
 # -*- coding: utf-8 -*-
 """ Implementation of color transfer in python.
 

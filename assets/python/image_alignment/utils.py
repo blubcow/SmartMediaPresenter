@@ -95,8 +95,9 @@ def plotRePosImages(img1, img2, rePos:tuple, scale=1.0, reScale=True, flip=True,
     plotCvtImg(mask, 20)
 
 def plotCorrTransformedImages(leftImg, rightImg, corrTransforms:CorrelationTransforms):
-    margin = 500
-    mask = np.ones((3000, 4000, 3), dtype=np.uint8) # 255 max value
+    margin = 200
+    mask = np.ones((1000, 2000, 3), dtype=np.uint8) # 255 max value
+    mask *= 255
 
     #print('render')
     #print(corrTransforms.leftTransform.pos)

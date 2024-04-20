@@ -54,12 +54,12 @@ def findBestCorrelation(leftImg:cv2.typing.MatLike, rightImg:cv2.typing.MatLike)
 
     # Fail safe - don't slice over the width of image
     maxSliceWidth = min(leftImg.shape[1], rightImg.shape[1]) - EXTRAPOLATE_BORDER_TOTAL
-    maxSliceWidth = min(300+1, maxSliceWidth)
+    maxSliceWidth = min(50+1, maxSliceWidth)
 
-    for sliceWidth in range(50, maxSliceWidth, 50):
+    for sliceWidth in range(10, maxSliceWidth, 10):
         # Scale up
-        for i in range(0, 20+1, 2):
-            i = i/100
+        for i in range(0, 30+1, 2):
+            i = i/100 if i > 0 else 0
             corrTransforms = findSliceCorrelationAtScale(leftImg, rightImg, (1.0 + i), sliceWidth)
             cutoff = getCutoffFromCorrelation(corrTransforms)
             if(cutoff < lowestCutoff):
@@ -72,8 +72,8 @@ def findBestCorrelation(leftImg:cv2.typing.MatLike, rightImg:cv2.typing.MatLike)
             #print('--------------------------------------')
 
         # Scale down
-        for i in range(1, 20+1, 2):
-            i = i/100
+        for i in range(0, 30+1, 2):
+            i = i/100 if i > 0 else 0
             corrTransforms = findSliceCorrelationAtScale(leftImg, rightImg, (1 / (1.0 + i)), sliceWidth)
             cutoff = getCutoffFromCorrelation(corrTransforms)
             if(cutoff < lowestCutoff):
@@ -135,10 +135,12 @@ def findSliceCorrelationAtScale(leftImg:cv2.typing.MatLike, rightImg:cv2.typing.
     #    plotCvtImg(grayLeftSlice)
     #    plotCvtImg(grayRightSlice)
 
-    #plotRePosImages(leftSlice, rightSlice, track[0].astype(np.int32), 
-    #                scale, reScale=False, flip=False, rePosW=False)
 
     track = align.track(grayLeftSlice, grayRightSlice)
+
+    #print(track)
+    #plotRePosImages(leftSlice, rightSlice, track[0].astype(np.int32), 
+    #                scale, reScale=False, flip=False, rePosW=False)
 
     pos = track[0].astype(np.float64)
     maxCorr = track[1]

@@ -28,6 +28,6 @@
     "*.{css,sass,scss}.d.ts": true
   },
 
-  "editor.tabSize": 2,
-  "editor.useTabStops": true
+  "editor.tabSize": 4,
+  "editor.useTabStops": false
 }

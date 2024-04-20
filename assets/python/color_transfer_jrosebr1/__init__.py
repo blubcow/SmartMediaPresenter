@@ -1,8 +1,10 @@
+# Source: https://github.com/jrosebr1/color_transfer
+
 # import the necessary packages
 import numpy as np
 import cv2
 
-def color_transfer(source, target, clip=True, preserve_paper=True):
+def color_transfer(source, target, clip=True):
 	"""
 	Transfers the color distribution from the source to the target
 	image using the mean and standard deviations of the L*a*b*
@@ -51,31 +53,29 @@ def color_transfer(source, target, clip=True, preserve_paper=True):
 	a -= aMeanTar
 	b -= bMeanTar
 
-	if preserve_paper:
-		# scale by the standard deviations using paper proposed factor
-		l = (lStdTar / lStdSrc) * l
-		a = (aStdTar / aStdSrc) * a
-		b = (bStdTar / bStdSrc) * b
-	else:
-		# scale by the standard deviations using reciprocal of paper proposed factor
-		l = (lStdSrc / lStdTar) * l
-		a = (aStdSrc / aStdTar) * a
-		b = (bStdSrc / bStdTar) * b
+	# scale by the standard deviations using reciprocal of paper proposed factor
+	l = (lStdTar / lStdSrc) * l
+	a = (aStdTar / aStdSrc) * a
+	b = (bStdTar / bStdSrc) * b
+
+	# This would be the paper proposed factor (attention: Original code from "jrosebr1" is mixing these two up)
+	#l = (lStdSrc / lStdTar) * l
+	#a = (aStdSrc / aStdTar) * a
+	#b = (bStdSrc / bStdTar) * b
 
 	# add in the source mean
 	l += lMeanSrc
 	a += aMeanSrc
 	b += bMeanSrc
 
-	# clip/scale the pixel intensities to [0, 255] if they fall
-	# outside this range
+	# clip/scale the pixel intensities to [0, 255] if they fall outside this range
 	l = _scale_array(l, clip=clip)
 	a = _scale_array(a, clip=clip)
 	b = _scale_array(b, clip=clip)
+	
 
 	# merge the channels together and convert back to the RGB color
-	# space, being sure to utilize the 8-bit unsigned integer data
-	# type
+	# space, being sure to utilize the 8-bit unsigned integer data type
 	transfer = cv2.merge([l, a, b])
 	transfer = cv2.cvtColor(transfer.astype("uint8"), cv2.COLOR_LAB2BGR)
 	
