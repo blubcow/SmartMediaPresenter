@@ -10,6 +10,7 @@ import { PresentationEditingActionIdentifiers } from '../../../types/identifiers
 import MediaAlignemntPopover from './MediaAlignmentPopover';
 import ColorTransferPopover from './ColorTransferPopover';
 import { useMediaSettingsContext } from '../../../providers/MediaSettingsProvider';
+import SaveSlideImagePopover from './SaveSlideImagePopover';
 
 interface IColorTransferButtonProps { }
 
@@ -20,8 +21,9 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 	const { presentation, currentSlide, activeMedia, secondActiveMedia } = state;
 
 	// useRef since state didn't work with async functions (and should not change on render anyways)
-	// Apparently isActive will not change in the async function
 	const isActive = useRef<boolean>(false);
+	const isProcessed = useRef<boolean>(false);
+	//const isSaved = useRef<boolean>(false);
 	const originalSlide = useRef<Slide | undefined>(undefined);
 	const anchorElRef = useRef<HTMLDivElement>(null);
 
@@ -34,6 +36,8 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 		}
 		originalSlide.current = presentation.slides[currentSlide];
 		isActive.current = true;
+		isProcessed.current = false;
+		//isSaved.current = false;
 		dispatch({ type: PresentationEditingActionIdentifiers.selectSecondMedia });
 	};
 
@@ -63,6 +67,7 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 			mediaSettingsRef.current.removeEventListener("mousedown", onMediaSettingsClicked, true);
 		}
 		isActive.current = false;
+		isProcessed.current = false;
 		if (originalSlide.current) {
 			updatePresentationSlide(currentSlide, originalSlide.current);
 		}
@@ -131,14 +136,41 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 			}
 
 			// TODO: when the change is reverted, the image info is lost (The info is not dispatched, the presentation is not updated)
+			isProcessed.current = true;
+
+
 		}catch(err){
 			// do nothing
 		}
 		setIsLoading(false);
 	}
 
+	const onSaveImage = async ():Promise<void> => {
+		// Save image with dialog
+		const orginalFilePath = originalSlide.current!.media[activeMedia!].location.local!.replace('file://', '');
+		const currentPresentation: SinglePresentation = JSON.parse(JSON.stringify(presentation));
+		const filePath = currentPresentation.slides[currentSlide!].media[activeMedia!].location.local!.replace('file://', '');
 
+		try{
+			let savedFilePath:string = await window.electron.invoke('python.saveImage', filePath, orginalFilePath);
 
+			// Update slide
+			console.log(savedFilePath);
+			const currentLocation: MediaLocation = currentPresentation.slides[currentSlide!].media[activeMedia!].location;
+			currentLocation.local = 'file://' + savedFilePath;
+			currentLocation.updatedOn = (new Date()).getTime();
+			dispatch({
+				type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+				payload: { presentation: currentPresentation },
+			});
+
+			// Save slide
+			originalSlide.current = currentPresentation.slides[currentSlide!];
+			deActivate();
+			//isSaved.current = true;
+
+		}catch(err){}
+	}
 
 	return (
 		<>
@@ -160,6 +192,8 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 				anchorEl={anchorElRef.current}
 				isLoading={isLoading}
 				onChooseMethod={onChooseMethod}
+				onSaveImage={onSaveImage}
+				showSaveButton={isProcessed.current}
 			/>
 		</>
 	);

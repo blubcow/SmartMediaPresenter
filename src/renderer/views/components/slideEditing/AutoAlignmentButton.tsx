@@ -18,7 +18,8 @@ const AutoAlignmentButton: React.FC<IAutoAlignmentButtonProps> = (props) => {
 
 	const isActive = useRef<boolean>(false);
 	const anchorElRef = useRef<HTMLDivElement>(null);
-	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [highlighted, setHighlighted] = useState<boolean>(false);
+	//const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	useEffect(() => {
 		return destroy; // on Close
@@ -56,7 +57,7 @@ const AutoAlignmentButton: React.FC<IAutoAlignmentButtonProps> = (props) => {
 	return (
 		<>
 			<EditingButton
-				highlighted={ isLoading }
+				highlighted={ highlighted }
 				icon={
 					<VerticalAlignCenter sx={{ color: 'text.primary', height: '100%', width: '100%' }} />
 				}
@@ -71,7 +72,9 @@ const AutoAlignmentButton: React.FC<IAutoAlignmentButtonProps> = (props) => {
 			<AutoAlignmentPopover
 				open={isActive.current}
 				anchorEl={anchorElRef.current}
-				onLoading={setIsLoading}
+				//onLoading={setIsLoading}
+				onProcessed={(isProcessed:boolean) => { setHighlighted(isProcessed); }}
+				onFileSaved={() => { isActive.current = false; }}
 			/>
 		</>
 	);

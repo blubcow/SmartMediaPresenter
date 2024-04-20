@@ -7,25 +7,26 @@ import { MediaLocation, SinglePresentation, Slide } from "../../../shared/types/
 import { PresentationEditingActionIdentifiers } from "../../../types/identifiers";
 
 type IAutoAlignmentPopoverProps = PopperProps & {
-	onLoading?: (isLoading:boolean) => void
+	onLoading?: (isLoading:boolean) => void,
+	onProcessed?: (isProcessed:boolean) => void,
+	onFileSaved?: () => void,
 };
 
 const AutoAlignmentPopover: React.FC<IAutoAlignmentPopoverProps> = forwardRef((props, ref) => {
-	const { open, onLoading, ...popoverProps } = props;
+	const { open, onLoading, onProcessed, onFileSaved, ...popoverProps } = props;
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const { state, dispatch } = usePresentationEditingContext();
 	const { presentation, currentSlide, activeMedia, secondActiveMedia } = state;
 	
 	const originalSlide = useRef<Slide | undefined>(undefined);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [newImgPath, setNewImgPath] = useState<string | undefined>(undefined);
+	const [isProcessed, setIsProcessed] = useState<boolean>(false);
 
-	// This complex construct / destruct functionality could be easier with just removing / adding the component from the parent.
-	// The constructor and destructor would then only run in one "useEffect"
 	useEffect(() => {
 		return destroy;
 	}, []);
 
+	// The popover can be closed without destruction
 	useEffect(() => {
 		if(open){
 			construct();
@@ -43,16 +44,20 @@ const AutoAlignmentPopover: React.FC<IAutoAlignmentPopoverProps> = forwardRef((p
 	const destroy = () => {
 		if (originalSlide.current) {
 			updatePresentationSlide(currentSlide, originalSlide.current);
+			originalSlide.current = undefined;
 		}
-		originalSlide.current = undefined;
-		setNewImgPath(undefined);
+		setIsLoading(false);
+		setIsProcessed(false);
 	}
 
 	// Push loading state to parent
 	useEffect(() => {
-		if(onLoading)
-			onLoading(isLoading)
+		if(onLoading) onLoading(isLoading)
 	}, [isLoading]);
+
+	useEffect(() => {
+		if(onProcessed) onProcessed(isProcessed)
+	}, [isProcessed]);
 
 	// TODO: Put this somewhere else
 	// TODO: Duplicate found in ColorTransferButton
@@ -65,11 +70,11 @@ const AutoAlignmentPopover: React.FC<IAutoAlignmentPopoverProps> = forwardRef((p
 		});
 	}
 
-	const onChooseLeftPosition = () => {
+	const chooseLeftPosition = () => {
 		runPythonImageAlignment(secondActiveMedia!, activeMedia!); // async
 	}
 
-	const onChooseRightPosition = () => {
+	const chooseRightPosition = () => {
 		runPythonImageAlignment(activeMedia!, secondActiveMedia!); // async
 	}
 
@@ -93,7 +98,8 @@ const AutoAlignmentPopover: React.FC<IAutoAlignmentPopoverProps> = forwardRef((p
 			slide.media[0].location.local = 'file://' + tmpImgPath;
 			slide.media[0].location.updatedOn = (new Date()).getTime();
 			updatePresentationSlide(currentSlide!, slide);
-			setNewImgPath(tmpImgPath);
+			//setNewImgPath(tmpImgPath);
+			setIsProcessed(true);
 
 			// We can dispatch this to remove the borders around images. But right now the popup resets if this happens.
 			// In the meantime I implemented a bugfix in "MediaBox" checking for "imgRef.current"
@@ -110,6 +116,41 @@ const AutoAlignmentPopover: React.FC<IAutoAlignmentPopoverProps> = forwardRef((p
 		setIsLoading(false);
 	}
 
+	const saveImage = async ():Promise<void> => {
+		// Save image with dialog
+		const orginalFilePath = originalSlide.current!.media[activeMedia!].location.local!.replace('file://', '');
+		//const currentPresentation: SinglePresentation = JSON.parse(JSON.stringify(presentation));
+		const filePath = presentation.slides[currentSlide!].media[activeMedia!].location.local!.replace('file://', '');
+
+		try{
+			let savedFilePath:string = await window.electron.invoke('python.saveImage', filePath, orginalFilePath);
+
+			// Update slide
+			//const slide:Slide = JSON.parse(JSON.stringify(currentPresentation.slides[currentSlide!])) as Slide;
+			const slide:Slide = JSON.parse(JSON.stringify(presentation.slides[currentSlide!])) as Slide;
+			slide.media[0].location.local = 'file://' + savedFilePath;
+			slide.media[0].location.updatedOn = (new Date()).getTime();
+			updatePresentationSlide(currentSlide!, slide);
+
+			/*
+			const currentLocation: MediaLocation = currentPresentation.slides[currentSlide!].media[0].location;
+			currentLocation.local = 'file://' + savedFilePath;
+			currentLocation.updatedOn = (new Date()).getTime();
+			dispatch({
+				type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+				payload: { presentation: currentPresentation },
+			});
+			*/
+
+			// Save slide
+			//originalSlide.current = currentPresentation.slides[currentSlide!];
+			originalSlide.current = undefined;
+			if(onFileSaved) onFileSaved();
+			//isSaved.current = true;
+
+		}catch(err){}
+	}
+
 	return (
 		<Popper placement='bottom' open={open} {...popoverProps} sx={{ zIndex: 1300, maxWidth: 500, textAlign: 'center', overflowWrap: 'anywhere' }}>
 			<Paper elevation={8} ref={ref}>
@@ -121,17 +162,23 @@ const AutoAlignmentPopover: React.FC<IAutoAlignmentPopoverProps> = forwardRef((p
 				}}>
 					{isLoading ? <CircularProgress color="primary" /> : (
 
-						!(secondActiveMedia != undefined) ? t('autoAlignment.chooseSecondImage') : (
+						// Choose images
+						(secondActiveMedia == undefined) ? t('autoAlignment.chooseSecondImage') : (
 
-							(newImgPath != undefined) ? '... ready to download file: '+newImgPath : (
-
+							!isProcessed ? (
+								// Choose position (left / right)
 								<>
 									{t('autoAlignment.choosePosition')}
 									<Stack direction="row" spacing={0.5}>
-										<Button variant="contained" disableElevation onClick={(e) => onChooseLeftPosition()} size="small">{t('left')}</Button>
-										<Button variant="contained" disableElevation onClick={(e) => onChooseRightPosition()} size="small">{t('right')}</Button>
+										<Button variant="contained" disableElevation onClick={(e) => chooseLeftPosition()} size="small">{t('left')}</Button>
+										<Button variant="contained" disableElevation onClick={(e) => chooseRightPosition()} size="small">{t('right')}</Button>
 									</Stack>
 								</>
+							) : (
+								// Save generated image
+								<Stack direction="row" spacing={0.5}>
+									<Button variant="contained" disableElevation onClick={(e) => saveImage()} size="small">Save image</Button>
+								</Stack>
 							)
 						)
 					)}

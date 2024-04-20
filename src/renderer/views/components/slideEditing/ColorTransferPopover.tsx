@@ -7,11 +7,13 @@ import { forwardRef, useEffect } from "react";
 type IColorTransferPopoverProps = PopperProps & {
 	//onClose?: () => void,
 	isLoading: boolean,
-	onChooseMethod: (method:number, options?:string) => void
+	onChooseMethod: (method:number, options?:string) => void,
+	onSaveImage: () => void,
+	showSaveButton: boolean
 };
 
 const ColorTransferPopover: React.FC<IColorTransferPopoverProps> = forwardRef((props, ref) => {
-	const { /*onClose,*/ isLoading, onChooseMethod, ...popoverProps } = props;
+	const { /*onClose,*/ isLoading, onChooseMethod, onSaveImage, showSaveButton, ...popoverProps } = props;
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const { state, dispatch } = usePresentationEditingContext();
 	const { secondActiveMedia } = state;
@@ -70,6 +72,11 @@ const ColorTransferPopover: React.FC<IColorTransferPopoverProps> = forwardRef((p
 									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(2, 'python')} size="small">Method 3</Button>
 									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(3, 'python')} size="small">Method 4</Button>
 								</Stack>
+								{showSaveButton && (
+									<Stack direction="row" spacing={0.5}>
+										<Button variant="contained" disableElevation onClick={(e) => onSaveImage()} size="small">Save image</Button>
+									</Stack>
+								)}
 							</>
 						)
 					)}

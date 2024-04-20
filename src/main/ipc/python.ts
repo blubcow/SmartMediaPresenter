@@ -24,6 +24,48 @@ export const registerMainProcessPythonHandlers = (
 		return storePath
 	}
 
+	ipcMain.handle(
+		'python.saveImage',
+		async (_: IpcMainInvokeEvent, imgPath: string, originalImgPath: string): Promise<string> => {
+			return new Promise<string>((resolve, reject) => {
+				dialog.showSaveDialog({ 
+					title: 'Select the File Path to save', 
+					defaultPath: path.basename(originalImgPath),
+					buttonLabel: 'Save', 
+					filters: [ 
+						{ 
+							name: 'Image File', 
+							extensions: ['jpg'] 
+						}, ], 
+					properties: [] 
+				}).then(file => {
+
+					if (!file.canceled && file.filePath) { 
+
+						if(!fs.existsSync(imgPath)) {
+							handleError('File not found', imgPath);
+							reject('File not found');
+					 	}
+						const data = fs.readFileSync(imgPath);
+
+						// Creating and Writing to the sample.txt file 
+						fs.writeFile(file.filePath.toString(), data, function (err) { 
+							if (err){
+								handleError('Could not write file', file.filePath!.toString());
+								reject('Could not write file');
+							}
+							resolve(file.filePath!.toString());
+						});
+					}
+
+				}).catch(err => { 
+					console.log(err);
+					reject('Unknown error');
+				});
+			});
+		}
+	)
+
 	// Image alignment
 	ipcMain.handle(
 		'python.imageAlignment',
@@ -165,6 +207,20 @@ export const registerMainProcessPythonHandlers = (
 				}
 			});
 		});
+	}
+
+	/**
+	 * Error handling for child_process.spawn command
+	 * @param scriptName The python file name to display
+	 */
+	async function handleError(message: string, detail:string): Promise<void>{
+		const messageBoxOptions: MessageBoxSyncOptions = {
+			type: "error",
+			title: "Error",
+			message: message,
+			detail: detail
+		};
+		dialog.showMessageBoxSync(messageBoxOptions);
 	}
 
 	/**
