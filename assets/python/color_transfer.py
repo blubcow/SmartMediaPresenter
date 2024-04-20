@@ -45,14 +45,9 @@ ap.add_argument("-s", "--source", required = True,
 	help = "Path to the source image")
 ap.add_argument("-t", "--target", required = True,
 	help = "Path to the target image")
-ap.add_argument("-c", "--clip", type = str2bool, default = 't',
-	help = "Should np.clip scale L*a*b* values before final conversion to BGR? "
-		   "Approptiate min-max scaling used if False.")
-ap.add_argument("-p", "--preservePaper", type = str2bool, default = 't',
-	help = "Should color transfer strictly follow methodology layed out in original paper?")
 ap.add_argument("-o", "--output", help = "Path to the output image (optional)")
 ap.add_argument("-m", "--method", required = False,
-	help = "Path to the source image")
+	help = "Method used, from 0 to ...")
 args = vars(ap.parse_args())
 
 # Check if files exist
@@ -63,20 +58,25 @@ if(not exists(args["source"]) or not exists(args["target"])):
 source = cv2.imread(args["source"])
 target = cv2.imread(args["target"])
 
-#raise FileNotFoundError("The input files cound't be read")
-
-
 # transfer the color distribution from the source image
 # to the target image
 method = args["method"] or "0"
 match method:
 	case "0":
-		transfer = color_transfer_jrosebr1(source, target, clip=args["clip"], preserve_paper=args["preservePaper"])
+		# Reinhard et al, CIE-LAB, reciprocal scale
+		# Source: https://github.com/jrosebr1/color_transfer
+		transfer = color_transfer_jrosebr1(source, target)
 	case "1":
+		# Reinhard et al, CIE-LAB
+		# Source: https://github.com/pengbo-learn/python-color-transfer
 		transfer = color_transfer_pengbo_learn(source, target)
 	case "2":
+		# Probability density function
+		# Source: https://github.com/pengbo-learn/python-color-transfer
 		transfer = color_transfer_pengbo_learn_pdf_regrain(source, target)
 	case "3":
+		# Reinhard et al, lambda-alpha-beta color space as proposed in paper
+		# Source: https://github.com/dstein64/colortrans
 		transfer = color_transfer_dstein64_reinhard(source, target)
 
 
