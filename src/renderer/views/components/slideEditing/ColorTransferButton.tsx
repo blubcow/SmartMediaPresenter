@@ -20,6 +20,8 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 	const { ref: mediaSettingsRef } = useMediaSettingsContext();
 	const { presentation, currentSlide, activeMedia, secondActiveMedia } = state;
 
+	const [highlighted, setHighlighted] = useState<boolean>(false);
+
 	// useRef since state didn't work with async functions (and should not change on render anyways)
 	const isActive = useRef<boolean>(false);
 	const isProcessed = useRef<boolean>(false);
@@ -72,6 +74,7 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 			updatePresentationSlide(currentSlide, originalSlide.current);
 		}
 		originalSlide.current = undefined;
+		setHighlighted(false);
 	}
 
 	// Main functionality ========================
@@ -137,6 +140,7 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 
 			// TODO: when the change is reverted, the image info is lost (The info is not dispatched, the presentation is not updated)
 			isProcessed.current = true;
+			setHighlighted(true);
 
 
 		}catch(err){
@@ -175,7 +179,7 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 	return (
 		<>
 			<EditingButton
-				highlighted={ isLoading }
+				highlighted={ highlighted }
 				icon={
 					<SwitchAccessShortcut sx={{ color: 'text.primary', height: '100%', width: '100%' }} />
 				}

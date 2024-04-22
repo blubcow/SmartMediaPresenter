@@ -127,15 +127,14 @@ const usePresentationSyncing = (
 									setSyncPaper(
 										(curr) =>
 											new Map([
-												// @ts-ignore
 												...curr,
 												[
-													remotePresentation.remoteId,
+													remotePresentation.remoteId!,
 													{
 														name: remotePresentation.name,
 														remoteId: remotePresentation.remoteId,
 														remoteUpdate: remotePresentation.remoteUpdate,
-													},
+													} as SyncPaperEntry,
 												],
 											])
 									);

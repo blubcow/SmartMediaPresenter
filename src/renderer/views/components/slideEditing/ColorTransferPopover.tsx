@@ -3,6 +3,7 @@ import { i18nNamespace } from "../../../i18n/i18n";
 import { Box, Button, CircularProgress, Box as MUIBox, Paper, Popper, PopperProps, Stack } from '@mui/material';
 import usePresentationEditingContext from "../../../hooks/usePresentationEditingContext";
 import { forwardRef, useEffect } from "react";
+import { Download } from "@mui/icons-material";
 
 type IColorTransferPopoverProps = PopperProps & {
 	//onClose?: () => void,
@@ -37,13 +38,15 @@ const ColorTransferPopover: React.FC<IColorTransferPopoverProps> = forwardRef((p
 						!(secondActiveMedia != undefined) ? t('colorTransfer.chooseSourceImage') : (
 
 							<>
-								<Stack direction="row" spacing={0.5}>
-									<Box sx={{ fontSize: '0.8125rem', padding: '4px' }}>Package build:</Box>
-									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(0)} size="small">Method 1</Button>
-									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(1)} size="small">Method 2</Button>
-									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(2)} size="small">Method 3</Button>
-									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(3)} size="small">Method 4</Button>
+								{t('colorTransfer.chooseAlgorithm')}
+								<Stack direction="row" spacing={0.5} sx={{ mt: 1 }}>
+									{/*<Box sx={{ fontSize: '0.8125rem', padding: '4px' }}>Package build:</Box>*/}
+									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(3)} size="small">Reinhard l*a*b*</Button>
+									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(1)} size="small">CIE-LAB</Button>
+									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(0)} size="small">CIE-LAB inverted</Button>
+									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(2)} size="small">PDF + regrain</Button>
 								</Stack>
+								{/*
 								<Stack direction="row" spacing={0.5}>
 									<Box sx={{ fontSize: '0.8125rem', padding: '4px' }}>Single file build:</Box>
 									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(0, 'single')} size="small">Method 1</Button>
@@ -72,9 +75,11 @@ const ColorTransferPopover: React.FC<IColorTransferPopoverProps> = forwardRef((p
 									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(2, 'python')} size="small">Method 3</Button>
 									<Button variant="contained" disableElevation onClick={(e) => onChooseMethod(3, 'python')} size="small">Method 4</Button>
 								</Stack>
+								*/}
 								{showSaveButton && (
-									<Stack direction="row" spacing={0.5}>
-										<Button variant="contained" disableElevation onClick={(e) => onSaveImage()} size="small">Save image</Button>
+									<Stack direction="row" spacing={0.5} sx={{ mt: 1 }}>
+										<Button variant="contained" disableElevation color="success" startIcon={<Download/>}
+											onClick={(e) => onSaveImage()} size="small">Save image</Button>
 									</Stack>
 								)}
 							</>

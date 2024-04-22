@@ -121,7 +121,8 @@
 	"resetConfirmation": "do you really want to reset the changes made to the slide?",
 	"colorTransfer": {
 		"editButtonLabel": "Color Transfer",
-		"chooseSourceImage": "Choose another image with the desired colors"
+		"chooseSourceImage": "Choose another image with the desired colors",
+		"chooseAlgorithm": "Choose an algorithm for the color transfer"
 	},
 	"autoAlignment": {
 		"editButtonLabel": "Auto Alignment",

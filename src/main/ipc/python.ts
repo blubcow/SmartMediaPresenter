@@ -100,23 +100,14 @@ export const registerMainProcessPythonHandlers = (
 			const outputImgPath = path.join(createPythonStorePath('colortransfer'), 'current_result.jpg');
 
 			// prepare script
-			let args;
-			if(options == "quotes"){
-				args = [
-					'--source', '"'+sourceImgPath+'"', // Adding double qotes for error prevention
-					'--target', '"'+targetImgPath+'"',
-					'--output', '"'+outputImgPath+'"',
-					'--method', method.toString()
-				];
-			}else{
-				args = [
-					'--source', sourceImgPath, // Adding double qotes for error prevention
-					'--target', targetImgPath,
-					'--output', outputImgPath,
-					'--method', method.toString()
-				];
-			}
-
+			const args = [
+				'--source', sourceImgPath, // Adding double qotes for error prevention
+				'--target', targetImgPath,
+				'--output', outputImgPath,
+				'--method', method.toString()
+			];
+			
+			/*
 			if(options == 'python'){
 				return runPython('color_transfer.py', args, outputImgPath);
 			}else if(options == 'single'){
@@ -124,14 +115,16 @@ export const registerMainProcessPythonHandlers = (
 			}else{
 				return runExecutable('dist/color_transfer/color_transfer.exe', args, outputImgPath,  options);
 			}
-
-			/*
-			if(isDebug){
-				return simpleColorTransferDebug(assetPath, args, outputImgPath);
-			}else{
-				return simpleColorTransfer(assetPath, args, outputImgPath);
-			}
 			*/
+
+			if(isDebug){
+				return runPython('color_transfer.py', args, outputImgPath);
+			}else{
+				return runExecutable('dist/color_transfer/color_transfer.exe', args, outputImgPath, options);
+
+				// Running packaged build by default. To run a unified executable, you could choose:
+				//return runExecutable('dist/color_transfer.exe', args, outputImgPath, options);
+			}
 		}
 	);
 

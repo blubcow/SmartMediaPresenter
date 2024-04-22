@@ -5,6 +5,7 @@ import usePresentationEditingContext from "../../../hooks/usePresentationEditing
 import { forwardRef, useEffect, useRef, useState } from "react";
 import { MediaLocation, SinglePresentation, Slide } from "../../../shared/types/presentation";
 import { PresentationEditingActionIdentifiers } from "../../../types/identifiers";
+import { Download } from "@mui/icons-material";
 
 type IAutoAlignmentPopoverProps = PopperProps & {
 	onLoading?: (isLoading:boolean) => void,
@@ -165,21 +166,21 @@ const AutoAlignmentPopover: React.FC<IAutoAlignmentPopoverProps> = forwardRef((p
 						// Choose images
 						(secondActiveMedia == undefined) ? t('autoAlignment.chooseSecondImage') : (
 
-							!isProcessed ? (
-								// Choose position (left / right)
-								<>
-									{t('autoAlignment.choosePosition')}
-									<Stack direction="row" spacing={0.5}>
-										<Button variant="contained" disableElevation onClick={(e) => chooseLeftPosition()} size="small">{t('left')}</Button>
-										<Button variant="contained" disableElevation onClick={(e) => chooseRightPosition()} size="small">{t('right')}</Button>
-									</Stack>
-								</>
-							) : (
-								// Save generated image
-								<Stack direction="row" spacing={0.5}>
-									<Button variant="contained" disableElevation onClick={(e) => saveImage()} size="small">Save image</Button>
+						// Choose position & save image
+						<>
+							{t('autoAlignment.choosePosition')}
+							<Stack direction="row" spacing={0.5} sx={{ mt: 1 }}>
+								<Button variant="contained" disableElevation onClick={(e) => chooseLeftPosition()} size="small">{t('left')}</Button>
+								<Button variant="contained" disableElevation onClick={(e) => chooseRightPosition()} size="small">{t('right')}</Button>
+							</Stack>
+						
+							{isProcessed &&	(
+								<Stack direction="row" spacing={0.5} sx={{ mt: 1 }}>
+									<Button variant="contained" disableElevation color="success" startIcon={<Download/>}
+										onClick={(e) => saveImage()} size="small">Save image</Button>
 								</Stack>
-							)
+							)}
+						</>
 						)
 					)}
 				</MUIBox>
