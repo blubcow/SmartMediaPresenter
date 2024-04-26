@@ -1,4 +1,4 @@
-from patchmatch import patch_match
+from .patchmatch import patch_match
 import cv2
 import numpy as np
 

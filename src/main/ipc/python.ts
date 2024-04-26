@@ -2,9 +2,11 @@ import { BrowserWindow, IpcMain, IpcMainInvokeEvent, MessageBoxSyncOptions, dial
 import { PythonShell, PythonShellError } from 'python-shell';
 import * as path from 'path';
 import * as fs from 'fs';
-import { ChildProcess, ChildProcessWithoutNullStreams, exec, spawn, spawnSync } from 'child_process';
+import { ChildProcessWithoutNullStreams, spawn } from 'child_process';
 
-let globalWorkspace: string | undefined;
+// Set this to "true" to test packaged version of the python scripts
+// Package your python scripts first with "pyinstaller example.py --nowindowed"
+const FORCE_RUN_PACKAGED_PYTHON:boolean = true;
 
 export const registerMainProcessPythonHandlers = (
 	userDataPath: string,
@@ -83,7 +85,7 @@ export const registerMainProcessPythonHandlers = (
 			];
 
 			// Switch to running python directly while developing
-			if(isDebug){
+			if(isDebug && !FORCE_RUN_PACKAGED_PYTHON){
 				return runPython('image_alignment.py', args, outputImgPath);
 			}else{
 				return runExecutable('dist/image_alignment/image_alignment.exe', args, outputImgPath);
@@ -107,7 +109,7 @@ export const registerMainProcessPythonHandlers = (
 				'--method', method.toString()
 			];
 
-			if(isDebug){
+			if(isDebug && !FORCE_RUN_PACKAGED_PYTHON){
 				return runPython('color_transfer.py', args, outputImgPath);
 			}else{
 				return runExecutable('dist/color_transfer/color_transfer.exe', args, outputImgPath);
