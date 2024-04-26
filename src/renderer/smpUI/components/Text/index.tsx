@@ -16,7 +16,7 @@ export interface ITextProps extends TypographyProps {
 	onInvalidInput?: () => void;
 	parseInput?: (newValue: string) => string;
 
-	// TODO: This was not available in the type "TypographyProps" - what is the new one?
+	// TODO: This is not available in the MUI type "TypographyProps" after update - what is the new one?
 	placeholder?: string;
 }
 

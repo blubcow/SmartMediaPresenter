@@ -24,6 +24,7 @@ export const registerMainProcessPythonHandlers = (
 		return storePath
 	}
 
+	// TODO: This is not strictly python related - move out of "python.ts"
 	ipcMain.handle(
 		'python.saveImage',
 		async (_: IpcMainInvokeEvent, imgPath: string, originalImgPath: string): Promise<string> => {
@@ -91,10 +92,9 @@ export const registerMainProcessPythonHandlers = (
 	);
 	
 	// Color transfer
-	// TODO: Remove options - check what was working, and what was not (all options except "quotes" and "cmdquotes" work on my machine)
 	ipcMain.handle(
 		'python.simpleColorTransfer',
-		async (_: IpcMainInvokeEvent, sourceImgPath: string, targetImgPath: string, method: number = 0, options?:string): Promise<string> => {
+		async (_: IpcMainInvokeEvent, sourceImgPath: string, targetImgPath: string, method: number = 0): Promise<string> => {
 
 			// prepare output
 			const outputImgPath = path.join(createPythonStorePath('colortransfer'), 'current_result.jpg');
@@ -106,24 +106,14 @@ export const registerMainProcessPythonHandlers = (
 				'--output', outputImgPath,
 				'--method', method.toString()
 			];
-			
-			/*
-			if(options == 'python'){
-				return runPython('color_transfer.py', args, outputImgPath);
-			}else if(options == 'single'){
-				return runExecutable('dist/color_transfer.exe', args, outputImgPath, );
-			}else{
-				return runExecutable('dist/color_transfer/color_transfer.exe', args, outputImgPath,  options);
-			}
-			*/
 
 			if(isDebug){
 				return runPython('color_transfer.py', args, outputImgPath);
 			}else{
-				return runExecutable('dist/color_transfer/color_transfer.exe', args, outputImgPath, options);
+				return runExecutable('dist/color_transfer/color_transfer.exe', args, outputImgPath);
 
 				// Running packaged build by default. To run a unified executable, you could choose:
-				//return runExecutable('dist/color_transfer.exe', args, outputImgPath, options);
+				//return runExecutable('dist/color_transfer.exe', args, outputImgPath);
 			}
 		}
 	);
@@ -132,21 +122,16 @@ export const registerMainProcessPythonHandlers = (
 	 * Run compiled program
 	 * @param executablePath Should be relative to "assets/python"
 	 * @param args Arguments passed on to the python script
-	 * @param returnValue Value returned when resolving.
-	 * @param options TODO: Remove this -----------------------------------
+	 * @param returnValue Value the Promise is resolved with // TODO: Move out of the function
 	 * @returns returnValue Promise
 	 */
-	function runExecutable(executablePath: string, args: string[], returnValue: string, options?: string): Promise<string> {
+	function runExecutable(executablePath: string, args: string[], returnValue: string): Promise<string> {
 		return new Promise<string>((resolve, reject) => {
 			// Put error buffer into single string
 			let errorMsg:string = '';
 
 			let process: ChildProcessWithoutNullStreams;
-			if(options == 'cmdquotes'){
-				process = spawn('"'+getAssetPath('python', executablePath)+'"', args, {shell: false});
-			}else{
-				process = spawn(getAssetPath('python', executablePath), args, {shell: false});
-			}
+			process = spawn(getAssetPath('python', executablePath), args, {shell: false});
 			
 			// Could not find file to execute (usually)
 			process.on('error', function(err:Error){

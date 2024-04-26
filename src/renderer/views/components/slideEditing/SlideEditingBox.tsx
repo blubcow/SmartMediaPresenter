@@ -152,8 +152,8 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 						});
 					}
 				}}
+				// TODO: Replace onBlur, this leads to multiple UI problems
 				/*onSelectedMediaBlur={() =>
-					// TODO: Remove this!
 					dispatch({
 						type: PresentationEditingActionIdentifiers.editingSlideStated,
 					})

@@ -25,7 +25,6 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 	// useRef since state didn't work with async functions (and should not change on render anyways)
 	const isActive = useRef<boolean>(false);
 	const isProcessed = useRef<boolean>(false);
-	//const isSaved = useRef<boolean>(false);
 	const originalSlide = useRef<Slide | undefined>(undefined);
 	const anchorElRef = useRef<HTMLDivElement>(null);
 
@@ -39,7 +38,6 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 		originalSlide.current = presentation.slides[currentSlide];
 		isActive.current = true;
 		isProcessed.current = false;
-		//isSaved.current = false;
 		dispatch({ type: PresentationEditingActionIdentifiers.selectSecondMedia });
 	};
 
@@ -79,22 +77,16 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 
 	// Main functionality ========================
 
-	const onChooseMethod = (method:number, options?:string) => {
+	const onChooseMethod = (method:number) => {
 		if(secondActiveMedia != undefined) {
-			transferColors(method, options);; // async
+			transferColors(method); // async
 		}else{
 			alert('Could not select second media...');
 		}
 	}
 
-	// Second media selected!
-	/*useEffect(() => {
-		if (secondActiveMedia != undefined) {
-			transferColors();
-		}
-	}, [secondActiveMedia])*/
-
-	// TODO: Put this somewhere else
+	// TODO: Create a global slide updater
+	// TODO: Duplicate found in AutoAlignmentPopover
 	const updatePresentationSlide = (slideIndex:number, slide: Slide) => {
 		const newPresentation: SinglePresentation = JSON.parse(JSON.stringify(presentation));
 		newPresentation.slides[slideIndex!] = slide;
@@ -104,7 +96,7 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 		});
 	}
 
-	const transferColors = async (method:number, options?:string) => {
+	const transferColors = async (method:number) => {
 		setIsLoading(true);
 
 		const sourceMediaIdx: number = secondActiveMedia!; // The color source
@@ -118,14 +110,7 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 				//presentation.slides[currentSlide].media[sourceMediaIdx!].location.local!.replace('file://', ''),
 				//presentation.slides[currentSlide].media[targetMediaIdx!].location.local!.replace('file://', ''),
 				method,
-				options
 			);
-		
-
-			// TODO: Do we really need this?
-			//setAnchorElement(e.currentTarget);
-
-			// TODO: Create a function to replace settings easily
 
 			if (isActive.current && (targetMediaIdx == activeMedia!)) {
 				const newPresentation: SinglePresentation = JSON.parse(JSON.stringify(presentation));
@@ -138,11 +123,8 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 				});
 			}
 
-			// TODO: when the change is reverted, the image info is lost (The info is not dispatched, the presentation is not updated)
 			isProcessed.current = true;
 			setHighlighted(true);
-
-
 		}catch(err){
 			// do nothing
 		}
@@ -171,7 +153,6 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 			// Save slide
 			originalSlide.current = currentPresentation.slides[currentSlide!];
 			deActivate();
-			//isSaved.current = true;
 
 		}catch(err){}
 	}

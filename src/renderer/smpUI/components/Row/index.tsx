@@ -20,7 +20,7 @@ const Row: React.FC<IRowProps> = (props) => {
 		rootContainerStyle,
 		secondaryInfo,
 		iconBadge: IconBadge,
-		height = '135px', // TODO: Do we need this on the box again?
+		height = '135px',
 		selected = false,
 		...boxProps // Append other props to box | TODO: this is only needed because the click functionality is added with props
 	} = props;
@@ -30,7 +30,7 @@ const Row: React.FC<IRowProps> = (props) => {
 		<Box className={classes.root} sx={rootContainerStyle}>
 			<Box
 				className={classes.container}
-				height={height}
+				height={height}  // TODO: Height is set two times. Does Box even has a height param?
 				{...boxProps}
 				sx={{
 					height: height,

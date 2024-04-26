@@ -38,8 +38,6 @@ def getNormalizedCorrelationBorders(corrTransforms:CorrelationTransforms) -> Lis
         #print('right smaller 0')
         leftY -= rightY
         rightY = 0
-
-    #print(str(leftY)+' '+str(rightY))
     
     leftYEnd = leftY + (IMG_HEIGHT * corrTransforms.leftTransform.scale)
     rightYEnd= rightY + (IMG_HEIGHT * corrTransforms.rightTransform.scale)
@@ -65,11 +63,6 @@ def findBestCorrelation(leftImg:cv2.typing.MatLike, rightImg:cv2.typing.MatLike)
             if(cutoff < lowestCutoff):
                 lowestCutoff = cutoff
                 bestCorrTransforms = corrTransforms
-            #print('sliceWidth '+str(sliceWidth))
-            #print(corrTransforms)
-            #print(getCutoffFromCorrelation(corrTransforms))
-            #plotCorrTransformedImages(oLeftImg, oRightImg, corrTransforms)
-            #print('--------------------------------------')
 
         # Scale down
         for i in range(0, 30+1, 2):
@@ -79,11 +72,6 @@ def findBestCorrelation(leftImg:cv2.typing.MatLike, rightImg:cv2.typing.MatLike)
             if(cutoff < lowestCutoff):
                 lowestCutoff = cutoff
                 bestCorrTransforms = corrTransforms
-            #print('sliceWidth '+str(sliceWidth))
-            #print(corrTransforms)
-            #print(getCutoffFromCorrelation(corrTransforms))
-            #plotCorrTransformedImages(oLeftImg, oRightImg, corrTransforms)
-            #print('--------------------------------------')
     
     return bestCorrTransforms
 
@@ -129,12 +117,6 @@ def findSliceCorrelationAtScale(leftImg:cv2.typing.MatLike, rightImg:cv2.typing.
     
     grayLeftSlice = cv2.cvtColor(leftSlice, cv2.COLOR_BGR2GRAY)
     grayRightSlice = cv2.cvtColor(rightSlice, cv2.COLOR_BGR2GRAY)
-
-    # TODO: Check if slicing is always correct
-    #if grayLeftSlice.shape != grayRightSlice.shape:
-    #    plotCvtImg(grayLeftSlice)
-    #    plotCvtImg(grayRightSlice)
-
 
     track = align.track(grayLeftSlice, grayRightSlice)
 

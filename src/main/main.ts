@@ -79,12 +79,12 @@ const createWindow = async () => {
     width: 1024,
     height: 728,
     icon: getAssetPath('icon.png'),
-    // TODO: Reverse settings (also see methods.ts)
+    // TODO: Reverse settings to electron-react-boilerplate when IPC is implemented
     webPreferences: {
       //sandbox: true,
       nodeIntegration: true,
 			contextIsolation: false,
-			webSecurity: false, // TODO: Use app.isPackaged or isDebug
+			webSecurity: false, // TODO: Use app.isPackaged or isDebug maybe?
       allowRunningInsecureContent: true,
       plugins: true,
       preload: app.isPackaged

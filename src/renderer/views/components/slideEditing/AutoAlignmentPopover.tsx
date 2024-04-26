@@ -60,7 +60,7 @@ const AutoAlignmentPopover: React.FC<IAutoAlignmentPopoverProps> = forwardRef((p
 		if(onProcessed) onProcessed(isProcessed)
 	}, [isProcessed]);
 
-	// TODO: Put this somewhere else
+	// TODO: Create a global slide updater
 	// TODO: Duplicate found in ColorTransferButton
 	const updatePresentationSlide = (slideIndex:number, slide: Slide) => {
 		const newPresentation: SinglePresentation = JSON.parse(JSON.stringify(presentation));
@@ -99,10 +99,9 @@ const AutoAlignmentPopover: React.FC<IAutoAlignmentPopoverProps> = forwardRef((p
 			slide.media[0].location.local = 'file://' + tmpImgPath;
 			slide.media[0].location.updatedOn = (new Date()).getTime();
 			updatePresentationSlide(currentSlide!, slide);
-			//setNewImgPath(tmpImgPath);
 			setIsProcessed(true);
 
-			// We can dispatch this to remove the borders around images. But right now the popup resets if this happens.
+			// TODO: We can dispatch this to remove the borders around images. But right now the popup resets if this happens.
 			// In the meantime I implemented a bugfix in "MediaBox" checking for "imgRef.current"
 			/*
 			dispatch({
@@ -132,16 +131,6 @@ const AutoAlignmentPopover: React.FC<IAutoAlignmentPopoverProps> = forwardRef((p
 			slide.media[0].location.local = 'file://' + savedFilePath;
 			slide.media[0].location.updatedOn = (new Date()).getTime();
 			updatePresentationSlide(currentSlide!, slide);
-
-			/*
-			const currentLocation: MediaLocation = currentPresentation.slides[currentSlide!].media[0].location;
-			currentLocation.local = 'file://' + savedFilePath;
-			currentLocation.updatedOn = (new Date()).getTime();
-			dispatch({
-				type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
-				payload: { presentation: currentPresentation },
-			});
-			*/
 
 			// Save slide
 			//originalSlide.current = currentPresentation.slides[currentSlide!];
