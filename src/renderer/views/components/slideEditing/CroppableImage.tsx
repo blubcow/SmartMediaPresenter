@@ -20,7 +20,6 @@ const CroppableImage: React.FC<ICroppableImageProps> = (props) => {
 
 	return (
 		<ReactCrop
-			src={mediaElement.location.local ?? mediaElement.location.remote ?? ''}
 			crop={crop}
 			onChange={(_, crop) => {
 				onCropChanged({
@@ -31,7 +30,9 @@ const CroppableImage: React.FC<ICroppableImageProps> = (props) => {
 				});
 				setCrop(crop);
 			}}
-		/>
+		>
+			<img src={mediaElement.location.local ?? mediaElement.location.remote ?? ''}/>
+		</ReactCrop>
 	);
 };
 

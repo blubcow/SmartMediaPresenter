@@ -119,6 +119,7 @@
 	"importingLocalPresentations": "importing local presentations",
 	"orderedInsert": "ordered inserting",
 	"resetConfirmation": "do you really want to reset the changes made to the slide?",
+	"saveImage": "Save image",
 	"colorTransfer": {
 		"editButtonLabel": "Color Transfer",
 		"chooseSourceImage": "Choose another image with the desired colors",

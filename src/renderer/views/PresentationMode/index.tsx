@@ -128,10 +128,13 @@ const Content = ({
 		const handleKey = (e: KeyboardEvent) => {
 			e.preventDefault();
 			switch (e.key) {
+				// TODO: This would work, but the "Escape" key is not captured correctly since it correlates with native fullscreen exit
+				/*
 				case ' ':
 					terminatePresentationMode();
 					setQuickJumpValue(undefined);
 					break;
+				*/
 				case 'Escape':
 					terminatePresentationMode();
 					setQuickJumpValue(undefined);

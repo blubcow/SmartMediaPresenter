@@ -44,7 +44,7 @@ const ColorTransferPopover: React.FC<IColorTransferPopoverProps> = forwardRef((p
 								{showSaveButton && (
 									<Stack direction="row" spacing={0.5} sx={{ mt: 1 }}>
 										<Button variant="contained" disableElevation color="success" startIcon={<Download/>}
-											onClick={(e) => onSaveImage()} size="small">Save image</Button>
+											onClick={(e) => onSaveImage()} size="small">{t('saveImage')}</Button>
 									</Stack>
 								)}
 							</>

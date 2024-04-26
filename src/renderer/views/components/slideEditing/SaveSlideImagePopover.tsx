@@ -31,7 +31,7 @@ const SaveSlideImagePopover: React.FC<ISaveSlideImagePopoverProps> = forwardRef(
 					flexDirection: 'column',
 					alignItems: 'center'
 				}}>
-					<Button variant="contained" disableElevation onClick={(e) => onSaveImage()} size="small">Save image</Button>
+					<Button variant="contained" disableElevation onClick={(e) => onSaveImage()} size="small">{t('saveImage')}</Button>
                </MUIBox>
 			</Paper>
 		</Popper>
