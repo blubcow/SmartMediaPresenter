@@ -244,8 +244,6 @@ export const usePresentationMode = (startingSlide: number) => {
 	>();
 
 	useEffect(() => {
-		// TODO: ipcRenderer.on is not a function!!
-		/*
 		ipcRenderer.on(
 			MainProcessMethodIdentifiers.PresenterModeUpdateNotification,
 			async (_: any, slide: number) => {
@@ -255,7 +253,6 @@ export const usePresentationMode = (startingSlide: number) => {
 		return () => {
 			ipcRenderer.removeAllListeners(MainProcessMethodIdentifiers.PresenterModeUpdateNotification);
 		};
-		*/
 	}, []);
 
 	const nextSlide = useCallback(() => {

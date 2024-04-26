@@ -71,12 +71,10 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 		openFileSelectorDialog('media').then((file: any[]) => {
 			if (didReceiveMediaFile && canReceiveMedia && file.length > 0) {
 				didReceiveMediaFile(
-					// TODO: use object "as File"
-					// @ts-ignore
 					{
 						name: file[0].name,
 						path: file[0].location.local.substring(7),
-					},
+					} as File,
 					id
 				);
 			}
@@ -151,10 +149,10 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 				}
 			}}
 		>
-			{isActive && media && (
+			{isActive && media && imgRef.current && (
 				<ActiveMediaIdenticator image={imgRef.current} mediaElement={media} />
 			)}
-			{isActiveSecond && media && (
+			{isActiveSecond && media && imgRef.current && (
 				<ActiveMediaIdenticator image={imgRef.current} mediaElement={media} outlineColor='warning.main' />
 			)}
 			{media?.location?.local || media?.location?.remote ? (
@@ -174,7 +172,10 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 						className={classes.img}
 						src={imgSrc}
 						loading='lazy'
-						placeholder={iconImg}
+
+						// TODO: Placeholder doesn't work
+						//placeholder={iconImg}
+
 						onError={() => {
 							if (
 								media.location.local &&
@@ -188,12 +189,15 @@ const MediaBox: React.FC<IMediaBox> = (props) => {
 							e.stopPropagation();
 							if (activateMedia) activateMedia(id);
 						}}
+						// TODO: Replace "onBlur" - this leads to so many problems in UI! Especially while editing.
+						/*
 						onBlur={(e) => {
 							if (e.relatedTarget?.id === 'mediaOrSlideEditing') {
 								return;
 							}
 							if (onMediaSelectionBlur) onMediaSelectionBlur();
 						}}
+						*/
 						tabIndex={id}
 						style={{
 							transform: `translate(${

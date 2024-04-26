@@ -124,26 +124,29 @@ const PresentationEditingPreviewRows: React.FC<
 								setDraggedSlide(slide);
 							}}
 							onDraggedOverSwap={(slideId: number) => {
-								if (slideId === draggedSlide!.id || !draggedSlide) return;
-								const draggedId = draggedSlide.id;
-								setDraggedSlide({ ...draggedSlide!, id: slideId });
-								const newSlides = presentation.slides
-									.map((slide: Slide) => ({
-										...slide,
-										id:
-											slide.id === slideId
-												? draggedId
-												: slide.id === draggedId
-												? slideId
-												: slide.id,
-									}))
-									.sort((a: Slide, b: Slide) => (a.id > b.id ? 1 : -1));
-								const newPresentation = { ...presentation };
-								newPresentation.slides = newSlides;
-								dispatch({
-									type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
-									payload: { presentation: newPresentation },
-								});
+								// Check if we are dragging a slide (Other elements can be dragged over)
+								if(draggedSlide != undefined){
+									if (slideId === draggedSlide!.id || !draggedSlide) return;
+									const draggedId = draggedSlide.id;
+									setDraggedSlide({ ...draggedSlide!, id: slideId });
+									const newSlides = presentation.slides
+										.map((slide: Slide) => ({
+											...slide,
+											id:
+												slide.id === slideId
+													? draggedId
+													: slide.id === draggedId
+													? slideId
+													: slide.id,
+										}))
+										.sort((a: Slide, b: Slide) => (a.id > b.id ? 1 : -1));
+									const newPresentation = { ...presentation };
+									newPresentation.slides = newSlides;
+									dispatch({
+										type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+										payload: { presentation: newPresentation },
+									});
+								}
 							}}
 						/>
 					))}

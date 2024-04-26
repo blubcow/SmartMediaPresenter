@@ -72,7 +72,6 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 	]);
 
 	const onFileReceived = (file: File, id: number) => {
-		// @ts-ignore: path available trough electron
 		const url = 'file://' + file.path;
 		const currentMedia = presentation.slides[currentSlide].media.filter(
 			(media: MediaRessource) => media.id !== id
@@ -152,11 +151,12 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 						});
 					}
 				}}
-				onSelectedMediaBlur={() =>
+				// TODO: Replace onBlur, this leads to multiple UI problems
+				/*onSelectedMediaBlur={() =>
 					dispatch({
 						type: PresentationEditingActionIdentifiers.editingSlideStated,
 					})
-				}
+				}*/
 				onSlideBackgroundClicked={() =>
 					dispatch({
 						type: PresentationEditingActionIdentifiers.editingSlideStated,

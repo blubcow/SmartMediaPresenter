@@ -11,7 +11,7 @@ export default makeStyles((theme: Theme) =>
 		},
 		rowsScrollingContainer: {
 			height: '100%',
-			overflowY: 'scroll',
+			overflowY: 'auto',
 		},
 	})
 );

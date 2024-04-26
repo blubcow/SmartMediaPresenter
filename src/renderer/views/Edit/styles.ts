@@ -10,13 +10,13 @@ export default makeStyles((theme: Theme) =>
 			// overflow: 'hidden',
 		},
 		previewContainer: {
-			height: '100%',
+			//height: '100%',
 			flex: 1,
 			display: 'flex',
 			flexDirection: 'column',
 			justifyContent: 'center',
 			alignItems: 'center',
-			paddingTop: theme.spacing(4),
+			paddingTop: theme.spacing(1),
 		},
 		loadingContainer: {
 			height: '100vh',

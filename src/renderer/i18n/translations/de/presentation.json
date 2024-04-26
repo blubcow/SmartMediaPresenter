@@ -119,7 +119,15 @@
 	"importingLocalPresentations": "lokale Präsentationen werden importiert",
 	"orderedInsert": "geordnetes Einfügen",
 	"resetConfirmation": "sollen die Änderungen der Folie verworfen werden?",
+	"saveImage": "Bild speichern",
 	"colorTransfer": {
-		"chooseSourceImage": "Wählen Sie nun das Bild mit den gewünschten Farbwerten aus"
+		"editButtonLabel": "Farbwerte Übertragen",
+		"chooseSourceImage": "Wählen Sie das Bild mit den gewünschten Farbwerten aus",
+		"chooseAlgorithm": "Währen Sie einen Algorithmus für die Übertragung der Farbwerte aus"
+	},
+	"autoAlignment": {
+		"editButtonLabel": "Automatisch Ausrichten",
+		"chooseSecondImage": "Wählen Sie ein zweites Bild aus,\ndas mit dem aktuellen ausgewählten Bild vertikal ausgerichtet wird",
+		"choosePosition": "In welche Richtung soll das zweite Bild angefügt werden?"
 	}
 }

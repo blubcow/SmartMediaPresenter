@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FloatingButton } from '../../../smpUI/components';
 import { useTranslation } from 'react-i18next';
 import { useDisplays } from '../../../hooks/useMainProcessMethods';
@@ -9,6 +9,7 @@ import PresentationMode from '../../PresentationMode';
 import { useFullScreenHandle } from 'react-full-screen';
 import { SinglePresentation } from '../../../shared/types/presentation';
 import PresentationFullScreen from '../FullScreen/PresentationFullScreen';
+import { useNavigate } from 'react-router-dom';
 
 interface IPresentationFloatingButtonProps {
 	presentationId?: number;
@@ -28,12 +29,18 @@ const PresentationFloatingButton: React.FC<IPresentationFloatingButtonProps> = (
 	const presentationModeHandle = useFullScreenHandle();
 	const handle = useFullScreenHandle();
 
+	const navigate = useNavigate();
+
 	return (
 		<>
 			<FloatingButton
 				variant='extended'
 				color='primary'
 				onClick={async () => {
+
+					// You can debug the screen by directly navigating
+					// navigate('/pres?startingSlide=0&id=1');
+
 					const c = await displaysAvailable();
 					setDisplayAmount(c);
 					if (c > 1) {
@@ -52,6 +59,7 @@ const PresentationFloatingButton: React.FC<IPresentationFloatingButtonProps> = (
 					} else {
 						handle.enter();
 					}
+					
 				}}
 			>
 				<Slideshow sx={{ mr: 1 }} />

@@ -10,6 +10,7 @@ import { PresentationEditingActionIdentifiers } from '../../../types/identifiers
 import MediaAlignemntPopover from './MediaAlignmentPopover';
 import ColorTransferPopover from './ColorTransferPopover';
 import { useMediaSettingsContext } from '../../../providers/MediaSettingsProvider';
+import SaveSlideImagePopover from './SaveSlideImagePopover';
 
 interface IColorTransferButtonProps { }
 
@@ -19,11 +20,15 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 	const { ref: mediaSettingsRef } = useMediaSettingsContext();
 	const { presentation, currentSlide, activeMedia, secondActiveMedia } = state;
 
+	const [highlighted, setHighlighted] = useState<boolean>(false);
+
 	// useRef since state didn't work with async functions (and should not change on render anyways)
-	// Apparently isActive will not change in the async function
 	const isActive = useRef<boolean>(false);
+	const isProcessed = useRef<boolean>(false);
 	const originalSlide = useRef<Slide | undefined>(undefined);
 	const anchorElRef = useRef<HTMLDivElement>(null);
+
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	// Opening and activating
 	const activate = () => {
@@ -32,6 +37,7 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 		}
 		originalSlide.current = presentation.slides[currentSlide];
 		isActive.current = true;
+		isProcessed.current = false;
 		dispatch({ type: PresentationEditingActionIdentifiers.selectSecondMedia });
 	};
 
@@ -46,7 +52,7 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 	// Any other button on top edit navigation clicked
 	const onMediaSettingsClicked = (e: MouseEvent) => {
 		if (anchorElRef.current && !anchorElRef.current.contains(e.target as Node)) {
-			destroy();
+			deActivate();
 		}
 	}
 
@@ -61,21 +67,26 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 			mediaSettingsRef.current.removeEventListener("mousedown", onMediaSettingsClicked, true);
 		}
 		isActive.current = false;
+		isProcessed.current = false;
 		if (originalSlide.current) {
 			updatePresentationSlide(currentSlide, originalSlide.current);
 		}
 		originalSlide.current = undefined;
+		setHighlighted(false);
 	}
 
-	// Second media selected!
-	useEffect(() => {
-		if (secondActiveMedia != undefined) {
-			transferColors();
+	// Main functionality ========================
+
+	const onChooseMethod = (method:number) => {
+		if(secondActiveMedia != undefined) {
+			transferColors(method); // async
+		}else{
+			alert('Could not select second media...');
 		}
-	}, [secondActiveMedia])
+	}
 
-
-	// TODO: Put this somewhere else
+	// TODO: Create a global slide updater
+	// TODO: Duplicate found in AutoAlignmentPopover
 	const updatePresentationSlide = (slideIndex:number, slide: Slide) => {
 		const newPresentation: SinglePresentation = JSON.parse(JSON.stringify(presentation));
 		newPresentation.slides[slideIndex!] = slide;
@@ -85,51 +96,76 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 		});
 	}
 
-	const transferColors = async () => {
+	const transferColors = async (method:number) => {
+		setIsLoading(true);
 
 		const sourceMediaIdx: number = secondActiveMedia!; // The color source
 		const targetMediaIdx: number = activeMedia!; // The image to transform
 
-		// run transfer script
-		let tmpImgPath = await window.electron.invoke('python.simpleColorTransfer',
-			presentation.slides[currentSlide].media[sourceMediaIdx!].location.local!.replace('file://', ''),
-			presentation.slides[currentSlide].media[targetMediaIdx!].location.local!.replace('file://', ''),
-		);
+		try{
+			// run transfer script
+			let tmpImgPath = await window.electron.invoke('python.simpleColorTransfer',
+				originalSlide.current!.media[sourceMediaIdx!].location.local!.replace('file://', ''),
+				originalSlide.current!.media[targetMediaIdx!].location.local!.replace('file://', ''),
+				//presentation.slides[currentSlide].media[sourceMediaIdx!].location.local!.replace('file://', ''),
+				//presentation.slides[currentSlide].media[targetMediaIdx!].location.local!.replace('file://', ''),
+				method,
+			);
 
-		// TODO: Do we really need this?
-		//setAnchorElement(e.currentTarget);
+			if (isActive.current && (targetMediaIdx == activeMedia!)) {
+				const newPresentation: SinglePresentation = JSON.parse(JSON.stringify(presentation));
+				const newLocation: MediaLocation = newPresentation.slides[currentSlide!].media[activeMedia!].location;
+				newLocation.local = 'file://' + tmpImgPath;
+				newLocation.updatedOn = (new Date()).getTime();
+				dispatch({
+					type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+					payload: { presentation: newPresentation },
+				});
+			}
 
-		// TODO: Create a function to replace settings easily
-
-		if (isActive.current && (targetMediaIdx == activeMedia!)) {
-			const newPresentation: SinglePresentation = JSON.parse(JSON.stringify(presentation));
-			const newLocation: MediaLocation = newPresentation.slides[currentSlide!].media[activeMedia!].location;
-			newLocation.local = 'file://' + tmpImgPath;
-			newLocation.updatedOn = (new Date()).getTime();
-			dispatch({
-				type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
-				payload: { presentation: newPresentation },
-			});
+			isProcessed.current = true;
+			setHighlighted(true);
+		}catch(err){
+			// do nothing
 		}
-
-		// TODO: when the change is reverted, the image info is lost (The info is not dispatched, the presentation is not updated)
-
+		setIsLoading(false);
 	}
 
+	const onSaveImage = async ():Promise<void> => {
+		// Save image with dialog
+		const orginalFilePath = originalSlide.current!.media[activeMedia!].location.local!.replace('file://', '');
+		const currentPresentation: SinglePresentation = JSON.parse(JSON.stringify(presentation));
+		const filePath = currentPresentation.slides[currentSlide!].media[activeMedia!].location.local!.replace('file://', '');
 
+		try{
+			let savedFilePath:string = await window.electron.invoke('python.saveImage', filePath, orginalFilePath);
 
+			// Update slide
+			console.log(savedFilePath);
+			const currentLocation: MediaLocation = currentPresentation.slides[currentSlide!].media[activeMedia!].location;
+			currentLocation.local = 'file://' + savedFilePath;
+			currentLocation.updatedOn = (new Date()).getTime();
+			dispatch({
+				type: PresentationEditingActionIdentifiers.presentationSettingsUpdated,
+				payload: { presentation: currentPresentation },
+			});
+
+			// Save slide
+			originalSlide.current = currentPresentation.slides[currentSlide!];
+			deActivate();
+
+		}catch(err){}
+	}
 
 	return (
 		<>
 			<EditingButton
-				highlighted={
-					presentation.slides[currentSlide].media[activeMedia!].settings?.alignment !== undefined
-				}
+				highlighted={ highlighted }
 				icon={
 					<SwitchAccessShortcut sx={{ color: 'text.primary', height: '100%', width: '100%' }} />
 				}
 				secondaryNode={
-					<EditButtonLabel>{t('colortransfer')}</EditButtonLabel>
+					<EditButtonLabel>{t('colorTransfer.editButtonLabel')}</EditButtonLabel>
 				}
 				selected={isActive.current}
 				onClick={(e) => isActive.current ? deActivate() : activate()}
@@ -139,6 +175,10 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 			<ColorTransferPopover
 				open={isActive.current}
 				anchorEl={anchorElRef.current}
+				isLoading={isLoading}
+				onChooseMethod={onChooseMethod}
+				onSaveImage={onSaveImage}
+				showSaveButton={isProcessed.current}
 			/>
 		</>
 	);
