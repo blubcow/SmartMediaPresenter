@@ -7,6 +7,7 @@ import { i18nNamespace } from '../../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
 import { useImageManipulationControlsStyles } from './styles';
 import {
+	ImageManipulationEntity,
 	MediaRessource,
 	MediaSettings,
 } from '../../../shared/types/presentation';
@@ -177,12 +178,11 @@ const ImageManipulationControls: React.FC<IImageManipulationControlsProps> = (
 							max={option.range.to}
 							valueLabelDisplay='auto'
 							onChange={(e, val) => {
-								// @ts-ignore
 								setOptions([
 									...options.map((option, i) =>
 										index === i ? { ...option, value: val ?? 0 } : option
 									),
-								]);
+								] as ImageManipulationEntity[]);
 								if (!media) return;
 								const newSettings: Partial<MediaSettings> = {
 									...media?.settings,

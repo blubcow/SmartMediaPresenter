@@ -73,17 +73,18 @@ const createWindow = async () => {
     return path.join(RESOURCES_PATH, ...paths);
   };
 
+  // Attention! Any changes here must be also done in "methods.ts" line 461
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
     height: 728,
     icon: getAssetPath('icon.png'),
-    // TODO: Reverse settings (also see methods.ts)
+    // TODO: Reverse settings to electron-react-boilerplate when IPC is implemented
     webPreferences: {
       //sandbox: true,
       nodeIntegration: true,
 			contextIsolation: false,
-			webSecurity: false,
+			webSecurity: false, // TODO: Use app.isPackaged or isDebug maybe?
       allowRunningInsecureContent: true,
       plugins: true,
       preload: app.isPackaged
@@ -130,8 +131,6 @@ const createWindow = async () => {
   // eslint-disable-next-line
   //new AppUpdater();
 
-  //
-  // TODO: How to register really?
   /**
    * Register IPC methods
    * All methods that are calling "ipcMain.handle(...)" are set up with this function
@@ -139,7 +138,9 @@ const createWindow = async () => {
   registerMainProcessMethodHandlers(
     app.getPath('userData'),
     ipcMain,
-    mainWindow
+    mainWindow,
+    getAssetPath,
+    isDebug
   );
 
   registerMainProcessPythonHandlers(

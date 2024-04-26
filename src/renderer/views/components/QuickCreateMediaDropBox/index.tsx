@@ -82,7 +82,6 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 		let newFiles: QuickCreateMediaResource[] = [];
 		await Promise.all(
 			Array.prototype.map.call(event.dataTransfer.files, async (file: File) => {
-				//@ts-ignore
 				const filePath = file.path;
 				if (path.extname(file.name).length) {
 					if (allowedFiles.includes(path.extname(file.name)))

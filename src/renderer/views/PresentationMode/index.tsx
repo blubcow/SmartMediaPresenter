@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { usePresentationMode } from '../../hooks/useMainProcessMethods';
 import { Box, Text, Button } from '../../smpUI/components';
-import { FullScreen } from 'react-full-screen';
+import { FullScreen, FullScreenHandle } from 'react-full-screen';
 import { SinglePresentation } from '../../shared/types/presentation';
 import SlideBox from '../components/SlideBox';
 import { Divider } from '@mui/material';
@@ -20,8 +20,13 @@ interface IPresenttionModeProps {
 const PresentationMode: React.FC<IPresenttionModeProps> = (props) => {
 	const { handle, presentation, startingSlide } = props;
 
+	// TODO: Implement the correctly working closing functionality
+	const onFullscreenChange = (state: boolean, handle: FullScreenHandle) => {
+		//console.log('onFullscreenChange, state is '+state);
+	}
+
 	return (
-		<FullScreen handle={handle}>
+		<FullScreen handle={handle} onChange={onFullscreenChange}>
 			{handle.active && (
 				<Content
 					presentation={presentation}
@@ -113,9 +118,23 @@ const Content = ({
 	}, [slideNumber]);
 
 	useEffect(() => {
+
+		// TODO: Another way to listen to full screen change - delete
+		/*document.fullscreenElement!.addEventListener("fullscreenchange", () => {
+			terminatePresentationMode();
+			setQuickJumpValue(undefined);
+		});*/
+
 		const handleKey = (e: KeyboardEvent) => {
 			e.preventDefault();
 			switch (e.key) {
+				// TODO: This would work, but the "Escape" key is not captured correctly since it correlates with native fullscreen exit
+				/*
+				case ' ':
+					terminatePresentationMode();
+					setQuickJumpValue(undefined);
+					break;
+				*/
 				case 'Escape':
 					terminatePresentationMode();
 					setQuickJumpValue(undefined);

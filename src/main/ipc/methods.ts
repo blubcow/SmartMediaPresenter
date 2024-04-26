@@ -23,13 +23,16 @@ import xlsx from 'xlsx';
 import { convertJsonToXlsx } from './models/PresentationFileConverter';
 import { getFilesInDir, getFileFromPath } from './models/FileSystem';
 import { parse } from './models/PresentationParser';
+import { resolveHtmlPath } from '../util';
 
 let globalWorkspace: string | undefined;
 
 export const registerMainProcessMethodHandlers = (
 	userDataPath: string,
 	ipcMain: IpcMain,
-	mainWindow: BrowserWindow
+	mainWindow: BrowserWindow,
+	getAssetPath: (...paths: string[]) => string,
+	isDebug: boolean
 ) => {
 	const windows: BrowserWindow[] = [mainWindow];
 	let presentationModePresentationFile: SinglePresentation | undefined;
@@ -456,24 +459,25 @@ export const registerMainProcessMethodHandlers = (
 				.getAllDisplays()
 				.filter((disp) => disp.id !== currentScreenOfMainWindow.id)[displayIndex];
 			
-
-			// TODO: fix this bug
-			alert('Second window not working yet...');
-			return;
-			
-
 			const presentation = new BrowserWindow({
 				x: display.bounds.x + 50,
 				y: display.bounds.y + 50,
-				fullscreen: true,
+				//fullscreen: true,
+				icon: getAssetPath('icon.png'),
 				webPreferences: {
 					nodeIntegration: true,
 					contextIsolation: false,
-					webSecurity: app.isPackaged,
+					webSecurity: false,
+					allowRunningInsecureContent: true,
+					plugins: true,
+					preload: app.isPackaged
+						? path.join(__dirname, '../preload.js')
+						: path.join(__dirname, '../../../.erb/dll/preload.js')
 				},
 				autoHideMenuBar: true,
 			});
 
+			/*
 			const location = app.isPackaged
 				? `file://${path.join(__dirname, '../index.html')}`
 				: 'http://localhost:3000';
@@ -483,6 +487,13 @@ export const registerMainProcessMethodHandlers = (
 					id !== undefined ? '&id=' + id : ''
 				}${remoteId !== undefined ? '&remoteId=' + remoteId : ''}`
 			);
+			*/
+			let location = resolveHtmlPath('index.html');
+			location += `#/pres?startingSlide=${startingSlide}${
+					id !== undefined ? '&id=' + id : ''
+					}${remoteId !== undefined ? '&remoteId=' + remoteId : ''}`;
+			presentation.loadURL(location);
+
 			presentation.maximize();
 			presentation.setFullScreen(true);
 			windows.push(presentation);

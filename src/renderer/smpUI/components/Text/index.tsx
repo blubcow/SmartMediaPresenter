@@ -16,7 +16,7 @@ export interface ITextProps extends TypographyProps {
 	onInvalidInput?: () => void;
 	parseInput?: (newValue: string) => string;
 
-	// TODO: This was not available in the type "TypographyProps" - what is the new one?
+	// TODO: This is not available in the MUI type "TypographyProps" after update - what is the new one?
 	placeholder?: string;
 }
 
@@ -62,7 +62,7 @@ const Text: React.FC<ITextProps> = (props) => {
 						onChange={(e) => {
 							if (parseInput) setEditableText(parseInput(e.target.value));
 							else setEditableText(e.target.value);
-						}} // @ts-ignore
+						}}
 						onBlur={() => {
 							setIsEditing(false);
 						}}
@@ -88,7 +88,6 @@ const Text: React.FC<ITextProps> = (props) => {
 							if (parseInput) setEditableText(parseInput(e.target.value));
 							else setEditableText(e.target.value);
 						}}
-						// @ts-ignore
 						onBlur={() => {
 							setIsEditing(false);
 						}}

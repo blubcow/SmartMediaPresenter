@@ -24,6 +24,49 @@ export const registerMainProcessPythonHandlers = (
 		return storePath
 	}
 
+	// TODO: This is not strictly python related - move out of "python.ts"
+	ipcMain.handle(
+		'python.saveImage',
+		async (_: IpcMainInvokeEvent, imgPath: string, originalImgPath: string): Promise<string> => {
+			return new Promise<string>((resolve, reject) => {
+				dialog.showSaveDialog({ 
+					title: 'Select the File Path to save', 
+					defaultPath: path.basename(originalImgPath),
+					buttonLabel: 'Save', 
+					filters: [ 
+						{ 
+							name: 'Image File', 
+							extensions: ['jpg'] 
+						}, ], 
+					properties: [] 
+				}).then(file => {
+
+					if (!file.canceled && file.filePath) { 
+
+						if(!fs.existsSync(imgPath)) {
+							handleError('File not found', imgPath);
+							reject('File not found');
+					 	}
+						const data = fs.readFileSync(imgPath);
+
+						// Creating and Writing to the sample.txt file 
+						fs.writeFile(file.filePath.toString(), data, function (err) { 
+							if (err){
+								handleError('Could not write file', file.filePath!.toString());
+								reject('Could not write file');
+							}
+							resolve(file.filePath!.toString());
+						});
+					}
+
+				}).catch(err => { 
+					console.log(err);
+					reject('Unknown error');
+				});
+			});
+		}
+	)
+
 	// Image alignment
 	ipcMain.handle(
 		'python.imageAlignment',
@@ -49,47 +92,29 @@ export const registerMainProcessPythonHandlers = (
 	);
 	
 	// Color transfer
-	// TODO: Remove options - check what was working, and what was not (all options except "quotes" and "cmdquotes" work on my machine)
 	ipcMain.handle(
 		'python.simpleColorTransfer',
-		async (_: IpcMainInvokeEvent, sourceImgPath: string, targetImgPath: string, method: number = 0, options?:string): Promise<string> => {
+		async (_: IpcMainInvokeEvent, sourceImgPath: string, targetImgPath: string, method: number = 0): Promise<string> => {
 
 			// prepare output
 			const outputImgPath = path.join(createPythonStorePath('colortransfer'), 'current_result.jpg');
 
 			// prepare script
-			let args;
-			if(options == "quotes"){
-				args = [
-					'--source', '"'+sourceImgPath+'"', // Adding double qotes for error prevention
-					'--target', '"'+targetImgPath+'"',
-					'--output', '"'+outputImgPath+'"',
-					'--method', method.toString()
-				];
-			}else{
-				args = [
-					'--source', sourceImgPath, // Adding double qotes for error prevention
-					'--target', targetImgPath,
-					'--output', outputImgPath,
-					'--method', method.toString()
-				];
-			}
+			const args = [
+				'--source', sourceImgPath, // Adding double qotes for error prevention
+				'--target', targetImgPath,
+				'--output', outputImgPath,
+				'--method', method.toString()
+			];
 
-			if(options == 'python'){
-				return runPython('color_transfer.py', args, outputImgPath);
-			}else if(options == 'single'){
-				return runExecutable('dist/color_transfer.exe', args, outputImgPath, );
-			}else{
-				return runExecutable('dist/color_transfer/color_transfer.exe', args, outputImgPath,  options);
-			}
-
-			/*
 			if(isDebug){
-				return simpleColorTransferDebug(assetPath, args, outputImgPath);
+				return runPython('color_transfer.py', args, outputImgPath);
 			}else{
-				return simpleColorTransfer(assetPath, args, outputImgPath);
+				return runExecutable('dist/color_transfer/color_transfer.exe', args, outputImgPath);
+
+				// Running packaged build by default. To run a unified executable, you could choose:
+				//return runExecutable('dist/color_transfer.exe', args, outputImgPath);
 			}
-			*/
 		}
 	);
 
@@ -97,21 +122,16 @@ export const registerMainProcessPythonHandlers = (
 	 * Run compiled program
 	 * @param executablePath Should be relative to "assets/python"
 	 * @param args Arguments passed on to the python script
-	 * @param returnValue Value returned when resolving.
-	 * @param options TODO: Remove this -----------------------------------
+	 * @param returnValue Value the Promise is resolved with // TODO: Move out of the function
 	 * @returns returnValue Promise
 	 */
-	function runExecutable(executablePath: string, args: string[], returnValue: string, options?: string): Promise<string> {
+	function runExecutable(executablePath: string, args: string[], returnValue: string): Promise<string> {
 		return new Promise<string>((resolve, reject) => {
 			// Put error buffer into single string
 			let errorMsg:string = '';
 
 			let process: ChildProcessWithoutNullStreams;
-			if(options == 'cmdquotes'){
-				process = spawn('"'+getAssetPath('python', executablePath)+'"', args, {shell: false});
-			}else{
-				process = spawn(getAssetPath('python', executablePath), args, {shell: false});
-			}
+			process = spawn(getAssetPath('python', executablePath), args, {shell: false});
 			
 			// Could not find file to execute (usually)
 			process.on('error', function(err:Error){
@@ -165,6 +185,20 @@ export const registerMainProcessPythonHandlers = (
 				}
 			});
 		});
+	}
+
+	/**
+	 * Error handling for child_process.spawn command
+	 * @param scriptName The python file name to display
+	 */
+	async function handleError(message: string, detail:string): Promise<void>{
+		const messageBoxOptions: MessageBoxSyncOptions = {
+			type: "error",
+			title: "Error",
+			message: message,
+			detail: detail
+		};
+		dialog.showMessageBoxSync(messageBoxOptions);
 	}
 
 	/**

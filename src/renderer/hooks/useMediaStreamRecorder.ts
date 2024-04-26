@@ -25,7 +25,9 @@ const useMediaStreamRecorder = () => {
 
 		// TODO: Add a try catch block with a popup, to show the error to the user (mime type etc.?)
 		const stream:MediaStream = await navigator.mediaDevices.getUserMedia(getAudioCaptureConstraints());
-		//Use "stream.addTrack()" to add audio to video tracks 
+		
+		// Info: Use "stream.addTrack()" to add audio to video tracks
+		// We initialize with getAudioCaptureConstraints(), that would be our first track - audio only 
 		
 		const options = { mimeType: '' };
 		if(MediaRecorder.isTypeSupported('audio/webm; codecs="opus"')){
@@ -105,13 +107,14 @@ const useMediaStreamRecorder = () => {
 	function getAudioCaptureConstraints(): MediaStreamConstraints {
 		return {
             /*
+			// Additional options available
             audio: {
                 sampleRate: 48000,
                 googAutoGainControl: true,
                 echoCancellation: true,
                 autoGainControl: true,
                 noiseSuppression: true
-            } as MediaTrackConstraints, // TODO: cast to "MediaTrackConstrains, but it doesn't include mandatory property,
+            } as MediaTrackConstraints,
             */
             audio: {
                 sampleRate: 48000

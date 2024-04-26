@@ -85,7 +85,6 @@ const usePresentationSyncing = (
 			presentation,
 			remoteMedia,
 			(progress) => {
-				// @ts-ignore
 				setProgress((curr) => new Map([...curr, [presentationId, progress]]));
 			},
 			(tasks, audioTasks) => {
@@ -127,15 +126,14 @@ const usePresentationSyncing = (
 									setSyncPaper(
 										(curr) =>
 											new Map([
-												// @ts-ignore
 												...curr,
 												[
-													remotePresentation.remoteId,
+													remotePresentation.remoteId!,
 													{
 														name: remotePresentation.name,
 														remoteId: remotePresentation.remoteId,
 														remoteUpdate: remotePresentation.remoteUpdate,
-													},
+													} as SyncPaperEntry,
 												],
 											])
 									);
