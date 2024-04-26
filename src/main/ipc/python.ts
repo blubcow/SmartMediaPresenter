@@ -6,7 +6,7 @@ import { ChildProcessWithoutNullStreams, spawn } from 'child_process';
 
 // Set this to "true" to test packaged version of the python scripts
 // Package your python scripts first with "pyinstaller example.py --nowindowed"
-const FORCE_RUN_PACKAGED_PYTHON:boolean = true;
+const FORCE_RUN_PACKAGED_PYTHON:boolean = false;
 
 export const registerMainProcessPythonHandlers = (
 	userDataPath: string,
