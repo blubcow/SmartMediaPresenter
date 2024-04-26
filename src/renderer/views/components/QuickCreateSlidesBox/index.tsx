@@ -76,7 +76,6 @@ const QuickCreateSlidesBox: React.FC<IQuickCreateSlidesBoxProps> = (props) => {
 			}));
 		} else {
 			droppedMedia = Array.from(event.dataTransfer.files).map((file) => ({
-				// @ts-ignore
 				location: { local: 'file://' + file.path },
 			}));
 

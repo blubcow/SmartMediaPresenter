@@ -62,7 +62,7 @@ const Text: React.FC<ITextProps> = (props) => {
 						onChange={(e) => {
 							if (parseInput) setEditableText(parseInput(e.target.value));
 							else setEditableText(e.target.value);
-						}} // @ts-ignore
+						}}
 						onBlur={() => {
 							setIsEditing(false);
 						}}
@@ -88,7 +88,6 @@ const Text: React.FC<ITextProps> = (props) => {
 							if (parseInput) setEditableText(parseInput(e.target.value));
 							else setEditableText(e.target.value);
 						}}
-						// @ts-ignore
 						onBlur={() => {
 							setIsEditing(false);
 						}}

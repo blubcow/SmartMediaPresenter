@@ -49,7 +49,6 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 			setCachedPresentations(
 				(curr) =>
 					new Map([
-						// @ts-ignore
 						...curr,
 						[
 							id,
@@ -106,7 +105,6 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 
 			await Promise.all(promises);
 
-			// @ts-ignore
 			const newCachedPresentations = new Map([...cachedPresentations]);
 			newCachedPresentations.set(id, {
 				presentation: presentation,
@@ -115,7 +113,6 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 				success: true,
 				failed: failed > 0 ? failed : undefined,
 			});
-			// @ts-ignore
 			setCachedPresentations(newCachedPresentations);
 		},
 		[cachedPresentations]
@@ -127,7 +124,6 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 		const newCache: Map<
 			number | string,
 			PresentationCacheValue
-			// @ts-ignore
 		> = new Map([...cachedPresentations]);
 
 		newCache.set(id, { ...cachedPresentations.get(id)!, presentation: pres });
@@ -140,7 +136,6 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 		const val = cachedPresentations.get(currentPresentaitonId);
 
 		const newCache: Map<number | string, PresentationCacheValue> = new Map([
-			// @ts-ignore
 			...cachedPresentations,
 		]);
 		newCache.delete(currentPresentaitonId);
@@ -158,7 +153,6 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 			const val = cachedPresentations.get(currentRemotePresentationId);
 			if (val) {
 				const newCache: Map<number | string, PresentationCacheValue> = new Map([
-					// @ts-ignore
 					...cachedPresentations,
 				]);
 				newCache.delete(currentRemotePresentationId);
@@ -173,7 +167,6 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 
 		const val = cachedPresentations.get(currentRemotePresentationId);
 		const newCache: Map<number | string, PresentationCacheValue> = new Map([
-			// @ts-ignore
 			...cachedPresentations,
 		]);
 		newCache.delete(currentRemotePresentationId);

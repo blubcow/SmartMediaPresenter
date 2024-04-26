@@ -14,6 +14,7 @@
 
 - `npm install @types/react-edit-text --save-dev`
 - `npm install @types/lodash --save-dev`
+- `npm install @types/react-lazy-load-image-component --save-dev`
 
 # Python Shell
 - `npm install python-shell`

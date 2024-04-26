@@ -85,7 +85,6 @@ const usePresentationSyncing = (
 			presentation,
 			remoteMedia,
 			(progress) => {
-				// @ts-ignore
 				setProgress((curr) => new Map([...curr, [presentationId, progress]]));
 			},
 			(tasks, audioTasks) => {
