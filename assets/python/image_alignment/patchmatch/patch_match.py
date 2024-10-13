@@ -145,6 +145,8 @@ try:
             lib_url = asset["browser_download_url"]
 
             # TODO: PatchMatch does not work with PyInstaller because of this code
+            pypatchmatch_lib = "libpatchmatch_windows_amd64.dll"
+
             #if not os.path.exists(osp.join(osp.dirname(__file__), lib_name)):
             #    logger.info(
             #        f"Downloading patchmatch libraries from github release {lib_url}"
@@ -152,10 +154,10 @@ try:
             #    download_url_to_file(
             #        url=lib_url, dst=osp.join(osp.dirname(__file__), lib_name)
             #    )
-
-            # Store patchmatch library name
-            if lib_name.startswith("libpatchmatch_"):
-                pypatchmatch_lib = lib_name
+#
+            ## Store patchmatch library name
+            #if lib_name.startswith("libpatchmatch_"):
+            #    pypatchmatch_lib = lib_name
 
     # Compile if we didn't find a platform-compatible version (and it's not compiled already)
     if pypatchmatch_lib is None:

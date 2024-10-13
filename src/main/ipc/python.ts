@@ -1,12 +1,16 @@
 import { BrowserWindow, IpcMain, IpcMainInvokeEvent, MessageBoxSyncOptions, dialog } from 'electron';
-import { PythonShell, PythonShellError } from 'python-shell';
+import { Options, PythonShell, PythonShellError } from 'python-shell';
 import * as path from 'path';
 import * as fs from 'fs';
 import { ChildProcessWithoutNullStreams, spawn } from 'child_process';
 
 // Set this to "true" to test packaged version of the python scripts
 // Package your python scripts first with "pyinstaller example.py --nowindowed"
-const FORCE_RUN_PACKAGED_PYTHON:boolean = true;
+const FORCE_RUN_PACKAGED_PYTHON:boolean = false;
+
+// Uses the `venv` created environment which must be located in `assets/python/.env`.
+// This has only an effect when debugging
+const USE_PYTHON_ENVIRONMENT:boolean = false;
 
 export const registerMainProcessPythonHandlers = (
 	userDataPath: string,
@@ -170,7 +174,12 @@ export const registerMainProcessPythonHandlers = (
 	 */
 	function runPython(scriptPath: string, args: string[], returnValue: string): Promise<string> {
 		return new Promise<string>((resolve, reject) => {
-			const pythonShell: PythonShell = new PythonShell(getAssetPath('python', scriptPath), { args });
+
+			const options: Options = { args };
+			if(USE_PYTHON_ENVIRONMENT){
+				options.pythonPath = getAssetPath('python', '.env', 'Scripts', 'python');
+			}
+			const pythonShell: PythonShell = new PythonShell(getAssetPath('python', scriptPath), options);
 
 			console.log('python-shell command: ' + pythonShell.command);
 

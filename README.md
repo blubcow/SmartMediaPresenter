@@ -1,24 +1,3 @@
-# Material UI - a popupar React UI framework
-- `npm i @mui/material @emotion/react @emotion/styled`
-- `npm i @mui/icons-material @mui/system`
-- `npm i @mui/styles --force` (This is incompatible with react v18)
-
-# Firebase API
-- `npm i firebase@9.6.1` (Version 9 kept for easier upgrading)
-
-# Additional tooling
-- `npm i i18next lodash xlsx web-vitals font-list`
-
-# React packages
-- `npm i react-color react-edit-text react-full-screen react-i18next react-image-crop react-lazy-load-image-component react-redux`
-
-- `npm install @types/react-edit-text --save-dev`
-- `npm install @types/lodash --save-dev`
-- `npm install @types/react-lazy-load-image-component --save-dev`
-
-# Python Shell
-- `npm install python-shell`
-
 
 <div align="center">
 
@@ -30,15 +9,12 @@
 </div>
 <br/>
 <p align="center">
-  <img src="./assets/icon.png" height='200' width='200' />
+  <img src="./assets/icon.png" height='120' width='120' />
 </p>
 <h1 align="center" >
     Smart Media Presenter
 </h1>
 <br />
-<br />
-
-## Description
 
 The Smart Media Presenter was developed as an open source desktop application in the process of a Bachelor Thesis. It was built using TypeScript, Electron.js, React.js, MaterialUI and Firebase. The application focuses on the creation of slide shows for panoramic photos consiting of multiple images. Presentations can be created, edited, presented and synced to the cloud.
 
@@ -46,23 +22,93 @@ The Smart Media Presenter was developed as an open source desktop application in
   <img src="./assets/resources/home-screenshot.png" width='500' />
 </p>
 
-## Running the Application
+# Installation
 
-#### Prerequisites
+### Prerequisites
+- Install `NodeJS` _(Tested with v20.10.0)_
+- Run `npm install`
+- Install `Python3` and `pip` (for support of the python scripts)
 
-- [node.js](https://nodejs.org/en/download/) has to be installed
-- execute following command to install all dependecies from the root directory of the project `npm install`
+### _OPTIONAL:_ Using a python environment _(`virtualenv`)_
 
-###### Optional - only required if the cloud integration should be supported:
+> Python environments can be helpful to separate different workspaces for developing python applications, preventing dependency errors.
 
-- create a [firebase project](https://console.firebase.google.com/u/0/)
-- fill in the provided .env file with your firebase project's credentials. You will find them in the firebase console, under your project's settings
-- you might also have to adjust the rules for firebase realtime database and firebase storage
+1) Execute `pip install virtualenv`
+2) `cd` to `/assets/python`
+3) Execute `python -m venv .env`
+4) Execute `./.env/Scripts/activate` - Your environment is active now for your terminal
+5) Proceed with **"Installing the Python Libraries ..."**
+6) Activating the environment for usage in the app:
+   - Set `USE_PYTHON_ENVIRONMENT=true` in `/src/main/ipc/python.ts`
+   > This only has an effect while developing/debugging the app. In production, the packaged executables are used, and not the python scripts themselves
 
-#### Available Scripts
+### Installing the Python Libraries for image processing tasks
 
-- `npm run dev` will start the desktop application in dev mode. Make sure port 3000 is not occupied by any other process.
-- `npm run dist` will package the application and create an executable for the operating system you are on
+> Some image processing tasks in the app are using python scripts. Those scripts are executed via IPC (See `/src/main/ipc`).
+
+1) `cd` to `/assets/python`
+2) Execute `pip install -r ./requirements.txt`
+
+### Packaging the python libraries
+
+> For distributing the app, the python scripts must be packaged.
+> Otherwise, the user of the app must have python3 and all neccessary packages preinstalled on the machine.
+
+1) `cd` to `/assets/python`
+2) Execute `pyinstaller color_transfer.py --nowindowed`
+2) Execute `pyinstaller image_alignment.py --nowindowed`
+
+### _OPTIONAL:_ Firebase Cloud Integration
+
+> Attention: Firebase integration is currently deactivated
+
+1) create a [firebase project](https://console.firebase.google.com/u/0/)
+2) fill in the provided .env file with your firebase project's credentials. You will find them in the firebase console, under your project's settings
+3) you might also have to adjust the rules for firebase realtime database and firebase storage
+
+# Running the app in development mode
+
+### Running in VSCode
+
+1) Switch to the "run and debug" context (Ctrl+Shift+D)
+2) Choose the launch configuration "Electron:All" on top
+3) Launch the debugger (F5)
+4) _If the renderer crashes the first time, try restarting the renderer only by selecting the "Electron:Renderer" configuration an running it_
+
+### Running from Command Line
+
+- Execute `npm start`. The window should open automatically
+
+# Packaging the app for production
+
+- Execute `npm run package`. Your executable can be found in `/release/build` after completion.
+
+---
+
+## Installed libraries (on top of `electron-react-boilerplate`)
+
+### Material UI - a popupar React UI framework
+- `npm i @mui/material @emotion/react @emotion/styled`
+- `npm i @mui/icons-material @mui/system`
+- `npm i @mui/styles --force` (This is incompatible with react v18)
+
+### Firebase API
+- `npm i firebase@9.6.1` (Version 9 kept for easier upgrading)
+
+### Additional tooling
+- `npm i i18next lodash xlsx web-vitals font-list`
+
+### React packages
+- `npm i react-color react-edit-text react-full-screen react-i18next react-image-crop react-lazy-load-image-component react-redux`
+
+- `npm install @types/react-edit-text --save-dev`
+- `npm install @types/lodash --save-dev`
+- `npm install @types/react-lazy-load-image-component --save-dev`
+
+### Python Shell
+- `npm install python-shell`
+
+---
 
 ## Author
 
@@ -72,7 +118,7 @@ The Smart Media Presenter was developed as an open source desktop application in
 
 - [Univ.-Prof. Dipl.-Ing. Dr. Erich Schikuta](mailto:erich.schikuta@univie.ac.at)
 
-<br><br>
+---
 
 ---
 ---
