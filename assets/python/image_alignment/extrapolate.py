@@ -1,4 +1,4 @@
-from .patchmatch import patch_match
+#from .patchmatch import patch_match
 import cv2
 import numpy as np
 
@@ -67,7 +67,8 @@ def extrapolate(img, borderSize, patchSize=3):
     mask = np.ones_like(extendedImg[..., 0])
     mask[borderSize:-borderSize, borderSize:-borderSize] = 0
 
-    return patch_match.inpaint(extendedImg, mask, patch_size=patchSize)
+    return cv2.inpaint(extendedImg, mask, patchSize, flags=cv2.INPAINT_TELEA)
+    #return patch_match.inpaint(extendedImg, mask, patch_size=patchSize)
 
 def createFeatherMask(width, height, border:int):
     '''

@@ -1,6 +1,7 @@
 EXTRAPOLATE_BORDER = 10
 EXTRAPOLATE_STEPS = 4
-EXTRAPOLATE_PATCH_SIZE = 1
+#EXTRAPOLATE_PATCH_SIZE = 1 # use this for patch_match
+EXTRAPOLATE_PATCH_SIZE = 3
 
 # Check the extrapolation algorithm output to see what the end border looks like
 # It may differ with different IMG_HEIGHT because of interpolation etc.
