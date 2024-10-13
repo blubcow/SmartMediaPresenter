@@ -16,39 +16,49 @@
 </h1>
 <br />
 
-## Description
-
 The Smart Media Presenter was developed as an open source desktop application in the process of a Bachelor Thesis. It was built using TypeScript, Electron.js, React.js, MaterialUI and Firebase. The application focuses on the creation of slide shows for panoramic photos consiting of multiple images. Presentations can be created, edited, presented and synced to the cloud.
 
 <p align="center">
   <img src="./assets/resources/home-screenshot.png" width='500' />
 </p>
 
-## Running the Application
+# Installation
 
-### Installation
+### Prerequisites
+- Install `NodeJS` _(Tested with v20.10.0)_
+- Run `npm install`
+- Install `Python3` and `pip` (for support of the python scripts)
 
-- [node.js](https://nodejs.org/en/download/) has to be installed (Tested with v20.10.0)
-- execute following command to install all dependecies from the root directory of the project `npm install`
+### _OPTIONAL:_ Using a python environment _(`virtualenv`)_
 
-#### Installing the python libraries for image processing tasks
+> Python environments can be helpful to separate different workspaces for developing python applications, preventing dependency errors.
 
-> Some image processing tasks are using python scripts
+1) Execute `pip install virtualenv`
+2) `cd` to `/assets/python`
+3) Execute `python -m venv .env`
+4) Execute `./.env/Scripts/activate` - Your environment is active now for your terminal
+5) Proceed with **"Installing the Python Libraries ..."**
+6) Activating the environment for usage in the app:
+   - Set `USE_PYTHON_ENVIRONMENT=true` in `/src/main/ipc/python.ts`
+   > This only has an effect while developing/debugging the app. In production, the packaged executables are used, and not the python scripts themselves
 
-1) Install python3 & pip
-2) `cd` to `assets/python`
-3) run `pip install -r ./requirements.txt`
+### Installing the Python Libraries for image processing tasks
 
-#### Packaging the python libraries
+> Some image processing tasks in the app are using python scripts. Those scripts are executed via IPC (See `/src/main/ipc`).
+
+1) `cd` to `/assets/python`
+2) Execute `pip install -r ./requirements.txt`
+
+### Packaging the python libraries
 
 > For distributing the app, the python scripts must be packaged.
-> Otherwise, the user of the app must have python3 and all neccessary packages preinstalled on the machine
+> Otherwise, the user of the app must have python3 and all neccessary packages preinstalled on the machine.
 
-1) `cd` to `assets/python`
-2) run `pyinstaller color_transfer.py --nowindowed`
-2) run `pyinstaller image_alignment.py --nowindowed`
+1) `cd` to `/assets/python`
+2) Execute `pyinstaller color_transfer.py --nowindowed`
+2) Execute `pyinstaller image_alignment.py --nowindowed`
 
-#### Optional - only required if the cloud integration should be supported:
+### _OPTIONAL:_ Firebase Cloud Integration
 
 > Attention: Firebase integration is currently deactivated
 
@@ -56,18 +66,22 @@ The Smart Media Presenter was developed as an open source desktop application in
 2) fill in the provided .env file with your firebase project's credentials. You will find them in the firebase console, under your project's settings
 3) you might also have to adjust the rules for firebase realtime database and firebase storage
 
-### Running in VSCode Debugging Mode
+# Running the app in development mode
+
+### Running in VSCode
 
 1) Switch to the "run and debug" context (Ctrl+Shift+D)
 2) Choose the launch configuration "Electron:All" on top
 3) Launch the debugger (F5)
 4) _If the renderer crashes the first time, try restarting the renderer only by selecting the "Electron:Renderer" configuration an running it_
 
-### Running from Command Line in Debugging Mode
+### Running from Command Line
 
 - Execute `npm start`. The window should open automatically
 
-###
+# Packaging the app for production
+
+- Execute `npm run package`. Your executable can be found in `/release/build` after completion.
 
 ---
 
