@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '.';
+import { Box } from './components';
 import { IBoxProps } from './Box';
 import { SvgIconComponent } from '@mui/icons-material';
 import { createStyles, makeStyles } from '@mui/styles';

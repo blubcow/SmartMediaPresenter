@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { PhotoshopPicker } from 'react-color';
 import { Modal } from '../../../smpUI/components';
-import { IModalProps } from '../../../smpUI/components/Modal';
+import { IModalProps } from '../../../smpUI/Modal';
 import useStyles from './styles';
 
 interface IColorPickerProps extends IModalProps {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { TopBar } from '../../../smpUI/layout';
 import { Box, Text } from '../../../smpUI/components';
-import { ITopBarProps } from '../../../smpUI/layout/Bar/TopBar';
+import { ITopBarProps } from '../../../smpUI/TopBar';
 import _ from 'lodash';
 
 export interface ITopBarDisplayingFilenameProps extends ITopBarProps {

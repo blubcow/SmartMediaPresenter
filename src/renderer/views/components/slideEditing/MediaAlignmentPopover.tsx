@@ -1,6 +1,6 @@
 import React from 'react';
 import { Popover, Box, Button, Text } from '../../../smpUI/components';
-import { IPopoverProps } from '../../../smpUI/components/Popover';
+import { IPopoverProps } from '../../../smpUI/Popover';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { ButtonGroup } from '@mui/material';

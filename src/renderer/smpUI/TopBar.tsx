@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppBar, AppBarProps, Toolbar } from '@mui/material';
-import { IconButton } from '../../components';
+import { IconButton } from './components';
 import { ArrowBackIosNew } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import _ from 'lodash';

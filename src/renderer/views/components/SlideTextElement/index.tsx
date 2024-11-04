@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { useState, useEffect } from 'react';
 import { Dimensions, TextElement } from '../../../shared/types/presentation';
 import { Text } from '../../../smpUI/components';
-import { ITextProps } from '../../../smpUI/components/Text';
+import { ITextProps } from '../../../smpUI/Text';
 import SlideTextEditingTextarea from '../slideEditing/SlideTextEditingTextarea';
 
 interface ISlideTextElementProps extends ITextProps {

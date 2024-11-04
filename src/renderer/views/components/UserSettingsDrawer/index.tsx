@@ -1,6 +1,6 @@
 import React from 'react';
 import { Drawer, Box, Text } from '../../../smpUI/components';
-import { IDrawerProps } from '../../../smpUI/components/Drawer';
+import { IDrawerProps } from '../../../smpUI/Drawer';
 import ChangeLanguage from './ChangeLanguage';
 import ChangeTheme from './ChangeTheme';
 import RemoteUser from './RemoteUser';

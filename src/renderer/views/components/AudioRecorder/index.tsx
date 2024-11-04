@@ -6,7 +6,7 @@ import useStyles from './styles';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { formatTimer } from '../../../util/Formatter';
-import { IBoxProps } from '../../../smpUI/components/Box';
+import { IBoxProps } from '../../../smpUI/Box';
 import useMediaStreamRecorder from '../../../hooks/useMediaStreamRecorder';
 
 

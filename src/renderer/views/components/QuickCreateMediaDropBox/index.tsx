@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { QuickCreateMediaResource } from '../../../types/quickCreateMode';
 import { Box, Text } from '../../../smpUI/components';
-import { IBoxProps } from '../../../smpUI/components/Box';
+import { IBoxProps } from '../../../smpUI/Box';
 import useStyles from './styles';
 import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
 import * as path from 'path';

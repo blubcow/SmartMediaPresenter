@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { Fab, FabProps } from '@mui/material';
-import { Box } from '.';
+import { Box } from './components';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 

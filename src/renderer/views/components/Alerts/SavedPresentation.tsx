@@ -1,6 +1,6 @@
 import React from 'react';
 import { Snackbar } from '../../../smpUI/components';
-import { ISnackbarProps } from '../../../smpUI/components/Snackbar';
+import { ISnackbarProps } from '../../../smpUI/Snackbar';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 

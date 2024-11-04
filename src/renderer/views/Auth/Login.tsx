@@ -1,5 +1,5 @@
 import React from 'react';
-import Page from '../../smpUI/layout/Page';
+import Page from '../../smpUI/Page';
 import AuthPaper from '../components/AuthPaper';
 import { Box, Button } from '../../smpUI/components';
 import useStyles from './styles';

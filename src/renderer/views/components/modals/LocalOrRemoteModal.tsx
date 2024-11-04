@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Box, Text } from '../../../smpUI/components';
-import { IModalProps } from '../../../smpUI/components/Modal';
+import { IModalProps } from '../../../smpUI/Modal';
 import { useLocalOrRemoteModalStyles } from './styles';
 import { DesktopWindows, Cloud } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dialog, DialogProps } from '@mui/material';
-import { Box } from '.';
+import { Box } from './components';
 
 export interface IModalProps extends DialogProps {}
 

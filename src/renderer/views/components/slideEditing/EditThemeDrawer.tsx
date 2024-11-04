@@ -1,6 +1,6 @@
 import React from 'react';
 import { Drawer, Box, Button } from '../../../smpUI/components';
-import { IDrawerProps } from '../../../smpUI/components/Drawer';
+import { IDrawerProps } from '../../../smpUI/Drawer';
 import BackgroundAudio from './slideThemeComponents/BackgroundAudio';
 import DefaultBackgroundColor from './slideThemeComponents/DefaultBackgroundColor';
 import DefaultFont from './slideThemeComponents/DefaultFont';

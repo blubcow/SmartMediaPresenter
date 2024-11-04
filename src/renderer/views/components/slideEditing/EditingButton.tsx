@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, ReactNode } from 'react';
 import { Box, Card } from '../../../smpUI/components';
 import { ButtonBase } from '@mui/material';
-import { ICardProps } from '../../../smpUI/components/Card';
+import { ICardProps } from '../../../smpUI/Card';
 import useStyles from './styles';
 
 export interface IEditingButtonProps extends ICardProps {

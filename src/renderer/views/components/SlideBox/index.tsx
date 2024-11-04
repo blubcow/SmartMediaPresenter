@@ -6,7 +6,7 @@ import {
 	SlideTheme,
 	TextElement,
 } from '../../../shared/types/presentation';
-import { IBoxProps } from '../../../smpUI/components/Box';
+import { IBoxProps } from '../../../smpUI/Box';
 import MediaBox from '../MediaBox';
 import PresentationFrame from '../PresentationFrame';
 import useStyels from './styles';

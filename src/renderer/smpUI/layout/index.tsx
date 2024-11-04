@@ -1,2 +1,2 @@
-export { default as Page } from './Page';
-export { default as TopBar } from './Bar/TopBar';
+export { default as Page } from '../Page';
+export { default as TopBar } from '../TopBar';

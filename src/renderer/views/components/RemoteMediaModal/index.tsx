@@ -6,7 +6,7 @@ import {
 	Text,
 	IconButton,
 } from '../../../smpUI/components';
-import { IModalProps } from '../../../smpUI/components/Modal';
+import { IModalProps } from '../../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import useStyles, { useFileStyles } from './styles';

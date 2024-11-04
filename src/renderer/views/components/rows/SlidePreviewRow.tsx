@@ -8,7 +8,7 @@ import {
 	Slide,
 } from '../../../shared/types/presentation';
 import { Row, Box, Text } from '../../../smpUI/components';
-import { IRowProps } from '../../../smpUI/components/Row';
+import { IRowProps } from '../../../smpUI/Row';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface ISlidePreviewRowProps extends IRowProps {

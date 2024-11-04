@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text } from '.';
+import { Box, Text } from './components';
 import { IBoxProps } from './Box';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';

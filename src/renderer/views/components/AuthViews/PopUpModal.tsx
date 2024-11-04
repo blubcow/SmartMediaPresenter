@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, IconButton } from '../../../smpUI/components';
-import { IModalProps } from '../../../smpUI/components/Modal';
+import { IModalProps } from '../../../smpUI/Modal';
 import { ArrowBackIosNew } from '@mui/icons-material';
 
 interface IPopUpModalProps extends IModalProps {
