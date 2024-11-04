@@ -1,7 +1,20 @@
 import React, { PropsWithChildren } from 'react';
 import { Fab, FabProps } from '@mui/material';
-import { Box } from '..';
-import useStyles from './styles';
+import { Box } from '.';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			position: 'absolute',
+			bottom: theme.spacing(3),
+			right: theme.spacing(5),
+			display: 'flex',
+			flexDirection: 'row-reverse',
+		},
+	})
+);
 
 interface IFloatingButtonProps extends FabProps {}
 

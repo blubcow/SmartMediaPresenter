@@ -1,8 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Typography, TypographyProps } from '@mui/material';
 import { EditText, EditTextarea } from 'react-edit-text';
-import useStyles from './styles';
 import _ from 'lodash';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		editableText: {
+			height: '100%',
+			width: '100%',
+			border: 0,
+			outline: 0,
+			backgroundColor: 'inherit',
+			fontFamily: 'inherit',
+			fontWeight: 'inherit',
+			fontSize: 'inherit',
+			color: 'inherit',
+			resize: 'both',
+			overflow: 'show',
+		},
+	})
+);
+
 
 export interface ITextProps extends TypographyProps {
 	editable?: boolean | string;

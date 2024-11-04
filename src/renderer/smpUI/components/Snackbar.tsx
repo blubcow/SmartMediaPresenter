@@ -5,7 +5,7 @@ import {
 	SnackbarProps,
 	AlertTitle,
 } from '@mui/material';
-import { Text } from '..';
+import { Text } from '.';
 
 export interface ISnackbarProps extends SnackbarProps {
 	severity?: 'success' | 'warning' | 'info' | 'error';

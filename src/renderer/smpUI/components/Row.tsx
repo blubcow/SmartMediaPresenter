@@ -1,7 +1,47 @@
 import React from 'react';
-import { Box, Text } from '..';
-import { IBoxProps } from '../Box';
-import useStyles from './styles';
+import { Box, Text } from '.';
+import { IBoxProps } from './Box';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		root: {
+			padding: theme.spacing(1),
+		},
+		container: {
+			borderRadius: theme.shape.borderRadius,
+			overflow: 'hidden',
+			border: '1px solid ' + theme.palette.background.paper,
+			filter: `drop-shadow(0 0 0.5rem ${theme.palette.divider})`,
+			outlineColor: theme.palette.primary.main,
+		},
+		baseContainer: {
+			height: '100%',
+			display: 'flex',
+			flexDirection: 'row',
+			justifyContent: 'space-between',
+			paddingLeft: theme.spacing(5),
+			paddingRight: theme.spacing(5),
+			alignItems: 'center',
+		},
+		textContainer: {
+			height: '100%',
+			width: 'auto',
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'center',
+		},
+		infoLabel: {
+			marginTop: theme.spacing(1),
+			color: theme.palette.text.secondary,
+		},
+		secondaryInfoLabel: {
+			marginTop: theme.spacing(0.5),
+			color: theme.palette.secondary.main,
+		},
+	})
+);
 
 export interface IRowProps extends IBoxProps {
 	rootContainerStyle?: any;
