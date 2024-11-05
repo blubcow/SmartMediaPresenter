@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-	Snackbar as MuiSnackbar,
-	Alert,
-	SnackbarProps,
-	AlertTitle,
-} from '@mui/material';
+import {Snackbar as MuiSnackbar,Alert,SnackbarProps,AlertTitle,} from '@mui/material';
 import { Text } from './components';
 
 export interface ISnackbarProps extends SnackbarProps {
@@ -13,6 +8,10 @@ export interface ISnackbarProps extends SnackbarProps {
 
 const Snackbar: React.FC<ISnackbarProps> = (props) => {
 	const { severity = 'info', message, title, ...muiSnackbarProps } = props;
+
+	muiSnackbarProps.autoHideDuration = 5000;
+	muiSnackbarProps.anchorOrigin = { horizontal: 'center', vertical: 'bottom' };
+
 	return (
 		<MuiSnackbar {...muiSnackbarProps}>
 			<Alert severity={severity} variant='filled'>

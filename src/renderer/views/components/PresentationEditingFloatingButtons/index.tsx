@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import {
 	FloatingButtonContainer,
 	FloatingButton,
+	Snackbar,
 } from '../../../smpUI/components';
 import { Check, Close, Save } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
-import { SavedPresentationSuccess } from '../Alerts/SavedPresentation';
 import { SinglePresentation } from '../../../shared/types/presentation';
 import PresentationFloatingButton from '../PresentationFloatingButton';
 
@@ -28,11 +28,9 @@ const PresentationEditingFloatingButtons: React.FC<
 		presentationFrameUpdatedSettings,
 		presentationId,
 	} = state;
-	const { t } = useTranslation([i18nNamespace.Presentation]);
-	const [
-		savedPresentationSuccessAlertOpen,
-		setSavedPresentationSuccessAlertOpen,
-	] = useState<boolean>(false);
+	const { t } = useTranslation([i18nNamespace.Presentation, i18nNamespace.Alert]);
+
+	const [saveSuccessAlert, setSaveSuccessAlert] = useState<boolean>(false);
 
 	const confirmPresentationFrameChanges = () => {
 		const newPresentation = { ...presentation };
@@ -74,10 +72,13 @@ const PresentationEditingFloatingButtons: React.FC<
 
 	return (
 		<FloatingButtonContainer>
-			<SavedPresentationSuccess
-				open={savedPresentationSuccessAlertOpen}
-				onClose={() => setSavedPresentationSuccessAlertOpen(false)}
-			/>
+
+			<Snackbar 
+				open={saveSuccessAlert}
+				onClose={() => setSaveSuccessAlert(false)}
+				severity='success'
+				message={t('presSaveSuccess', {ns: i18nNamespace.Alert})}/>
+
 			{state.editingControls === 'presentationFrame' ? (
 				<>
 					<FloatingButton
@@ -115,7 +116,7 @@ const PresentationEditingFloatingButtons: React.FC<
 							dispatch({
 								type: PresentationEditingActionIdentifiers.savePresentationChanges,
 							});
-							setSavedPresentationSuccessAlertOpen(true);
+							setSaveSuccessAlert(true);
 						}}
 					>
 						<Save sx={{ mr: 1 }} />

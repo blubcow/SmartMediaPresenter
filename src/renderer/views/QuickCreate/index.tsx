@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '../../smpUI/components';
-import { Page } from '../../smpUI/layout';
+import Page from '../../smpUI/Page';
 import QuickCreateTopBar from './QuickCreateTopBar';
 import useStyles from './styles';
 import { Divider } from '@mui/material';

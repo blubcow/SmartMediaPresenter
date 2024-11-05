@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page } from '../../smpUI/layout';
+import Page from '../../smpUI/Page';
 import HomeTopBar from './HomeTopBar';
 import { Box, Row, Text } from '../../smpUI/components';
 import { ProjectsHeaderRow } from '../components/rows';

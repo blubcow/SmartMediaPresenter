@@ -8,7 +8,9 @@ import {
 	FormControl,
 } from '@mui/material';
 
-interface ISelectionPickerProps extends SelectProps {}
+type ISelectionPickerProps = SelectProps & {
+	label: string
+}
 
 const SelectionPicker: React.FC<ISelectionPickerProps> = (props) => {
 	const { label } = props;

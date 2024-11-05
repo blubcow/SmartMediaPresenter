@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TopBar } from '../../smpUI/layout';
+import TopBar from '../../smpUI/TopBar';
 import { Box } from '../../smpUI/components';
 import { MenuButton } from '../components/IconButtons';
 import useThemedLogo from '../../hooks/useThemedLogo';
