@@ -1,18 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import Page from '../../smpUI/Page';
-import { Box } from '../../smpUI/components';
+import Page from '../smpUI/Page';
+import { Box } from '../smpUI/components';
 import { useLocation } from 'react-router-dom';
-import { useSinglePresentation } from '../../hooks/useMainProcessMethods';
+import { useSinglePresentation } from '../hooks/useMainProcessMethods';
 import EditTopBar from './EditTopBar';
-import useStyles from './styles';
 import { Divider } from '@mui/material';
-import SlideEditingBox from '../components/slideEditing/SlideEditingBox';
-import PresentationEditingProvider from '../../providers/PresentationEditingProvider';
-import PresentationEditingFloatingButtons from '../components/PresentationEditingFloatingButtons';
-import PresentationEditingPreviewRows from '../components/PresentationEditingPreviewRows';
-import LoadingIndicatorPaper from '../components/LoadingIndicatorPaper';
-import usePresentationCacheContext from '../../hooks/usePresentationCacheContext';
-import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
+import SlideEditingBox from './components/slideEditing/SlideEditingBox';
+import PresentationEditingProvider from '../providers/PresentationEditingProvider';
+import PresentationEditingFloatingButtons from './components/PresentationEditingFloatingButtons';
+import PresentationEditingPreviewRows from './components/PresentationEditingPreviewRows';
+import LoadingIndicatorPaper from './components/LoadingIndicatorPaper';
+import usePresentationCacheContext from '../hooks/usePresentationCacheContext';
+import usePresentationSyncContext from '../hooks/usePresentationSyncContext';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			width: '100%',
+			height: '100%',
+			display: 'flex',
+			// overflow: 'hidden',
+		},
+		previewContainer: {
+			//height: '100%',
+			flex: 1,
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'center',
+			alignItems: 'center',
+			paddingTop: theme.spacing(1),
+		},
+		loadingContainer: {
+			height: '100vh',
+			width: '100vw',
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+		},
+	})
+);
+
 
 const Edit: React.FC<{}> = (props) => {
 	const [id, setId] = useState<string>('');

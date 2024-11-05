@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Box } from '../../smpUI/components';
-import Page from '../../smpUI/Page';
+import { Box } from '../smpUI/components';
+import Page from '../smpUI/Page';
 import QuickCreateTopBar from './QuickCreateTopBar';
-import useStyles from './styles';
 import { Divider } from '@mui/material';
-import QuickCreateMediaDropBox from '../components/QuickCreateMediaDropBox';
-import QuickCreateSlidesBox from '../components/QuickCreateSlidesBox';
-import { getEmptySlide, Slide } from '../../shared/types/presentation';
-import { SMPRoutes } from '../../types/routes';
+import QuickCreateMediaDropBox from './components/QuickCreateMediaDropBox';
+import QuickCreateSlidesBox from './components/QuickCreateSlidesBox';
+import { getEmptySlide, Slide } from '../shared/types/presentation';
+import { SMPRoutes } from '../types/routes';
 import { useNavigate } from 'react-router-dom';
-import { DataTransferIdentifiers } from '../../types/identifiers';
-import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
+import { DataTransferIdentifiers } from '../types/identifiers';
+import usePresentationSyncContext from '../hooks/usePresentationSyncContext';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			width: '100%',
+			height: '100%',
+			display: 'flex',
+		},
+	})
+);
+
 
 const QuickCreate: React.FC<{}> = () => {
 	const navigate = useNavigate();

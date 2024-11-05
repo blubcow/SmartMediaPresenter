@@ -1,21 +1,54 @@
 import React from 'react';
-import Page from '../../smpUI/Page';
+import Page from '../smpUI/Page';
 import HomeTopBar from './HomeTopBar';
-import { Box, Row, Text } from '../../smpUI/components';
-import { ProjectsHeaderRow } from '../components/rows';
-import useStyles from './styles';
+import { Box, Row, Text } from '../smpUI/components';
+import { ProjectsHeaderRow } from './components/rows';
 import { CircularProgress, Divider } from '@mui/material';
-import { useLocalFileSystem } from '../../hooks/useMainProcessMethods';
+import { useLocalFileSystem } from '../hooks/useMainProcessMethods';
 import { useNavigate } from 'react-router-dom';
-import { SMPRoutes } from '../../types/routes';
+import { SMPRoutes } from '../types/routes';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../i18n/i18n';
-import { SinglePresentation } from '../../shared/types/presentation';
-import PresentationPreview from '../components/PresentationPreview';
-import { getFormattedDate } from '../../models/DateFormatter';
-import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
-import usePresentationCacheContext from '../../hooks/usePresentationCacheContext';
-import PresentationSyncingButton from '../components/PresentationSyncingButton';
+import { i18nNamespace } from '../i18n/i18n';
+import { SinglePresentation } from '../shared/types/presentation';
+import PresentationPreview from './components/PresentationPreview';
+import { getFormattedDate } from '../models/DateFormatter';
+import usePresentationSyncContext from '../hooks/usePresentationSyncContext';
+import usePresentationCacheContext from '../hooks/usePresentationCacheContext';
+import PresentationSyncingButton from './components/PresentationSyncingButton';
+
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			width: '100%',
+			height: '100%',
+			display: 'flex',
+		},
+		rowsContainer: {
+			flex: 0.3,
+			minWidth: '450px',
+			maxWidth: '600px',
+			height: '100%',
+		},
+		rowsScrollingContainer: {
+			height: '100%',
+			overflowY: 'auto',
+		},
+		previewContainer: {
+			height: '100%',
+			flex: 1,
+		},
+		noPresentationSelectedContainer: {
+			height: '100%',
+			width: '100%',
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+		},
+	})
+);
 
 const Home: React.FC<{}> = () => {
 	const classes = useStyles();

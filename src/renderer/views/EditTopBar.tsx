@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
-import { Box } from '../../smpUI/components';
-import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
+import usePresentationEditingContext from '../hooks/usePresentationEditingContext';
+import { Box } from '../smpUI/components';
+import { PresentationEditingActionIdentifiers } from '../types/identifiers';
 import TopBarDisplayingFilename, {
 	ITopBarDisplayingFilenameProps,
-} from '../components/appBars/TopBarDisplayingFilename';
-import MediaSettings from '../components/slideEditing/MediaSettings';
-import SlideSettings from '../components/slideEditing/SlideSettings';
-import ActionConfirmationModal from '../components/modals/ActionConfirmationModal';
+} from './components/appBars/TopBarDisplayingFilename';
+import MediaSettings from './components/slideEditing/MediaSettings';
+import SlideSettings from './components/slideEditing/SlideSettings';
+import ActionConfirmationModal from './components/modals/ActionConfirmationModal';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../i18n/i18n';
-import TextSettings from '../components/slideEditing/TextSettings';
-import { MediaSettingsProvider } from '../../providers/MediaSettingsProvider';
+import { i18nNamespace } from '../i18n/i18n';
+import TextSettings from './components/slideEditing/TextSettings';
+import { MediaSettingsProvider } from '../providers/MediaSettingsProvider';
 
 interface IEditTopBarProps extends ITopBarDisplayingFilenameProps { }
 
