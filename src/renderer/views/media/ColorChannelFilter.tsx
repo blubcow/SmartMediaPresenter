@@ -2,7 +2,7 @@ import React from 'react';
 import {
 	MediaRGBChannels,
 	RGBChannel,
-} from '../../shared/types/presentation';
+} from '../../shared/presentation.interface';
 
 interface IColorChannelFilterProps {
 	id: number;

@@ -1,4 +1,4 @@
-import { SinglePresentation, Slide } from '../shared/types/presentation';
+import { SinglePresentation, Slide } from '../shared/presentation.interface';
 
 export interface IPresentationSyncContext {
 	storedPresentations: SyncableStoredPresentation[];

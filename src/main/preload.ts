@@ -1,7 +1,7 @@
 // Disable no-unused-vars, broken for spread args
 /* eslint no-unused-vars: off */
 import { BrowserWindow, contextBridge, dialog, ipcRenderer, IpcRendererEvent, SaveDialogReturnValue } from 'electron';
-import { MainProcessMethodIdentifiers } from '../renderer/shared/types/identifiers';
+import { MainProcessMethodIdentifiers } from '../renderer/shared/identifiers.enum';
 export type Channels = 'ipc-example';
 import * as fs from 'fs';
 

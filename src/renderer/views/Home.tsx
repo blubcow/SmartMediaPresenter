@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { SMPRoutes } from '../types/routes';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../i18n/i18n';
-import { SinglePresentation } from '../shared/types/presentation';
+import { SinglePresentation } from '../shared/presentation.interface';
 import PresentationPreview from './presentation/PresentationPreview';
 import { getFormattedDate } from '../models/DateFormatter';
 import usePresentationSyncContext from '../hooks/usePresentationSyncContext';

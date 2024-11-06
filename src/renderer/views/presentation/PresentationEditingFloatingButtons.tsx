@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { i18nNamespace } from '../../i18n/i18n';
 import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
-import { SinglePresentation } from '../../shared/types/presentation';
+import { SinglePresentation } from '../../shared/presentation.interface';
 import PresentationFloatingButton from './PresentationFloatingButton';
 
 interface IPresentationEditingFloatingButtons {

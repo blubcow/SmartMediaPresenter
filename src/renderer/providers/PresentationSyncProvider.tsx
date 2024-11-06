@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import useRemoteUserContext from '../hooks/useRemoteUserContext';
 import { i18nNamespace } from '../i18n/i18n';
 import { database } from '../models/firebase';
-import { SinglePresentation } from '../shared/types/presentation';
+import { SinglePresentation } from '../shared/presentation.interface';
 import { Box, Text } from '../smpUI/components';
 import { SyncableStoredPresentation } from '../types/presentaitonSycncing';
 import { useStoredPresentations } from '../hooks/useMainProcessMethods';

@@ -15,7 +15,7 @@ import { RemoteStorageMedia } from '../../types/presentaitonSycncing';
 import {
 	AudioResourceExtensions,
 	ImageResourceExtensions,
-} from '../../shared/types/mediaResources';
+} from '../../shared/mediaResource.utils';
 import { ArrowBack } from '@mui/icons-material';
 import RemoteFile from './RemoteFile';
 import { createStyles, makeStyles } from '@mui/styles';

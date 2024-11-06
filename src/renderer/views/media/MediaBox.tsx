@@ -4,7 +4,7 @@ import {
 	Dimensions,
 	MediaAlignment,
 	MediaRessource,
-} from '../../shared/types/presentation';
+} from '../../shared/presentation.interface';
 import { Box } from '../../smpUI/components';
 import MediaDropBoxIndicator from '../components/MediaDropBoxIndicator';
 import ActiveMediaIdenticator from './ActiveMediaIdenticator';

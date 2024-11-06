@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { database } from '../models/firebase';
 import { syncLocalPresentation } from '../models/PresentationSyncer';
-import { MainProcessMethodIdentifiers } from '../shared/types/identifiers';
+import { MainProcessMethodIdentifiers } from '../shared/identifiers.enum';
 import {
 	SinglePresentation,
 	StoredPresentation,
-} from '../shared/types/presentation';
+} from '../shared/presentation.interface';
 import {
 	LocalSyncPresentationItem,
 	RemotelyAvailableMedia,

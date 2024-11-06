@@ -5,7 +5,7 @@ import QuickCreateTopBar from './QuickCreateTopBar';
 import { Divider } from '@mui/material';
 import QuickCreateMediaDropBox from './QuickCreateMediaDropBox/QuickCreateMediaDropBox';
 import QuickCreateSlidesBox from './QuickCreateSlidesBox/QuickCreateSlidesBox';
-import { getEmptySlide, Slide } from '../shared/types/presentation';
+import { getEmptySlide, Slide } from '../shared/presentation.interface';
 import { SMPRoutes } from '../types/routes';
 import { useNavigate } from 'react-router-dom';
 import { DataTransferIdentifiers } from '../types/identifiers';

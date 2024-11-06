@@ -6,7 +6,7 @@ import {
 	MediaLocation,
 	MediaRessource,
 	Slide,
-} from '../../shared/types/presentation';
+} from '../../shared/presentation.interface';
 import { Row, Box, Text } from '../../smpUI/components';
 import { IRowProps } from '../../smpUI/Row';
 import { LazyLoadImage } from 'react-lazy-load-image-component';

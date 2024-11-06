@@ -1,6 +1,6 @@
 import { useContext, Dispatch } from 'react';
 import { PresentationEditingContext } from '../providers/PresentationEditingProvider';
-import { MediaRessource } from '../shared/types/presentation';
+import { MediaRessource } from '../shared/presentation.interface';
 import { PresentationEditingActionIdentifiers } from '../types/identifiers';
 import {
 	PresentationEditingSettings,

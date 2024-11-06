@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MediaRessource } from '../../shared/types/presentation';
+import { MediaRessource } from '../../shared/presentation.interface';
 import { Box } from '../../smpUI/components';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';

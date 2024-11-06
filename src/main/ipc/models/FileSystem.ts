@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { PresentationFileAvailableExtensions } from '../../../renderer/shared/types/presentationFormat';
-import { allowedFiles } from '../../../renderer/shared/types/mediaResources';
+import { PresentationFileAvailableExtensions } from '../../../renderer/shared/presentationFormat.interface';
+import { allowedFiles } from '../../../renderer/shared/mediaResource.utils';
 
 export interface IFileInfo{
 	name: string,

@@ -4,7 +4,7 @@ import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
 import {
 	Dimensions,
 	PresentationFrameSettings,
-} from '../../shared/types/presentation';
+} from '../../shared/presentation.interface';
 import { Box } from '../../smpUI/components';
 import ResizingAnchor, { AnchorPosition } from './ResizingAnchor';
 

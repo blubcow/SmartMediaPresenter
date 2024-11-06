@@ -11,7 +11,7 @@ import {
 	RemoteStorageMediaType,
 } from '../../types/presentaitonSycncing';
 import { InsertDriveFile, Folder, ArrowBack } from '@mui/icons-material';
-import { ImageResourceExtensions } from '../../shared/types/mediaResources';
+import { ImageResourceExtensions } from '../../shared/mediaResource.utils';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 

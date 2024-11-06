@@ -28,7 +28,7 @@ import {
 	update,
 	push,
 } from 'firebase/database';
-import { SinglePresentation } from '../shared/types/presentation';
+import { SinglePresentation } from '../shared/presentation.interface';
 import { dbCollection, defaultDBURL } from '../types/remoteCollections';
 
 let fireAuth: any = {};

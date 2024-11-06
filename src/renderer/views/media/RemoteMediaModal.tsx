@@ -18,7 +18,7 @@ import {
 } from '../../types/presentaitonSycncing';
 import { useHeldKeys } from '../../hooks/useHeldKeys';
 import { InsertDriveFile, Folder, ArrowBack } from '@mui/icons-material';
-import { ImageResourceExtensions } from '../../shared/types/mediaResources';
+import { ImageResourceExtensions } from '../../shared/mediaResource.utils';
 import { useLocalFileSystem } from '../../hooks/useMainProcessMethods';
 import RemoteFile from './RemoteFile';
 import { createStyles, makeStyles } from '@mui/styles';

@@ -3,7 +3,7 @@ import {
 	PresentationFrameSettings,
 	SinglePresentation,
 	Slide,
-} from '../shared/types/presentation';
+} from '../shared/presentation.interface';
 import { PresentationEditingActionIdentifiers } from './identifiers';
 
 export type PresentationEditingControls =

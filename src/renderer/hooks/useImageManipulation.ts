@@ -5,7 +5,7 @@ import {
 	ImageManipulationEntity,
 	MediaRGBChannels,
 	MediaSettings,
-} from '../shared/types/presentation';
+} from '../shared/presentation.interface';
 
 const useImageManipulation = (mediaSettings?: Partial<MediaSettings>) => {
 	const { t } = useTranslation([i18nNamespace.Presentation]);

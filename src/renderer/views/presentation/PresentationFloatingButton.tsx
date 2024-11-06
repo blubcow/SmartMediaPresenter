@@ -7,7 +7,7 @@ import { i18nNamespace } from '../../i18n/i18n';
 import PresentationDispalaySelectionModal from './PresentationDisplaySelectionModal';
 import PresentationMode from '../PresentationMode';
 import { useFullScreenHandle } from 'react-full-screen';
-import { SinglePresentation } from '../../shared/types/presentation';
+import { SinglePresentation } from '../../shared/presentation.interface';
 import PresentationFullScreen from '../components/PresentationFullScreen';
 import { useNavigate } from 'react-router-dom';
 

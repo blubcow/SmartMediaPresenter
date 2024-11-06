@@ -4,7 +4,7 @@ import {
 	RemoteStorageMedia,
 } from '../types/presentaitonSycncing';
 import { uploadMedia } from '../models/MediaUploader';
-import { ImageResourceExtensions } from '../shared/types/mediaResources';
+import { ImageResourceExtensions } from '../shared/mediaResource.utils';
 import { RemoteUser } from '../types/remote';
 import { storage } from '../models/firebase';
 

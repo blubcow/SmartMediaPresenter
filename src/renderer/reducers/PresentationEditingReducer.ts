@@ -1,4 +1,4 @@
-import { SinglePresentation } from '../shared/types/presentation';
+import { SinglePresentation } from '../shared/presentation.interface';
 import { PresentationEditingActionIdentifiers as ActionIdentifiers } from '../types/identifiers';
 import {
 	PresentationEditingAction,

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { usePresentationMode } from '../hooks/useMainProcessMethods';
 import { Box, Text, Button } from '../smpUI/components';
 import { FullScreen, FullScreenHandle } from 'react-full-screen';
-import { SinglePresentation } from '../shared/types/presentation';
+import { SinglePresentation } from '../shared/presentation.interface';
 import SlideBox from './slide/SlideEditingBox';
 import { Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';

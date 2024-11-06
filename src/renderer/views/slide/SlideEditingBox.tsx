@@ -5,7 +5,7 @@ import {
 	Slide,
 	SlideTheme,
 	TextElement,
-} from '../../shared/types/presentation';
+} from '../../shared/presentation.interface';
 import { IBoxProps } from '../../smpUI/Box';
 import MediaBox from '../media/MediaBox';
 import PresentationFrame from '../presentation/PresentationFrame';

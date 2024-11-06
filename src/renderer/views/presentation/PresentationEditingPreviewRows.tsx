@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
-import { getEmptySlide, Slide } from '../../shared/types/presentation';
+import { getEmptySlide, Slide } from '../../shared/presentation.interface';
 import { Box } from '../../smpUI/components';
 import { SlidePreviewRow, SlidesHeaderRow } from '../rows';
 import { createStyles, makeStyles } from '@mui/styles';

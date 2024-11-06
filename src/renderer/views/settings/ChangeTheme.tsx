@@ -6,7 +6,7 @@ import useUserSettingsContext from '../../hooks/useUserSettingsContext';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { AutoAwesome, DarkMode, LightMode } from '@mui/icons-material';
-import { preferredTheme } from '../../shared/types/userSettings';
+import { preferredTheme } from '../../shared/userSettings.interface';
 
 const ChangeTheme: React.FC<{}> = (props) => {
 	const { userSettings, saveUserSettings } = useUserSettingsContext();

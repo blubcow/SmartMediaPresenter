@@ -6,7 +6,7 @@ import { useSinglePresentation } from '../hooks/useMainProcessMethods';
 import SlideBox from './slide/SlideEditingBox';
 import usePresentationCacheContext from '../hooks/usePresentationCacheContext';
 import usePresentationSyncContext from '../hooks/usePresentationSyncContext';
-import { SinglePresentation } from '../shared/types/presentation';
+import { SinglePresentation } from '../shared/presentation.interface';
 import { CircularProgress } from '@mui/material';
 import LoadingIndicatorPaper from './components/LoadingIndicatorPaper';
 

@@ -4,7 +4,7 @@ import {
 	SinglePresentation,
 	SlideElement,
 	TextElement,
-} from '../../../renderer/shared/types/presentation';
+} from '../../../renderer/shared/presentation.interface';
 
 const mediaToXlsx = (media: MediaRessource[]) => {
 	const mediaData = {

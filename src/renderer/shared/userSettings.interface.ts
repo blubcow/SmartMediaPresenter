@@ -1,4 +1,4 @@
-import { AvailableLanguage } from '../../i18n/i18n';
+import { AvailableLanguage } from '../i18n/i18n';
 
 export type preferredTheme = 'auto' | 'dark' | 'light';
 

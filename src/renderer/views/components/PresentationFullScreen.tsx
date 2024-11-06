@@ -3,7 +3,7 @@ import { FullScreen } from 'react-full-screen';
 import {
 	Dimensions,
 	SinglePresentation,
-} from '../../shared/types/presentation';
+} from '../../shared/presentation.interface';
 import { Box } from '../../smpUI/components';
 import SlideBox from '../slide/SlideEditingBox';
 
