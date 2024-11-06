@@ -104,6 +104,7 @@ The Smart Media Presenter was developed as an open source desktop application in
 - `npm install @types/react-edit-text --save-dev`
 - `npm install @types/lodash --save-dev`
 - `npm install @types/react-lazy-load-image-component --save-dev`
+- `npm install @types/react-color --save-dev`
 
 ### Python Shell
 - `npm install python-shell`
