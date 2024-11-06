@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../i18n/i18n';
-import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
+import { i18nNamespace } from '../../i18n/i18n';
+import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
+import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
 import ColorPickerButton from './ColorPickerButton';
 
 interface IChangeBackgroundColorButtonProps {}

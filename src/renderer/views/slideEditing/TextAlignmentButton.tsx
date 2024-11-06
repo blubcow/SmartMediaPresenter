@@ -1,14 +1,14 @@
 import React from 'react';
 import { ButtonGroup } from '@mui/material';
-import { Box, Card, Button } from '../../../smpUI/components';
+import { Box, Card, Button } from '../../smpUI/components';
 import {
 	AlignHorizontalCenter,
 	AlignHorizontalLeft,
 	AlignHorizontalRight,
 } from '@mui/icons-material';
-import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { TextAlignment, TextElement } from '../../../shared/types/presentation';
-import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
+import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
+import { TextAlignment, TextElement } from '../../shared/presentation.interface';
+import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
 
 const TextAliginmentButton: React.FC<{}> = () => {
 	const { state, dispatch } = usePresentationEditingContext();

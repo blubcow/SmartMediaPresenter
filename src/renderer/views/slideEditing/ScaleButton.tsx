@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import EditingButton from './EditingButton';
 import { AspectRatio } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../i18n/i18n';
+import { i18nNamespace } from '../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
-import { Box, TextField, Card } from '../../../smpUI/components';
+import { Box, TextField, Card } from '../../smpUI/components';
 import MediaEditingModal from './MediaEditingModal';
-import { MediaRessource } from '../../../shared/types/presentation';
+import { MediaRessource } from '../../shared/presentation.interface';
 import { Link, LinkOff } from '@mui/icons-material';
-import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
+import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
+import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
 
 interface IScaleButtonProps {}
 

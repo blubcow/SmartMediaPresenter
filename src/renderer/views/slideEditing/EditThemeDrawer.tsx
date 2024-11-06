@@ -1,6 +1,6 @@
 import React from 'react';
-import { Drawer, Box, Button } from '../../../smpUI/components';
-import { IDrawerProps } from '../../../smpUI/Drawer';
+import { Drawer, Box, Button } from '../../smpUI/components';
+import { IDrawerProps } from '../../smpUI/Drawer';
 import BackgroundAudio from './slideThemeComponents/BackgroundAudio';
 import DefaultBackgroundColor from './slideThemeComponents/DefaultBackgroundColor';
 import DefaultFont from './slideThemeComponents/DefaultFont';
@@ -10,7 +10,7 @@ import DefaultFormat from './slideThemeComponents/DefaultFormat';
 import DefaultPlaybackTime from './slideThemeComponents/DefaultPlaybackTime';
 import { useEditThemeDrawerStyles } from './styles';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../i18n/i18n';
+import { i18nNamespace } from '../../i18n/i18n';
 import DefaultMediaAlignemnt from './slideThemeComponents/DefaultMediaAlignment';
 
 interface IEditThemeDrawerProps extends IDrawerProps {

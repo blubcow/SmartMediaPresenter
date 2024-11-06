@@ -1,8 +1,8 @@
 import React from 'react';
-import { Box, Button, Text } from '../../../../smpUI/components';
+import { Box, Button, Text } from '../../../smpUI/components';
 import { useMatchAudioTimeContentStyles } from './styles';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../../i18n/i18n';
+import { i18nNamespace } from '../../../i18n/i18n';
 
 interface IMatchAudioTimeContentProps {
 	onEnableOverriding: () => void;

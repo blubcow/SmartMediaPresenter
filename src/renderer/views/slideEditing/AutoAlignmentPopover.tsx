@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next";
-import { i18nNamespace } from "../../../i18n/i18n";
+import { i18nNamespace } from "../../i18n/i18n";
 import { Button, CircularProgress, Box as MUIBox, Paper, Popper, PopperProps, Stack } from '@mui/material';
-import usePresentationEditingContext from "../../../hooks/usePresentationEditingContext";
+import usePresentationEditingContext from "../../hooks/usePresentationEditingContext";
 import { forwardRef, useEffect, useRef, useState } from "react";
-import { MediaLocation, SinglePresentation, Slide } from "../../../shared/types/presentation";
-import { PresentationEditingActionIdentifiers } from "../../../types/identifiers";
+import { MediaLocation, SinglePresentation, Slide } from "../../shared/presentation.interface";
+import { PresentationEditingActionIdentifiers } from "../../types/identifiers";
 import { Download } from "@mui/icons-material";
 
 type IAutoAlignmentPopoverProps = PopperProps & {

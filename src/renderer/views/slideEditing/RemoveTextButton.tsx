@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { SinglePresentation } from '../../../shared/types/presentation';
-import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
+import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
+import { SinglePresentation } from '../../shared/presentation.interface';
+import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
 import RemoveButton from './RemoveButton';
 
 const RemoveTextButton: React.FC<{}> = (props) => {

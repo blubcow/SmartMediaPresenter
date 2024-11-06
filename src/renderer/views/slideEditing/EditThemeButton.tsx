@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import EditingButton, { IEditingButtonProps } from './EditingButton';
 import { ColorLens } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../i18n/i18n';
+import { i18nNamespace } from '../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
 import EditThemeDrawer from './EditThemeDrawer';
 

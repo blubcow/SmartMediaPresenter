@@ -2,14 +2,14 @@ import React from 'react';
 import EditingButton, { IEditingButtonProps } from './EditingButton';
 import { TextFields } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../i18n/i18n';
+import { i18nNamespace } from '../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
-import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
+import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
+import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
 import {
 	SinglePresentation,
 	TextElement,
-} from '../../../shared/types/presentation';
+} from '../../shared/presentation.interface';
 import { type } from 'os';
 
 interface IAddTextButtonProps

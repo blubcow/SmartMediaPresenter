@@ -1,11 +1,11 @@
 import React from 'react';
-import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
+import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import {
 	getEmptySlide,
 	SinglePresentation,
 	Slide,
-} from '../../../shared/types/presentation';
-import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
+} from '../../shared/presentation.interface';
+import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
 import RemoveButton from './RemoveButton';
 
 const RemoveSlideButton: React.FC<{}> = (props) => {

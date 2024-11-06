@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import SettingsRow from '../../../settings/SettingsRow';
-import { Box, Text } from '../../../../smpUI/components';
+import SettingsRow from '../../settings/SettingsRow';
+import { Box, Text } from '../../../smpUI/components';
 import { useDefaultPlaybackTimeStyles } from './styles';
-import usePresentationEditingContext from '../../../../hooks/usePresentationEditingContext';
-import { PresentationEditingActionIdentifiers } from '../../../../types/identifiers';
+import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
+import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../../i18n/i18n';
+import { i18nNamespace } from '../../../i18n/i18n';
 
 const DefaultPlaybackTime: React.FC<{}> = () => {
 	const { state, dispatch } = usePresentationEditingContext();

@@ -1,10 +1,10 @@
 import React from 'react';
 import { ButtonGroup } from '@mui/material';
-import { Box, Card, Button } from '../../../smpUI/components';
+import { Box, Card, Button } from '../../smpUI/components';
 import { FormatItalic, FormatBold } from '@mui/icons-material';
-import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { TextElement } from '../../../shared/types/presentation';
-import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
+import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
+import { TextElement } from '../../shared/presentation.interface';
+import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
 
 const TextStyleButton: React.FC<{}> = () => {
 	const { state, dispatch } = usePresentationEditingContext();

@@ -1,7 +1,7 @@
 import React from 'react';
-import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
+import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 
-import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
+import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
 import RemoveButton from './RemoveButton';
 
 const RemoveMediaButton: React.FC<{}> = (props) => {

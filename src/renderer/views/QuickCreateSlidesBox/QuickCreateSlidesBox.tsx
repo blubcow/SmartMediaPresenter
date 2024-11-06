@@ -3,7 +3,7 @@ import {
 	Slide,
 	MediaRessource,
 	getEmptySlide,
-} from '../../../shared/types/presentation';
+} from '../../../shared/presentation.interface';
 import { Box } from '../../../smpUI/components';
 import SlideBox from '../SlideBox/SlideEditingBox';
 import HeaderRow from './HeaderRow';

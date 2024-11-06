@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
-import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { Dimensions, TextElement } from '../../../shared/types/presentation';
-import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
+import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
+import { Dimensions, TextElement } from '../../shared/presentation.interface';
+import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../i18n/i18n';
+import { i18nNamespace } from '../../i18n/i18n';
 
 interface ISlideTextEditingTextareaProps {
 	elementId: number;

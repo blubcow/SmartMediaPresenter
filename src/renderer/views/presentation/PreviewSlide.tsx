@@ -3,7 +3,7 @@ import {
 	SinglePresentation,
 	Slide,
 	SlideTheme,
-} from '../../../shared/types/presentation';
+} from '../../../shared/presentation.interface';
 import SlideBox from '../SlideBox/SlideEditingBox';
 
 interface IPreviewProps {

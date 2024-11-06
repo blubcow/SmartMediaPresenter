@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import { useSystemFonts } from '../../../hooks/useMainProcessMethods';
+import { useSystemFonts } from '../../hooks/useMainProcessMethods';
 import {
 	Box,
 	TextField,
-} from '../../../smpUI/components';
+} from '../../smpUI/components';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../i18n/i18n';
-import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
+import { i18nNamespace } from '../../i18n/i18n';
+import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import {
 	SinglePresentation,
 	TextElement,
-} from '../../../shared/types/presentation';
-import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
+} from '../../shared/presentation.interface';
+import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
 import TextFontSelectionOption from './TextFontSelectionOption';
-import AutoCompleteSelection from '../../../smpUI/AutoCompleteSelection';
+import AutoCompleteSelection from '../../smpUI/AutoCompleteSelection';
 
 interface ITextFontSelectionProps {
 	editingTheme?: boolean;

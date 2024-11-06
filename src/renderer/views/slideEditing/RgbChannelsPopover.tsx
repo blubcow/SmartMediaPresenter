@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { MediaRGBChannels } from '../../../shared/types/presentation';
-import { Popover, Box, Text, Button, Slider } from '../../../smpUI/components';
+import { MediaRGBChannels } from '../../shared/presentation.interface';
+import { Popover, Box, Text, Button, Slider } from '../../smpUI/components';
 import { RestartAlt } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../i18n/i18n';
+import { i18nNamespace } from '../../i18n/i18n';
 
 type RgbChannel = 'red' | 'green' | 'blue';
 type RgbSubChannel = 'r' | 'g' | 'b' | 'alpha';

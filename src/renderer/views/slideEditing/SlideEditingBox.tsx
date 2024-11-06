@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Box, Text } from '../../../smpUI/components';
-import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
+import { Box, Text } from '../../smpUI/components';
+import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
+import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
 import {
 	MediaRessource,
 	SinglePresentation,
 	Slide,
-} from '../../../shared/types/presentation';
-import SlideBox from '../../slide/SlideEditingBox';
-import { useHeldKeys } from '../../../hooks/useHeldKeys';
+} from '../../shared/presentation.interface';
+import SlideBox from '../slide/SlideEditingBox';
+import { useHeldKeys } from '../../hooks/useHeldKeys';
 
 interface ISlideEditingBoxProps { }
 

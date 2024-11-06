@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import usePresentationEditingContext from '../../../../hooks/usePresentationEditingContext';
-import { Box, Button, Text, IconButton } from '../../../../smpUI/components';
-import AudioIcon from '../../../icons/AudioIcon';
+import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
+import { Box, Button, Text, IconButton } from '../../../smpUI/components';
+import AudioIcon from '../../icons/AudioIcon';
 import { PauseCircle, PlayCircle } from '@mui/icons-material';
-import { formatTimer } from '../../../../util/Formatter';
+import { formatTimer } from '../../../util/Formatter';
 import { LinearProgress } from '@mui/material';
 import { useAudioPlaybackContentStyles } from './styles';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../../i18n/i18n';
-import { PresentationEditingActionIdentifiers } from '../../../../types/identifiers';
+import { i18nNamespace } from '../../../i18n/i18n';
+import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 
 interface IAudioPlaybackContentProps {}
 

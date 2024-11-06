@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import EditingButton from './EditingButton';
 import { CropOriginal } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../i18n/i18n';
+import { i18nNamespace } from '../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
-import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { MediaAlignment } from '../../../shared/types/presentation';
-import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
+import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
+import { MediaAlignment } from '../../shared/presentation.interface';
+import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
 import MediaAlignemntPopover from './MediaAlignmentPopover';
 
 interface IAlignMediaButtonProps {}

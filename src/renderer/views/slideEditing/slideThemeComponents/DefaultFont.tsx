@@ -1,8 +1,8 @@
 import React from 'react';
 import TextFontSelection from '../TextFontSelection';
-import SettingsRow from '../../../settings/SettingsRow';
+import SettingsRow from '../../settings/SettingsRow';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../../i18n/i18n';
+import { i18nNamespace } from '../../../i18n/i18n';
 
 // TODO: Empty component??
 

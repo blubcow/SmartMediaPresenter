@@ -1,8 +1,8 @@
 import React from 'react';
-import SettingsRow from '../../settings/SettingsRow';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../i18n/i18n';
+import { i18nNamespace } from '../../i18n/i18n';
 import { Tune } from '@mui/icons-material';
+import SettingsRow from '../settings/SettingsRow';
 
 interface IRgbChannelsImageManipulationRowProps {
 	onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;

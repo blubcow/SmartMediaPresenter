@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Box } from '../../../smpUI/components';
+import { Box } from '../../smpUI/components';
 import AlignMediaButton from './AlignMediaButton';
 import CropButton from './CropButton';
 import ImageManipulationButton from './ImageManipulationButton';
@@ -9,7 +9,7 @@ import RotateButton from './RotateButton';
 import ScaleButton from './ScaleButton';
 import { useSettingsContainerStyles } from './styles';
 import ColorTransferButton from './ColorTransferButton';
-import { MediaSettingsProvider, useMediaSettingsContext } from '../../../providers/MediaSettingsProvider';
+import { MediaSettingsProvider, useMediaSettingsContext } from '../../providers/MediaSettingsProvider';
 import AutoAlignmentButton from './AutoAlignmentButton';
 
 interface IMediaSettingsProps { }

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import usePresentationEditingContext from '../../../../hooks/usePresentationEditingContext';
-import { Box, Text, Button } from '../../../../smpUI/components';
-import { PresentationEditingActionIdentifiers } from '../../../../types/identifiers';
+import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
+import { Box, Text, Button } from '../../../smpUI/components';
+import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import { useChoosePlaybackTimeContentStyles } from './styles';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../../i18n/i18n';
+import { i18nNamespace } from '../../../i18n/i18n';
 
 interface IChoosePlaybackTimeContentProps {
 	onClose: () => void;

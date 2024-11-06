@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import SettingsRow from '../../../settings/SettingsRow';
-import { Box, Text } from '../../../../smpUI/components';
+import SettingsRow from '../../settings/SettingsRow';
+import { Box, Text } from '../../../smpUI/components';
 import { useDefaultFormatStyles } from './styles';
-import usePresentationEditingContext from '../../../../hooks/usePresentationEditingContext';
-import { PresentationEditingActionIdentifiers } from '../../../../types/identifiers';
+import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
+import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../../i18n/i18n';
+import { i18nNamespace } from '../../../i18n/i18n';
 
 const DefaultFormat: React.FC<{}> = () => {
 	const classes = useDefaultFormatStyles();

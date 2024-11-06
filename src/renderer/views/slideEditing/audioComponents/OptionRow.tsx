@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text } from '../../../../smpUI/components';
+import { Box, Text } from '../../../smpUI/components';
 import { ButtonBase } from '@mui/material';
 import { useOptionRowStyles } from './styles';
 

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { Box } from '../../../smpUI/components';
-import { Slide } from '../../../shared/types/presentation';
+import { Slide } from '../../../shared/presentation.interface';
 import SlideRowMediaHolder from './SlideRowMediaHolder';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
