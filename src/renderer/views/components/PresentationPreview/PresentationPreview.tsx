@@ -12,7 +12,7 @@ import {
 	FloatingButtonContainer,
 	Text,
 } from '../../../smpUI/components';
-import SlideBox from '../SlideBox';
+import SlideBox from '../SlideBox/SlideEditingBox';
 import useStyles from './styles';
 import {
 	Edit,
@@ -25,11 +25,12 @@ import {
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { SMPRoutes } from '../../../types/routes';
-import PresentationFloatingButton from '../PresentationFloatingButton';
+import PresentationFloatingButton from '../PresentationFloatingButton/PresentationFloatingButton';
 import ActionConfirmationModal from '../modals/ActionConfirmationModal';
 import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
 import usePresentationSyncContext from '../../../hooks/usePresentationSyncContext';
 import usePresentationCacheContext from '../../../hooks/usePresentationCacheContext';
+import PreviewSlide from './PreviewSlide';
 
 interface IPresentationPreviewProps {
 	presentation?: SinglePresentation;
@@ -187,7 +188,7 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 			</Box>
 			{presentation ? (
 				presentation.slides && presentation.slides.length ? (
-					<Preview
+					<PreviewSlide
 						slide={presentation.slides[currentSlide]}
 						theme={{ ...presentation.theme }}
 						isCaching={isCaching}
@@ -235,27 +236,6 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 				)}
 			</Box>
 		</Box>
-	);
-};
-
-interface IPreviewProps {
-	slide: Slide;
-	theme: SlideTheme;
-	isCaching: boolean;
-	failedToLoad?: number;
-}
-
-const Preview: React.FC<IPreviewProps> = (props) => {
-	const { slide, theme, isCaching, failedToLoad } = props;
-
-	return (
-		<SlideBox
-			slide={slide}
-			theme={theme}
-			presentationFrameEditingEnabled={false}
-			showCachingBadge={isCaching}
-			failedToLoad={failedToLoad}
-		/>
 	);
 };
 

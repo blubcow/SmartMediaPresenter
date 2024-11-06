@@ -3,7 +3,7 @@ import TopBar from '../smpUI/TopBar';
 import { Box } from '../smpUI/components';
 import { MenuButton } from './components/IconButtons';
 import useThemedLogo from '../hooks/useThemedLogo';
-import UserSettingsDrawer from './components/UserSettingsDrawer';
+import UserSettingsDrawer from './components/UserSettingsDrawer/UserSettingsDrawer';
 
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';

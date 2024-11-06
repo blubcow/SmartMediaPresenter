@@ -62,7 +62,7 @@ export interface PhotoshopPickerStylesProps {
 				header={title}
 				className={classes.picker}
 				color={color}
-				onChange={({ hex }) => {
+				onChange={({ hex }: { hex:string }) => {
 					setColor(hex);
 				}}
 				onAccept={() => {

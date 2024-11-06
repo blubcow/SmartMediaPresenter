@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Row from '../../SettingsRow';
+import SettingsRow from '../../SettingsRow/SettingsRow';
 import { Box } from '../../../../smpUI/components';
 import ColorPickerIcon from '../ColorPickerIcon';
 import usePresentationEditingContext from '../../../../hooks/usePresentationEditingContext';
-import ColorPicker from '../../ColorPicker';
+import ColorPicker from '../../ColorPicker/ColorPicker';
 import { PresentationEditingActionIdentifiers } from '../../../../types/identifiers';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../../i18n/i18n';
@@ -16,7 +16,7 @@ const DefaultBackgroundColor: React.FC<{}> = () => {
 
 	return (
 		<>
-			<Row
+			<SettingsRow
 				label={t('defaultBgColor')}
 				node={
 					<Box sx={{ width: '45px', height: '45px' }}>

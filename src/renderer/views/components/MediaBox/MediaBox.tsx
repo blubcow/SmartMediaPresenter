@@ -6,13 +6,13 @@ import {
 	MediaRessource,
 } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
-import MediaDropBoxIndicator from '../MediaDropBoxIndicator';
+import MediaDropBoxIndicator from '../MediaDropBoxIndicator/MediaDropBoxIndicator';
 import ActiveMediaIdenticator from './ActiveMediaIdenticator';
 import ColorChannelFilter from './ColorChannelFilter';
 import useStyles from './styles';
 import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
 import LocalOrRemoteModal from '../modals/LocalOrRemoteModal';
-import RemoteFileExplorer from '../RemoteFileExplorer';
+import RemoteFileExplorer from '../RemoteFileExplorer/RemoteFileExplorer';
 import iconImg from '../../../../../assets/icon.png';
 
 interface IMediaBox {

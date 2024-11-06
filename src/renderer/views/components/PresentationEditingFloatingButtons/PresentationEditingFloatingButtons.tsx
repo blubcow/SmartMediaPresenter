@@ -10,7 +10,7 @@ import usePresentationEditingContext from '../../../hooks/usePresentationEditing
 import { i18nNamespace } from '../../../i18n/i18n';
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
 import { SinglePresentation } from '../../../shared/types/presentation';
-import PresentationFloatingButton from '../PresentationFloatingButton';
+import PresentationFloatingButton from '../PresentationFloatingButton/PresentationFloatingButton';
 
 interface IPresentationEditingFloatingButtons {
 	onSave: (presentation: SinglePresentation) => void;

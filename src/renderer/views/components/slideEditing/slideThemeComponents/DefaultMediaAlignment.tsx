@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Row from '../../SettingsRow';
+import SettingsRow from '../../SettingsRow/SettingsRow';
 import { Text } from '../../../../smpUI/components';
 import usePresentationEditingContext from '../../../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../../../types/identifiers';
@@ -37,7 +37,7 @@ const DefaultMediaAlignemnt: React.FC<{}> = () => {
 
 	return (
 		<>
-			<Row
+			<SettingsRow
 				label={t('defaultMediaAlignment')}
 				node={
 					<Text>

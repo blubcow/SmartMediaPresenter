@@ -10,11 +10,11 @@ import { SMPRoutes } from '../types/routes';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../i18n/i18n';
 import { SinglePresentation } from '../shared/types/presentation';
-import PresentationPreview from './components/PresentationPreview';
+import PresentationPreview from './components/PresentationPreview/PresentationPreview';
 import { getFormattedDate } from '../models/DateFormatter';
 import usePresentationSyncContext from '../hooks/usePresentationSyncContext';
 import usePresentationCacheContext from '../hooks/usePresentationCacheContext';
-import PresentationSyncingButton from './components/PresentationSyncingButton';
+import PresentationSyncingButton from './components/PresentationSyncingButton/PresentationSyncingButton';
 
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';

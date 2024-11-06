@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import SettingsRow from '../SettingsRow';
+import SettingsRow from '../SettingsRow/SettingsRow';
 import { Box } from '../../../smpUI/components';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { Folder } from '@mui/icons-material';
-import RemoteMediaModal from '../RemoteMediaModal';
+import RemoteMediaModal from '../RemoteMediaModal/RemoteMediaModal';
 
 const ManageRemoteMedia: React.FC<{}> = (props) => {
 	const { t } = useTranslation([i18nNamespace.Presentation]);

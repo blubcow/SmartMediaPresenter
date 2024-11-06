@@ -12,7 +12,7 @@ import usePresentationEditingContext from '../../../hooks/usePresentationEditing
 import AudioPlaybackContent from './audioComponents/AudioPlaybackContent';
 import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
 import { PresentationEditingActionIdentifiers } from '../../../types/identifiers';
-import RemoteFileExplorer from '../RemoteFileExplorer';
+import RemoteFileExplorer from '../RemoteFileExplorer/RemoteFileExplorer';
 
 interface IAudioButtonProps {}
 

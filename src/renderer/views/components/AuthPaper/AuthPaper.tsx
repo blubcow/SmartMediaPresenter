@@ -1,6 +1,6 @@
 import React from 'react';
 import { Paper } from '../../../smpUI/components';
-import AuthViews from '../AuthViews';
+import AuthViews from '../AuthViews/AuthViews';
 import { useNavigate } from 'react-router-dom';
 import { SMPRoutes } from '../../../types/routes';
 

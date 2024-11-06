@@ -10,7 +10,7 @@ interface IRowProps {
 	isHighlighted?: boolean;
 }
 
-const Row: React.FC<IRowProps> = (props) => {
+const SettingsRow: React.FC<IRowProps> = (props) => {
 	const { label, primaryNode, node, onClick, isHighlighted = false } = props;
 	const classes = useRowStyles();
 	return (
@@ -39,4 +39,4 @@ const Row: React.FC<IRowProps> = (props) => {
 	);
 };
 
-export default Row;
+export default SettingsRow;

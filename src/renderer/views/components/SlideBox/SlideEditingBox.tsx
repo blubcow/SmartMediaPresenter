@@ -7,10 +7,10 @@ import {
 	TextElement,
 } from '../../../shared/types/presentation';
 import { IBoxProps } from '../../../smpUI/Box';
-import MediaBox from '../MediaBox';
-import PresentationFrame from '../PresentationFrame';
+import MediaBox from '../MediaBox/MediaBox';
+import PresentationFrame from '../PresentationFrame/PresentationFrame';
 import useStyels from './styles';
-import SlideTextElement from '../SlideTextElement';
+import SlideTextElement from '../SlideTextElement/SlideTextElement';
 import LoadingIndicator from './LoadingIndicator';
 import FailedToLoadMediaBadge from './FailedToLoadMediaBadge';
 

@@ -5,7 +5,7 @@ import {
 	getEmptySlide,
 } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
-import SlideBox from '../SlideBox';
+import SlideBox from '../SlideBox/SlideEditingBox';
 import useStyles from './styles';
 import HeaderRow from './HeaderRow';
 import SlideRow from './SlideRow';

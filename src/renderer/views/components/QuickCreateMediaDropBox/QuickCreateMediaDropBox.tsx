@@ -10,7 +10,7 @@ import MediaRow from './MeidaRow';
 import { allowedFiles } from '../../../shared/types/mediaResources';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
-import MediaDropBoxIndicator from '../MediaDropBoxIndicator';
+import MediaDropBoxIndicator from '../MediaDropBoxIndicator/MediaDropBoxIndicator';
 import { useHeldKeys } from '../../../hooks/useHeldKeys';
 import { DataTransferIdentifiers } from '../../../types/identifiers';
 import RemoteFileExplorer from './RemoteFileExplorer';

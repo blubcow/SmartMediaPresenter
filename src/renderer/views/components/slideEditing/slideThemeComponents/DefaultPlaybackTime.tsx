@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Row from '../../SettingsRow';
+import SettingsRow from '../../SettingsRow/SettingsRow';
 import { Box, Text } from '../../../../smpUI/components';
 import { useDefaultPlaybackTimeStyles } from './styles';
 import usePresentationEditingContext from '../../../../hooks/usePresentationEditingContext';
@@ -29,7 +29,7 @@ const DefaultPlaybackTime: React.FC<{}> = () => {
 	}, [duration]);
 
 	return (
-		<Row
+		<SettingsRow
 			label={t('defaultAutoPlaybackTime')}
 			node={
 				<Box className={classes.nodeContainer}>

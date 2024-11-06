@@ -1,6 +1,6 @@
 import React from 'react';
 import Page from '../smpUI/Page';
-import AuthPaper from './components/AuthPaper';
+import AuthPaper from './components/AuthPaper/AuthPaper';
 import { Box, Button } from '../smpUI/components';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Row from '../../SettingsRow';
+import SettingsRow from '../../SettingsRow/SettingsRow';
 import { Box, Text } from '../../../../smpUI/components';
 import { useDefaultFormatStyles } from './styles';
 import usePresentationEditingContext from '../../../../hooks/usePresentationEditingContext';
@@ -32,7 +32,7 @@ const DefaultFormat: React.FC<{}> = () => {
 	}, [rows, columns]);
 
 	return (
-		<Row
+		<SettingsRow
 			label={t('defaultFormat')}
 			node={
 				<Box className={classes.nodeContainer}>

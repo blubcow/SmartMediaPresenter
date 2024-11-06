@@ -1,7 +1,7 @@
 import React from 'react';
 import { ButtonGroup } from '@mui/material';
 import { Button } from '../../../smpUI/components';
-import SettingsRow from '../SettingsRow';
+import SettingsRow from '../SettingsRow/SettingsRow';
 import useUserSettingsContext from '../../../hooks/useUserSettingsContext';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';

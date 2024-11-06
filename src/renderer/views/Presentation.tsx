@@ -3,12 +3,12 @@ import { Box } from '../smpUI/components';
 import { usePresentationMode } from '../hooks/useMainProcessMethods';
 import { useLocation } from 'react-router-dom';
 import { useSinglePresentation } from '../hooks/useMainProcessMethods';
-import SlideBox from './components/SlideBox';
+import SlideBox from './components/SlideBox/SlideEditingBox';
 import usePresentationCacheContext from '../hooks/usePresentationCacheContext';
 import usePresentationSyncContext from '../hooks/usePresentationSyncContext';
 import { SinglePresentation } from '../shared/types/presentation';
 import { CircularProgress } from '@mui/material';
-import LoadingIndicatorPaper from './components/LoadingIndicatorPaper';
+import LoadingIndicatorPaper from './components/LoadingIndicatorPaper/LoadingIndicatorPaper';
 
 const PresentationMode = () => {
 	const location = useLocation();

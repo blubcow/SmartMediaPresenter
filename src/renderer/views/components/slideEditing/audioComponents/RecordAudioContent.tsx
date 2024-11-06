@@ -2,7 +2,7 @@ import React from 'react';
 import usePresentationEditingContext from '../../../../hooks/usePresentationEditingContext';
 import { Box } from '../../../../smpUI/components';
 import { PresentationEditingActionIdentifiers } from '../../../../types/identifiers';
-import AudioRecorder from '../../AudioRecorder';
+import AudioRecorder from '../../AudioRecorder/AudioRecorder';
 
 interface IRecordAudioContentProps {}
 

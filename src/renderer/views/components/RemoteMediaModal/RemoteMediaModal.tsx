@@ -21,6 +21,7 @@ import { useHeldKeys } from '../../../hooks/useHeldKeys';
 import { InsertDriveFile, Folder, ArrowBack } from '@mui/icons-material';
 import { ImageResourceExtensions } from '../../../shared/types/mediaResources';
 import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
+import RemoteFile from './RemoteFile';
 
 interface IRemoteMediaModalProps extends IModalProps {}
 
@@ -148,7 +149,7 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 						<>
 							{currentItems.length > 0 ? (
 								currentItems.map((item) => (
-									<File
+									<RemoteFile
 										key={item.name}
 										selected={
 											currentSelection.find((sel) => sel.name === item.name) !==
@@ -305,57 +306,6 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 				</Modal>
 			)}
 		</Modal>
-	);
-};
-
-interface IFileProps {
-	name: string;
-	imgUrl?: string;
-	selected: boolean;
-	onClick: () => void;
-	changeDir: () => void;
-	type: RemoteStorageMediaType;
-}
-
-export const File: React.FC<IFileProps> = (props) => {
-	const { name, imgUrl, selected, onClick, changeDir, type } = props;
-	const classes = useFileStyles();
-	const [fileExtension] = useState<string>(name.split('.').pop() ?? '');
-
-	return (
-		<Box
-			className={classes.container}
-			sx={{
-				backgroundColor: selected ? 'background.default' : undefined,
-			}}
-			onClick={(e) => {
-				e.stopPropagation();
-				onClick();
-			}}
-			onDoubleClick={(e) => {
-				e.stopPropagation();
-				if (fileExtension === name) changeDir();
-			}}
-		>
-			<Box className={classes.fileTypeContainer}>
-				{type !== 'dir' ? (
-					ImageResourceExtensions.includes(fileExtension.toLowerCase()) ? (
-						<img className={classes.img} src={imgUrl} loading='lazy' />
-					) : (
-						<InsertDriveFile className={classes.icon} />
-					)
-				) : (
-					<Folder className={classes.icon} />
-				)}
-			</Box>
-			<Text
-				variant='caption'
-				fontWeight={700}
-				className={classes.nameContainer}
-			>
-				{name}
-			</Text>
-		</Box>
 	);
 };
 

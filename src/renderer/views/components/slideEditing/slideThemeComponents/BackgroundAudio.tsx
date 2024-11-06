@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import Row from '../../SettingsRow';
+import SettingsRow from '../../SettingsRow/SettingsRow';
 import { Box, Text, Button, IconButton } from '../../../../smpUI/components';
 import { Audiotrack } from '@mui/icons-material';
 import usePresentationEditingContext from '../../../../hooks/usePresentationEditingContext';
@@ -10,7 +10,7 @@ import { i18nNamespace } from '../../../../i18n/i18n';
 import { PauseCircle, PlayCircle } from '@mui/icons-material';
 import useRemoteUserContext from '../../../../hooks/useRemoteUserContext';
 import LocalOrRemoteModal from '../../modals/LocalOrRemoteModal';
-import RemoteFileExplorer from '../../RemoteFileExplorer';
+import RemoteFileExplorer from '../../RemoteFileExplorer/RemoteFileExplorer';
 
 const BackgroundAudio: React.FC<{}> = () => {
 	const { state, dispatch } = usePresentationEditingContext();
@@ -70,7 +70,7 @@ const BackgroundAudio: React.FC<{}> = () => {
 
 	return (
 		<>
-			<Row
+			<SettingsRow
 				label={t('bgAudio')}
 				isHighlighted={audioLocation !== undefined}
 				onClick={async () => {

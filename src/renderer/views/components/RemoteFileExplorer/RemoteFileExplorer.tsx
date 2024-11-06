@@ -13,12 +13,12 @@ import useStyles from './styles';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { RemoteStorageMedia } from '../../../types/presentaitonSycncing';
-import { File } from '../RemoteMediaModal';
 import {
 	AudioResourceExtensions,
 	ImageResourceExtensions,
 } from '../../../shared/types/mediaResources';
 import { ArrowBack } from '@mui/icons-material';
+import RemoteFile from '../RemoteMediaModal/RemoteFile';
 
 interface IRemoteFileExplorerPorps extends IModalProps {
 	filterItems?: 'audio' | 'image';
@@ -111,7 +111,7 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerPorps> = (props) => {
 					) : (
 						<>
 							{currentItems.map((item) => (
-								<File
+								<RemoteFile
 									name={item.name}
 									selected={currentSelection?.name === item.name}
 									onClick={() => setCurrentSelection(item)}

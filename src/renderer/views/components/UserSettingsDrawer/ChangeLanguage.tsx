@@ -3,7 +3,7 @@ import {
 	SelectionPickerOption,
 	SelectionPicker,
 } from '../../../smpUI/components';
-import SettingsRow from '../SettingsRow';
+import SettingsRow from '../SettingsRow/SettingsRow';
 import {
 	AvailableLanguage,
 	AvailableLanguages,
