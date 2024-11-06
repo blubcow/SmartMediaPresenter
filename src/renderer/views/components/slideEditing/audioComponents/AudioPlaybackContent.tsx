@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import usePresentationEditingContext from '../../../../hooks/usePresentationEditingContext';
 import { Box, Button, Text, IconButton } from '../../../../smpUI/components';
-import AudioIcon from '../../AnimatedIcon/AudioIcon';
+import AudioIcon from '../../../icons/AudioIcon';
 import { PauseCircle, PlayCircle } from '@mui/icons-material';
 import { formatTimer } from '../../../../util/Formatter';
 import { LinearProgress } from '@mui/material';

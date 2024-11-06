@@ -4,7 +4,7 @@ import { Box } from '../smpUI/components';
 import { PresentationEditingActionIdentifiers } from '../types/identifiers';
 import TopBarDisplayingFilename, {
 	ITopBarDisplayingFilenameProps,
-} from './components/appBars/TopBarDisplayingFilename';
+} from './components/TopBarDisplayingFilename';
 import MediaSettings from './components/slideEditing/MediaSettings';
 import SlideSettings from './components/slideEditing/SlideSettings';
 import ActionConfirmationModal from './components/modals/ActionConfirmationModal';

@@ -17,7 +17,7 @@ import { RestartAlt } from '@mui/icons-material';
 import useImageManipulation from '../../../hooks/useImageManipulation';
 import RgbChannelsImageManipulationRow from './RgbChannelsImageManipulationRow';
 import RgbChannelsPopover from './RgbChannelsPopover';
-import ColorChannelFilter from '../MediaBox/ColorChannelFilter';
+import ColorChannelFilter from '../../media/ColorChannelFilter';
 
 interface IImageManipulationButtonProps {}
 

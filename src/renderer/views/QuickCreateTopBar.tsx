@@ -1,7 +1,7 @@
 import React from 'react';
 import TopBarDisplayingFilename, {
 	ITopBarDisplayingFilenameProps,
-} from './components/appBars/TopBarDisplayingFilename';
+} from './components/TopBarDisplayingFilename';
 import { Box, Button } from '../smpUI/components';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../i18n/i18n';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import TopBar from '../smpUI/TopBar';
 import { Box, IconButton } from '../smpUI/components';
 import useThemedLogo from '../hooks/useThemedLogo';
-import UserSettingsDrawer from './components/UserSettingsDrawer/UserSettingsDrawer';
+import UserSettingsDrawer from './settings/UserSettingsDrawer';
 
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';

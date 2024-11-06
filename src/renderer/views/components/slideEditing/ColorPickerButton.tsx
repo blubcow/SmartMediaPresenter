@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import EditingButton from './EditingButton';
 import EditButtonLabel from './EditButtonLabel';
-import ColorPicker from '../ColorPicker/ColorPicker';
+import ColorPicker from '../ColorPicker';
 import ColorPickerIcon from './ColorPickerIcon';
 import _ from 'lodash';
 

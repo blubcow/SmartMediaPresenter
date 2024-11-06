@@ -3,12 +3,12 @@ import { usePresentationMode } from '../hooks/useMainProcessMethods';
 import { Box, Text, Button } from '../smpUI/components';
 import { FullScreen, FullScreenHandle } from 'react-full-screen';
 import { SinglePresentation } from '../shared/types/presentation';
-import SlideBox from './components/SlideBox/SlideEditingBox';
+import SlideBox from './slide/SlideEditingBox';
 import { Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../i18n/i18n';
 import { formatTimer } from '../util/Formatter';
-import AutoPlaybackBar from './components/AutoPlaybackBar/AutoPlaybackBar';
+import AutoPlaybackBar from './components/AutoPlaybackBar';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 

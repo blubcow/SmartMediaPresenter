@@ -7,7 +7,7 @@ import {
 	SinglePresentation,
 	Slide,
 } from '../../../shared/types/presentation';
-import SlideBox from '../SlideBox/SlideEditingBox';
+import SlideBox from '../../slide/SlideEditingBox';
 import { useHeldKeys } from '../../../hooks/useHeldKeys';
 
 interface ISlideEditingBoxProps { }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import SettingsRow from '../../SettingsRow/SettingsRow';
+import SettingsRow from '../../../settings/SettingsRow';
 import { Box, Text, Button, IconButton } from '../../../../smpUI/components';
 import { Audiotrack } from '@mui/icons-material';
 import usePresentationEditingContext from '../../../../hooks/usePresentationEditingContext';
@@ -9,8 +9,8 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../../i18n/i18n';
 import { PauseCircle, PlayCircle } from '@mui/icons-material';
 import useRemoteUserContext from '../../../../hooks/useRemoteUserContext';
-import LocalOrRemoteModal from '../../modals/LocalOrRemoteModal';
-import RemoteFileExplorer from '../../RemoteFileExplorer/RemoteFileExplorer';
+import LocalOrRemoteModal from '../../../modals/LocalOrRemoteModal';
+import RemoteFileExplorer from '../../../media/RemoteFileExplorer';
 
 const BackgroundAudio: React.FC<{}> = () => {
 	const { state, dispatch } = usePresentationEditingContext();

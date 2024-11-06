@@ -1,6 +1,6 @@
 import React from 'react';
 import TextFontSelection from '../TextFontSelection';
-import SettingsRow from '../../SettingsRow/SettingsRow';
+import SettingsRow from '../../../settings/SettingsRow';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../../i18n/i18n';
 

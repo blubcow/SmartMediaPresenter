@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import SettingsRow from '../../SettingsRow/SettingsRow';
+import SettingsRow from '../../../settings/SettingsRow';
 import { Box } from '../../../../smpUI/components';
 import ColorPickerIcon from '../ColorPickerIcon';
 import usePresentationEditingContext from '../../../../hooks/usePresentationEditingContext';
-import ColorPicker from '../../ColorPicker/ColorPicker';
+import ColorPicker from '../../ColorPicker';
 import { PresentationEditingActionIdentifiers } from '../../../../types/identifiers';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../../i18n/i18n';

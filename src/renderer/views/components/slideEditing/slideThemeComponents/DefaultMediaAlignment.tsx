@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SettingsRow from '../../SettingsRow/SettingsRow';
+import SettingsRow from '../../../settings/SettingsRow';
 import { Text } from '../../../../smpUI/components';
 import usePresentationEditingContext from '../../../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../../../types/identifiers';
