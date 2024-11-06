@@ -4,7 +4,24 @@ import { PresentationEditingActionIdentifiers } from '../../../types/identifiers
 import { getEmptySlide, Slide } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
 import { SlidePreviewRow, SlidesHeaderRow } from '../rows';
-import useStyles from './styles';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		slidesContainer: {
+			flex: 0.25,
+			minWidth: '400px',
+			maxWidth: '450px',
+			height: '100%',
+		},
+		rowsScrollingContainer: {
+			height: '100%',
+			overflowY: 'auto',
+		},
+	})
+);
+
 
 interface IPresentationEditingPreviewRows {}
 

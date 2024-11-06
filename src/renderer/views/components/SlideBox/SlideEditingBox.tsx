@@ -9,10 +9,49 @@ import {
 import { IBoxProps } from '../../../smpUI/Box';
 import MediaBox from '../MediaBox/MediaBox';
 import PresentationFrame from '../PresentationFrame/PresentationFrame';
-import useStyels from './styles';
 import SlideTextElement from '../SlideTextElement/SlideTextElement';
 import LoadingIndicator from './LoadingIndicator';
 import FailedToLoadMediaBadge from './FailedToLoadMediaBadge';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			maxWidth: '100%',
+			width: '100%',
+			maxHeight: '100%',
+			aspectRatio: '16/9',
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+			position: 'relative',
+		},
+		presentationFrame: {
+			position: 'absolute',
+			top: 0,
+			left: 0,
+			height: '50%',
+			width: '100%',
+			outlineStyle: 'solid',
+			pointerEvents: 'none',
+			zIndex: 10,
+		},
+		mediaContainer: {
+			height: '100%',
+			width: '100%',
+			display: 'flex',
+			flexDirection: 'column',
+		},
+		rowContainer: {
+			display: 'flex',
+			flexDirection: 'row',
+			height: '100%',
+			justifyContent: 'center',
+			alignItems: 'center',
+		},
+	})
+);
 
 export interface ISlideBoxProps extends IBoxProps {
 	slide: Slide;
@@ -73,7 +112,7 @@ const SlideEditingBox: React.FC<ISlideBoxProps> = (props) => {
 	const [sizeObserver] = useState<ResizeObserver>(
 		new ResizeObserver(passSizeUpdate)
 	);
-	const classes = useStyels();
+	const classes = useStyles();
 
 	useEffect(() => {
 		if (containerRef.current === undefined) return;

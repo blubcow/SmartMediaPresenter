@@ -1,9 +1,43 @@
 import React from 'react';
 import { Box, Text } from '../../../smpUI/components';
-import { useHedaerRowStyles } from './styles';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { Divider, Switch } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useHedaerRowStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			width: '100%',
+			padding: theme.spacing(1),
+			position: 'sticky',
+			top: 0,
+			cursor: 'pointer',
+			display: 'flex',
+			backgroundColor: theme.palette.background.paper,
+		},
+		alphapeticalInsert: {
+			flex: 1,
+			height: '100%',
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+			userSelect: 'none',
+		},
+		addNewSlide: {
+			display: 'flex',
+			flex: 1,
+			height: '100%',
+			justifyContent: 'center',
+			alignItems: 'center',
+			userSelect: 'none',
+			'&:hover': {
+				backgroundColor: theme.palette.divider,
+			},
+		},
+	})
+);
 
 interface IHeaderProps {
 	onSlideAdded: () => void;

@@ -9,7 +9,6 @@ import {
 import { IModalProps } from '../../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
-import useStyles, { useFileStyles } from './styles';
 import { CircularProgress, Divider, LinearProgress } from '@mui/material';
 import { CreateNewFolder, UploadFile, Delete } from '@mui/icons-material';
 import usePresentationSyncContext from '../../../hooks/usePresentationSyncContext';
@@ -22,6 +21,85 @@ import { InsertDriveFile, Folder, ArrowBack } from '@mui/icons-material';
 import { ImageResourceExtensions } from '../../../shared/types/mediaResources';
 import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
 import RemoteFile from './RemoteFile';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			width: '850px',
+			height: '70vh',
+			display: 'flex',
+			flexDirection: 'column',
+			overflowX: 'visible',
+		},
+		header: {
+			display: 'flex',
+			justifyContent: 'space-between',
+			alignItems: 'center',
+			paddingBottom: theme.spacing(3),
+		},
+		headerBtnContainer: {
+			display: 'flex',
+			alignItems: 'center',
+			gap: theme.spacing(1),
+		},
+		btnIcon: {
+			marginRight: theme.spacing(0.5),
+		},
+		content: {
+			flex: 1,
+			position: 'relative',
+			display: 'grid',
+			gridTemplateColumns: 'repeat(5, 1fr)',
+			gridAutoRows: 'minmax(min-content, max-content)',
+			gridGap: theme.spacing(3),
+			paddingTop: theme.spacing(3),
+			paddingBottom: theme.spacing(3),
+			padding: theme.spacing(1),
+			overflowY: 'scroll',
+		},
+		loadingIndicator: {
+			position: 'absolute',
+			top: '50%',
+			left: '50%',
+			transform: 'translate(-50%, -50%)',
+		},
+		emptyFolderIndicator: {
+			position: 'absolute',
+			top: '50%',
+			left: '50%',
+			transform: 'translate(-50%, -50%)',
+		},
+		footerBtnContainer: {
+			display: 'flex',
+			justifyContent: 'space-between',
+			alignItems: 'center',
+			paddingTop: theme.spacing(3),
+		},
+		folderNavigator: {
+			display: 'flex',
+			gap: theme.spacing(1),
+			alignItems: 'center',
+		},
+		newFolderContainer: {
+			display: 'flex',
+			flexDirection: 'column',
+			gap: theme.spacing(3),
+			justifyContent: 'center',
+			alignItems: 'center',
+			textAlign: 'center',
+			width: '250px',
+		},
+		activityModal: {
+			display: 'flex',
+			flexDirection: 'column',
+			gap: theme.spacing(3),
+			justifyContent: 'center',
+			alignItems: 'center',
+		},
+	})
+);
 
 interface IRemoteMediaModalProps extends IModalProps {}
 

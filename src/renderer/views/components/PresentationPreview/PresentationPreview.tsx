@@ -3,8 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import {
 	SinglePresentation,
-	Slide,
-	SlideTheme,
 } from '../../../shared/types/presentation';
 import {
 	Box,
@@ -12,8 +10,6 @@ import {
 	FloatingButtonContainer,
 	Text,
 } from '../../../smpUI/components';
-import SlideBox from '../SlideBox/SlideEditingBox';
-import useStyles from './styles';
 import {
 	Edit,
 	Delete,
@@ -31,6 +27,60 @@ import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
 import usePresentationSyncContext from '../../../hooks/usePresentationSyncContext';
 import usePresentationCacheContext from '../../../hooks/usePresentationCacheContext';
 import PreviewSlide from './PreviewSlide';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			height: '100%',
+			width: '100%',
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'space-between',
+			alignItems: 'center',
+			position: 'relative',
+		},
+		topContainer: {
+			height: '10%',
+			display: 'flex',
+			alignItems: 'center',
+		},
+		middleContainer: {},
+		bottomContainer: {
+			height: '10%',
+			width: '100%',
+			display: 'flex',
+			alignItems: 'center',
+		},
+		slidesCounterContainer: {
+			marginLeft: theme.spacing(1),
+		},
+		btns: {
+			display: 'flex',
+			gap: theme.spacing(3),
+			padding: theme.spacing(3),
+		},
+		btn: {
+			padding: theme.spacing(1),
+			width: '100%',
+			display: 'flex',
+			flexDirection: 'column',
+			alignItems: 'center',
+			justifyContent: 'center',
+			gap: theme.spacing(1),
+			textAlign: 'center',
+			borderRadius: theme.shape.borderRadius,
+			transition: 'box-shadow 0.2s ease',
+			boxShadow: theme.shadows[5],
+			cursor: 'pointer',
+			'&:hover': {
+				boxShadow: theme.shadows[20],
+			},
+		},
+	})
+);
+
 
 interface IPresentationPreviewProps {
 	presentation?: SinglePresentation;

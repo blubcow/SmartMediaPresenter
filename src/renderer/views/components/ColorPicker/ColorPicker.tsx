@@ -2,7 +2,18 @@ import React, { useState } from 'react';
 import { PhotoshopPicker } from 'react-color';
 import { Modal } from '../../../smpUI/components';
 import { IModalProps } from '../../../smpUI/Modal';
-import useStyles from './styles';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		picker: {
+			backgroundColor: 'transparent',
+			color: theme.palette.text.primary,
+		},
+	})
+);
+
 
 interface IColorPickerProps extends IModalProps {
 	initialColor: string;

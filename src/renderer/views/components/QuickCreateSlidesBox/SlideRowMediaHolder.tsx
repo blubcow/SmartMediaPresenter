@@ -3,8 +3,42 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { DataTransferIdentifiers } from '../../../types/identifiers';
 import { Box, Text } from '../../../smpUI/components';
-import { useSlideRowMediaHolderStyles } from './styles';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useSlideRowMediaHolderStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			height: '100%',
+		},
+		mediaPresentContainer: {
+			height: '100%',
+			width: '100%',
+			display: 'flex',
+			flexDirection: 'column',
+			alignItems: 'center',
+			justifyContent: 'center',
+		},
+		mediaPresentImg: {
+			maxHeight: '50%',
+		},
+		noMediaPresentContainer: {
+			height: '100%',
+			width: '100%',
+			padding: theme.spacing(0.5),
+		},
+		noMediaPresentIndicatorBox: {
+			height: '100%',
+			width: '100%',
+			backgroundColor: theme.palette.background.default,
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+			borderRadius: theme.shape.borderRadius,
+		},
+	})
+);
 
 interface ISlideRowMediaHolder {
 	id: number;

@@ -1,7 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { MediaRessource } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
-import { useActiveMediaIndicatorStyles } from './styles';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useActiveMediaIndicatorStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		indicator: {
+			outlineWidth: '2px',
+			outlineStyle: 'dashed',
+			borderWidth: '1px',
+			borderStyle: 'solid',
+			position: 'absolute',
+			pointerEvents: 'none',
+			touchAction: 'none',
+			zIndex: 50,
+		},
+	})
+);
+
 
 interface IActiveMediaIdenticatorProps {
 	image: HTMLImageElement;

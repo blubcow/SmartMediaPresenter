@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import TopBar from '../smpUI/TopBar';
-import { Box } from '../smpUI/components';
-import { MenuButton } from './components/IconButtons';
+import { Box, IconButton } from '../smpUI/components';
 import useThemedLogo from '../hooks/useThemedLogo';
 import UserSettingsDrawer from './components/UserSettingsDrawer/UserSettingsDrawer';
 
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
+import { Menu } from '@mui/icons-material';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -39,7 +39,7 @@ const HomeTopBar: React.FC<{}> = () => {
 					<img className={classes.img} src={toolbarLogo} alt='SMP-Logo' />
 				</Box>
 				<Box>
-					<MenuButton onClick={() => setOpenUserSettings(true)} />
+					<IconButton icon={Menu} onClick={() => setOpenUserSettings(true)} />;
 				</Box>
 			</Box>
 			<UserSettingsDrawer

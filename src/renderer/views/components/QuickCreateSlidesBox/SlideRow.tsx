@@ -1,8 +1,21 @@
 import React, { useRef, useEffect } from 'react';
 import { Box } from '../../../smpUI/components';
-import { useSlideRowStyles } from './styles';
 import { Slide } from '../../../shared/types/presentation';
 import SlideRowMediaHolder from './SlideRowMediaHolder';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useSlideRowStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			width: '95%',
+			display: 'flex',
+			backgroundColor: theme.palette.divider,
+			marginTop: theme.spacing(1),
+			outlineColor: theme.palette.primary.main,
+		},
+	})
+);
 
 const SlideRow = (props: {
 	slide: Slide;

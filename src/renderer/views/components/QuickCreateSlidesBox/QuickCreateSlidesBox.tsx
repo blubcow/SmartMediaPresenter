@@ -6,11 +6,39 @@ import {
 } from '../../../shared/types/presentation';
 import { Box } from '../../../smpUI/components';
 import SlideBox from '../SlideBox/SlideEditingBox';
-import useStyles from './styles';
 import HeaderRow from './HeaderRow';
 import SlideRow from './SlideRow';
 import MultiInsertion from './MultiInsertion';
 import { DataTransferIdentifiers } from '../../../types/identifiers';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			height: '100%',
+			flex: 0.4,
+			display: 'flex',
+			flexDirection: 'column',
+			zIndex: 1,
+			overflowY: 'visible',
+		},
+		previewContainer: {
+			width: '100%',
+			aspectRatio: '16/9',
+			background: 'black',
+		},
+		slideScrollingContainer: {
+			width: '100%',
+			flex: 1,
+			display: 'flex',
+			flexDirection: 'column',
+			overflowY: 'scroll',
+			alignItems: 'center',
+			paddingBottom: theme.spacing(2),
+		},
+	})
+);
 
 interface IQuickCreateSlidesBoxProps {
 	slides: Slide[];

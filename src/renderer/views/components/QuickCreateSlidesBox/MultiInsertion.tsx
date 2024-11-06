@@ -1,9 +1,26 @@
 import React from 'react';
 import { Box } from '../../../smpUI/components';
-import { useMultiInsertionStyles } from './styles';
 import MediaDropBoxIndicator from '../MediaDropBoxIndicator/MediaDropBoxIndicator';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useMultiInsertionStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			height: '100%',
+			width: '100%',
+			display: 'flex',
+		},
+		insertionColumn: {
+			height: '100%',
+			width: '50%',
+			padding: theme.spacing(1),
+		},
+	})
+);
+
 
 interface IMultiInsertionProps {
 	onMediaReceived: (

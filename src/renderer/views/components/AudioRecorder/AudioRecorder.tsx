@@ -2,12 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { useAudioStore } from '../../../hooks/useMainProcessMethods';
 import { Box, Button, Text } from '../../../smpUI/components';
 import AudioRecordingIcon from '../AnimatedIcon/AudioRecordingIcon';
-import useStyles from './styles';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { formatTimer } from '../../../util/Formatter';
 import { IBoxProps } from '../../../smpUI/Box';
 import useMediaStreamRecorder from '../../../hooks/useMediaStreamRecorder';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			minWidth: '180px',
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'center',
+		},
+		iconTimerContainer: {
+			padding: theme.spacing(2),
+			display: 'flex',
+			justifyContent: 'space-between',
+			alignItems: 'center',
+		},
+	})
+);
 
 
 interface IAudioRecorderProps extends IBoxProps {

@@ -3,7 +3,46 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { Box, Text } from '../../../smpUI/components';
 import { IBoxProps } from '../../../smpUI/Box';
-import useStyles from './styles';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		droppingArea: {
+			height: '100%',
+			width: '100%',
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'center',
+			alignItems: 'center',
+			padding: theme.spacing(1),
+		},
+		droppingAreaFrame: {
+			height: '100%',
+			width: '100%',
+			border: '3px dashed ' + theme.palette.background.paper,
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'center',
+			alignItems: 'center',
+			padding: theme.spacing(1),
+		},
+		droppingAreaFrameActive: {
+			height: '100%',
+			width: '100%',
+			border: '3px dashed ' + theme.palette.primary.main,
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'center',
+			alignItems: 'center',
+			padding: theme.spacing(1),
+		},
+		text: {
+			pointerEvents: 'none',
+		},
+	})
+);
+
 
 interface IMediaDropBoxIndicatorProps extends IBoxProps {
 	canTapToOpenFileInspector?: boolean;

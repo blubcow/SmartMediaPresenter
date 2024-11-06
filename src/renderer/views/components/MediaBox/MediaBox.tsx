@@ -9,11 +9,27 @@ import { Box } from '../../../smpUI/components';
 import MediaDropBoxIndicator from '../MediaDropBoxIndicator/MediaDropBoxIndicator';
 import ActiveMediaIdenticator from './ActiveMediaIdenticator';
 import ColorChannelFilter from './ColorChannelFilter';
-import useStyles from './styles';
 import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
 import LocalOrRemoteModal from '../modals/LocalOrRemoteModal';
 import RemoteFileExplorer from '../RemoteFileExplorer/RemoteFileExplorer';
 import iconImg from '../../../../../assets/icon.png';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		img: {
+			maxWidth: '100%',
+			maxHeight: '100%',
+			zIndex: 1,
+			outlineWidth: '0px',
+			backgroundColor: 'divider',
+			position: 'relative',
+			userSelect: 'none',
+			objectFit: 'contain',
+		},
+	})
+);
 
 interface IMediaBox {
 	id: number;
