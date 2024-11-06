@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { useSinglePresentation } from '../hooks/useMainProcessMethods';
 import EditTopBar from './EditTopBar';
 import { Divider } from '@mui/material';
-import SlideEditingBox from './components/slideEditing/SlideEditingBox';
+import SlideEditingBox from './slideEditing/SlideEditingBox';
 import PresentationEditingProvider from '../providers/PresentationEditingProvider';
 import PresentationEditingFloatingButtons from './presentation/PresentationEditingFloatingButtons';
 import PresentationEditingPreviewRows from './presentation/PresentationEditingPreviewRows';
