@@ -36,6 +36,12 @@ const components: Components<Omit<Theme, 'components' | 'palette'> & CssVarsThem
 			}
 		}
 	},
+	MuiSnackbar: {
+		defaultProps: {
+			autoHideDuration: 5000,
+			anchorOrigin: { horizontal: 'center', vertical: 'bottom' }
+		}
+	},
 	MuiPaper: {
 		styleOverrides: {
 			root: ({ theme }) => ({

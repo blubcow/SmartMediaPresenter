@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Snackbar } from '../../smpUI';
 import { Check, Close, Save } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
@@ -8,6 +7,7 @@ import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.e
 import { SinglePresentation } from '../../shared/presentation.interface';
 import PresentationFloatingButton from './PresentationFloatingButton';
 import FloatingButton, { FloatingButtonContainer } from '../../smpUI/FloatingButton';
+import AlertSnackbar from '../../smpUI/Snackbar';
 
 interface IPresentationEditingFloatingButtons {
 	onSave: (presentation: SinglePresentation) => void;
@@ -70,7 +70,7 @@ const PresentationEditingFloatingButtons: React.FC<
 	return (
 		<FloatingButtonContainer>
 
-			<Snackbar 
+			<AlertSnackbar 
 				open={saveSuccessAlert}
 				onClose={() => setSaveSuccessAlert(false)}
 				severity='success'
