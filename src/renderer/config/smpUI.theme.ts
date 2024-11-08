@@ -4,6 +4,12 @@ const typography: ThemeOptions['typography'] = () => ({
 	fontFamily: 'Montserrat',
 });
 
+declare module '@mui/material/Paper' {
+	interface PaperPropsVariantOverrides {
+		modal: true;
+	}
+ }
+
 const components: Components<Omit<Theme, 'components' | 'palette'> & CssVarsTheme> = {
 	MuiTextField: {
 		defaultProps: {
@@ -29,6 +35,23 @@ const components: Components<Omit<Theme, 'components' | 'palette'> & CssVarsThem
 				horizontal: 'center',
 			}
 		}
+	},
+	MuiPaper: {
+		styleOverrides: {
+			root: ({ theme }) => ({
+				variants: [{
+					props: { variant: 'modal' },
+					style: {
+						padding: theme.spacing(3),
+						backgroundColor: theme.palette.background.paper,
+						minHeight: '150px',
+						height: 'auto',
+						width: '45%',
+						maxWidth: '550px'
+					},
+				}]
+			})
+		},
 	}
 }
 

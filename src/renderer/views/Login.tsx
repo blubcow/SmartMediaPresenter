@@ -1,12 +1,12 @@
 import React from 'react';
 import Page from '../smpUI/Page';
-import { Box, Button, Paper } from '../smpUI';
+import { Box, Button } from '../smpUI';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../i18n/i18n';
 import { SMPRoutes } from '../shared/routes.enum';
 import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import { Paper, Theme } from '@mui/material';
 import AuthViews from './auth/AuthViews';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -36,7 +36,7 @@ const Login: React.FC<{}> = () => {
 	return (
 		<Page centeredContent>
 			<Box className={classes.container}>
-				<Paper>
+				<Paper variant='modal'>
 					<AuthViews onLogin={() => navigate(SMPRoutes.Home, {replace: true})} />
 				</Paper>
 
