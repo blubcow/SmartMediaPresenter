@@ -1,10 +1,9 @@
 import React, { PropsWithChildren, ReactNode } from 'react';
-import { Box, Card } from '../../smpUI';
-import { ButtonBase } from '@mui/material';
-import { ICardProps } from '../../smpUI/Card';
+import { Box } from '../../smpUI';
+import { ButtonBase, Card, CardProps } from '@mui/material';
 import useStyles from './styles';
 
-export interface IEditingButtonProps extends ICardProps {
+export interface IEditingButtonProps extends CardProps {
 	icon: ReactNode;
 	secondaryNode: ReactNode;
 	selected: boolean;

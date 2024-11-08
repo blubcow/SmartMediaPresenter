@@ -1,6 +1,6 @@
 import React from 'react';
-import { ButtonGroup } from '@mui/material';
-import { Box, Card, Button } from '../../smpUI';
+import { ButtonGroup, Card } from '@mui/material';
+import { Box, Button } from '../../smpUI';
 import { FormatItalic, FormatBold } from '@mui/icons-material';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { TextElement } from '../../shared/presentation.interface';

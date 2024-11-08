@@ -7,15 +7,6 @@ export { default as IconButton } from './IconButton';
 export { default as IconBadge } from './IconBadge';
 export { default as Modal } from './Modal';
 export { default as Row } from './Row';
-//export {
-//	default as SelectionPicker,
-//	SelectionPickerOption,
-//} from './SelectionPicker';
-//export {
-//	default as FloatingButton,
-//	FloatingButtonContainer,
-//} from './FloatingButton';
-export { default as Card } from './Card';
 export { default as Drawer } from './Drawer';
 export { default as Slider } from './Slider';
 export { default as Snackbar } from './Snackbar';
