@@ -1,8 +1,8 @@
 import React from 'react';
-import { Box, Text } from '.';
-import { IBoxProps } from './Box';
+import { Text } from '.';
 import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import { BoxProps, Theme } from '@mui/material';
+import { Box } from '@mui/material';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-export interface IRowProps extends IBoxProps {
+export interface IRowProps extends BoxProps {
 	rootContainerStyle?: any;
 	title?: string;
 	info?: string;

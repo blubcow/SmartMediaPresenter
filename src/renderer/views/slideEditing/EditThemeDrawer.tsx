@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Button } from '../../smpUI';
+import { Button } from '../../smpUI';
+import { Box} from '@mui/material';
 import BackgroundAudio from './theme/BackgroundAudio';
 import DefaultBackgroundColor from './theme/DefaultBackgroundColor';
 import DefaultFont from './theme/DefaultFont';

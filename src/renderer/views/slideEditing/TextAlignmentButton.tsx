@@ -1,6 +1,7 @@
 import React from 'react';
 import { ButtonGroup, Card } from '@mui/material';
-import { Box, Button } from '../../smpUI';
+import { Button } from '../../smpUI';
+import { Box} from '@mui/material';
 import {
 	AlignHorizontalCenter,
 	AlignHorizontalLeft,

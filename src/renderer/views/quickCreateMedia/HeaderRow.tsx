@@ -2,13 +2,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import useRemoteUserContext from '../../hooks/useRemoteUserContext';
 import { i18nNamespace } from '../../i18n/i18n';
-import {
-	Box,
-	Text
-} from '../../smpUI';
+import { Text } from '../../smpUI';
 import { useHeaderRowStyles } from './styles';
 import SelectionPicker, { SelectionPickerOption } from '../../smpUI/SelectionPicker';
 import { Switch, TextField } from '@mui/material';
+import { Box } from '@mui/material';
 
 interface IHeaderRowProps {
 	addFilesAction: () => void;

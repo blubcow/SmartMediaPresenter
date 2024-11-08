@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, ReactNode } from 'react';
-import { Box } from '../../smpUI';
+import { Box } from '@mui/material';
 import { ButtonBase, Card, CardProps } from '@mui/material';
 import useStyles from './styles';
 

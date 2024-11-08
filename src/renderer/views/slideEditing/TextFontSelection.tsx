@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import { useSystemFonts } from '../../hooks/useMainProcessMethods';
-import {
-	Box,
-} from '../../smpUI';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
@@ -14,6 +11,7 @@ import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.e
 import TextFontSelectionOption from './TextFontSelectionOption';
 import AutoCompleteSelection from '../../smpUI/AutoCompleteSelection';
 import { TextField } from '@mui/material';
+import { Box } from '@mui/material';
 
 interface ITextFontSelectionProps {
 	editingTheme?: boolean;

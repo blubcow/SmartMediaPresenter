@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '../../smpUI';
 import ChangeLanguage from './ChangeLanguage';
 import ChangeTheme from './ChangeTheme';
 import RemoteUser from './RemoteUser';
@@ -8,7 +7,7 @@ import { i18nNamespace } from '../../i18n/i18n';
 import ManageRemoteMedia from './ManageRemoteMedia';
 import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
 import config from '../../config/firebase.config';
-
+import { Box } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Drawer, DrawerProps, Theme } from '@mui/material';
 

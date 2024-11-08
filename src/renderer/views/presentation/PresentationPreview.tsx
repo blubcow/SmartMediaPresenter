@@ -4,10 +4,7 @@ import { i18nNamespace } from '../../i18n/i18n';
 import {
 	SinglePresentation,
 } from '../../shared/presentation.interface';
-import {
-	Box,
-	Text,
-} from '../../smpUI';
+import { Text } from '../../smpUI';
 import {
 	Edit,
 	Delete,
@@ -26,7 +23,7 @@ import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
 import usePresentationCacheContext from '../../hooks/usePresentationCacheContext';
 import PreviewSlide from './PreviewSlide';
 import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import { Box, Theme } from '@mui/material';
 import FloatingButton, { FloatingButtonContainer } from '../../smpUI/FloatingButton';
 
 const useStyles = makeStyles((theme: Theme) =>

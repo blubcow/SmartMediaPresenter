@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Box, Text, Button } from '../../smpUI';
+import { Text, Button } from '../../smpUI';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { auth } from '../../models/firebase';
 import { useLoginContainerStyles, useTextFieldContainerStyles } from './Login';
 import { TextField } from '@mui/material';
+import { Box } from '@mui/material';
 
 interface ICreateAccountProps {
 	onAccountCreated: () => void;

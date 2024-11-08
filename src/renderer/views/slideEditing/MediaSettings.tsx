@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Box } from '../../smpUI';
+import { Box } from '@mui/material';
 import AlignMediaButton from './AlignMediaButton';
 import CropButton from './CropButton';
 import ImageManipulationButton from './ImageManipulationButton';

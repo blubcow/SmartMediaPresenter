@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Box, Text, Button } from '../../smpUI';
+import { Text, Button } from '../../smpUI';
+import { Box} from '@mui/material';
 import useThemedLogo from '../../hooks/useThemedLogo';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';

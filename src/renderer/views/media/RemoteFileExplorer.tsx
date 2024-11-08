@@ -3,7 +3,6 @@ import { CircularProgress, Divider } from '@mui/material';
 import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
 import {
 	Modal,
-	Box,
 	Button,
 	Text,
 	IconButton,
@@ -20,6 +19,7 @@ import { ArrowBack } from '@mui/icons-material';
 import RemoteFile from './RemoteFile';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
+import { Box } from '@mui/material';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

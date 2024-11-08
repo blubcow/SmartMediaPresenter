@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Box, Text } from '../../smpUI';
+import { Text } from '../../smpUI';
+import { Box} from '@mui/material';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import {

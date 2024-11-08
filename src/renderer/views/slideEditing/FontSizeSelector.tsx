@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { TextElement } from '../../shared/presentation.interface';
-import { Box, Button, Text } from '../../smpUI';
+import { Button, Text } from '../../smpUI';
+import { Box} from '@mui/material';
 import EditButtonLabel from './EditButtonLabel';
 import EditingButton from './EditingButton';
 import { useTranslation } from 'react-i18next';

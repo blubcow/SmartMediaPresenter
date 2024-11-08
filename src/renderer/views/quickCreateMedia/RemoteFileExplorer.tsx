@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Box, IconButton, Text } from '../../smpUI';
+import { IconButton, Text } from '../../smpUI';
+import { Box} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { RemoteStorageMedia } from '../../shared/presentaitonSycncing.interface';

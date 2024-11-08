@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import TopBar from '../smpUI/TopBar';
-import { Box, IconButton } from '../smpUI';
+import { IconButton } from '../smpUI';
 import useThemedLogo from '../hooks/useThemedLogo';
 import UserSettingsDrawer from './settings/UserSettingsDrawer';
-
+import { Box } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 import { Menu } from '@mui/icons-material';

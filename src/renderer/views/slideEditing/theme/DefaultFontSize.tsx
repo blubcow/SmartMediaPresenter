@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { Box, Text } from '../../../smpUI';
+import { Text } from '../../../smpUI';
+import { Box} from '@mui/material';
 import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
 import SettingsRow from '../../settings/SettingsRow';
 import { useTranslation } from 'react-i18next';

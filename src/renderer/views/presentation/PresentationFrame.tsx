@@ -5,7 +5,7 @@ import {
 	Dimensions,
 	PresentationFrameSettings,
 } from '../../shared/presentation.interface';
-import { Box } from '../../smpUI';
+import { Box } from '@mui/material';
 import ResizingAnchor, { AnchorPosition } from './ResizingAnchor';
 
 interface IPresentationFrameProps {

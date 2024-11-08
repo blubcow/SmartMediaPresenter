@@ -1,9 +1,9 @@
 import React from 'react';
-import { Box } from '../../smpUI';
 import { LinearProgress, Paper } from '@mui/material';
 import useThemedLogo from '../../hooks/useThemedLogo';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
+import { Box } from '@mui/material';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

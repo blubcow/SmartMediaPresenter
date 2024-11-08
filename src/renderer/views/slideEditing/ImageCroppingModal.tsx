@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Modal, Box, Button } from '../../smpUI';
+import { Modal, Button } from '../../smpUI';
+import { Box} from '@mui/material';
 import { IModalProps } from '../../smpUI/Modal';
 import CroppableImage from './CroppableImage';
 import { useTranslation } from 'react-i18next';

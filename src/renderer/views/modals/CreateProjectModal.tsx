@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Modal, Text, IconBadge } from '../../smpUI';
+import { Modal, Text, IconBadge } from '../../smpUI';
+import { Box} from '@mui/material';
 import { IModalProps } from '../../smpUI/Modal';
 import {
 	Download,

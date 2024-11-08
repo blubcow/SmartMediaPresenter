@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import EditingButton from './EditingButton';
-import { Box, Button, Text } from '../../smpUI';
+import { Button, Text } from '../../smpUI';
+import { Box} from '@mui/material';
 import { Notes } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';

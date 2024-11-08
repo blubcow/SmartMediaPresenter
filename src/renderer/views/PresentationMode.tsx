@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { usePresentationMode } from '../hooks/useMainProcessMethods';
-import { Box, Text, Button } from '../smpUI';
+import { Text, Button } from '../smpUI';
 import { FullScreen, FullScreenHandle } from 'react-full-screen';
 import { SinglePresentation } from '../shared/presentation.interface';
 import SlideBox from './slide/SlideEditingBox';
@@ -11,6 +11,7 @@ import AutoPlaybackBar from './components/AutoPlaybackBar';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 import { formatTimer } from '../shared/format.utils';
+import { Box } from '@mui/material';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Box } from '../../smpUI';
+import { Box } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 

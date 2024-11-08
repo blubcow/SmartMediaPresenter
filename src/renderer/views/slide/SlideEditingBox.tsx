@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Box } from '../../smpUI';
 import {
 	Dimensions,
 	Slide,
 	SlideTheme,
 	TextElement,
 } from '../../shared/presentation.interface';
-import { IBoxProps } from '../../smpUI/Box';
+import { Box, BoxProps } from '@mui/material';
 import MediaBox from '../media/MediaBox';
 import PresentationFrame from '../presentation/PresentationFrame';
 import SlideTextElement from './SlideTextElement';
@@ -53,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-export interface ISlideBoxProps extends IBoxProps {
+export interface ISlideBoxProps extends BoxProps {
 	slide: Slide;
 	theme: SlideTheme;
 	didReceiveMediaFile?: (file: File, id: number) => void;

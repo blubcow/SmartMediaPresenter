@@ -1,5 +1,6 @@
 import React, { PropsWithChildren } from 'react';
-import { Modal, Text, Button, Box } from '../../smpUI';
+import { Modal, Text, Button,  } from '../../smpUI';
+import { Box} from '@mui/material';
 import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';

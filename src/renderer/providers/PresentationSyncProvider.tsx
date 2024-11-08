@@ -5,13 +5,12 @@ import React, {
 	useEffect,
 	useCallback,
 } from 'react';
-import { CircularProgress, LinearProgress } from '@mui/material';
+import { Box, CircularProgress, LinearProgress } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import useRemoteUserContext from '../hooks/useRemoteUserContext';
 import { i18nNamespace } from '../i18n/i18n';
 import { database } from '../models/firebase';
 import { SinglePresentation } from '../shared/presentation.interface';
-import Box from '../smpUI/Box';
 import Text from '../smpUI/Text';
 import { SyncableStoredPresentation } from '../shared/presentaitonSycncing.interface';
 import { useStoredPresentations } from '../hooks/useMainProcessMethods';
