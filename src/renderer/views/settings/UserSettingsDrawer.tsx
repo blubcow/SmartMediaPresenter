@@ -1,6 +1,5 @@
 import React from 'react';
-import { Drawer, Box, Text } from '../../smpUI';
-import { IDrawerProps } from '../../smpUI/Drawer';
+import { Box } from '../../smpUI';
 import ChangeLanguage from './ChangeLanguage';
 import ChangeTheme from './ChangeTheme';
 import RemoteUser from './RemoteUser';
@@ -11,7 +10,7 @@ import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
 import config from '../../config/firebase.config';
 
 import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import { Drawer, DrawerProps, Theme } from '@mui/material';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -25,10 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-
-interface IUserSettingsDrawerProps extends IDrawerProps {}
-
-const UserSettingsDrawer: React.FC<IUserSettingsDrawerProps> = (props) => {
+const UserSettingsDrawer: React.FC<DrawerProps> = (props) => {
 	const classes = useStyles();
 	const { t } = useTranslation([i18nNamespace.Alert]);
 	const { syncingAvailable } = usePresentationSyncContext();

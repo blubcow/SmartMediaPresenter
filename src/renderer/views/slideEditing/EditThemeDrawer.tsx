@@ -1,6 +1,5 @@
 import React from 'react';
-import { Drawer, Box, Button } from '../../smpUI';
-import { IDrawerProps } from '../../smpUI/Drawer';
+import { Box, Button } from '../../smpUI';
 import BackgroundAudio from './theme/BackgroundAudio';
 import DefaultBackgroundColor from './theme/DefaultBackgroundColor';
 import DefaultFont from './theme/DefaultFont';
@@ -12,8 +11,9 @@ import { useEditThemeDrawerStyles } from './styles';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import DefaultMediaAlignemnt from './theme/DefaultMediaAlignment';
+import { Drawer, DrawerProps } from '@mui/material';
 
-interface IEditThemeDrawerProps extends IDrawerProps {
+interface IEditThemeDrawerProps extends DrawerProps {
 	onFinish: () => void;
 }
 

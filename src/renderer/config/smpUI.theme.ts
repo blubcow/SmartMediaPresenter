@@ -11,6 +11,12 @@ const components: Components<Omit<Theme, 'components' | 'palette'> & CssVarsThem
 			size: 'small',
 			fullWidth: true
 		}
+	},
+	MuiDrawer: {
+		defaultProps: {
+			variant: 'temporary',
+			anchor: 'right'
+		}
 	}
 }
 

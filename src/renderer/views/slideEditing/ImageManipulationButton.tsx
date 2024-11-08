@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import EditingButton from './EditingButton';
-import { Box, Button, Drawer, Text } from '../../smpUI';
+import { Box, Button, Text } from '../../smpUI';
 import { Tune } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
@@ -18,7 +18,7 @@ import useImageManipulation from '../../hooks/useImageManipulation';
 import RgbChannelsImageManipulationRow from './RgbChannelsImageManipulationRow';
 import RgbChannelsPopover from './RgbChannelsPopover';
 import ColorChannelFilter from '../media/ColorChannelFilter';
-import { Slider } from '@mui/material';
+import { Drawer, Slider } from '@mui/material';
 
 interface IImageManipulationButtonProps {}
 
@@ -50,6 +50,7 @@ const ImageManipulationButton: React.FC<IImageManipulationButtonProps> = (
 					setOpenDrawer(true);
 				}}
 			/>
+			{/* TODO: Deprecated "BackdropProps" */} 
 			<Drawer
 				open={openDrawer}
 				onClose={() => setOpenDrawer(false)}
