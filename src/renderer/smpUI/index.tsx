@@ -9,5 +9,4 @@ export { default as Modal } from './Modal';
 export { default as Row } from './Row';
 export { default as Drawer } from './Drawer';
 export { default as Snackbar } from './Snackbar';
-export { default as TextArea } from './TextArea';
 export { default as Popover } from './Popover';
