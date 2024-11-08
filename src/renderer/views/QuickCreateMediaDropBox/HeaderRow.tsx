@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import useRemoteUserContext from '../../../hooks/useRemoteUserContext';
-import { i18nNamespace } from '../../../i18n/i18n';
+import useRemoteUserContext from '../../hooks/useRemoteUserContext';
+import { i18nNamespace } from '../../i18n/i18n';
 import {
 	Box,
 	Text,
@@ -9,7 +9,7 @@ import {
 	SelectionPickerOption,
 	SelectionPicker,
 	Switch,
-} from '../../../smpUI/components';
+} from '../../smpUI/components';
 import { useHeaderRowStyles } from './styles';
 
 interface IHeaderRowProps {
@@ -111,6 +111,7 @@ const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
 						</SelectionPicker>
 						<Box className={classes.spacer} />
 						<SelectionPicker
+							label="TODO: THIS LABEL WAS NOT SET??" // TODO: Label was not set
 							value={orderValue}
 							onChange={(e) => {
 								onOrderChange((e.target.value as string) ?? '');

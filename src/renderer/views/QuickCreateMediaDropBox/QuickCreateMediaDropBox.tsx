@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { QuickCreateMediaResource } from '../../../types/quickCreateMode';
-import { Box, Text } from '../../../smpUI/components';
-import { IBoxProps } from '../../../smpUI/Box';
+import { QuickCreateMediaResource } from '../../types/quickCreateMode';
+import { Box, Text } from '../../smpUI/components';
+import { IBoxProps } from '../../smpUI/Box';
 import useStyles from './styles';
-import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
+import { useLocalFileSystem } from '../../hooks/useMainProcessMethods';
 import * as path from 'path';
 import HeaderRow from './HeaderRow';
-import MediaRow from './MeidaRow';
-import { allowedFiles } from '../../../shared/types/mediaResources';
+import MediaRow from './MediaRow';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../i18n/i18n';
-import MediaDropBoxIndicator from '../MediaDropBoxIndicator/MediaDropBoxIndicator';
-import { useHeldKeys } from '../../../hooks/useHeldKeys';
-import { DataTransferIdentifiers } from '../../../types/identifiers';
+import { i18nNamespace } from '../../i18n/i18n';
+import { useHeldKeys } from '../../hooks/useHeldKeys';
+import { DataTransferIdentifiers } from '../../types/identifiers';
 import RemoteFileExplorer from './RemoteFileExplorer';
+import { allowedFiles } from '../../shared/mediaResource.utils';
+import MediaDropBoxIndicator from '../components/MediaDropBoxIndicator';
 
 interface IQuickCreateMediaDropBoxProps extends IBoxProps {
 	selectedRows: number[];

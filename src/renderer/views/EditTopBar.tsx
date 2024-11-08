@@ -5,13 +5,13 @@ import { PresentationEditingActionIdentifiers } from '../types/identifiers';
 import TopBarDisplayingFilename, {
 	ITopBarDisplayingFilenameProps,
 } from './components/TopBarDisplayingFilename';
-import MediaSettings from './components/slideEditing/MediaSettings';
-import SlideSettings from './components/slideEditing/SlideSettings';
-import ActionConfirmationModal from './components/modals/ActionConfirmationModal';
+import MediaSettings from './slideEditing/MediaSettings';
+import SlideSettings from './slideEditing/SlideSettings';
+import ActionConfirmationModal from './modals/ActionConfirmationModal';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../i18n/i18n';
-import TextSettings from './components/slideEditing/TextSettings';
+import TextSettings from './slideEditing/TextSettings';
 import { MediaSettingsProvider } from '../providers/MediaSettingsProvider';
 
 interface IEditTopBarProps extends ITopBarDisplayingFilenameProps { }

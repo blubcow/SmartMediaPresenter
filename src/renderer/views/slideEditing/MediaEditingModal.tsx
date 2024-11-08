@@ -1,11 +1,11 @@
 import React, { ReactNode, useEffect } from 'react';
-import { Box, Button, Text, Modal } from '../../smpUI/components';
-import { IModalProps } from '../../smpUI/Modal';
+import { Box, Button, Text } from '../../smpUI/components';
+import Modal, { IModalProps } from '../../smpUI/Modal';
 import { useMediaEditingModalStyles } from './styles';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 
-// TODO: Incorrectly extended type
+// TODO: Incorrectly extended type (use child references instead of "content")
 interface IMediaEditingModalProps extends IModalProps {
 	title: string;
 	onEditingFinished: () => void;

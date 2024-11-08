@@ -15,11 +15,11 @@ import { Box, Text } from '../smpUI/components';
 import { SyncableStoredPresentation } from '../types/presentaitonSycncing';
 import { useStoredPresentations } from '../hooks/useMainProcessMethods';
 import { useWorkspace } from '../hooks/useMainProcessMethods';
-import ImportLocalPresentationsModal from '../views/components/modals/ImportLocalPresentationsModal';
 import useUserSettingsContext from '../hooks/useUserSettingsContext';
 import useConnectivityContext from '../hooks/useConnectivityContext';
 import useRemoteMedia from '../hooks/useRemoteMedia';
 import usePresentationSyncing from '../hooks/usePresentationSyncing';
+import ImportLocalPresentationsModal from '../views/modals/ImportLocalPresentationsModal';
 export const PresentationSyncContext = createContext({});
 
 const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({

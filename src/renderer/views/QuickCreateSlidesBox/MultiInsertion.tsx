@@ -1,10 +1,10 @@
 import React from 'react';
-import { Box } from '../../../smpUI/components';
-import MediaDropBoxIndicator from '../MediaDropBoxIndicator/MediaDropBoxIndicator';
+import { Box } from '../../smpUI/components';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../i18n/i18n';
+import { i18nNamespace } from '../../i18n/i18n';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
+import MediaDropBoxIndicator from '../components/MediaDropBoxIndicator';
 
 const useMultiInsertionStyles = makeStyles((theme: Theme) =>
 	createStyles({

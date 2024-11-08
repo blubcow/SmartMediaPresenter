@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Box, IconButton, Text } from '../../../smpUI/components';
+import { Box, IconButton, Text } from '../../smpUI/components';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../i18n/i18n';
-import { RemoteStorageMedia } from '../../../types/presentaitonSycncing';
+import { i18nNamespace } from '../../i18n/i18n';
+import { RemoteStorageMedia } from '../../types/presentaitonSycncing';
 import { useRemoteFileExplorerStyles } from './styles';
 import { CircularProgress, ClickAwayListener } from '@mui/material';
-import usePresentationSyncContext from '../../../hooks/usePresentationSyncContext';
-import { ImageResourceExtensions } from '../../../shared/types/mediaResources';
-import { useHeldKeys } from '../../../hooks/useHeldKeys';
+import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
+import { useHeldKeys } from '../../hooks/useHeldKeys';
 import { Folder, ArrowBack } from '@mui/icons-material';
-import { DataTransferIdentifiers } from '../../../types/identifiers';
+import { DataTransferIdentifiers } from '../../types/identifiers';
+import { ImageResourceExtensions } from '../../shared/mediaResource.utils';
 
 interface IRemoteFileExplorerProps {
 	preview: boolean;

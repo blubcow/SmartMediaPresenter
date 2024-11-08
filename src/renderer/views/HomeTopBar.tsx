@@ -39,7 +39,7 @@ const HomeTopBar: React.FC<{}> = () => {
 					<img className={classes.img} src={toolbarLogo} alt='SMP-Logo' />
 				</Box>
 				<Box>
-					<IconButton icon={Menu} onClick={() => setOpenUserSettings(true)} />;
+					<IconButton icon={Menu} onClick={() => setOpenUserSettings(true)} />
 				</Box>
 			</Box>
 			<UserSettingsDrawer

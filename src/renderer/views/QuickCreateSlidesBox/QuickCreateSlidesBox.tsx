@@ -3,13 +3,13 @@ import {
 	Slide,
 	MediaRessource,
 	getEmptySlide,
-} from '../../../shared/presentation.interface';
-import { Box } from '../../../smpUI/components';
-import SlideBox from '../SlideBox/SlideEditingBox';
+} from '../../shared/presentation.interface';
+import { Box } from '../../smpUI/components';
+import SlideBox from '../slide/SlideEditingBox';
 import HeaderRow from './HeaderRow';
 import SlideRow from './SlideRow';
 import MultiInsertion from './MultiInsertion';
-import { DataTransferIdentifiers } from '../../../types/identifiers';
+import { DataTransferIdentifiers } from '../../types/identifiers';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 

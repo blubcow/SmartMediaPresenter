@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../i18n/i18n';
-import { DataTransferIdentifiers } from '../../../types/identifiers';
-import { Box, Text } from '../../../smpUI/components';
+import { i18nNamespace } from '../../i18n/i18n';
+import { DataTransferIdentifiers } from '../../types/identifiers';
+import { Box, Text } from '../../smpUI/components';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
