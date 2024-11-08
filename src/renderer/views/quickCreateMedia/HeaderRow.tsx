@@ -6,10 +6,10 @@ import {
 	Box,
 	Text,
 	TextField,
-	Switch,
 } from '../../smpUI';
 import { useHeaderRowStyles } from './styles';
 import SelectionPicker, { SelectionPickerOption } from '../../smpUI/SelectionPicker';
+import { Switch } from '@mui/material';
 
 interface IHeaderRowProps {
 	addFilesAction: () => void;
