@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text } from '../../smpUI/components';
+import { Box, Text } from '../../smpUI';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { CircularProgress } from '@mui/material';

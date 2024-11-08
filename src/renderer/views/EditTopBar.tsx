@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import usePresentationEditingContext from '../hooks/usePresentationEditingContext';
-import { Box } from '../smpUI/components';
-import { PresentationEditingActionIdentifiers } from '../types/identifiers';
+import { Box } from '../smpUI';
+import { PresentationEditingActionIdentifiers } from '../shared/identifiers.enum';
 import TopBarDisplayingFilename, {
 	ITopBarDisplayingFilenameProps,
 } from './components/TopBarDisplayingFilename';

@@ -7,7 +7,6 @@ import {
 	SaveDialogOptions,
 	screen,
 } from 'electron';
-import { MainProcessMethodIdentifiers } from '../../renderer/shared/identifiers.enum';
 import * as path from 'path';
 import * as fs from 'fs';
 import { FileExpolorerOptions } from './types/fileExplorer';
@@ -24,6 +23,7 @@ import { convertJsonToXlsx } from './models/PresentationFileConverter';
 import { getFilesInDir, getFileFromPath } from './models/FileSystem';
 import { parse } from './models/PresentationParser';
 import { resolveHtmlPath } from '../util';
+import { MainProcessMethodIdentifiers } from '../../renderer/shared/identifiers.enum';
 
 let globalWorkspace: string | undefined;
 

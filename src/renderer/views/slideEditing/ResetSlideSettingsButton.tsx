@@ -10,7 +10,7 @@ import {
 } from '../../shared/presentation.interface';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import ActionConfirmationModal from '../modals/ActionConfirmationModal';
-import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
+import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 
 interface IResetSettingsButtonProps {}
 

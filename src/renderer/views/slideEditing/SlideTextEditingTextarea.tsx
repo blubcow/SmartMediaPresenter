@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { Dimensions, TextElement } from '../../shared/presentation.interface';
-import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
+import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 

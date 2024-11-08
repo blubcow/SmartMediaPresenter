@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { usePresentationMode } from '../hooks/useMainProcessMethods';
-import { Box, Text, Button } from '../smpUI/components';
+import { Box, Text, Button } from '../smpUI';
 import { FullScreen, FullScreenHandle } from 'react-full-screen';
 import { SinglePresentation } from '../shared/presentation.interface';
 import SlideBox from './slide/SlideEditingBox';
 import { Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../i18n/i18n';
-import { formatTimer } from '../util/Formatter';
 import AutoPlaybackBar from './components/AutoPlaybackBar';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
+import { formatTimer } from '../shared/format.utils';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

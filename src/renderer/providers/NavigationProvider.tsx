@@ -1,6 +1,6 @@
 import React from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import { SMPRoutes } from '../types/routes';
+import { SMPRoutes } from '../shared/routes.enum';
 import Login from '../views/Login';
 import LoadingPage from '../views/LoadingPage';
 import Home from '../views/Home';

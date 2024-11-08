@@ -1,6 +1,6 @@
 import React from 'react';
 import { ButtonGroup } from '@mui/material';
-import { Button } from '../../smpUI/components';
+import { Button } from '../../smpUI';
 import SettingsRow from './SettingsRow';
 import useUserSettingsContext from '../../hooks/useUserSettingsContext';
 import { useTranslation } from 'react-i18next';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, IconButton } from '../../smpUI/components';
+import { Modal, IconButton } from '../../smpUI';
 import { IModalProps } from '../../smpUI/Modal';
 import { ArrowBackIosNew } from '@mui/icons-material';
 

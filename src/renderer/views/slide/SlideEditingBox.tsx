@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Box } from '../../smpUI/components';
+import { Box } from '../../smpUI';
 import {
 	Dimensions,
 	Slide,

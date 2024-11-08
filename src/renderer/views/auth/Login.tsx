@@ -1,16 +1,59 @@
 import React, { useState } from 'react';
-import { Box, Text, Button, TextField } from '../../smpUI/components';
+import { Box, Text, Button, TextField } from '../../smpUI';
 import useThemedLogo from '../../hooks/useThemedLogo';
-import useStyles, {
-	useAuthButtonContainerStyles,
-	useTextFieldContainerStyles,
-} from './styles';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { auth } from '../../models/firebase';
 import PopUpModal from './PopUpModal';
 import CreateAccount from './CreateAccount';
 import ForgotPassword from './ForgotPassword';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+export const useLoginContainerStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			width: '100%',
+			display: 'flex',
+			flexDirection: 'column',
+			alignItems: 'center',
+			overflow: 'hidden',
+		},
+		img: {
+			width: '50%',
+			marginBottom: theme.spacing(3),
+		},
+	})
+);
+
+export const useTextFieldContainerStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			width: '100%',
+		},
+		textFieldContainer: {
+			width: '100%',
+			marginTop: theme.spacing(3),
+		},
+		buttonContainer: {
+			marginTop: theme.spacing(2),
+			display: 'flex',
+			justifyContent: 'center',
+		},
+	})
+);
+
+const useAuthButtonContainerStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			width: '100%',
+			marginTop: theme.spacing(2),
+			display: 'flex',
+			justifyContent: 'space-between',
+		},
+	})
+);
+
 
 interface ILoginProps {
 	onLogin: () => void;
@@ -18,7 +61,7 @@ interface ILoginProps {
 
 const Login: React.FC<ILoginProps> = (props) => {
 	const logo = useThemedLogo();
-	const classes = useStyles();
+	const classes = useLoginContainerStyles();
 	const { t } = useTranslation([i18nNamespace.Auth]);
 
 	const { onLogin } = props;

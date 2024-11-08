@@ -1,6 +1,6 @@
 import React from 'react';
 import { ButtonGroup } from '@mui/material';
-import { Box, Card, Button } from '../../smpUI/components';
+import { Box, Card, Button } from '../../smpUI';
 import {
 	AlignHorizontalCenter,
 	AlignHorizontalLeft,
@@ -8,7 +8,7 @@ import {
 } from '@mui/icons-material';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { TextAlignment, TextElement } from '../../shared/presentation.interface';
-import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
+import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 
 const TextAliginmentButton: React.FC<{}> = () => {
 	const { state, dispatch } = usePresentationEditingContext();

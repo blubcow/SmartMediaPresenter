@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '../../smpUI/components';
+import { Box } from '../../smpUI';
 
 interface IColorPickerIconProps {
 	color: string;

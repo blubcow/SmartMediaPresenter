@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { FloatingButton } from '../../smpUI/components';
 import { useTranslation } from 'react-i18next';
 import { useDisplays } from '../../hooks/useMainProcessMethods';
 import { Slideshow } from '@mui/icons-material';
@@ -10,6 +9,7 @@ import { useFullScreenHandle } from 'react-full-screen';
 import { SinglePresentation } from '../../shared/presentation.interface';
 import PresentationFullScreen from '../components/PresentationFullScreen';
 import { useNavigate } from 'react-router-dom';
+import FloatingButton from '../../smpUI/FloatingButton';
 
 interface IPresentationFloatingButtonProps {
 	presentationId?: number;

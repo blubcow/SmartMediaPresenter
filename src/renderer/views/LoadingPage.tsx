@@ -3,8 +3,8 @@ import Page from '../smpUI/Page';
 import { useNavigate } from 'react-router-dom';
 import LoadingIndicatorPaper from './components/LoadingIndicatorPaper';
 import useRemoteUserContext from '../hooks/useRemoteUserContext';
-import { SMPRoutes } from '../types/routes';
-import config from '../config/config.firebase';
+import { SMPRoutes } from '../shared/routes.enum';
+import config from '../config/firebase.config';
 
 const LoadingPage: React.FC<{}> = () => {
 //const LoadingPage = function (){

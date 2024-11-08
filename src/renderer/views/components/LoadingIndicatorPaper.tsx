@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Paper } from '../../smpUI/components';
+import { Box, Paper } from '../../smpUI';
 import { LinearProgress } from '@mui/material';
 import useThemedLogo from '../../hooks/useThemedLogo';
 import { createStyles, makeStyles } from '@mui/styles';

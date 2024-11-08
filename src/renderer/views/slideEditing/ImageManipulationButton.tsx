@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import EditingButton from './EditingButton';
-import { Box, Button, Drawer, Text, Slider } from '../../smpUI/components';
+import { Box, Button, Drawer, Text, Slider } from '../../smpUI';
 import { Tune } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
@@ -11,7 +11,7 @@ import {
 	MediaRessource,
 	MediaSettings,
 } from '../../shared/presentation.interface';
-import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
+import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { RestartAlt } from '@mui/icons-material';
 import useImageManipulation from '../../hooks/useImageManipulation';

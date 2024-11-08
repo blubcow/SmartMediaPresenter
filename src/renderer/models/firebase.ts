@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import config from '../config/config.firebase';
+import config, { defaultDBURL } from '../config/firebase.config';
 import {
 	getAuth,
 	signInWithEmailAndPassword,
@@ -29,7 +29,7 @@ import {
 	push,
 } from 'firebase/database';
 import { SinglePresentation } from '../shared/presentation.interface';
-import { dbCollection, defaultDBURL } from '../types/remoteCollections';
+import { dbCollection } from '../shared/remoteCollections.enum';
 
 let fireAuth: any = {};
 let fireStorage: any = {};

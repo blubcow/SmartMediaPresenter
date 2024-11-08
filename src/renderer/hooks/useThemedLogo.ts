@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { darkTheme } from '../smpUI/smpUITheme';
+import { darkTheme } from '../config/smpUI.theme';
 import usePreferredTheme from './usePreferredTheme';
 import toolBarLogoLight from '../../../assets/resources/toolbar-logo-light.png';
 import toolBarLogoDark from '../../../assets/resources/toolbar-logo-dark.png';

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Login from './Login';
 
+// TODO: This is basically an empty component
 interface IAuthViewsProps {
 	onLogin: () => void;
 }

@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
 import { FileExplorerType } from '../shared/fileExplorer.interface';
-import { MainProcessMethodIdentifiers } from '../shared/identifiers.enum';
 import {
 	StoredPresentation,
 	StoredPresentations,
@@ -9,6 +8,7 @@ import {
 } from '../shared/presentation.interface';
 import { UserSettings } from '../shared/userSettings.interface';
 import { WorkspaceChangeResult } from '../shared/workspace.interface';
+import { MainProcessMethodIdentifiers } from '../shared/identifiers.enum';
 
 const ipcRenderer = window.electron;
 

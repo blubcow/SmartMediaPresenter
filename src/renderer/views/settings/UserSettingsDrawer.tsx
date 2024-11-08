@@ -1,5 +1,5 @@
 import React from 'react';
-import { Drawer, Box, Text } from '../../smpUI/components';
+import { Drawer, Box, Text } from '../../smpUI';
 import { IDrawerProps } from '../../smpUI/Drawer';
 import ChangeLanguage from './ChangeLanguage';
 import ChangeTheme from './ChangeTheme';
@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import ManageRemoteMedia from './ManageRemoteMedia';
 import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
-import config from '../../config/config.firebase';
+import config from '../../config/firebase.config';
 
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';

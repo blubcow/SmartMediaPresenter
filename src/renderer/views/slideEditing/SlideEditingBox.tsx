@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Box, Text } from '../../smpUI/components';
+import { Box, Text } from '../../smpUI';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
-import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
+import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import {
 	MediaRessource,
 	SinglePresentation,

@@ -1,9 +1,31 @@
 import React, { PropsWithChildren } from 'react';
-import { Modal, Text, Button, Box } from '../../smpUI/components';
+import { Modal, Text, Button, Box } from '../../smpUI';
 import { IModalProps } from '../../smpUI/Modal';
-import { useActionConfirmationModalStyles } from './styles';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+export const useActionConfirmationModalStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		contentContainer: {
+			width: '450px',
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'center',
+			textAlign: 'center',
+			padding: theme.spacing(1),
+		},
+		secondaryTextContainer: {
+			textAlign: 'center',
+			padding: theme.spacing(3),
+		},
+		buttonContainer: {
+			display: 'flex',
+			justifyContent: 'space-between',
+		},
+	})
+);
 
 interface IActionConfirmationModalProps extends IModalProps {
 	secondaryText?: string;

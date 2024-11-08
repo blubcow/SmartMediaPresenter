@@ -5,7 +5,7 @@ import {
 	Button,
 	Text,
 	IconButton,
-} from '../../smpUI/components';
+} from '../../smpUI';
 import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
@@ -15,7 +15,7 @@ import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
 import {
 	RemoteStorageMedia,
 	RemoteStorageMediaType,
-} from '../../types/presentaitonSycncing';
+} from '../../shared/presentaitonSycncing.interface';
 import { useHeldKeys } from '../../hooks/useHeldKeys';
 import { InsertDriveFile, Folder, ArrowBack } from '@mui/icons-material';
 import { ImageResourceExtensions } from '../../shared/mediaResource.utils';

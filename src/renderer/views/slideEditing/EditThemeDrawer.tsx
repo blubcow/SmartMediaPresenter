@@ -1,17 +1,17 @@
 import React from 'react';
-import { Drawer, Box, Button } from '../../smpUI/components';
+import { Drawer, Box, Button } from '../../smpUI';
 import { IDrawerProps } from '../../smpUI/Drawer';
-import BackgroundAudio from './slideThemeComponents/BackgroundAudio';
-import DefaultBackgroundColor from './slideThemeComponents/DefaultBackgroundColor';
-import DefaultFont from './slideThemeComponents/DefaultFont';
-import DefaultFontColor from './slideThemeComponents/DefaultFontColor';
-import DefaultFontSize from './slideThemeComponents/DefaultFontSize';
-import DefaultFormat from './slideThemeComponents/DefaultFormat';
-import DefaultPlaybackTime from './slideThemeComponents/DefaultPlaybackTime';
+import BackgroundAudio from './theme/BackgroundAudio';
+import DefaultBackgroundColor from './theme/DefaultBackgroundColor';
+import DefaultFont from './theme/DefaultFont';
+import DefaultFontColor from './theme/DefaultFontColor';
+import DefaultFontSize from './theme/DefaultFontSize';
+import DefaultFormat from './theme/DefaultFormat';
+import DefaultPlaybackTime from './theme/DefaultPlaybackTime';
 import { useEditThemeDrawerStyles } from './styles';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import DefaultMediaAlignemnt from './slideThemeComponents/DefaultMediaAlignment';
+import DefaultMediaAlignemnt from './theme/DefaultMediaAlignment';
 
 interface IEditThemeDrawerProps extends IDrawerProps {
 	onFinish: () => void;

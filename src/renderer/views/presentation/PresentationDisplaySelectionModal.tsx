@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Box, Text } from '../../smpUI/components';
+import { Modal, Box, Text } from '../../smpUI';
 import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';

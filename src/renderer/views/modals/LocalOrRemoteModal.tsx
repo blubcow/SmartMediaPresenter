@@ -1,10 +1,44 @@
 import React from 'react';
-import { Modal, Box, Text } from '../../smpUI/components';
+import { Modal, Box, Text } from '../../smpUI';
 import { IModalProps } from '../../smpUI/Modal';
-import { useLocalOrRemoteModalStyles } from './styles';
 import { DesktopWindows, Cloud } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useLocalOrRemoteModalStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			display: 'flex',
+			flexDirection: 'column',
+			gap: theme.spacing(3),
+			alignItems: 'center',
+			justifyContent: 'center',
+		},
+		btns: {
+			display: 'flex',
+			gap: theme.spacing(3),
+		},
+		btn: {
+			padding: theme.spacing(1),
+			width: '100px',
+			display: 'flex',
+			flexDirection: 'column',
+			alignItems: 'center',
+			justifyContent: 'center',
+			gap: theme.spacing(1),
+			textAlign: 'center',
+			borderRadius: theme.shape.borderRadius,
+			transition: 'box-shadow 0.2s ease',
+			boxShadow: theme.shadows[5],
+			cursor: 'pointer',
+			'&:hover': {
+				boxShadow: theme.shadows[20],
+			},
+		},
+	})
+);
 
 type localOrRemoteSelection = 'local' | 'remote';
 

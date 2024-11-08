@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { database } from '../models/firebase';
 import { syncLocalPresentation } from '../models/PresentationSyncer';
-import { MainProcessMethodIdentifiers } from '../shared/identifiers.enum';
 import {
 	SinglePresentation,
 	StoredPresentation,
@@ -10,8 +9,9 @@ import {
 	LocalSyncPresentationItem,
 	RemotelyAvailableMedia,
 	SyncPaperEntry,
-} from '../types/presentaitonSycncing';
-import { RemoteUser } from '../types/remote';
+} from '../shared/presentaitonSycncing.interface';
+import { RemoteUser } from '../shared/remote.interface';
+import { MainProcessMethodIdentifiers } from '../shared/identifiers.enum';
 
 const ipcRenderer = window.electron;
 

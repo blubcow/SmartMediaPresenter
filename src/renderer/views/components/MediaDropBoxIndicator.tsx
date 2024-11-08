@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { Box, Text } from '../../smpUI/components';
+import { Box, Text } from '../../smpUI';
 import { IBoxProps } from '../../smpUI/Box';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';

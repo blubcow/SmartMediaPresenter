@@ -5,11 +5,11 @@ import {
 	Button,
 	Text,
 	IconButton,
-} from '../../smpUI/components';
+} from '../../smpUI';
 import {
 	RemoteStorageMedia,
 	RemoteStorageMediaType,
-} from '../../types/presentaitonSycncing';
+} from '../../shared/presentaitonSycncing.interface';
 import { InsertDriveFile, Folder, ArrowBack } from '@mui/icons-material';
 import { ImageResourceExtensions } from '../../shared/mediaResource.utils';
 import { createStyles, makeStyles } from '@mui/styles';

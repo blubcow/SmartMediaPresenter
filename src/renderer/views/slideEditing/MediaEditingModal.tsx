@@ -1,5 +1,5 @@
-import React, { ReactNode, useEffect } from 'react';
-import { Box, Button, Text } from '../../smpUI/components';
+import React, { PropsWithChildren, ReactNode, useEffect } from 'react';
+import { Box, Button, Text } from '../../smpUI';
 import Modal, { IModalProps } from '../../smpUI/Modal';
 import { useMediaEditingModalStyles } from './styles';
 import { useTranslation } from 'react-i18next';
@@ -10,10 +10,9 @@ interface IMediaEditingModalProps extends IModalProps {
 	title: string;
 	onEditingFinished: () => void;
 	onCancel: () => void;
-	content: ReactNode;
 }
 
-const MediaEditingModal: React.FC<IMediaEditingModalProps> = (props) => {
+const MediaEditingModal: React.FC<PropsWithChildren<IMediaEditingModalProps>> = ({children, ...props}) => {
 	const { title, onEditingFinished, onCancel, content, ...modalProps } = props;
 	const classes = useMediaEditingModalStyles();
 	const { t } = useTranslation([i18nNamespace.Presentation]);
@@ -45,7 +44,9 @@ const MediaEditingModal: React.FC<IMediaEditingModalProps> = (props) => {
 		<Modal {...modalProps}>
 			<Box className={classes.container}>
 				<Text variant='h3'>{title}</Text>
-				<Box className={classes.contentContainer}>{content}</Box>
+				<Box className={classes.contentContainer}>
+					{children}
+				</Box>
 				<Box className={classes.btnContainer}>
 					<Button variant='contained' color='secondary' onClick={onCancel}>
 						{t('cancel')}

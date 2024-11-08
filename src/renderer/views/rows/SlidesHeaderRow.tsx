@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, IconBadge } from '../../smpUI/components';
+import { Row, IconBadge } from '../../smpUI';
 import { Add } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';

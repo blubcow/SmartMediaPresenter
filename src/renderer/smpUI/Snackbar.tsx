@@ -1,6 +1,6 @@
 import React from 'react';
 import {Snackbar as MuiSnackbar,Alert,SnackbarProps,AlertTitle,} from '@mui/material';
-import { Text } from './components';
+import { Text } from '.';
 
 export interface ISnackbarProps extends SnackbarProps {
 	severity?: 'success' | 'warning' | 'info' | 'error';

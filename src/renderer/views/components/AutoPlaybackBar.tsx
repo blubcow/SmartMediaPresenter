@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box } from '../../smpUI/components';
+import { Box } from '../../smpUI';
 
 interface IAutoPlaybackBarProps {
 	slideTime?: number;

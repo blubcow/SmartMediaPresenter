@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useRemoteUserContext from '../../hooks/useRemoteUserContext';
-import { Box, Text, Button, Modal } from '../../smpUI/components';
+import { Box, Text, Button, Modal } from '../../smpUI';
 import { AccountCircle } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';

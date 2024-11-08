@@ -5,7 +5,7 @@ import {
 	SinglePresentation,
 	Slide,
 } from '../../shared/presentation.interface';
-import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
+import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import RemoveButton from './RemoveButton';
 
 const RemoveSlideButton: React.FC<{}> = (props) => {

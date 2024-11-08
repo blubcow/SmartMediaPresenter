@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '../../smpUI/components';
+import { Box } from '../../smpUI';
 import AddTextButton from './AddTextButton';
 import ChangeBackgroundColorButton from './ChangeBackgroundColorButton';
 import EditPresentationFrame from './EditPresentationFrame';
@@ -10,7 +10,7 @@ import { useSettingsContainerStyles } from './styles';
 import SlideFormatButton from './SlideFormatButton';
 import AudioButton from './AudioButton';
 import AutoPlaybackButton from './AutoPlaybackButton';
-import ResetSettingsButton from './ResetSlideSettingsButton';
+import ResetSlideSettingsButton from './ResetSlideSettingsButton';
 
 interface ISlideSettingsProps {}
 
@@ -19,7 +19,7 @@ const SlideSettings: React.FC<ISlideSettingsProps> = () => {
 
 	return (
 		<Box className={classes.container}>
-			<ResetSettingsButton />
+			<ResetSlideSettingsButton />
 			<Box className={classes.spacer} />
 			<AutoPlaybackButton />
 			<Box className={classes.spacer} />

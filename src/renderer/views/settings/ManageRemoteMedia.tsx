@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SettingsRow from './SettingsRow';
-import { Box } from '../../smpUI/components';
+import { Box } from '../../smpUI';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { Folder } from '@mui/icons-material';

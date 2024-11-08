@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Modal, Text, IconBadge } from '../../smpUI/components';
+import { Box, Modal, Text, IconBadge } from '../../smpUI';
 import { IModalProps } from '../../smpUI/Modal';
 import {
 	Download,
@@ -7,12 +7,42 @@ import {
 	ViewColumn,
 	SvgIconComponent,
 } from '@mui/icons-material';
-import {
-	useCreateProjectModalStyles,
-	useCreateProjectOptionStyles,
-} from './styles';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+const useCreateProjectModalStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		containter: {
+			display: 'flex',
+			flexDirection: 'column',
+			alignItems: 'center',
+		},
+		optionsContainer: {
+			marginTop: theme.spacing(3),
+			display: 'flex',
+			flexDirection: 'row',
+			justifyContent: 'space-around',
+		},
+	})
+);
+
+const useCreateProjectOptionStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		containter: {
+			width: '200px',
+			display: 'flex',
+			flexDirection: 'column',
+			alignItems: 'center',
+			textAlign: 'center',
+			padding: theme.spacing(1),
+			overflow: 'hidden',
+			position: 'relative',
+			borderRadius: theme.shape.borderRadius,
+		},
+	})
+);
 
 interface ICreateProjectModalProps extends IModalProps {
 	createPresentationAction: () => void;

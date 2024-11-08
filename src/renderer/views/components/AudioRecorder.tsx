@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useAudioStore } from '../../hooks/useMainProcessMethods';
-import { Box, Button, Text } from '../../smpUI/components';
+import { Box, Button, Text } from '../../smpUI';
 import AudioRecordingIcon from '../icons/AudioRecordingIcon';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { formatTimer } from '../../util/Formatter';
 import { IBoxProps } from '../../smpUI/Box';
 import useMediaStreamRecorder from '../../hooks/useMediaStreamRecorder';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
+import { formatTimer } from '../../shared/format.utils';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

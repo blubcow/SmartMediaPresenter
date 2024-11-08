@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
 import MediaEditingModal from './MediaEditingModal';
-import { Box, TextField } from '../../smpUI/components';
+import { Box, TextField } from '../../smpUI';
 import { MediaRessource } from '../../shared/presentation.interface';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 
@@ -53,27 +53,26 @@ const MoveButton: React.FC<IMoveButtonProps> = (props) => {
 				}}
 				onCancel={() => setOpenModal(false)}
 				onClose={() => setOpenModal(false)}
-				content={
-					<Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
-						<TextField
-							label='x'
-							value={moveValue.x}
-							sx={{ width: '30%' }}
-							onChange={(e) => {
-								setMoveValue({ ...moveValue, x: e.target.value });
-							}}
-						/>
-						<TextField
-							label='y'
-							value={moveValue.y}
-							sx={{ width: '30%' }}
-							onChange={(e) => {
-								setMoveValue({ ...moveValue, y: e.target.value });
-							}}
-						/>
-					</Box>
-				}
-			/>
+			>
+				<Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
+					<TextField
+						label='x'
+						value={moveValue.x}
+						sx={{ width: '30%' }}
+						onChange={(e) => {
+							setMoveValue({ ...moveValue, x: e.target.value });
+						}}
+					/>
+					<TextField
+						label='y'
+						value={moveValue.y}
+						sx={{ width: '30%' }}
+						onChange={(e) => {
+							setMoveValue({ ...moveValue, y: e.target.value });
+						}}
+					/>
+				</Box>
+			</MediaEditingModal>
 		</>
 	);
 };

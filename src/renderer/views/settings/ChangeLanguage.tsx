@@ -1,8 +1,4 @@
 import React from 'react';
-import {
-	SelectionPickerOption,
-	SelectionPicker,
-} from '../../smpUI/components';
 import SettingsRow from './SettingsRow';
 import {
 	AvailableLanguage,
@@ -11,6 +7,7 @@ import {
 } from '../../i18n/i18n';
 import useUserSettingsContext from '../../hooks/useUserSettingsContext';
 import { useTranslation } from 'react-i18next';
+import SelectionPicker, { SelectionPickerOption } from '../../smpUI/SelectionPicker';
 
 const ChangeLanguage: React.FC<{}> = (props) => {
 	const { userSettings, saveUserSettings } = useUserSettingsContext();

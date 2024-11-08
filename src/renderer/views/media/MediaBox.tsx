@@ -5,7 +5,7 @@ import {
 	MediaAlignment,
 	MediaRessource,
 } from '../../shared/presentation.interface';
-import { Box } from '../../smpUI/components';
+import { Box } from '../../smpUI';
 import MediaDropBoxIndicator from '../components/MediaDropBoxIndicator';
 import ActiveMediaIdenticator from './ActiveMediaIdenticator';
 import ColorChannelFilter from './ColorChannelFilter';

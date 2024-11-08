@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
-import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
+import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import {
 	Dimensions,
 	PresentationFrameSettings,
 } from '../../shared/presentation.interface';
-import { Box } from '../../smpUI/components';
+import { Box } from '../../smpUI';
 import ResizingAnchor, { AnchorPosition } from './ResizingAnchor';
 
 interface IPresentationFrameProps {

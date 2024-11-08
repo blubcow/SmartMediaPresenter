@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Text, Button, TextField } from '../../smpUI/components';
-import useStyles, { useTextFieldContainerStyles } from './styles';
+import { Box, Text, Button, TextField } from '../../smpUI';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { auth } from '../../models/firebase';
+import { useLoginContainerStyles, useTextFieldContainerStyles } from './Login';
 
 interface ICreateAccountProps {
 	onAccountCreated: () => void;
@@ -12,7 +12,7 @@ interface ICreateAccountProps {
 const CreateAccount: React.FC<ICreateAccountProps> = (props) => {
 	const { onAccountCreated } = props;
 
-	const classes = useStyles();
+	const classes = useLoginContainerStyles();
 	const { t } = useTranslation([i18nNamespace.Auth]);
 
 	return (

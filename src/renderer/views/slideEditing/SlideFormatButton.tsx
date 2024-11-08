@@ -4,10 +4,10 @@ import { GridView } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
-import { Box, Button, Popover, Text } from '../../smpUI/components';
+import { Box, Button, Popover, Text } from '../../smpUI';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { MediaRessource } from '../../shared/presentation.interface';
-import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
+import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 
 interface ISlideFormatButtonProps {}
 

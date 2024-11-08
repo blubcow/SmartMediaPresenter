@@ -4,11 +4,11 @@ import { Rotate90DegreesCcw } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
-import { Box, TextField } from '../../smpUI/components';
+import { Box, TextField } from '../../smpUI';
 import MediaEditingModal from './MediaEditingModal';
 import { MediaRessource } from '../../shared/presentation.interface';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
-import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
+import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 
 interface IRotateButtonProps {}
 
@@ -61,25 +61,24 @@ const RotateButton: React.FC<IRotateButtonProps> = (props) => {
 				}}
 				onCancel={() => setOpenModal(false)}
 				onClose={() => setOpenModal(false)}
-				content={
-					<Box
-						sx={{
-							display: 'flex',
-							justifyContent: 'center',
-							width: '100%',
+			>
+				<Box
+					sx={{
+						display: 'flex',
+						justifyContent: 'center',
+						width: '100%',
+					}}
+				>
+					<TextField
+						label={t('rotate')}
+						value={rotationValue}
+						sx={{ width: '80%' }}
+						onChange={(e) => {
+							setRotationValue(e.target.value);
 						}}
-					>
-						<TextField
-							label={t('rotate')}
-							value={rotationValue}
-							sx={{ width: '80%' }}
-							onChange={(e) => {
-								setRotationValue(e.target.value);
-							}}
-						/>
-					</Box>
-				}
-			/>
+					/>
+				</Box>
+			</MediaEditingModal>
 		</>
 	);
 };

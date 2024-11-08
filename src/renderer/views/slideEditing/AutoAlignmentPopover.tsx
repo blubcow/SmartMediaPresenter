@@ -4,7 +4,7 @@ import { Button, CircularProgress, Box as MUIBox, Paper, Popper, PopperProps, St
 import usePresentationEditingContext from "../../hooks/usePresentationEditingContext";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import { MediaLocation, SinglePresentation, Slide } from "../../shared/presentation.interface";
-import { PresentationEditingActionIdentifiers } from "../../types/identifiers";
+import { PresentationEditingActionIdentifiers } from "../../shared/identifiers.enum";
 import { Download } from "@mui/icons-material";
 
 type IAutoAlignmentPopoverProps = PopperProps & {

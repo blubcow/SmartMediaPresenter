@@ -1,10 +1,29 @@
 import React from 'react';
-import { Modal, Box, Text, Button } from '../../smpUI/components';
+import { Modal, Box, Text, Button } from '../../smpUI';
 import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { useImportLocalPresentationsModalStyles } from './styles';
 import { CircularProgress } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+export const useImportLocalPresentationsModalStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			width: '350px',
+			display: 'flex',
+			flexDirection: 'column',
+			gap: theme.spacing(3),
+			alignItems: 'center',
+			textAlign: 'center',
+		},
+		btnContainer: {
+			width: '100%',
+			display: 'flex',
+			justifyContent: 'space-between',
+		},
+	})
+);
 
 interface IImportLocalPresentationsModalProps extends IModalProps {
 	onChoose: (importPresentations: boolean) => void;

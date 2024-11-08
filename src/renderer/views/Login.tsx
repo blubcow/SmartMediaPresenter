@@ -1,13 +1,13 @@
 import React from 'react';
 import Page from '../smpUI/Page';
-import AuthPaper from './auth/AuthPaper';
-import { Box, Button } from '../smpUI/components';
-import { Link } from 'react-router-dom';
+import { Box, Button, Paper } from '../smpUI';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../i18n/i18n';
-import { SMPRoutes } from '../types/routes';
+import { SMPRoutes } from '../shared/routes.enum';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
+import AuthViews from './auth/AuthViews';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -31,11 +31,15 @@ const useStyles = makeStyles((theme: Theme) =>
 const Login: React.FC<{}> = () => {
 	const classes = useStyles();
 	const { t } = useTranslation([i18nNamespace.Auth]);
+	const navigate = useNavigate();
 
 	return (
 		<Page centeredContent>
 			<Box className={classes.container}>
-				<AuthPaper />
+				<Paper>
+					<AuthViews onLogin={() => navigate(SMPRoutes.Home, {replace: true})} />
+				</Paper>
+
 				<Box className={classes.skipLoginButtonContainer}>
 					<Link to={SMPRoutes.Home} style={{ textDecoration: 'none' }}>
 						<Button color='warning'>{t('skipLogin')}</Button>

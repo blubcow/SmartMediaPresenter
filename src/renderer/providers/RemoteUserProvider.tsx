@@ -5,8 +5,8 @@ import React, {
 	createContext,
 } from 'react';
 import { auth } from '../models/firebase';
-import { RemoteUser } from '../types/remote';
-import config from '../config/config.firebase';
+import { RemoteUser } from '../shared/remote.interface';
+import config from '../config/firebase.config';
 
 export const RemoteUserContext = createContext({});
 

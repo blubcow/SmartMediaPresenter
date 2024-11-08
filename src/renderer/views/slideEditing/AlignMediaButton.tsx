@@ -6,7 +6,7 @@ import { i18nNamespace } from '../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { MediaAlignment } from '../../shared/presentation.interface';
-import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
+import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import MediaAlignemntPopover from './MediaAlignmentPopover';
 
 interface IAlignMediaButtonProps {}

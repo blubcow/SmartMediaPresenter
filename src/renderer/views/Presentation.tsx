@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box } from '../smpUI/components';
+import { Box } from '../smpUI';
 import { usePresentationMode } from '../hooks/useMainProcessMethods';
 import { useLocation } from 'react-router-dom';
 import { useSinglePresentation } from '../hooks/useMainProcessMethods';

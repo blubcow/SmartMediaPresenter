@@ -4,7 +4,7 @@ import {
 	Dimensions,
 	SinglePresentation,
 } from '../../shared/presentation.interface';
-import { Box } from '../../smpUI/components';
+import { Box } from '../../smpUI';
 import SlideBox from '../slide/SlideEditingBox';
 
 interface IPresentationFullScreenProps {

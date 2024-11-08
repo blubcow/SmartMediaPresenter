@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import TopBar from '../smpUI/TopBar';
-import { Box, IconButton } from '../smpUI/components';
+import { Box, IconButton } from '../smpUI';
 import useThemedLogo from '../hooks/useThemedLogo';
 import UserSettingsDrawer from './settings/UserSettingsDrawer';
 

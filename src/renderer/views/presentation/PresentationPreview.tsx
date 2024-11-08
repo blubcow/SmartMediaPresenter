@@ -6,10 +6,8 @@ import {
 } from '../../shared/presentation.interface';
 import {
 	Box,
-	FloatingButton,
-	FloatingButtonContainer,
 	Text,
-} from '../../smpUI/components';
+} from '../../smpUI';
 import {
 	Edit,
 	Delete,
@@ -20,7 +18,7 @@ import {
 	Cloud,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { SMPRoutes } from '../../types/routes';
+import { SMPRoutes } from '../../shared/routes.enum';
 import PresentationFloatingButton from './PresentationFloatingButton';
 import ActionConfirmationModal from '../modals/ActionConfirmationModal';
 import { useLocalFileSystem } from '../../hooks/useMainProcessMethods';
@@ -29,6 +27,7 @@ import usePresentationCacheContext from '../../hooks/usePresentationCacheContext
 import PreviewSlide from './PreviewSlide';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
+import FloatingButton, { FloatingButtonContainer } from '../../smpUI/FloatingButton';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

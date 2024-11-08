@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { Container } from '@mui/material';
-import { Box } from './components';
+import { Box } from '.';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 

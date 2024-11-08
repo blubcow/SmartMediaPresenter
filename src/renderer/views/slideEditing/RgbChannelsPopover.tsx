@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MediaRGBChannels } from '../../shared/presentation.interface';
-import { Popover, Box, Text, Button, Slider } from '../../smpUI/components';
+import { Popover, Box, Text, Button, Slider } from '../../smpUI';
 import { RestartAlt } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';

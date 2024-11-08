@@ -4,12 +4,12 @@ import { AspectRatio } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
-import { Box, TextField, Card } from '../../smpUI/components';
+import { Box, TextField, Card } from '../../smpUI';
 import MediaEditingModal from './MediaEditingModal';
 import { MediaRessource } from '../../shared/presentation.interface';
 import { Link, LinkOff } from '@mui/icons-material';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
-import { PresentationEditingActionIdentifiers } from '../../types/identifiers';
+import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 
 interface IScaleButtonProps {}
 
@@ -84,75 +84,74 @@ const ScaleButton: React.FC<IScaleButtonProps> = (props) => {
 				}}
 				onCancel={() => setOpenModal(false)}
 				onClose={() => setOpenModal(false)}
-				content={
-					<Box
+			>
+				<Box
+					sx={{
+						display: 'flex',
+						flexDirection: 'column',
+						alignItems: 'center',
+					}}
+				>
+					<Card
+						elevation={10}
 						sx={{
-							display: 'flex',
-							flexDirection: 'column',
-							alignItems: 'center',
+							padding: 1,
+							width: '40px',
+							height: '40px',
+							bgcolor: 'background.paper',
+							cursor: 'pointer',
 						}}
+						onClick={() => setUniformScaling((curr) => !curr)}
 					>
-						<Card
-							elevation={10}
-							sx={{
-								padding: 1,
-								width: '40px',
-								height: '40px',
-								bgcolor: 'background.paper',
-								cursor: 'pointer',
-							}}
-							onClick={() => setUniformScaling((curr) => !curr)}
-						>
-							<Box sx={{ width: '100%', height: '100%' }}>
-								{uniformScaling ? (
-									<Link
-										sx={{
-											color: 'text.primary',
-											width: '100%',
-											height: '100%',
-										}}
-									/>
-								) : (
-									<LinkOff
-										sx={{
-											color: 'text.primary',
-											width: '100%',
-											height: '100%',
-										}}
-									/>
-								)}
-							</Box>
-						</Card>
-						<Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
-							<TextField
-								label='x'
-								value={scaleValue.x}
-								sx={{ width: '30%' }}
-								onChange={(e) => {
-									const val = e.target.value;
-
-									setScaleValue({
-										x: val,
-										y: uniformScaling ? val : scaleValue.y,
-									});
-								}}
-							/>
-							<TextField
-								label='y'
-								value={scaleValue.y}
-								sx={{ width: '30%' }}
-								onChange={(e) => {
-									const val = e.target.value;
-									setScaleValue({
-										y: val,
-										x: uniformScaling ? val : scaleValue.x,
-									});
-								}}
-							/>
+						<Box sx={{ width: '100%', height: '100%' }}>
+							{uniformScaling ? (
+								<Link
+									sx={{
+										color: 'text.primary',
+										width: '100%',
+										height: '100%',
+									}}
+								/>
+							) : (
+								<LinkOff
+									sx={{
+										color: 'text.primary',
+										width: '100%',
+										height: '100%',
+									}}
+								/>
+							)}
 						</Box>
+					</Card>
+					<Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
+						<TextField
+							label='x'
+							value={scaleValue.x}
+							sx={{ width: '30%' }}
+							onChange={(e) => {
+								const val = e.target.value;
+
+								setScaleValue({
+									x: val,
+									y: uniformScaling ? val : scaleValue.y,
+								});
+							}}
+						/>
+						<TextField
+							label='y'
+							value={scaleValue.y}
+							sx={{ width: '30%' }}
+							onChange={(e) => {
+								const val = e.target.value;
+								setScaleValue({
+									y: val,
+									x: uniformScaling ? val : scaleValue.x,
+								});
+							}}
+						/>
 					</Box>
-				}
-			/>
+				</Box>
+			</MediaEditingModal>
 		</>
 	);
 };
