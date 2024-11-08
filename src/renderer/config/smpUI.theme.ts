@@ -17,6 +17,18 @@ const components: Components<Omit<Theme, 'components' | 'palette'> & CssVarsThem
 			variant: 'temporary',
 			anchor: 'right'
 		}
+	},
+	MuiPopover: {
+		defaultProps: {
+			anchorOrigin: {
+				vertical: 'bottom',
+				horizontal: 'center',
+			},
+			transformOrigin: {
+				vertical: 'top',
+				horizontal: 'center',
+			}
+		}
 	}
 }
 

@@ -7,4 +7,3 @@ export { default as IconBadge } from './IconBadge';
 export { default as Modal } from './Modal';
 export { default as Row } from './Row';
 export { default as Snackbar } from './Snackbar';
-export { default as Popover } from './Popover';

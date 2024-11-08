@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { TextElement } from '../../shared/presentation.interface';
-import { Popover, Box, Button, Text } from '../../smpUI';
+import { Box, Button, Text } from '../../smpUI';
 import EditButtonLabel from './EditButtonLabel';
 import EditingButton from './EditingButton';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
+import { Popover } from '@mui/material';
 
 interface IFontSizeSelectorProps {}
 
