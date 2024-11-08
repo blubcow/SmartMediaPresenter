@@ -1,8 +1,18 @@
-import { createTheme, ThemeOptions } from '@mui/material';
+import { Components, createTheme, CssVarsTheme, Theme, ThemeOptions } from '@mui/material';
 
 const typography: ThemeOptions['typography'] = () => ({
 	fontFamily: 'Montserrat',
 });
+
+const components: Components<Omit<Theme, 'components' | 'palette'> & CssVarsTheme> = {
+	MuiTextField: {
+		defaultProps: {
+			variant: 'filled',
+			size: 'small',
+			fullWidth: true
+		}
+	}
+}
 
 export const lightTheme = createTheme({
 	palette: {
@@ -18,6 +28,7 @@ export const lightTheme = createTheme({
 	},
 	typography: typography,
 	shape: { borderRadius: 20 },
+	components: components
 });
 
 export const darkTheme = createTheme({
@@ -34,4 +45,5 @@ export const darkTheme = createTheme({
 	},
 	typography: typography,
 	shape: { borderRadius: 20 },
+	components: components
 });

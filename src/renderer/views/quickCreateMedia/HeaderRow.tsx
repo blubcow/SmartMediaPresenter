@@ -4,12 +4,11 @@ import useRemoteUserContext from '../../hooks/useRemoteUserContext';
 import { i18nNamespace } from '../../i18n/i18n';
 import {
 	Box,
-	Text,
-	TextField,
+	Text
 } from '../../smpUI';
 import { useHeaderRowStyles } from './styles';
 import SelectionPicker, { SelectionPickerOption } from '../../smpUI/SelectionPicker';
-import { Switch } from '@mui/material';
+import { Switch, TextField } from '@mui/material';
 
 interface IHeaderRowProps {
 	addFilesAction: () => void;

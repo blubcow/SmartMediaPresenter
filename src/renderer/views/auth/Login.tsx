@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Text, Button, TextField } from '../../smpUI';
+import { Box, Text, Button } from '../../smpUI';
 import useThemedLogo from '../../hooks/useThemedLogo';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
@@ -8,7 +8,7 @@ import PopUpModal from './PopUpModal';
 import CreateAccount from './CreateAccount';
 import ForgotPassword from './ForgotPassword';
 import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import { TextField, Theme } from '@mui/material';
 
 export const useLoginContainerStyles = makeStyles((theme: Theme) =>
 	createStyles({
