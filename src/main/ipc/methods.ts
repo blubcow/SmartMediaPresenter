@@ -7,23 +7,23 @@ import {
 	SaveDialogOptions,
 	screen,
 } from 'electron';
-import { MainProcessMethodIdentifiers } from '../../renderer/shared/types/identifiers';
 import * as path from 'path';
 import * as fs from 'fs';
 import { FileExpolorerOptions } from './types/fileExplorer';
-import { FileExplorerType } from '../../renderer/shared/types/fileExplorer';
+import { FileExplorerType } from '../../renderer/shared/fileExplorer.interface';
 import { getFonts } from 'font-list';
-import { UserSettings } from '../../renderer/shared/types/userSettings';
+import { UserSettings } from '../../renderer/shared/userSettings.interface';
 import {
 	SinglePresentation,
 	StoredPresentations,
-} from '../../renderer/shared/types/presentation';
-import { WorkspaceChangeResult } from '../../renderer/shared/types/workspace';
+} from '../../renderer/shared/presentation.interface';
+import { WorkspaceChangeResult } from '../../renderer/shared/workspace.interface';
 import xlsx from 'xlsx';
 import { convertJsonToXlsx } from './models/PresentationFileConverter';
 import { getFilesInDir, getFileFromPath } from './models/FileSystem';
 import { parse } from './models/PresentationParser';
 import { resolveHtmlPath } from '../util';
+import { MainProcessMethodIdentifiers } from '../../renderer/shared/identifiers.enum';
 
 let globalWorkspace: string | undefined;
 

@@ -4,10 +4,11 @@ import React, {
 	createContext,
 	PropsWithChildren,
 } from 'react';
-import { Box, Text } from '../smpUI/components';
 import { WifiOff } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../i18n/i18n';
+import Box from '../smpUI/Box';
+import Text from '../smpUI/Text';
 
 export const ConnectivityContext = createContext({});
 

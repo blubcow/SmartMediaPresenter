@@ -2,10 +2,10 @@ import { useCallback, useState, useEffect } from 'react';
 import {
 	RemotelyAvailableMedia,
 	RemoteStorageMedia,
-} from '../types/presentaitonSycncing';
+} from '../shared/presentaitonSycncing.interface';
 import { uploadMedia } from '../models/MediaUploader';
-import { ImageResourceExtensions } from '../shared/types/mediaResources';
-import { RemoteUser } from '../types/remote';
+import { ImageResourceExtensions } from '../shared/mediaResource.utils';
+import { RemoteUser } from '../shared/remote.interface';
 import { storage } from '../models/firebase';
 
 const useRemoteMedia = (remoteUser?: RemoteUser) => {

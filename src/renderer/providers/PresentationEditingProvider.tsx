@@ -5,7 +5,7 @@ import presentationEditingReducer, {
 import {
 	getEmptySlide,
 	SinglePresentation,
-} from '../shared/types/presentation';
+} from '../shared/presentation.interface';
 
 export const PresentationEditingContext = createContext({});
 

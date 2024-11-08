@@ -1,7 +1,7 @@
 import {
 	MediaRessource,
 	SinglePresentation,
-} from '../shared/types/presentation';
+} from '../shared/presentation.interface';
 import { uploadMedia } from './MediaUploader';
 
 interface MediaSyncTask {

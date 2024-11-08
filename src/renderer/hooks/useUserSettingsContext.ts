@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { UserSettingsContext } from '../providers/UserSettingsProvider';
-import { UserSettings } from '../shared/types/userSettings';
+import { UserSettings } from '../shared/userSettings.interface';
 
 const useUserSettingsContext = () => {
 	const context = useContext(UserSettingsContext) as {

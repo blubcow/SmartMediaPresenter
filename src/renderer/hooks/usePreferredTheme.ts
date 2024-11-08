@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Theme } from '@mui/material';
-import { preferredTheme } from '../shared/types/userSettings';
-import { darkTheme, lightTheme } from '../smpUI/smpUITheme';
+import { preferredTheme } from '../shared/userSettings.interface';
+import { darkTheme, lightTheme } from '../config/smpUI.theme';
 import useUserSettingsContext from './useUserSettingsContext';
 
 const usePreferredTheme = () => {

@@ -1,4 +1,4 @@
-import { MainProcessMethodIdentifiers } from '../shared/types/identifiers';
+import { MainProcessMethodIdentifiers } from '../shared/identifiers.enum';
 import { storage } from './firebase';
 
 const ipcRenderer = window.electron;

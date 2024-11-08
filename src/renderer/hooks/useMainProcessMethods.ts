@@ -1,14 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
-import { FileExplorerType } from '../shared/types/fileExplorer';
-import { MainProcessMethodIdentifiers } from '../shared/types/identifiers';
+import { FileExplorerType } from '../shared/fileExplorer.interface';
 import {
 	StoredPresentation,
 	StoredPresentations,
 	SinglePresentation,
 	Slide,
-} from '../shared/types/presentation';
-import { UserSettings } from '../shared/types/userSettings';
-import { WorkspaceChangeResult } from '../shared/types/workspace';
+} from '../shared/presentation.interface';
+import { UserSettings } from '../shared/userSettings.interface';
+import { WorkspaceChangeResult } from '../shared/workspace.interface';
+import { MainProcessMethodIdentifiers } from '../shared/identifiers.enum';
 
 const ipcRenderer = window.electron;
 

@@ -6,7 +6,7 @@ import React, {
 	useEffect,
 } from 'react';
 import useRemoteUserContext from '../hooks/useRemoteUserContext';
-import { SinglePresentation } from '../shared/types/presentation';
+import { SinglePresentation } from '../shared/presentation.interface';
 
 export const PresentationCacheContext = createContext({});
 

@@ -1,9 +1,9 @@
-import { SinglePresentation } from '../shared/types/presentation';
-import { PresentationEditingActionIdentifiers as ActionIdentifiers } from '../types/identifiers';
+import { SinglePresentation } from '../shared/presentation.interface';
+import { PresentationEditingActionIdentifiers as ActionIdentifiers } from '../shared/identifiers.enum';
 import {
 	PresentationEditingAction,
 	PresentationEditingSettings,
-} from '../types/state';
+} from '../shared/state.interface';
 import _ from 'lodash';
 
 const presentationEditingReducer = (
