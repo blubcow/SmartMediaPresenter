@@ -7,7 +7,7 @@ import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.e
 import { SinglePresentation } from '../../shared/presentation.interface';
 import PresentationFloatingButton from './PresentationFloatingButton';
 import FloatingButton, { FloatingButtonContainer } from '../../smpUI/FloatingButton';
-import AlertSnackbar from '../../smpUI/Snackbar';
+import AlertSnackbar from '../../smpUI/AlertSnackbar';
 
 interface IPresentationEditingFloatingButtons {
 	onSave: (presentation: SinglePresentation) => void;
