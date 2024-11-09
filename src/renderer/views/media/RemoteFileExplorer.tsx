@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Button, CircularProgress, Divider } from '@mui/material';
+import { Button, CircularProgress, Divider, IconButton } from '@mui/material';
 import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
-import { Modal, Text, IconButton } from '../../smpUI';
+import { Modal, Text } from '../../smpUI';
 import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
@@ -107,14 +107,13 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerPorps> = (props) => {
 					<Text variant='h5' fontWeight={800}>
 						{pathHistory.length > 0 && (
 							<IconButton
-								icon={ArrowBack}
 								onClick={() => {
 									if (pathHistory.length > 0) {
 										const newPath = pathHistory.pop()!;
 										setCurrentPath(newPath);
 									}
 								}}
-							/>
+							><ArrowBack/></IconButton>
 						)}
 						{currentPath.length === 0
 							? t('chooseMedia')

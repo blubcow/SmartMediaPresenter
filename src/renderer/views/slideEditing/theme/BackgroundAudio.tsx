@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import SettingsRow from '../../settings/SettingsRow';
-import { Text, IconButton } from '../../../smpUI';
-import { Box, Button} from '@mui/material';
+import { Text } from '../../../smpUI';
+import { Box, Button, IconButton} from '@mui/material';
 import { Audiotrack } from '@mui/icons-material';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
@@ -89,7 +89,6 @@ const BackgroundAudio: React.FC<{}> = () => {
 						<Box sx={{ display: 'flex', alignItems: 'center' }}>
 							<IconButton
 								size='small'
-								icon={!isPlaying ? PlayCircle : PauseCircle}
 								onClick={() => {
 									if (isPlaying) {
 										audio.pause();
@@ -98,7 +97,7 @@ const BackgroundAudio: React.FC<{}> = () => {
 									}
 									setIsPlaying((curr) => !curr);
 								}}
-							/>
+							>{ !isPlaying ? <PlayCircle/> : <PauseCircle/> }</IconButton>
 							<Text
 								variant='body2'
 								style={{

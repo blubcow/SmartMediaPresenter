@@ -1,14 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import {
 	Modal,
-	
 	Text,
-	IconButton,
 } from '../../smpUI';
 import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { Button, CircularProgress, Divider, LinearProgress } from '@mui/material';
+import { Button, CircularProgress, Divider, IconButton, LinearProgress } from '@mui/material';
 import { CreateNewFolder, UploadFile, Delete } from '@mui/icons-material';
 import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
 import {
@@ -279,7 +277,6 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 						{history.length > 0 && (
 							<Box className={classes.folderNavigator}>
 								<IconButton
-									icon={ArrowBack}
 									onClick={() => {
 										if (history.length > 0) {
 											setCurrentPath(history[history.length - 1].path);
@@ -297,7 +294,7 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 											setHistory(newHistory);
 										}
 									}}
-								/>
+								><ArrowBack/></IconButton>
 								<Text variant='h5'>{history[history.length - 1].folder}</Text>
 							</Box>
 						)}

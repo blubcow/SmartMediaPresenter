@@ -42,6 +42,16 @@ const components: Components<Omit<Theme, 'components' | 'palette'> & CssVarsThem
 			anchorOrigin: { horizontal: 'center', vertical: 'bottom' }
 		}
 	},
+	MuiIconButton: {
+		defaultProps: {
+			size: 'large'
+		},
+		styleOverrides: {
+			root: ({ theme }) => ({
+				color: theme.palette.text.primary
+			})
+		}
+	},
 	MuiButton: {
 		styleOverrides: {
 			root: {
@@ -72,7 +82,7 @@ const components: Components<Omit<Theme, 'components' | 'palette'> & CssVarsThem
 					},
 				}]
 			})
-		},
+		}
 	}
 }
 
