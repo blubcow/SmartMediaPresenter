@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from '../../smpUI';
+import Text from '../../smpUI/Text';
 import { ITextProps } from '../../smpUI/Text';
 
 interface IEditButtonLabelProps extends ITextProps {}

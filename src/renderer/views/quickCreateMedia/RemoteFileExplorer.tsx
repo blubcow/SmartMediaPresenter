@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text } from '../../smpUI';
+import Text from '../../smpUI/Text';
 import { Box, IconButton} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';

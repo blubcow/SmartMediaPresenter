@@ -1,9 +1,5 @@
 import { Components, createTheme, CssVarsTheme, Theme, ThemeOptions } from '@mui/material';
 
-const typography: ThemeOptions['typography'] = () => ({
-	fontFamily: 'Montserrat',
-});
-
 declare module '@mui/material/Paper' {
 	interface PaperPropsVariantOverrides {
 		modal: true;
@@ -98,7 +94,7 @@ export const lightTheme = createTheme({
 		divider: '#E1EAEF',
 		info: { main: '#D8E7EF', contrastText: '#14171A' },
 	},
-	typography: typography,
+	typography: { fontFamily: 'Montserrat' },
 	shape: { borderRadius: 20 },
 	components: components
 });
@@ -115,7 +111,7 @@ export const darkTheme = createTheme({
 		divider: '#1B1F23',
 		info: { main: '#282E33', contrastText: '#F5F8FA' },
 	},
-	typography: typography,
+	typography: { fontFamily: 'Montserrat' },
 	shape: { borderRadius: 20 },
 	components: components
 });

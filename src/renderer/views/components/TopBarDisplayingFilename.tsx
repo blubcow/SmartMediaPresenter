@@ -1,6 +1,6 @@
 import React from 'react';
 import TopBar from '../../smpUI/TopBar';
-import { Text } from '../../smpUI';
+import Text from '../../smpUI/Text';
 import { Box} from '@mui/material';
 import { ITopBarProps } from '../../smpUI/TopBar';
 import _ from 'lodash';

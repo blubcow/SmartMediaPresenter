@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SettingsRow from '../../settings/SettingsRow';
-import { Text } from '../../../smpUI';
+import Text from '../../../smpUI/Text';
 import { Box} from '@mui/material';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';

@@ -4,7 +4,7 @@ import { i18nNamespace } from '../../i18n/i18n';
 import {
 	SinglePresentation,
 } from '../../shared/presentation.interface';
-import { Text } from '../../smpUI';
+import Text from '../../smpUI/Text';
 import {
 	Edit,
 	Delete,

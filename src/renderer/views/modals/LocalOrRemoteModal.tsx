@@ -1,5 +1,6 @@
 import React from 'react';
-import { Modal, Text } from '../../smpUI';
+import Modal from '../../smpUI/Modal';
+import Text from '../../smpUI/Text';
 import { Box} from '@mui/material';
 import { IModalProps } from '../../smpUI/Modal';
 import { DesktopWindows, Cloud } from '@mui/icons-material';

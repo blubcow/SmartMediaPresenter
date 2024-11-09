@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MediaRGBChannels } from '../../shared/presentation.interface';
-import { Text } from '../../smpUI';
+import Text from '../../smpUI/Text';
 import { Box, Button} from '@mui/material';
 import { RestartAlt } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';

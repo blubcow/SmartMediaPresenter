@@ -1,7 +1,8 @@
 import React from 'react';
 import Page from '../smpUI/Page';
 import HomeTopBar from './HomeTopBar';
-import { Row, Text } from '../smpUI';
+import Row from '../smpUI/Row';
+import Text from '../smpUI/Text';
 import { ProjectsHeaderRow } from './rows';
 import { CircularProgress, Divider } from '@mui/material';
 import { useLocalFileSystem } from '../hooks/useMainProcessMethods';

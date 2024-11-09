@@ -1,6 +1,6 @@
 import React from 'react';
+import Text from './Text';
 import { Snackbar, Alert, AlertProps, SnackbarProps, AlertTitle } from '@mui/material';
-import { Text } from '.';
 
 export type AlertSnackbarProps = SnackbarProps & Pick<AlertProps, 'severity'>;
 

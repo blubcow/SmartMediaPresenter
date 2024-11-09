@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import {
-	Modal,
-	Text,
-} from '../../smpUI';
+import Modal from '../../smpUI/Modal';
+import Text from '../../smpUI/Text';
 import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';

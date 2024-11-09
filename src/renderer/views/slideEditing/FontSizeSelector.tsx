@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { TextElement } from '../../shared/presentation.interface';
-import { Text } from '../../smpUI';
+import Text from '../../smpUI/Text';
 import { Box, Button} from '@mui/material';
 import EditButtonLabel from './EditButtonLabel';
 import EditingButton from './EditingButton';

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text } from '../../smpUI';
+import Text from '../../smpUI/Text';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { auth } from '../../models/firebase';
