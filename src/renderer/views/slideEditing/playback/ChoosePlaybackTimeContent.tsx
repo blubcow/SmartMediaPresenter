@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import Text from '../../../smpUI/Text';
+import EditableText from '../../../smpUI/EditableText';
 import { Box, Button} from '@mui/material';
 import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
 import { useTranslation } from 'react-i18next';
@@ -48,10 +48,10 @@ const ChoosePlaybackTimeContent: React.FC<IChoosePlaybackTimeContentProps> = (
 
 	return (
 		<Box className={classes.container}>
-			<Text>{t('choosePlaybackTime')}</Text>
+			<EditableText>{t('choosePlaybackTime')}</EditableText>
 			<Box className={classes.inputContainer}>
 				<Box className={classes.inputLabelContainer}>
-					<Text
+					<EditableText
 						placeholder={t('noTimeSet')}
 						color={duration !== undefined ? 'text.primary' : 'GrayText'}
 						variant={duration !== undefined ? 'h4' : 'body1'}
@@ -71,9 +71,9 @@ const ChoosePlaybackTimeContent: React.FC<IChoosePlaybackTimeContentProps> = (
 						{playback === undefined || playback === 'audio'
 							? undefined
 							: playback}
-					</Text>
+					</EditableText>
 				</Box>
-				<Text display={duration !== undefined ? 'initial' : 'none'}>sec</Text>
+				<EditableText display={duration !== undefined ? 'initial' : 'none'}>sec</EditableText>
 			</Box>
 			<Button
 				variant='contained'

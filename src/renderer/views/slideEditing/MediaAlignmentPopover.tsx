@@ -1,5 +1,5 @@
 import React from 'react';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import { Box, Button} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
@@ -30,9 +30,9 @@ const MediaAlignemntPopover: React.FC<IMediaAlignmentPopoverProps> = (
 					alignItems: 'center',
 				}}
 			>
-				<Text variant='h6' fontWeight='bold'>
+				<EditableText variant='h6' fontWeight='bold'>
 					{t('align')}
-				</Text>
+				</EditableText>
 				<Box sx={{ paddingTop: 2, paddingBottom: 2 }}>
 					<Button
 						variant='contained'

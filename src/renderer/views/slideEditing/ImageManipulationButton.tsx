@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import EditingButton from './EditingButton';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import { Box, Button} from '@mui/material';
 import { Tune } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
@@ -134,7 +134,7 @@ const ImageManipulationControls: React.FC<IImageManipulationControlsProps> = (
 
 	return (
 		<Box className={classes.container}>
-			<Text variant={'h4'}>{heading}</Text>
+			<EditableText variant={'h4'}>{heading}</EditableText>
 			<ColorChannelFilter id={100} channels={channels} />
 			<img
 				className={classes.img}
@@ -172,7 +172,7 @@ const ImageManipulationControls: React.FC<IImageManipulationControlsProps> = (
 			<Box className={classes.optionsContainer}>
 				{options.map((option, index) => (
 					<Box key={index} className={classes.optionContainer}>
-						<Text fontWeight='bold'>{option.name}</Text>
+						<EditableText fontWeight='bold'>{option.name}</EditableText>
 						<Slider
 							className={classes.slider}
 							size='small'

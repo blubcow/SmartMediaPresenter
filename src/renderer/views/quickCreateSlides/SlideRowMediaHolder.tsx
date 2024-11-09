@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { DataTransferIdentifiers } from '../../shared/identifiers.enum';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import { Box} from '@mui/material';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { createStyles, makeStyles } from '@mui/styles';
@@ -104,14 +104,14 @@ const SlideRowMediaHolder: React.FC<ISlideRowMediaHolder> = (props) => {
 						className={classes.mediaPresentImg}
 						alt='media'
 					/>
-					<Text overflow='hidden' textOverflow='ellipsis' variant='caption'>
+					<EditableText overflow='hidden' textOverflow='ellipsis' variant='caption'>
 						{src.startsWith('http') ? t('cloudImage') : src.split('/').pop()}
-					</Text>
+					</EditableText>
 				</Box>
 			) : (
 				<Box className={classes.noMediaPresentContainer}>
 					<Box className={classes.noMediaPresentIndicatorBox}>
-						<Text variant='caption'>{t('dropMediaHere')}</Text>
+						<EditableText variant='caption'>{t('dropMediaHere')}</EditableText>
 					</Box>
 				</Box>
 			)}

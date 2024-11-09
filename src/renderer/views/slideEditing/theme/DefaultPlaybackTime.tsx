@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SettingsRow from '../../settings/SettingsRow';
-import Text from '../../../smpUI/Text';
+import EditableText from '../../../smpUI/EditableText';
 import { Box} from '@mui/material';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
@@ -45,7 +45,7 @@ const DefaultPlaybackTime: React.FC<{}> = () => {
 			label={t('defaultAutoPlaybackTime')}
 			node={
 				<Box className={classes.nodeContainer}>
-					<Text
+					<EditableText
 						align='center'
 						editable
 						placeholder={t('noTimeSet')}
@@ -64,10 +64,10 @@ const DefaultPlaybackTime: React.FC<{}> = () => {
 						}}
 					>
 						{duration}
-					</Text>
+					</EditableText>
 					{duration !== undefined && (
 						<Box sx={{ pl: 1 }}>
-							<Text>sec</Text>
+							<EditableText>sec</EditableText>
 						</Box>
 					)}
 				</Box>

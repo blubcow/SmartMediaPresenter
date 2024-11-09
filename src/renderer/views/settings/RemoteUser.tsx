@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useRemoteUserContext from '../../hooks/useRemoteUserContext';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import Modal from '../../smpUI/Modal';
 import { Box, Button} from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
@@ -34,7 +34,7 @@ const RemoteUser: React.FC<{}> = () => {
 			>
 				<AccountCircle style={{ fontSize: '80px' }} />
 				<Box sx={{ mt: 1 }}>
-					<Text>{remoteUser ? remoteUser.email : t('noUsrLoggedIn')}</Text>
+					<EditableText>{remoteUser ? remoteUser.email : t('noUsrLoggedIn')}</EditableText>
 				</Box>
 				<Box sx={{ mt: 1 }}>
 					<Button

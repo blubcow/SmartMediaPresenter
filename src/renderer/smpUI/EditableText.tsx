@@ -40,7 +40,7 @@ export interface ITextProps extends TypographyProps {
 	placeholder?: string;
 }
 
-const Text: React.FC<ITextProps> = (props) => {
+const EditableText: React.FC<ITextProps> = (props) => {
 	const {
 		editable = false,
 		multiLineEditable = false,
@@ -55,7 +55,6 @@ const Text: React.FC<ITextProps> = (props) => {
 	);
 	const [isEditing, setIsEditing] = useState<boolean>(false);
 	const classes = useStyles();
-	const textareaRef = useRef<any>();
 
 	const typographyProps = _.omit(props, ['editable', 'multiLineEditable', 'editableTextDidChange', 'minLength', 'onInvalidInput', 'parseInput', 'placeholder']);
 
@@ -132,4 +131,4 @@ const Text: React.FC<ITextProps> = (props) => {
 	);
 };
 
-export default Text;
+export default EditableText;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import {
 	RemoteStorageMedia,
 	RemoteStorageMediaType,
@@ -102,13 +102,13 @@ const RemoteFile: React.FC<IFileProps> = (props) => {
 					<Folder className={classes.icon} />
 				)}
 			</Box>
-			<Text
+			<EditableText
 				variant='caption'
 				fontWeight={700}
 				className={classes.nameContainer}
 			>
 				{name}
-			</Text>
+			</EditableText>
 		</Box>
 	);
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '../../smpUI/Modal';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import { Box} from '@mui/material';
 import { IModalProps } from '../../smpUI/Modal';
 import { DesktopWindows, Cloud } from '@mui/icons-material';
@@ -61,20 +61,20 @@ const LocalOrRemoteModal: React.FC<ILocalOrRemoteModalProps> = (props) => {
 	return (
 		<Modal {...modalProps}>
 			<Box className={classes.container}>
-				<Text variant='h6' fontWeight={800}>
+				<EditableText variant='h6' fontWeight={800}>
 					{t('chooseLocalOrRemote')}
-				</Text>
+				</EditableText>
 				<Box className={classes.btns}>
 					<Box className={classes.btn} onClick={() => handleSelection('local')}>
 						<DesktopWindows sx={{ color: 'text.prmary', fontSize: '50px' }} />
-						<Text fontWeight={700}>{t('local')}</Text>
+						<EditableText fontWeight={700}>{t('local')}</EditableText>
 					</Box>
 					<Box
 						className={classes.btn}
 						onClick={() => handleSelection('remote')}
 					>
 						<Cloud sx={{ color: 'text.prmary', fontSize: '50px' }} />
-						<Text fontWeight={700}>{t('cloud')}</Text>
+						<EditableText fontWeight={700}>{t('cloud')}</EditableText>
 					</Box>
 				</Box>
 			</Box>

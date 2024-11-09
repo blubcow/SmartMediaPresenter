@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import SettingsRow from '../../settings/SettingsRow';
-import Text from '../../../smpUI/Text';
+import EditableText from '../../../smpUI/EditableText';
 import { Box, Button, IconButton} from '@mui/material';
 import { Audiotrack } from '@mui/icons-material';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
@@ -98,7 +98,7 @@ const BackgroundAudio: React.FC<{}> = () => {
 									setIsPlaying((curr) => !curr);
 								}}
 							>{ !isPlaying ? <PlayCircle/> : <PauseCircle/> }</IconButton>
-							<Text
+							<EditableText
 								variant='body2'
 								style={{
 									whiteSpace: 'nowrap',
@@ -111,7 +111,7 @@ const BackgroundAudio: React.FC<{}> = () => {
 								{audioLocation === presentation.theme?.audio?.remote
 									? t('cloudAudio')
 									: audioLocation?.split('/').pop()}
-							</Text>
+							</EditableText>
 						</Box>
 					) : undefined
 				}

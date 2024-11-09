@@ -1,6 +1,6 @@
 import React from 'react';
 import TopBar from '../../smpUI/TopBar';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import { Box} from '@mui/material';
 import { ITopBarProps } from '../../smpUI/TopBar';
 import _ from 'lodash';
@@ -27,7 +27,7 @@ const TopBarDisplayingFilename: React.FC<ITopBarDisplayingFilenameProps> = (
 					padding: 2,
 				}}
 			>
-				<Text
+				<EditableText
 					style={{ minWidth: '25%' }}
 					fontWeight='bold'
 					variant='h5'
@@ -39,7 +39,7 @@ const TopBarDisplayingFilename: React.FC<ITopBarDisplayingFilenameProps> = (
 					}}
 				>
 					{fileName}
-				</Text>
+				</EditableText>
 				{props.children}
 			</Box>
 		</TopBar>

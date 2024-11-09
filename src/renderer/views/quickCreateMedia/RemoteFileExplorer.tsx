@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import { Box, IconButton} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
@@ -62,7 +62,7 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerProps> = (props) => {
 							}
 						}}
 					><ArrowBack/></IconButton>
-					<Text>{currentPath.split('/').pop() ?? ''}</Text>
+					<EditableText>{currentPath.split('/').pop() ?? ''}</EditableText>
 				</Box>
 			)}
 			{loadingMedia ? (
@@ -146,16 +146,16 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerProps> = (props) => {
 									)}
 								</Box>
 								<Box sx={{ userSelect: 'none', pointerEvents: 'none' }}>
-									<Text>{item.name}</Text>
+									<EditableText>{item.name}</EditableText>
 								</Box>
 							</Box>
 						))}
 					</Box>
 				</ClickAwayListener>
 			) : (
-				<Text variant='h6' className={classes.inidicator}>
+				<EditableText variant='h6' className={classes.inidicator}>
 					{t('emptyFolder')}
-				</Text>
+				</EditableText>
 			)}
 		</Box>
 	);

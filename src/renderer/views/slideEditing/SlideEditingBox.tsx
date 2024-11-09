@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import { Box} from '@mui/material';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
@@ -213,7 +213,7 @@ const SlideEditingBox: React.FC<ISlideEditingBoxProps> = (props) => {
 			/>
 
 			<Box sx={{ width: '100%', paddingLeft: 1 }}>
-				<Text>{`${currentSlide + 1}/${presentation.slides.length}`}</Text>
+				<EditableText>{`${currentSlide + 1}/${presentation.slides.length}`}</EditableText>
 			</Box>
 		</>
 	);

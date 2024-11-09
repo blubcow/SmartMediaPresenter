@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { QuickCreateMediaResource } from '../../shared/quickCreateMedia.interface';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import { Box} from '@mui/material';
 import { useMediaRowStyles } from './styles';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -57,7 +57,7 @@ const MediaRow: React.FC<IMediaRowProps> = (props) => {
 				)}
 
 				<Box className={classes.txtContainer}>
-					<Text>{media.name}</Text>
+					<EditableText>{media.name}</EditableText>
 				</Box>
 			</Box>
 		</Box>

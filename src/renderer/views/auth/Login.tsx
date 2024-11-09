@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import { Box, Button} from '@mui/material';
 import useThemedLogo from '../../hooks/useThemedLogo';
 import { useTranslation } from 'react-i18next';
@@ -71,9 +71,9 @@ const Login: React.FC<ILoginProps> = (props) => {
 	return (
 		<Box className={classes.container}>
 			<img src={logo.logo} className={classes.img} alt='SMP-Logo' />
-			<Text variant='h4' fontWeight='bold'>
+			<EditableText variant='h4' fontWeight='bold'>
 				{t('login')}
-			</Text>
+			</EditableText>
 			<FormContainer {...props} />
 			<AuthButtonContainer onAccountCreated={onLogin} />
 		</Box>

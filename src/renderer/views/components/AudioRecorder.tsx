@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAudioStore } from '../../hooks/useMainProcessMethods';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import { Box, BoxProps, Button} from '@mui/material';
 import AudioRecordingIcon from '../icons/AudioRecordingIcon';
 import { useTranslation } from 'react-i18next';
@@ -60,7 +60,7 @@ const AudioRecorder: React.FC<IAudioRecorderProps> = (props) => {
 	return (<Box className={classes.container} {...boxProps}>
 		<Box className={classes.iconTimerContainer}>
 			<AudioRecordingIcon isRecording={isRecording} />
-			<Text variant='h6'>{formatTimer(timer)}</Text>
+			<EditableText variant='h6'>{formatTimer(timer)}</EditableText>
 		</Box>
 		<Button
 			variant='contained'

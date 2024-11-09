@@ -11,7 +11,7 @@ import useRemoteUserContext from '../hooks/useRemoteUserContext';
 import { i18nNamespace } from '../i18n/i18n';
 import { database } from '../models/firebase';
 import { SinglePresentation } from '../shared/presentation.interface';
-import Text from '../smpUI/Text';
+import EditableText from '../smpUI/EditableText';
 import { SyncableStoredPresentation } from '../shared/presentaitonSycncing.interface';
 import { useStoredPresentations } from '../hooks/useMainProcessMethods';
 import { useWorkspace } from '../hooks/useMainProcessMethods';
@@ -293,7 +293,7 @@ const SyncingInfoToast: React.FC<ISyncingInfoToastProps> = (props) => {
 					justifyContent: 'space-between',
 				}}
 			>
-				<Text>{`${name} ${t('syncToCloud')}`}</Text>
+				<EditableText>{`${name} ${t('syncToCloud')}`}</EditableText>
 				<CircularProgress variant='indeterminate' />
 			</Box>
 

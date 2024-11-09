@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import EditingButton from './EditingButton';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import { Box, Button} from '@mui/material';
 import { Notes } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
@@ -55,7 +55,7 @@ const TakeNotesButton: React.FC<ITakeNotesButtonProps> = (props) => {
 							justifyContent: 'space-between',
 						}}
 					>
-						<Text variant='h5'>{t('notes')}</Text>
+						<EditableText variant='h5'>{t('notes')}</EditableText>
 						<Box>
 							<Button
 								variant='contained'

@@ -1,5 +1,5 @@
 import React from 'react';
-import Text from './Text';
+import EditableText from './EditableText';
 import { createStyles, makeStyles } from '@mui/styles';
 import { BoxProps, Theme } from '@mui/material';
 import { Box } from '@mui/material';
@@ -83,16 +83,16 @@ const Row: React.FC<IRowProps> = (props) => {
 				{title || info || IconBadge ? (
 					<Box className={classes.baseContainer}>
 						<Box className={classes.textContainer}>
-							{title !== undefined && <Text fontWeight='bold'>{title}</Text>}
+							{title !== undefined && <EditableText fontWeight='bold'>{title}</EditableText>}
 							{info !== undefined && (
-								<Text className={classes.infoLabel} variant='body2'>
+								<EditableText className={classes.infoLabel} variant='body2'>
 									{info}
-								</Text>
+								</EditableText>
 							)}
 							{secondaryInfo !== undefined && (
-								<Text className={classes.secondaryInfoLabel} variant='caption'>
+								<EditableText className={classes.secondaryInfoLabel} variant='caption'>
 									{secondaryInfo}
-								</Text>
+								</EditableText>
 							)}
 						</Box>
 						{IconBadge}

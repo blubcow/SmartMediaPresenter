@@ -2,7 +2,7 @@ import React from 'react';
 import Page from '../smpUI/Page';
 import HomeTopBar from './HomeTopBar';
 import Row from '../smpUI/Row';
-import Text from '../smpUI/Text';
+import EditableText from '../smpUI/EditableText';
 import { ProjectsHeaderRow } from './rows';
 import { CircularProgress, Divider } from '@mui/material';
 import { useLocalFileSystem } from '../hooks/useMainProcessMethods';
@@ -257,7 +257,7 @@ const Home: React.FC<{}> = () => {
 						/>
 					) : (
 						<Box className={classes.noPresentationSelectedContainer}>
-							<Text variant='h5'>{t('noPresentationSelected')}</Text>
+							<EditableText variant='h5'>{t('noPresentationSelected')}</EditableText>
 						</Box>
 					)}
 				</Box>

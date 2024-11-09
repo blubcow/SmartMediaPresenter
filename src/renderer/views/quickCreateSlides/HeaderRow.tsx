@@ -1,5 +1,5 @@
 import React from 'react';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import { Box} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
@@ -56,10 +56,10 @@ const HeaderRow: React.FC<IHeaderProps> = (props) => {
 				className={classes.alphapeticalInsert}
 				onClick={() => changeOrderedInserting(!orderedInserting)}
 			>
-				<Switch checked={orderedInserting} /> <Text>{t('orderedInsert')}</Text>
+				<Switch checked={orderedInserting} /> <EditableText>{t('orderedInsert')}</EditableText>
 			</Box>
 			<Box className={classes.addNewSlide} onClick={onSlideAdded}>
-				<Text>{t('addNewSlide')}</Text>
+				<EditableText>{t('addNewSlide')}</EditableText>
 			</Box>
 		</Box>
 	);

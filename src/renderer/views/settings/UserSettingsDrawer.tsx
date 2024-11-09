@@ -54,9 +54,9 @@ const UserSettingsDrawer: React.FC<DrawerProps> = (props) => {
 					
 					{/*
 					TODO: Fix no access to process env!
-					<Text variant='body2'>{`${t('version')}: ${
+					<EditableText variant='body2'>{`${t('version')}: ${
 						process.env.REACT_APP_VERSION
-					}`}</Text>
+					}`}</EditableText>
 					*/}
 				</Box>
 			</Box>

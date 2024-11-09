@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import Text from '../../../smpUI/Text';
+import EditableText from '../../../smpUI/EditableText';
 import { Box} from '@mui/material';
 import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
 import SettingsRow from '../../settings/SettingsRow';
@@ -43,7 +43,7 @@ const DefaultFontSize: React.FC<{}> = () => {
 			label={t('defaultFontSize')}
 			node={
 				<Box className={classes.nodeContainer}>
-					<Text
+					<EditableText
 						align='center'
 						editable
 						placeholder={t('noDefaultSize')}
@@ -62,9 +62,9 @@ const DefaultFontSize: React.FC<{}> = () => {
 						}}
 					>
 						{size}
-					</Text>
+					</EditableText>
 					<Box sx={{ display: size !== undefined ? 'initial' : 'none', pl: 1 }}>
-						<Text>px</Text>
+						<EditableText>px</EditableText>
 					</Box>
 				</Box>
 			}

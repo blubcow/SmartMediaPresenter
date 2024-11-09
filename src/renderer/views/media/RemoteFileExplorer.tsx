@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, CircularProgress, Divider, IconButton } from '@mui/material';
 import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
 import Modal from '../../smpUI/Modal';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
@@ -105,7 +105,7 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerPorps> = (props) => {
 		>
 			<Box className={classes.container}>
 				<Box className={classes.header}>
-					<Text variant='h5' fontWeight={800}>
+					<EditableText variant='h5' fontWeight={800}>
 						{pathHistory.length > 0 && (
 							<IconButton
 								onClick={() => {
@@ -119,7 +119,7 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerPorps> = (props) => {
 						{currentPath.length === 0
 							? t('chooseMedia')
 							: currentPath.split('/').pop() ?? ''}
-					</Text>
+					</EditableText>
 					<Button
 						variant='contained'
 						disabled={currentSelection?.type !== 'file'}
@@ -137,9 +137,9 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerPorps> = (props) => {
 							<CircularProgress />
 						</Box>
 					) : currentItems.length === 0 ? (
-						<Text variant='h6' className={classes.indicator}>
+						<EditableText variant='h6' className={classes.indicator}>
 							{t('emptyFolder')}
-						</Text>
+						</EditableText>
 					) : (
 						<>
 							{currentItems.map((item) => (

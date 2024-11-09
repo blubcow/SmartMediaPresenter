@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { auth } from '../../models/firebase';
@@ -20,9 +20,9 @@ const ForgotPassword: React.FC<IForgotPasswordProps> = (props) => {
 
 	return (
 		<Box className={classes.container}>
-			<Text variant='h4' fontWeight='bold'>
+			<EditableText variant='h4' fontWeight='bold'>
 				{t('forgotPwd')}
-			</Text>
+			</EditableText>
 			<FormContainer onForgotPwd={onForgotPwd} />
 		</Box>
 	);

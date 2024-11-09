@@ -1,5 +1,5 @@
 import React from 'react';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import { Box} from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
@@ -52,13 +52,13 @@ const SettingsRow: React.FC<IRowProps> = (props) => {
 				onClick={onClick}
 			>
 				<Box>
-					<Text
+					<EditableText
 						fontWeight='bold'
 						className={classes.txt}
 						color={isHighlighted ? 'primary.contrastText' : 'text.primary'}
 					>
 						{label}
-					</Text>
+					</EditableText>
 					{primaryNode}
 				</Box>
 				{node}

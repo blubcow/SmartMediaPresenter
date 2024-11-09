@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { QuickCreateMediaResource } from '../../shared/quickCreateMedia.interface';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import useStyles from './styles';
 import { useLocalFileSystem } from '../../hooks/useMainProcessMethods';
 import * as path from 'path';
@@ -235,7 +235,7 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 						))
 					) : files.length ? (
 						<Box className={classes.infoText}>
-							<Text variant='h6'>{t('noSearchResults')}</Text>
+							<EditableText variant='h6'>{t('noSearchResults')}</EditableText>
 						</Box>
 					) : (
 						<MediaDropBoxIndicator />

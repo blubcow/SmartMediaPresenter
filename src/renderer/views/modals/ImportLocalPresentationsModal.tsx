@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '../../smpUI/Modal';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import { Box, Button} from '@mui/material';
 import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
@@ -42,11 +42,11 @@ const ImportLocalPresentationsModal: React.FC<IImportLocalPresentationsModalProp
 		return (
 			<Modal {...modalProps}>
 				<Box className={classes.container}>
-					<Text variant='h6' fontWeight={800}>
+					<EditableText variant='h6' fontWeight={800}>
 						{importing
 							? t('importingLocalPresentations')
 							: t('importLocalPresentations', { amount: amnt })}
-					</Text>
+					</EditableText>
 					{importing ? (
 						<CircularProgress />
 					) : (

@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import React, { useState, useEffect } from 'react';
 import { Dimensions, TextElement } from '../../shared/presentation.interface';
-import Text from '../../smpUI/Text';
-import { ITextProps } from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
+import { ITextProps } from '../../smpUI/EditableText';
 import SlideTextEditingTextarea from '../slideEditing/SlideTextEditingTextarea';
 
 interface ISlideTextElementProps extends ITextProps {
@@ -73,9 +73,9 @@ const SlideTextElement: React.FC<ISlideTextElementProps> = (props) => {
 					widthMulitplier={widthMultiplier}
 				/>
 			) : (
-				<Text color={textElement.color} style={style} {...textProps}>
+				<EditableText color={textElement.color} style={style} {...textProps}>
 					{textElement.text}
-				</Text>
+				</EditableText>
 			)}
 		</>
 	);

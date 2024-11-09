@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MediaRGBChannels } from '../../shared/presentation.interface';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import { Box, Button} from '@mui/material';
 import { RestartAlt } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
@@ -174,7 +174,7 @@ const ChannelSlider: React.FC<IChannelSliderProps> = (props) => {
 	return (
 		<Box sx={{ display: 'flex', width: '100%' }}>
 			<Box sx={{ pr: 2 }}>
-				<Text>{channel}:</Text>
+				<EditableText>{channel}:</EditableText>
 			</Box>
 			<Slider
 				min={min}

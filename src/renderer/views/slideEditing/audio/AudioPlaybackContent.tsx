@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import Text from '../../../smpUI/Text';
+import EditableText from '../../../smpUI/EditableText';
 import { Box, Button, IconButton} from '@mui/material';
 import AudioIcon from '../../icons/AudioIcon';
 import { PauseCircle, PlayCircle } from '@mui/icons-material';
@@ -144,7 +144,7 @@ const AudioPlaybackContent: React.FC<IAudioPlaybackContentProps> = (props) => {
 							>{ !isPlaying ? <PlayCircle/> : <PauseCircle/> }</IconButton>
 						</Box>
 						<Box className={classes.timerContainer}>
-							<Text>{formatTimer(Math.floor(audio.currentTime))}</Text>
+							<EditableText>{formatTimer(Math.floor(audio.currentTime))}</EditableText>
 						</Box>
 						<Box sx={{ padding: 1 }}>
 							<LinearProgress
@@ -154,7 +154,7 @@ const AudioPlaybackContent: React.FC<IAudioPlaybackContentProps> = (props) => {
 							/>
 						</Box>
 						<Box className={classes.timerContainer}>
-							<Text>{formatTimer(Math.floor((duration ?? 0) / 100))}</Text>
+							<EditableText>{formatTimer(Math.floor((duration ?? 0) / 100))}</EditableText>
 						</Box>
 					</Box>
 				)}

@@ -4,7 +4,7 @@ import { i18nNamespace } from '../../i18n/i18n';
 import {
 	SinglePresentation,
 } from '../../shared/presentation.interface';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import {
 	Edit,
 	Delete,
@@ -213,7 +213,7 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 								<DesktopWindows
 									sx={{ color: 'text.primary', fontSize: '50px' }}
 								/>
-								<Text fontWeight={700}>{t('local')}</Text>
+								<EditableText fontWeight={700}>{t('local')}</EditableText>
 							</Box>
 							<Box
 								className={classes.btn}
@@ -223,14 +223,14 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 								}}
 							>
 								<Cloud sx={{ color: 'text.primary', fontSize: '50px' }} />
-								<Text fontWeight={700}>{t('cloud')}</Text>
+								<EditableText fontWeight={700}>{t('cloud')}</EditableText>
 							</Box>
 						</Box>
 					)}
 				</ActionConfirmationModal>
 			</FloatingButtonContainer>
 			<Box className={classes.topContainer}>
-				<Text variant='h4'>{presentation?.name}</Text>
+				<EditableText variant='h4'>{presentation?.name}</EditableText>
 			</Box>
 			{presentation ? (
 				presentation.slides && presentation.slides.length ? (
@@ -241,7 +241,7 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 						failedToLoad={failedToLoad}
 					/>
 				) : (
-					<Text variant='h6'>{t('presentationIsEmpty')}</Text>
+					<EditableText variant='h6'>{t('presentationIsEmpty')}</EditableText>
 				)
 			) : (
 				<></>
@@ -273,9 +273,9 @@ const PresentationPreview: React.FC<IPresentationPreviewProps> = (props) => {
 						</FloatingButton>
 						{presentation && presentation.slides.length > 0 && (
 							<Box className={classes.slidesCounterContainer}>
-								<Text variant='body1'>{`${presentation.slides?.length} ${t(
+								<EditableText variant='body1'>{`${presentation.slides?.length} ${t(
 									'slides'
-								)}`}</Text>
+								)}`}</EditableText>
 							</Box>
 						)}
 					</>

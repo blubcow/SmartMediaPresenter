@@ -9,7 +9,7 @@ import {
 } from '../../shared/presentation.interface';
 import { Box} from '@mui/material';
 import Row, { IRowProps } from '../../smpUI/Row';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface ISlidePreviewRowProps extends IRowProps {
@@ -152,7 +152,7 @@ const ImagePreview = (props: {
 						alignItems: 'center',
 					}}
 				>
-					<Text variant='caption'>{t('noMedia')}</Text>
+					<EditableText variant='caption'>{t('noMedia')}</EditableText>
 				</Box>
 			)}
 		</Box>

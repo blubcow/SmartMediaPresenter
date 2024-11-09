@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '../../smpUI/Modal';
-import Text from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
 import { Box} from '@mui/material';
 import { IModalProps } from '../../smpUI/Modal';
 import {
@@ -66,12 +66,12 @@ const CreateProjectModal: React.FC<ICreateProjectModalProps> = (props) => {
 	return (
 		<Modal {...modalProps}>
 			<Box className={classes.containter}>
-				<Text variant='h4' fontWeight={700}>
+				<EditableText variant='h4' fontWeight={700}>
 					{t('createNewPresentation')}
-				</Text>
-				<Text variant='body1' sx={{ color: 'text.secondary' }}>
+				</EditableText>
+				<EditableText variant='body1' sx={{ color: 'text.secondary' }}>
 					{t('chooseOption')}
-				</Text>
+				</EditableText>
 				<Box className={classes.optionsContainer}>
 					<CreateProjectOption
 						icon={Create}
@@ -111,9 +111,9 @@ const CreateProjectOption = (props: {
 				onClick={onClick}
 				sx={{ bgcolor: 'background.default' }}
 			/>
-			<Text variant='body2' sx={{ marginTop: 1, color: 'text.secondary' }}>
+			<EditableText variant='body2' sx={{ marginTop: 1, color: 'text.secondary' }}>
 				{text}
-			</Text>
+			</EditableText>
 		</Box>
 	);
 };
