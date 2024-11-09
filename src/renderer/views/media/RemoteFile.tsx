@@ -1,10 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import {
-	Modal,
-	Button,
-	Text,
-	IconButton,
-} from '../../smpUI';
+import { Text } from '../../smpUI';
 import {
 	RemoteStorageMedia,
 	RemoteStorageMediaType,

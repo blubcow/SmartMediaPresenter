@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import {
 	Modal,
-	Button,
+	
 	Text,
 	IconButton,
 } from '../../smpUI';
 import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { CircularProgress, Divider, LinearProgress } from '@mui/material';
+import { Button, CircularProgress, Divider, LinearProgress } from '@mui/material';
 import { CreateNewFolder, UploadFile, Delete } from '@mui/icons-material';
 import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
 import {
@@ -23,6 +23,7 @@ import RemoteFile from './RemoteFile';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 import { Box } from '@mui/material';
+import ProgressButton from '../../smpUI/ProgressButton';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -333,7 +334,7 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 							editableTextDidChange={(_, curr) => setNewFolderName(curr)}
 						></Text>
 						<Box>
-							<Button
+							<ProgressButton
 								isLoading={creatingFolder}
 								variant='contained'
 								onClick={() => {
@@ -352,7 +353,7 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 								}}
 							>
 								{t('create')}
-							</Button>
+							</ProgressButton>
 						</Box>
 					</Box>
 				</Modal>

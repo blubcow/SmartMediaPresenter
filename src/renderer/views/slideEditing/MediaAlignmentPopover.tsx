@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, Text } from '../../smpUI';
-import { Box} from '@mui/material';
+import { Text } from '../../smpUI';
+import { Box, Button} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { ButtonGroup, Popover, PopoverProps } from '@mui/material';
@@ -45,7 +45,7 @@ const MediaAlignemntPopover: React.FC<IMediaAlignmentPopoverProps> = (
 				</Box>
 				<ButtonGroup variant='contained'>
 					<Button
-						minWidth='80px'
+						sx={{ minWidth: '80px' }}
 						size='small'
 						onClick={() => handleAlignment('left')}
 						color={alignment === 'left' ? 'secondary' : 'primary'}
@@ -53,7 +53,7 @@ const MediaAlignemntPopover: React.FC<IMediaAlignmentPopoverProps> = (
 						{t('left')}
 					</Button>
 					<Button
-						minWidth='80px'
+						sx={{ minWidth: '80px' }}
 						size='small'
 						color={alignment === 'center' ? 'secondary' : 'primary'}
 						onClick={() => handleAlignment('center')}
@@ -61,7 +61,7 @@ const MediaAlignemntPopover: React.FC<IMediaAlignmentPopoverProps> = (
 						{t('center')}
 					</Button>
 					<Button
-						minWidth='80px'
+						sx={{ minWidth: '80px' }}
 						size='small'
 						onClick={() => handleAlignment('right')}
 						color={alignment === 'right' ? 'secondary' : 'primary'}

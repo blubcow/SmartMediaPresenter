@@ -42,6 +42,21 @@ const components: Components<Omit<Theme, 'components' | 'palette'> & CssVarsThem
 			anchorOrigin: { horizontal: 'center', vertical: 'bottom' }
 		}
 	},
+	MuiButton: {
+		styleOverrides: {
+			root: {
+				minHeight: '45px',
+				minWidth: '150px',
+				fontWeight: 500,
+				variants: [{
+					props: { variant: 'contained' },
+					style: {
+						fontWeight: 800
+					}
+				}]
+			}
+		}
+	},
 	MuiPaper: {
 		styleOverrides: {
 			root: ({ theme }) => ({

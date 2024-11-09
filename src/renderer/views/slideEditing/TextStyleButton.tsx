@@ -1,6 +1,5 @@
 import React from 'react';
-import { ButtonGroup, Card } from '@mui/material';
-import { Button } from '../../smpUI';
+import { Button, ButtonGroup, Card } from '@mui/material';
 import { Box} from '@mui/material';
 import { FormatItalic, FormatBold } from '@mui/icons-material';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
@@ -19,8 +18,8 @@ const TextStyleButton: React.FC<{}> = () => {
 			<Card elevation={10}>
 				<ButtonGroup variant='contained' color='info'>
 					<Button
-						minWidth={'60px'}
 						sx={{
+							minWidth: '60px',
 							bgcolor: textElement.italic ? 'primary.main' : undefined,
 						}}
 						onClick={() => {
@@ -37,8 +36,8 @@ const TextStyleButton: React.FC<{}> = () => {
 						<FormatItalic />
 					</Button>
 					<Button
-						minWidth={'60px'}
 						sx={{
+							minWidth: '60px',
 							bgcolor: textElement.bold ? 'primary.main' : undefined,
 						}}
 						onClick={() => {

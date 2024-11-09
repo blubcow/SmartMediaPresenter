@@ -2,10 +2,9 @@ import React from 'react';
 import TopBarDisplayingFilename, {
 	ITopBarDisplayingFilenameProps,
 } from './components/TopBarDisplayingFilename';
-import { Button } from '../smpUI';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../i18n/i18n';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 
 interface IQuickCreateTopBarProps extends ITopBarDisplayingFilenameProps {
 	onCreatePresentation: () => void;

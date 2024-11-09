@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Text, Button } from '../../smpUI';
+import { Text } from '../../smpUI';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { auth } from '../../models/firebase';
 import { useLoginContainerStyles, useTextFieldContainerStyles } from './Login';
 import { TextField } from '@mui/material';
 import { Box } from '@mui/material';
+import ProgressButton from '../../smpUI/ProgressButton';
 
 interface IForgotPasswordProps {
 	onForgotPwd: () => void;
@@ -68,15 +69,15 @@ const FormContainer: React.FC<IFormContainerProps> = (props) => {
 					/>
 				</Box>
 				<Box className={classes.buttonContainer}>
-					<Button
+					<ProgressButton
 						variant='contained'
-						minWidth='200px'
+						sx={{ minWidth: '200px' }}
 						type='submit'
 						isLoading={isLoading}
 						disabled={isLoading}
 					>
 						{t('send')}
-					</Button>
+					</ProgressButton>
 				</Box>
 			</form>
 		</Box>

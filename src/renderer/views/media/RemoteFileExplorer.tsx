@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { CircularProgress, Divider } from '@mui/material';
+import { Button, CircularProgress, Divider } from '@mui/material';
 import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
-import {
-	Modal,
-	Button,
-	Text,
-	IconButton,
-} from '../../smpUI';
+import { Modal, Text, IconButton } from '../../smpUI';
 import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';

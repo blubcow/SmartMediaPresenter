@@ -1,6 +1,5 @@
 import React from 'react';
-import { ButtonGroup } from '@mui/material';
-import { Button } from '../../smpUI';
+import { Button, ButtonGroup } from '@mui/material';
 import SettingsRow from './SettingsRow';
 import useUserSettingsContext from '../../hooks/useUserSettingsContext';
 import { useTranslation } from 'react-i18next';
@@ -20,8 +19,8 @@ const ChangeTheme: React.FC<{}> = (props) => {
 			node={
 				<ButtonGroup variant='contained'>
 					<Button
-						minWidth='40px'
 						sx={{
+							minWidth: '40px',
 							bgcolor:
 								userSettings.theme === 'auto' ? 'secondary.main' : undefined,
 						}}
@@ -30,8 +29,8 @@ const ChangeTheme: React.FC<{}> = (props) => {
 						<AutoAwesome />
 					</Button>
 					<Button
-						minWidth='40px'
 						sx={{
+							minWidth: '40px',
 							bgcolor:
 								userSettings.theme === 'dark' ? 'secondary.main' : undefined,
 						}}
@@ -40,8 +39,8 @@ const ChangeTheme: React.FC<{}> = (props) => {
 						<DarkMode />
 					</Button>
 					<Button
-						minWidth='40px'
 						sx={{
+							minWidth:'40px',
 							bgcolor:
 								userSettings.theme === 'light' ? 'secondary.main' : undefined,
 						}}

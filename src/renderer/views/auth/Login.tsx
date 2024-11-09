@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Text, Button } from '../../smpUI';
-import { Box} from '@mui/material';
+import { Text } from '../../smpUI';
+import { Box, Button} from '@mui/material';
 import useThemedLogo from '../../hooks/useThemedLogo';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
@@ -10,6 +10,7 @@ import CreateAccount from './CreateAccount';
 import ForgotPassword from './ForgotPassword';
 import { createStyles, makeStyles } from '@mui/styles';
 import { TextField, Theme } from '@mui/material';
+import ProgressButton from '../../smpUI/ProgressButton';
 
 export const useLoginContainerStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -135,15 +136,15 @@ const FormContainer: React.FC<IFormContainerProps> = (props) => {
 					/>
 				</Box>
 				<Box className={classes.buttonContainer}>
-					<Button
+					<ProgressButton
 						variant='contained'
-						minWidth='200px'
+						sx={{ minWidth: '200px' }}
 						type='submit'
 						isLoading={isLoading}
 						disabled={isLoading}
 					>
 						{t('login')}
-					</Button>
+					</ProgressButton>
 				</Box>
 			</form>
 		</Box>

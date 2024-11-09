@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAudioStore } from '../../hooks/useMainProcessMethods';
-import { Button, Text } from '../../smpUI';
-import { Box, BoxProps} from '@mui/material';
+import { Text } from '../../smpUI';
+import { Box, BoxProps, Button} from '@mui/material';
 import AudioRecordingIcon from '../icons/AudioRecordingIcon';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
