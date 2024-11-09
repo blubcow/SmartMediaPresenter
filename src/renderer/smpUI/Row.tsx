@@ -1,8 +1,8 @@
 import React from 'react';
-import { Box, Text } from '.';
-import { IBoxProps } from './Box';
+import EditableText from './EditableText';
 import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import { BoxProps, Theme } from '@mui/material';
+import { Box } from '@mui/material';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-export interface IRowProps extends IBoxProps {
+export interface IRowProps extends BoxProps {
 	rootContainerStyle?: any;
 	title?: string;
 	info?: string;
@@ -83,16 +83,16 @@ const Row: React.FC<IRowProps> = (props) => {
 				{title || info || IconBadge ? (
 					<Box className={classes.baseContainer}>
 						<Box className={classes.textContainer}>
-							{title !== undefined && <Text fontWeight='bold'>{title}</Text>}
+							{title !== undefined && <EditableText fontWeight='bold'>{title}</EditableText>}
 							{info !== undefined && (
-								<Text className={classes.infoLabel} variant='body2'>
+								<EditableText className={classes.infoLabel} variant='body2'>
 									{info}
-								</Text>
+								</EditableText>
 							)}
 							{secondaryInfo !== undefined && (
-								<Text className={classes.secondaryInfoLabel} variant='caption'>
+								<EditableText className={classes.secondaryInfoLabel} variant='caption'>
 									{secondaryInfo}
-								</Text>
+								</EditableText>
 							)}
 						</Box>
 						{IconBadge}

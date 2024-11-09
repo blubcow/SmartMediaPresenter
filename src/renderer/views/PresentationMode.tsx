@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { usePresentationMode } from '../hooks/useMainProcessMethods';
-import { Box, Text, Button } from '../smpUI';
+import EditableText from '../smpUI/EditableText';
 import { FullScreen, FullScreenHandle } from 'react-full-screen';
 import { SinglePresentation } from '../shared/presentation.interface';
 import SlideBox from './slide/SlideEditingBox';
-import { Divider } from '@mui/material';
+import { Button, Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../i18n/i18n';
 import AutoPlaybackBar from './components/AutoPlaybackBar';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 import { formatTimer } from '../shared/format.utils';
+import { Box } from '@mui/material';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -352,9 +353,9 @@ const Content = ({
 							{t('back')}
 						</Button>
 						<Box className={classes.slideCounterContainer}>
-							<Text variant='h6'>{`${t('slide')} ${slideNumber + 1} ${t(
+							<EditableText variant='h6'>{`${t('slide')} ${slideNumber + 1} ${t(
 								'of'
-							)} ${presentation.slides.length} ${t('slides')}`}</Text>
+							)} ${presentation.slides.length} ${t('slides')}`}</EditableText>
 						</Box>
 						<Button
 							variant='contained'
@@ -369,24 +370,24 @@ const Content = ({
 				<Divider orientation='vertical' />
 				<Box className={classes.upperRightBox}>
 					<Box className={classes.timerContainer}>
-						<Text variant='h5'>{t('presentationTime')}</Text>
-						<Text variant='h4'>{formatTimer(presentationTimer)}</Text>
+						<EditableText variant='h5'>{t('presentationTime')}</EditableText>
+						<EditableText variant='h4'>{formatTimer(presentationTimer)}</EditableText>
 					</Box>
 					<Box className={classes.spacer} />
 					<Box className={classes.timerContainer}>
-						<Text variant='h5'>{t('slideTime')}</Text>
-						<Text variant='h4'>{formatTimer(slideTimer)}</Text>
+						<EditableText variant='h5'>{t('slideTime')}</EditableText>
+						<EditableText variant='h4'>{formatTimer(slideTimer)}</EditableText>
 					</Box>
 				</Box>
 			</Box>
 			<Divider orientation='horizontal' />
 			<Box className={classes.lowerBox}>
-				<Text variant='h6'>{t('notes')}</Text>
+				<EditableText variant='h6'>{t('notes')}</EditableText>
 				<Divider orientation='horizontal' />
 				<Box className={classes.notesContainer}>
-					<Text className={classes.notes}>
+					<EditableText className={classes.notes}>
 						{presentation.slides[slideNumber].settings?.notes}
-					</Text>
+					</EditableText>
 				</Box>
 			</Box>
 		</Box>

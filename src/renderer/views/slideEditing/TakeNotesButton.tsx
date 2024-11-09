@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import EditingButton from './EditingButton';
-import { Box, Button, Drawer, Text, TextArea } from '../../smpUI';
+import EditableText from '../../smpUI/EditableText';
+import { Box, Button} from '@mui/material';
 import { Notes } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
+import { Drawer, TextareaAutosize } from '@mui/material';
 
 interface ITakeNotesButtonProps {}
 
@@ -53,7 +55,7 @@ const TakeNotesButton: React.FC<ITakeNotesButtonProps> = (props) => {
 							justifyContent: 'space-between',
 						}}
 					>
-						<Text variant='h5'>{t('notes')}</Text>
+						<EditableText variant='h5'>{t('notes')}</EditableText>
 						<Box>
 							<Button
 								variant='contained'
@@ -93,7 +95,7 @@ const TakeNotesButton: React.FC<ITakeNotesButtonProps> = (props) => {
 						</Box>
 					</Box>
 					<Box sx={{ flex: 1, width: '100%', padding: 2 }}>
-						<TextArea
+						<TextareaAutosize
 							placeholder={t('typeNotesHere')}
 							value={notes}
 							onChange={(e) => {
@@ -105,9 +107,6 @@ const TakeNotesButton: React.FC<ITakeNotesButtonProps> = (props) => {
 								background: 'transparent',
 								color: 'inherit',
 							}}
-							onResize={null}
-							onResizeCapture={null}
-
 						/>
 					</Box>
 				</Box>

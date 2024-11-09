@@ -1,5 +1,7 @@
 import React from 'react';
-import { Modal, Box, Text } from '../../smpUI';
+import Modal from '../../smpUI/Modal';
+import EditableText from '../../smpUI/EditableText';
+import { Box} from '@mui/material';
 import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
@@ -25,11 +27,11 @@ const PresentationDispalaySelectionModal: React.FC<IPresentationDispalaySelectio
 						textAlign: 'center',
 					}}
 				>
-					<Text variant='h5' fontWeight='bold'>
+					<EditableText variant='h5' fontWeight='bold'>
 						{t('multipleDisplaysAvailable')}
-					</Text>
+					</EditableText>
 					<Box sx={{ paddingTop: 1 }}>
-						<Text>{t('selectDisplay')}</Text>
+						<EditableText>{t('selectDisplay')}</EditableText>
 					</Box>
 					<Box sx={{ display: 'flex', paddingTop: 3 }}>
 						{Array(displaysAmount - 1)
@@ -53,8 +55,8 @@ const PresentationDispalaySelectionModal: React.FC<IPresentationDispalaySelectio
 										onDisplaySelected(i + 1);
 									}}
 								>
-									<Text>{t('display')}</Text>
-									<Text>{i + 2}</Text>
+									<EditableText>{t('display')}</EditableText>
+									<EditableText>{i + 2}</EditableText>
 								</Box>
 							))}
 					</Box>

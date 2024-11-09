@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { CircularProgress, Divider } from '@mui/material';
+import { Button, CircularProgress, Divider, IconButton } from '@mui/material';
 import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
-import {
-	Modal,
-	Box,
-	Button,
-	Text,
-	IconButton,
-} from '../../smpUI';
+import Modal from '../../smpUI/Modal';
+import EditableText from '../../smpUI/EditableText';
 import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
@@ -20,6 +15,7 @@ import { ArrowBack } from '@mui/icons-material';
 import RemoteFile from './RemoteFile';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
+import { Box } from '@mui/material';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -109,22 +105,21 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerPorps> = (props) => {
 		>
 			<Box className={classes.container}>
 				<Box className={classes.header}>
-					<Text variant='h5' fontWeight={800}>
+					<EditableText variant='h5' fontWeight={800}>
 						{pathHistory.length > 0 && (
 							<IconButton
-								icon={ArrowBack}
 								onClick={() => {
 									if (pathHistory.length > 0) {
 										const newPath = pathHistory.pop()!;
 										setCurrentPath(newPath);
 									}
 								}}
-							/>
+							><ArrowBack/></IconButton>
 						)}
 						{currentPath.length === 0
 							? t('chooseMedia')
 							: currentPath.split('/').pop() ?? ''}
-					</Text>
+					</EditableText>
 					<Button
 						variant='contained'
 						disabled={currentSelection?.type !== 'file'}
@@ -142,9 +137,9 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerPorps> = (props) => {
 							<CircularProgress />
 						</Box>
 					) : currentItems.length === 0 ? (
-						<Text variant='h6' className={classes.indicator}>
+						<EditableText variant='h6' className={classes.indicator}>
 							{t('emptyFolder')}
-						</Text>
+						</EditableText>
 					) : (
 						<>
 							{currentItems.map((item) => (

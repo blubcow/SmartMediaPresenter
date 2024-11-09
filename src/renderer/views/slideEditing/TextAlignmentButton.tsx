@@ -1,6 +1,6 @@
 import React from 'react';
-import { ButtonGroup } from '@mui/material';
-import { Box, Card, Button } from '../../smpUI';
+import { Button, ButtonGroup, Card } from '@mui/material';
+import { Box} from '@mui/material';
 import {
 	AlignHorizontalCenter,
 	AlignHorizontalLeft,
@@ -35,8 +35,8 @@ const TextAliginmentButton: React.FC<{}> = () => {
 						onClick={() => {
 							handleClick('left');
 						}}
-						minWidth={'60px'}
 						sx={{
+							minWidth: '60px',
 							bgcolor:
 								textElement.alignment === 'left' ? 'primary.main' : undefined,
 						}}
@@ -47,8 +47,8 @@ const TextAliginmentButton: React.FC<{}> = () => {
 						onClick={() => {
 							handleClick('center');
 						}}
-						minWidth={'60px'}
 						sx={{
+							minWidth: '60px',
 							bgcolor:
 								textElement.alignment === 'center' ? 'primary.main' : undefined,
 						}}
@@ -59,8 +59,8 @@ const TextAliginmentButton: React.FC<{}> = () => {
 						onClick={() => {
 							handleClick('right');
 						}}
-						minWidth={'60px'}
 						sx={{
+							minWidth: '60px',
 							bgcolor:
 								textElement.alignment === 'right' ? 'primary.main' : undefined,
 						}}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Box } from '../smpUI';
 import Page from '../smpUI/Page';
 import QuickCreateTopBar from './QuickCreateTopBar';
 import { Divider } from '@mui/material';
@@ -12,6 +11,7 @@ import { DataTransferIdentifiers } from '../shared/identifiers.enum';
 import usePresentationSyncContext from '../hooks/usePresentationSyncContext';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
+import { Box } from '@mui/material';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

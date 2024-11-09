@@ -1,6 +1,4 @@
 import React from 'react';
-import { Drawer, Box, Text } from '../../smpUI';
-import { IDrawerProps } from '../../smpUI/Drawer';
 import ChangeLanguage from './ChangeLanguage';
 import ChangeTheme from './ChangeTheme';
 import RemoteUser from './RemoteUser';
@@ -9,9 +7,9 @@ import { i18nNamespace } from '../../i18n/i18n';
 import ManageRemoteMedia from './ManageRemoteMedia';
 import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
 import config from '../../config/firebase.config';
-
+import { Box } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import { Drawer, DrawerProps, Theme } from '@mui/material';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -25,10 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-
-interface IUserSettingsDrawerProps extends IDrawerProps {}
-
-const UserSettingsDrawer: React.FC<IUserSettingsDrawerProps> = (props) => {
+const UserSettingsDrawer: React.FC<DrawerProps> = (props) => {
 	const classes = useStyles();
 	const { t } = useTranslation([i18nNamespace.Alert]);
 	const { syncingAvailable } = usePresentationSyncContext();
@@ -59,9 +54,9 @@ const UserSettingsDrawer: React.FC<IUserSettingsDrawerProps> = (props) => {
 					
 					{/*
 					TODO: Fix no access to process env!
-					<Text variant='body2'>{`${t('version')}: ${
+					<EditableText variant='body2'>{`${t('version')}: ${
 						process.env.REACT_APP_VERSION
-					}`}</Text>
+					}`}</EditableText>
 					*/}
 				</Box>
 			</Box>

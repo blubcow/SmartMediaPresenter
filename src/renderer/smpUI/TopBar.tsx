@@ -1,6 +1,5 @@
 import React from 'react';
-import { AppBar, AppBarProps, Toolbar } from '@mui/material';
-import { IconButton } from '.';
+import { AppBar, AppBarProps, IconButton, Toolbar } from '@mui/material';
 import { ArrowBackIosNew } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import _ from 'lodash';
@@ -31,12 +30,11 @@ const TopBar: React.FC<ITopBarProps> = (props) => {
 			<Toolbar sx={{ height: '100%' }}>
 				{canGoBack && (
 					<IconButton
-						icon={ArrowBackIosNew}
 						onClick={() => {
 							if (onGoBack) onGoBack();
 							else navigate(-1);
 						}}
-					/>
+					><ArrowBackIosNew/></IconButton>
 				)}
 				{props.children}
 			</Toolbar>

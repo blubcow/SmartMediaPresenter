@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { MediaRGBChannels } from '../../shared/presentation.interface';
-import { Popover, Box, Text, Button, Slider } from '../../smpUI';
+import EditableText from '../../smpUI/EditableText';
+import { Box, Button} from '@mui/material';
 import { RestartAlt } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
+import { Popover, Slider } from '@mui/material';
 
 type RgbChannel = 'red' | 'green' | 'blue';
 type RgbSubChannel = 'r' | 'g' | 'b' | 'alpha';
@@ -33,6 +35,7 @@ const RgbChannelsPopover: React.FC<IRbgCahnnelsPopOverProps> = (props) => {
 		onChannelsChanged(mainChannel, subChannel, val);
 	};
 
+	// TODO: Deprecated "PaperProps"
 	return (
 		<Popover
 			elevation={10}
@@ -171,7 +174,7 @@ const ChannelSlider: React.FC<IChannelSliderProps> = (props) => {
 	return (
 		<Box sx={{ display: 'flex', width: '100%' }}>
 			<Box sx={{ pr: 2 }}>
-				<Text>{channel}:</Text>
+				<EditableText>{channel}:</EditableText>
 			</Box>
 			<Slider
 				min={min}

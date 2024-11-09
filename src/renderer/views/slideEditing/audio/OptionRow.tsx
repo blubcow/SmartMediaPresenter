@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Text } from '../../../smpUI';
+import EditableText from '../../../smpUI/EditableText';
+import { Box} from '@mui/material';
 import { ButtonBase } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
@@ -45,7 +46,7 @@ const OptionRow: React.FC<IOptionRowProps> = (props) => {
 			<ButtonBase className={classes.btnBase}>
 				<Box className={classes.optionRow}>
 					<Box className={classes.optionRowIcon}>{icon}</Box>
-					<Text>{label}</Text>
+					<EditableText>{label}</EditableText>
 				</Box>
 			</ButtonBase>
 		</Box>

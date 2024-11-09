@@ -1,6 +1,6 @@
 import React from 'react';
 import IconFrame from './IconFrame';
-import { Box } from '../../smpUI';
+import { Box } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import { getEmptySlide, Slide } from '../../shared/presentation.interface';
-import { Box } from '../../smpUI';
+import { Box } from '@mui/material';
 import { SlidePreviewRow, SlidesHeaderRow } from '../rows';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';

@@ -1,11 +1,11 @@
 import React from 'react';
-import { Text } from '../../smpUI';
-import { ITextProps } from '../../smpUI/Text';
+import EditableText from '../../smpUI/EditableText';
+import { ITextProps } from '../../smpUI/EditableText';
 
 interface IEditButtonLabelProps extends ITextProps {}
 
 const EditButtonLabel: React.FC<IEditButtonLabelProps> = (props) => {
-	return <Text variant='caption' lineHeight='100%' {...props} />;
+	return <EditableText variant='caption' lineHeight='100%' {...props} />;
 };
 
 export default EditButtonLabel;

@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Box, Text, Button, TextField } from '../../smpUI';
+import EditableText from '../../smpUI/EditableText';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { auth } from '../../models/firebase';
 import { useLoginContainerStyles, useTextFieldContainerStyles } from './Login';
+import { TextField } from '@mui/material';
+import { Box } from '@mui/material';
+import ProgressButton from '../../smpUI/ProgressButton';
 
 interface ICreateAccountProps {
 	onAccountCreated: () => void;
@@ -17,9 +20,9 @@ const CreateAccount: React.FC<ICreateAccountProps> = (props) => {
 
 	return (
 		<Box className={classes.container}>
-			<Text variant='h4' fontWeight='bold'>
+			<EditableText variant='h4' fontWeight='bold'>
 				{t('createAccount')}
-			</Text>
+			</EditableText>
 			<FormContainer onAccountCreated={onAccountCreated} />
 		</Box>
 	);
@@ -81,15 +84,15 @@ const FormContainer: React.FC<IFormContainerProps> = (props) => {
 					/>
 				</Box>
 				<Box className={classes.buttonContainer}>
-					<Button
+					<ProgressButton
 						variant='contained'
-						minWidth='200px'
+						sx={{ minWidth:'200px' }}
 						type='submit'
 						isLoading={isLoading}
 						disabled={isLoading}
 					>
 						{t('create')}
-					</Button>
+					</ProgressButton>
 				</Box>
 			</form>
 		</Box>

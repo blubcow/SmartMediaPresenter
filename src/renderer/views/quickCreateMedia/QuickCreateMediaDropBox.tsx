@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { QuickCreateMediaResource } from '../../shared/quickCreateMedia.interface';
-import { Box, Text } from '../../smpUI';
-import { IBoxProps } from '../../smpUI/Box';
+import EditableText from '../../smpUI/EditableText';
 import useStyles from './styles';
 import { useLocalFileSystem } from '../../hooks/useMainProcessMethods';
 import * as path from 'path';
@@ -14,8 +13,9 @@ import { DataTransferIdentifiers } from '../../shared/identifiers.enum';
 import RemoteFileExplorer from './RemoteFileExplorer';
 import { allowedFiles } from '../../shared/mediaResource.utils';
 import MediaDropBoxIndicator from '../components/MediaDropBoxIndicator';
+import { Box, BoxProps } from '@mui/material';
 
-interface IQuickCreateMediaDropBoxProps extends IBoxProps {
+interface IQuickCreateMediaDropBoxProps extends BoxProps {
 	selectedRows: number[];
 	clearSelectedRows: () => void;
 	onSelectedMediaChanged: (rows: number[]) => void;
@@ -235,7 +235,7 @@ const QuickCreateMediaDropBox: React.FC<IQuickCreateMediaDropBoxProps> = (
 						))
 					) : files.length ? (
 						<Box className={classes.infoText}>
-							<Text variant='h6'>{t('noSearchResults')}</Text>
+							<EditableText variant='h6'>{t('noSearchResults')}</EditableText>
 						</Box>
 					) : (
 						<MediaDropBoxIndicator />

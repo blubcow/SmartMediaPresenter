@@ -1,5 +1,7 @@
 import React, { PropsWithChildren } from 'react';
-import { Modal, Text, Button, Box } from '../../smpUI';
+import Modal from '../../smpUI/Modal';
+import EditableText from '../../smpUI/EditableText';
+import { Box, Button} from '@mui/material';
 import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
@@ -43,11 +45,11 @@ const ActionConfirmationModal: React.FC<
 	return (
 		<Modal {...modalProps}>
 			<Box className={classes.contentContainer}>
-				<Text variant='h5' fontWeight='bold' color='text.secondary'>
+				<EditableText variant='h5' fontWeight='bold' color='text.secondary'>
 					{t('actionConfirmationQuestion')}
-				</Text>
+				</EditableText>
 				<Box className={classes.secondaryTextContainer}>
-					<Text>{secondaryText}</Text>
+					<EditableText>{secondaryText}</EditableText>
 				</Box>
 				{props.children}
 				<Box className={classes.buttonContainer}>

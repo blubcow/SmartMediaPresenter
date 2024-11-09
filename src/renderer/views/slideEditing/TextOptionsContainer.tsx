@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '../../smpUI';
+import { Box } from '@mui/material';
 import TextStyleButton from './TextStyleButton';
 import TextAliginmentButton from './TextAlignmentButton';
 

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import TopBar from '../smpUI/TopBar';
-import { Box, IconButton } from '../smpUI';
 import useThemedLogo from '../hooks/useThemedLogo';
 import UserSettingsDrawer from './settings/UserSettingsDrawer';
-
+import { Box, IconButton } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 import { Menu } from '@mui/icons-material';
@@ -39,7 +38,7 @@ const HomeTopBar: React.FC<{}> = () => {
 					<img className={classes.img} src={toolbarLogo} alt='SMP-Logo' />
 				</Box>
 				<Box>
-					<IconButton icon={Menu} onClick={() => setOpenUserSettings(true)} />
+					<IconButton onClick={() => setOpenUserSettings(true)} ><Menu/></IconButton>
 				</Box>
 			</Box>
 			<UserSettingsDrawer

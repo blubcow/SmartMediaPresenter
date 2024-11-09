@@ -1,8 +1,86 @@
-import { createTheme, ThemeOptions } from '@mui/material';
+import { Components, createTheme, CssVarsTheme, Theme, ThemeOptions } from '@mui/material';
 
-const typography: ThemeOptions['typography'] = () => ({
-	fontFamily: 'Montserrat',
-});
+declare module '@mui/material/Paper' {
+	interface PaperPropsVariantOverrides {
+		modal: true;
+	}
+ }
+
+const components: Components<Omit<Theme, 'components' | 'palette'> & CssVarsTheme> = {
+	MuiTextField: {
+		defaultProps: {
+			variant: 'filled',
+			size: 'small',
+			fullWidth: true
+		}
+	},
+	MuiDrawer: {
+		defaultProps: {
+			variant: 'temporary',
+			anchor: 'right'
+		}
+	},
+	MuiPopover: {
+		defaultProps: {
+			anchorOrigin: {
+				vertical: 'bottom',
+				horizontal: 'center',
+			},
+			transformOrigin: {
+				vertical: 'top',
+				horizontal: 'center',
+			}
+		}
+	},
+	MuiSnackbar: {
+		defaultProps: {
+			autoHideDuration: 5000,
+			anchorOrigin: { horizontal: 'center', vertical: 'bottom' }
+		}
+	},
+	MuiIconButton: {
+		defaultProps: {
+			size: 'large'
+		},
+		styleOverrides: {
+			root: ({ theme }) => ({
+				color: theme.palette.text.primary
+			})
+		}
+	},
+	MuiButton: {
+		styleOverrides: {
+			root: {
+				minHeight: '45px',
+				minWidth: '150px',
+				fontWeight: 500,
+				variants: [{
+					props: { variant: 'contained' },
+					style: {
+						fontWeight: 800
+					}
+				}]
+			}
+		}
+	},
+	MuiPaper: {
+		styleOverrides: {
+			root: ({ theme }) => ({
+				variants: [{
+					props: { variant: 'modal' },
+					style: {
+						padding: theme.spacing(3),
+						backgroundColor: theme.palette.background.paper,
+						minHeight: '150px',
+						height: 'auto',
+						width: '45%',
+						maxWidth: '550px'
+					},
+				}]
+			})
+		}
+	}
+}
 
 export const lightTheme = createTheme({
 	palette: {
@@ -16,8 +94,9 @@ export const lightTheme = createTheme({
 		divider: '#E1EAEF',
 		info: { main: '#D8E7EF', contrastText: '#14171A' },
 	},
-	typography: typography,
+	typography: { fontFamily: 'Montserrat' },
 	shape: { borderRadius: 20 },
+	components: components
 });
 
 export const darkTheme = createTheme({
@@ -32,6 +111,7 @@ export const darkTheme = createTheme({
 		divider: '#1B1F23',
 		info: { main: '#282E33', contrastText: '#F5F8FA' },
 	},
-	typography: typography,
+	typography: { fontFamily: 'Montserrat' },
 	shape: { borderRadius: 20 },
+	components: components
 });

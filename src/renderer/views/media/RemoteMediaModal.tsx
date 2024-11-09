@@ -1,15 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import {
-	Modal,
-	Box,
-	Button,
-	Text,
-	IconButton,
-} from '../../smpUI';
+import Modal from '../../smpUI/Modal';
+import EditableText from '../../smpUI/EditableText';
 import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { CircularProgress, Divider, LinearProgress } from '@mui/material';
+import { Button, CircularProgress, Divider, IconButton, LinearProgress } from '@mui/material';
 import { CreateNewFolder, UploadFile, Delete } from '@mui/icons-material';
 import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
 import {
@@ -23,6 +18,8 @@ import { useLocalFileSystem } from '../../hooks/useMainProcessMethods';
 import RemoteFile from './RemoteFile';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
+import { Box } from '@mui/material';
+import ProgressButton from '../../smpUI/ProgressButton';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -152,9 +149,9 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 		<Modal {...props} maxWidth={false}>
 			<Box className={classes.container} onClick={clearSelection}>
 				<Box className={classes.header}>
-					<Text fontWeight='bold' variant='h5'>
+					<EditableText fontWeight='bold' variant='h5'>
 						{t('manageRemoteMedia')}
-					</Text>
+					</EditableText>
 					<Box className={classes.headerBtnContainer}>
 						<Button
 							variant='contained'
@@ -265,9 +262,9 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 									/>
 								))
 							) : (
-								<Text variant='h6' className={classes.emptyFolderIndicator}>
+								<EditableText variant='h6' className={classes.emptyFolderIndicator}>
 									{t('emptyFolder')}
-								</Text>
+								</EditableText>
 							)}
 						</>
 					)}
@@ -278,7 +275,6 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 						{history.length > 0 && (
 							<Box className={classes.folderNavigator}>
 								<IconButton
-									icon={ArrowBack}
 									onClick={() => {
 										if (history.length > 0) {
 											setCurrentPath(history[history.length - 1].path);
@@ -296,8 +292,8 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 											setHistory(newHistory);
 										}
 									}}
-								/>
-								<Text variant='h5'>{history[history.length - 1].folder}</Text>
+								><ArrowBack/></IconButton>
+								<EditableText variant='h5'>{history[history.length - 1].folder}</EditableText>
 							</Box>
 						)}
 					</Box>
@@ -321,19 +317,19 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 					}}
 				>
 					<Box className={classes.newFolderContainer}>
-						<Text variant='h6' fontWeight={800}>
+						<EditableText variant='h6' fontWeight={800}>
 							{t('createNewFolder')}
-						</Text>
-						<Text
+						</EditableText>
+						<EditableText
 							placeholder={t('name')}
 							editable
 							align='center'
 							color={newFolderName !== undefined ? 'text.primary' : 'GrayText'}
 							style={{ maxWidth: '70%' }}
 							editableTextDidChange={(_, curr) => setNewFolderName(curr)}
-						></Text>
+						></EditableText>
 						<Box>
-							<Button
+							<ProgressButton
 								isLoading={creatingFolder}
 								variant='contained'
 								onClick={() => {
@@ -352,7 +348,7 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 								}}
 							>
 								{t('create')}
-							</Button>
+							</ProgressButton>
 						</Box>
 					</Box>
 				</Modal>
@@ -360,9 +356,9 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 			{deletingMedia && (
 				<Modal open={true}>
 					<Box className={classes.activityModal}>
-						<Text variant='h6' fontWeight={800}>
+						<EditableText variant='h6' fontWeight={800}>
 							{t('deletingMedia')}
-						</Text>
+						</EditableText>
 						<CircularProgress />
 					</Box>
 				</Modal>
@@ -370,9 +366,9 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 			{uploadingMedia && (
 				<Modal open={true}>
 					<Box className={classes.activityModal}>
-						<Text variant='h6' fontWeight={800}>
+						<EditableText variant='h6' fontWeight={800}>
 							{t('uploadingMedia')}
-						</Text>
+						</EditableText>
 						<Box sx={{ width: '100%' }}>
 							<LinearProgress
 								value={uploadProgress}

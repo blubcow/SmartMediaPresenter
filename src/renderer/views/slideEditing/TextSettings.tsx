@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '../../smpUI';
+import { Box } from '@mui/material';
 import ChangeTextColorButton from './ChangeTextColorButton';
 import FontSizeSelector from './FontSizeSelector';
 import RemoveTextButton from './RemoveTextButton';

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { Box, Text } from '../../smpUI';
-import { IBoxProps } from '../../smpUI/Box';
+import EditableText from '../../smpUI/EditableText';
+import { Box, BoxProps} from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-interface IMediaDropBoxIndicatorProps extends IBoxProps {
+interface IMediaDropBoxIndicatorProps extends BoxProps {
 	canTapToOpenFileInspector?: boolean;
 	label?: string;
 	labelSize?: 'h5' | 'h6' | 'body1';
@@ -74,17 +74,17 @@ const MediaDropBoxIndicator: React.FC<IMediaDropBoxIndicatorProps> = (
 				onDragEnter={() => setDraggedOver(true)}
 				onDragLeave={() => setDraggedOver(false)}
 			>
-				<Text
+				<EditableText
 					className={classes.text}
 					variant={labelSize ?? canTapToOpenFileInspector ? 'body1' : 'h5'}
 					textAlign='center'
 				>
 					{label}
-				</Text>
+				</EditableText>
 				{canTapToOpenFileInspector && (
-					<Text className={classes.text} variant='caption'>
+					<EditableText className={classes.text} variant='caption'>
 						{t('orClickToChooseFromFileInspector')}
-					</Text>
+					</EditableText>
 				)}
 			</Box>
 		</Box>

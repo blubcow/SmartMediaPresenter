@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Text } from '../../smpUI';
+import EditableText from '../../smpUI/EditableText';
+import { Box} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { Error } from '@mui/icons-material';
@@ -46,11 +47,11 @@ const FailedToLoadMediaBadge: React.FC<IFailedToLoadMediaBadgeProps> = (
 	return (
 		<Box className={classes.container}>
 			<Error className={classes.error} />
-			<Text variant='caption'>
+			<EditableText variant='caption'>
 				{t(amount > 1 ? 'failedToLoadMediaMult' : 'failedToLoadMedia', {
 					amount: amount,
 				})}
-			</Text>
+			</EditableText>
 		</Box>
 	);
 };

@@ -1,7 +1,8 @@
 import React from 'react';
 import Page from '../smpUI/Page';
 import HomeTopBar from './HomeTopBar';
-import { Box, Row, Text } from '../smpUI';
+import Row from '../smpUI/Row';
+import EditableText from '../smpUI/EditableText';
 import { ProjectsHeaderRow } from './rows';
 import { CircularProgress, Divider } from '@mui/material';
 import { useLocalFileSystem } from '../hooks/useMainProcessMethods';
@@ -15,7 +16,7 @@ import { getFormattedDate } from '../models/DateFormatter';
 import usePresentationSyncContext from '../hooks/usePresentationSyncContext';
 import usePresentationCacheContext from '../hooks/usePresentationCacheContext';
 import PresentationSyncingButton from './components/PresentationSyncingButton';
-
+import { Box } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 
@@ -256,7 +257,7 @@ const Home: React.FC<{}> = () => {
 						/>
 					) : (
 						<Box className={classes.noPresentationSelectedContainer}>
-							<Text variant='h5'>{t('noPresentationSelected')}</Text>
+							<EditableText variant='h5'>{t('noPresentationSelected')}</EditableText>
 						</Box>
 					)}
 				</Box>

@@ -7,8 +7,8 @@ import React, {
 import { WifiOff } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../i18n/i18n';
-import Box from '../smpUI/Box';
-import Text from '../smpUI/Text';
+import { Box } from '@mui/material';
+import EditableText from '../smpUI/EditableText';
 
 export const ConnectivityContext = createContext({});
 
@@ -65,9 +65,9 @@ const ConnectivityProvider: React.FC<PropsWithChildren<{}>> = ({
 						}}
 					>
 						<WifiOff sx={{ color: 'white', fontSize: '30px' }} />
-						<Text fontWeight={800} color='white'>
+						<EditableText fontWeight={800} color='white'>
 							{t('noInternet')}
-						</Text>
+						</EditableText>
 					</Box>
 				</Box>
 			}

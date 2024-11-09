@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from '../../smpUI';
+import EditableText from '../../smpUI/EditableText';
 import { useTextFontSelectionOptionStyles } from './styles';
 
 interface ITextFontSelectionOptionProps
@@ -15,7 +15,7 @@ const TextFontSelectionOption: React.FC<ITextFontSelectionOptionProps> = (
 
 	return (
 		<li className={classes.container} {...liProps}>
-			<Text fontFamily={font}>{font}</Text>
+			<EditableText fontFamily={font}>{font}</EditableText>
 		</li>
 	);
 };

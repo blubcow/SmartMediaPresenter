@@ -4,10 +4,12 @@ import { GridView } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
-import { Box, Button, Popover, Text } from '../../smpUI';
+import EditableText from '../../smpUI/EditableText';
+import { Box, Button} from '@mui/material';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { MediaRessource } from '../../shared/presentation.interface';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
+import { Popover } from '@mui/material';
 
 interface ISlideFormatButtonProps {}
 
@@ -57,7 +59,7 @@ const SlideFormatButton: React.FC<ISlideFormatButtonProps> = (props) => {
 						textAlign: 'center',
 					}}
 				>
-					<Text>{t('chooseSlideFormat')}</Text>
+					<EditableText>{t('chooseSlideFormat')}</EditableText>
 					<Box sx={{ pt: 2, display: 'flex' }}>
 						<Box
 							sx={{
@@ -68,11 +70,11 @@ const SlideFormatButton: React.FC<ISlideFormatButtonProps> = (props) => {
 								flexDirection: 'column',
 							}}
 						>
-							<Text variant='caption' color='text.secondary'>
+							<EditableText variant='caption' color='text.secondary'>
 								{t('rows')}
-							</Text>
+							</EditableText>
 							<Box sx={{ width: '35px' }}>
-								<Text
+								<EditableText
 									editable
 									minLength={1}
 									editableTextDidChange={(_, curr) => {
@@ -92,7 +94,7 @@ const SlideFormatButton: React.FC<ISlideFormatButtonProps> = (props) => {
 									}
 								>
 									{rows}
-								</Text>
+								</EditableText>
 							</Box>
 						</Box>
 						<Box
@@ -104,11 +106,11 @@ const SlideFormatButton: React.FC<ISlideFormatButtonProps> = (props) => {
 								flexDirection: 'column',
 							}}
 						>
-							<Text variant='caption' color='text.secondary'>
+							<EditableText variant='caption' color='text.secondary'>
 								{t('columns')}
-							</Text>
+							</EditableText>
 							<Box sx={{ width: '35px' }}>
-								<Text
+								<EditableText
 									editable
 									minLength={1}
 									editableTextDidChange={(_, curr) =>
@@ -128,7 +130,7 @@ const SlideFormatButton: React.FC<ISlideFormatButtonProps> = (props) => {
 									}
 								>
 									{columns}
-								</Text>
+								</EditableText>
 							</Box>
 						</Box>
 					</Box>

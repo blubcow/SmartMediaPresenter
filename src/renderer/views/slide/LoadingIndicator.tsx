@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Text } from '../../smpUI';
+import EditableText from '../../smpUI/EditableText';
+import { Box} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { CircularProgress } from '@mui/material';
@@ -39,7 +40,7 @@ const LoadingIndicator: React.FC<{}> = () => {
 	return (
 		<Box className={classes.container}>
 			<CircularProgress className={classes.spinner} variant='indeterminate' />
-			<Text>{t('fetchingMedia')}</Text>
+			<EditableText>{t('fetchingMedia')}</EditableText>
 		</Box>
 	);
 };

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SettingsRow from '../../settings/SettingsRow';
-import { Text } from '../../../smpUI';
+import EditableText from '../../../smpUI/EditableText';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
 import { useTranslation } from 'react-i18next';
@@ -40,13 +40,13 @@ const DefaultMediaAlignemnt: React.FC<{}> = () => {
 			<SettingsRow
 				label={t('defaultMediaAlignment')}
 				node={
-					<Text>
+					<EditableText>
 						{t(
 							presentation.theme?.defaultMediaAlignment
 								? presentation.theme!.defaultMediaAlignment!
 								: 'auto'
 						)}
-					</Text>
+					</EditableText>
 				}
 				onClick={(e) => setAnchorElement(e.currentTarget)}
 			/>

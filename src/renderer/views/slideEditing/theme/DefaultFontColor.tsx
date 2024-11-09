@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SettingsRow from '../../settings/SettingsRow';
-import { Box } from '../../../smpUI';
+import { Box } from '@mui/material';
 import ColorPickerIcon from '../ColorPickerIcon';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import ColorPicker from '../../components/ColorPicker';

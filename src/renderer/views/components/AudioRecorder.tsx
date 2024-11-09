@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useAudioStore } from '../../hooks/useMainProcessMethods';
-import { Box, Button, Text } from '../../smpUI';
+import EditableText from '../../smpUI/EditableText';
+import { Box, BoxProps, Button} from '@mui/material';
 import AudioRecordingIcon from '../icons/AudioRecordingIcon';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { IBoxProps } from '../../smpUI/Box';
 import useMediaStreamRecorder from '../../hooks/useMediaStreamRecorder';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-interface IAudioRecorderProps extends IBoxProps {
+interface IAudioRecorderProps extends BoxProps {
 	presId: number;
 	onRecordingReceived: (path: string) => void;
 }
@@ -60,7 +60,7 @@ const AudioRecorder: React.FC<IAudioRecorderProps> = (props) => {
 	return (<Box className={classes.container} {...boxProps}>
 		<Box className={classes.iconTimerContainer}>
 			<AudioRecordingIcon isRecording={isRecording} />
-			<Text variant='h6'>{formatTimer(timer)}</Text>
+			<EditableText variant='h6'>{formatTimer(timer)}</EditableText>
 		</Box>
 		<Button
 			variant='contained'

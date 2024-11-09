@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '../../smpUI';
+import { Box } from '@mui/material';
 import AddTextButton from './AddTextButton';
 import ChangeBackgroundColorButton from './ChangeBackgroundColorButton';
 import EditPresentationFrame from './EditPresentationFrame';

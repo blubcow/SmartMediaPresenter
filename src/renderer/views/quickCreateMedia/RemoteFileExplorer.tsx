@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Box, IconButton, Text } from '../../smpUI';
+import EditableText from '../../smpUI/EditableText';
+import { Box, IconButton} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { RemoteStorageMedia } from '../../shared/presentaitonSycncing.interface';
@@ -54,15 +55,14 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerProps> = (props) => {
 			{pathHistory.length > 0 && (
 				<Box className={classes.navigator}>
 					<IconButton
-						icon={ArrowBack}
 						onClick={() => {
 							if (pathHistory.length > 0) {
 								const newPath = pathHistory.pop()!;
 								setCurrentPath(newPath);
 							}
 						}}
-					/>
-					<Text>{currentPath.split('/').pop() ?? ''}</Text>
+					><ArrowBack/></IconButton>
+					<EditableText>{currentPath.split('/').pop() ?? ''}</EditableText>
 				</Box>
 			)}
 			{loadingMedia ? (
@@ -146,16 +146,16 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerProps> = (props) => {
 									)}
 								</Box>
 								<Box sx={{ userSelect: 'none', pointerEvents: 'none' }}>
-									<Text>{item.name}</Text>
+									<EditableText>{item.name}</EditableText>
 								</Box>
 							</Box>
 						))}
 					</Box>
 				</ClickAwayListener>
 			) : (
-				<Text variant='h6' className={classes.inidicator}>
+				<EditableText variant='h6' className={classes.inidicator}>
 					{t('emptyFolder')}
-				</Text>
+				</EditableText>
 			)}
 		</Box>
 	);

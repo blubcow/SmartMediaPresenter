@@ -1,5 +1,6 @@
 import React, { PropsWithChildren, ReactNode, useEffect } from 'react';
-import { Box, Button, Text } from '../../smpUI';
+import EditableText from '../../smpUI/EditableText';
+import { Box, Button} from '@mui/material';
 import Modal, { IModalProps } from '../../smpUI/Modal';
 import { useMediaEditingModalStyles } from './styles';
 import { useTranslation } from 'react-i18next';
@@ -43,7 +44,7 @@ const MediaEditingModal: React.FC<PropsWithChildren<IMediaEditingModalProps>> = 
 	return (
 		<Modal {...modalProps}>
 			<Box className={classes.container}>
-				<Text variant='h3'>{title}</Text>
+				<EditableText variant='h3'>{title}</EditableText>
 				<Box className={classes.contentContainer}>
 					{children}
 				</Box>

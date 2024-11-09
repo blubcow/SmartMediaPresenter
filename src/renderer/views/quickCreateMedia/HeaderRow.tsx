@@ -2,14 +2,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import useRemoteUserContext from '../../hooks/useRemoteUserContext';
 import { i18nNamespace } from '../../i18n/i18n';
-import {
-	Box,
-	Text,
-	TextField,
-	Switch,
-} from '../../smpUI';
+import EditableText from '../../smpUI/EditableText';
 import { useHeaderRowStyles } from './styles';
 import SelectionPicker, { SelectionPickerOption } from '../../smpUI/SelectionPicker';
+import { Switch, TextField } from '@mui/material';
+import { Box } from '@mui/material';
 
 interface IHeaderRowProps {
 	addFilesAction: () => void;
@@ -54,28 +51,28 @@ const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
 		<Box className={classes.container}>
 			<Box className={classes.labelBtnContainer}>
 				{!cloud && (
-					<Text
+					<EditableText
 						fontWeight={800}
 						className={classes.labelBtn}
 						onClick={addFilesAction}
 					>
 						{t('addFiles')}
-					</Text>
+					</EditableText>
 				)}
 				{userLoggedIn && (
-					<Text
+					<EditableText
 						fontWeight={800}
 						className={classes.labelBtn}
 						onClick={() => chooseCloudAction(!cloud)}
 					>
 						{t(cloud ? 'chooseLocal' : 'chooseCloud')}
-					</Text>
+					</EditableText>
 				)}
 			</Box>
 			<Box
 				sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
 			>
-				<Text variant='caption'>{t('preview')}</Text>
+				<EditableText variant='caption'>{t('preview')}</EditableText>
 				<Switch
 					checked={mediaPreviewEnabled}
 					onChange={(e) => {

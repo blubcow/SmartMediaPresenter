@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SettingsRow from '../../settings/SettingsRow';
-import { Box, Text } from '../../../smpUI';
+import EditableText from '../../../smpUI/EditableText';
+import { Box} from '@mui/material';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
 import { useTranslation } from 'react-i18next';
@@ -55,8 +56,8 @@ const DefaultFormat: React.FC<{}> = () => {
 			node={
 				<Box className={classes.nodeContainer}>
 					<Box className={classes.inputContainer}>
-						<Text>{t('rows')}</Text>
-						<Text
+						<EditableText>{t('rows')}</EditableText>
+						<EditableText
 							editable
 							minLength={1}
 							editableTextDidChange={(_, curr) => {
@@ -74,11 +75,11 @@ const DefaultFormat: React.FC<{}> = () => {
 							}
 						>
 							{rows}
-						</Text>
+						</EditableText>
 					</Box>
 					<Box className={classes.inputContainer}>
-						<Text>{t('columns')}</Text>
-						<Text
+						<EditableText>{t('columns')}</EditableText>
+						<EditableText
 							editable
 							minLength={1}
 							editableTextDidChange={(_, curr) => {
@@ -96,7 +97,7 @@ const DefaultFormat: React.FC<{}> = () => {
 							}
 						>
 							{columns}
-						</Text>
+						</EditableText>
 					</Box>
 				</Box>
 			}

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { TextElement } from '../../shared/presentation.interface';
-import { Popover, Box, Button, Text } from '../../smpUI';
+import EditableText from '../../smpUI/EditableText';
+import { Box, Button} from '@mui/material';
 import EditButtonLabel from './EditButtonLabel';
 import EditingButton from './EditingButton';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
+import { Popover } from '@mui/material';
 
 interface IFontSizeSelectorProps {}
 
@@ -32,9 +34,9 @@ const FontSizeSelector: React.FC<IFontSizeSelectorProps> = () => {
 			<EditingButton
 				selected={anchorElement !== undefined}
 				icon={
-					<Text>{`${Math.round(
+					<EditableText>{`${Math.round(
 						(editingBoxDimensions.width / textSize.rel) * textSize.font
-					)}px`}</Text>
+					)}px`}</EditableText>
 				}
 				secondaryNode={<EditButtonLabel>{t('fontSize')}</EditButtonLabel>}
 				onClick={(e) => setAnchorElement(e.currentTarget)}
@@ -53,7 +55,7 @@ const FontSizeSelector: React.FC<IFontSizeSelectorProps> = () => {
 						justifyContent: 'space-between',
 					}}
 				>
-					<Text>{t('chooseFontSize')}</Text>
+					<EditableText>{t('chooseFontSize')}</EditableText>
 					<Box
 						sx={{
 							paddingTop: 2,
@@ -62,7 +64,7 @@ const FontSizeSelector: React.FC<IFontSizeSelectorProps> = () => {
 							textAlign: 'center',
 						}}
 					>
-						<Text
+						<EditableText
 							editable
 							placeholder={t('newFontSize')}
 							color={newSize !== undefined ? 'text.primary' : 'GrayText'}
@@ -81,7 +83,7 @@ const FontSizeSelector: React.FC<IFontSizeSelectorProps> = () => {
 							}}
 						>
 							{newSize}
-						</Text>
+						</EditableText>
 					</Box>
 					<Button
 						variant='contained'

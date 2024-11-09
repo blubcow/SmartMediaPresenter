@@ -1,11 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import {
-	Modal,
-	Box,
-	Button,
-	Text,
-	IconButton,
-} from '../../smpUI';
+import EditableText from '../../smpUI/EditableText';
 import {
 	RemoteStorageMedia,
 	RemoteStorageMediaType,
@@ -14,6 +8,7 @@ import { InsertDriveFile, Folder, ArrowBack } from '@mui/icons-material';
 import { ImageResourceExtensions } from '../../shared/mediaResource.utils';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
+import { Box } from '@mui/material';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -107,13 +102,13 @@ const RemoteFile: React.FC<IFileProps> = (props) => {
 					<Folder className={classes.icon} />
 				)}
 			</Box>
-			<Text
+			<EditableText
 				variant='caption'
 				fontWeight={700}
 				className={classes.nameContainer}
 			>
 				{name}
-			</Text>
+			</EditableText>
 		</Box>
 	);
 };

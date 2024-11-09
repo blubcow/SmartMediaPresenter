@@ -1,15 +1,15 @@
 import React from 'react';
-import { Popover, Box, Button, Text } from '../../smpUI';
-import { IPopoverProps } from '../../smpUI/Popover';
+import EditableText from '../../smpUI/EditableText';
+import { Box, Button} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { ButtonGroup } from '@mui/material';
+import { ButtonGroup, Popover, PopoverProps } from '@mui/material';
 import {
 	MediaAlignment,
 	SinglePresentation,
 } from '../../shared/presentation.interface';
 
-interface IMediaAlignmentPopoverProps extends IPopoverProps {
+interface IMediaAlignmentPopoverProps extends PopoverProps {
 	alignment?: MediaAlignment;
 	handleAlignment: (alignment: MediaAlignment) => void;
 }
@@ -30,9 +30,9 @@ const MediaAlignemntPopover: React.FC<IMediaAlignmentPopoverProps> = (
 					alignItems: 'center',
 				}}
 			>
-				<Text variant='h6' fontWeight='bold'>
+				<EditableText variant='h6' fontWeight='bold'>
 					{t('align')}
-				</Text>
+				</EditableText>
 				<Box sx={{ paddingTop: 2, paddingBottom: 2 }}>
 					<Button
 						variant='contained'
@@ -45,7 +45,7 @@ const MediaAlignemntPopover: React.FC<IMediaAlignmentPopoverProps> = (
 				</Box>
 				<ButtonGroup variant='contained'>
 					<Button
-						minWidth='80px'
+						sx={{ minWidth: '80px' }}
 						size='small'
 						onClick={() => handleAlignment('left')}
 						color={alignment === 'left' ? 'secondary' : 'primary'}
@@ -53,7 +53,7 @@ const MediaAlignemntPopover: React.FC<IMediaAlignmentPopoverProps> = (
 						{t('left')}
 					</Button>
 					<Button
-						minWidth='80px'
+						sx={{ minWidth: '80px' }}
 						size='small'
 						color={alignment === 'center' ? 'secondary' : 'primary'}
 						onClick={() => handleAlignment('center')}
@@ -61,7 +61,7 @@ const MediaAlignemntPopover: React.FC<IMediaAlignmentPopoverProps> = (
 						{t('center')}
 					</Button>
 					<Button
-						minWidth='80px'
+						sx={{ minWidth: '80px' }}
 						size='small'
 						onClick={() => handleAlignment('right')}
 						color={alignment === 'right' ? 'secondary' : 'primary'}

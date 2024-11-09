@@ -7,7 +7,6 @@ import { SMPRoutes } from '../shared/routes.enum';
 import config from '../config/firebase.config';
 
 const LoadingPage: React.FC<{}> = () => {
-//const LoadingPage = function (){
 	const navigate = useNavigate();
 	const { remoteUser, userLoggedIn } = useRemoteUserContext();
 

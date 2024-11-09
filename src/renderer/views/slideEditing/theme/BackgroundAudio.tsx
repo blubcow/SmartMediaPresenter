@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import SettingsRow from '../../settings/SettingsRow';
-import { Box, Text, Button, IconButton } from '../../../smpUI';
+import EditableText from '../../../smpUI/EditableText';
+import { Box, Button, IconButton} from '@mui/material';
 import { Audiotrack } from '@mui/icons-material';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
@@ -88,7 +89,6 @@ const BackgroundAudio: React.FC<{}> = () => {
 						<Box sx={{ display: 'flex', alignItems: 'center' }}>
 							<IconButton
 								size='small'
-								icon={!isPlaying ? PlayCircle : PauseCircle}
 								onClick={() => {
 									if (isPlaying) {
 										audio.pause();
@@ -97,8 +97,8 @@ const BackgroundAudio: React.FC<{}> = () => {
 									}
 									setIsPlaying((curr) => !curr);
 								}}
-							/>
-							<Text
+							>{ !isPlaying ? <PlayCircle/> : <PauseCircle/> }</IconButton>
+							<EditableText
 								variant='body2'
 								style={{
 									whiteSpace: 'nowrap',
@@ -111,7 +111,7 @@ const BackgroundAudio: React.FC<{}> = () => {
 								{audioLocation === presentation.theme?.audio?.remote
 									? t('cloudAudio')
 									: audioLocation?.split('/').pop()}
-							</Text>
+							</EditableText>
 						</Box>
 					) : undefined
 				}

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Button, Text } from '../../../smpUI';
+import EditableText from '../../../smpUI/EditableText';
+import { Box, Button} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { createStyles, makeStyles } from '@mui/styles';
@@ -36,9 +37,9 @@ const MatchAudioTimeContent: React.FC<IMatchAudioTimeContentProps> = (
 	return (
 		<Box className={classes.container}>
 			<Box className={classes.textContainer}>
-				<Text variant='body2' color='primary.contrastText'>
+				<EditableText variant='body2' color='primary.contrastText'>
 					{t('slideDurationMatchesAudio')}
-				</Text>
+				</EditableText>
 			</Box>
 			<Button variant='contained' color='primary' onClick={onEnableOverriding}>
 				{t('override')}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import EditingButton from './EditingButton';
-import { Box, Button, Drawer, Text, Slider } from '../../smpUI';
+import EditableText from '../../smpUI/EditableText';
+import { Box, Button} from '@mui/material';
 import { Tune } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
@@ -18,6 +19,7 @@ import useImageManipulation from '../../hooks/useImageManipulation';
 import RgbChannelsImageManipulationRow from './RgbChannelsImageManipulationRow';
 import RgbChannelsPopover from './RgbChannelsPopover';
 import ColorChannelFilter from '../media/ColorChannelFilter';
+import { Drawer, Slider } from '@mui/material';
 
 interface IImageManipulationButtonProps {}
 
@@ -49,6 +51,7 @@ const ImageManipulationButton: React.FC<IImageManipulationButtonProps> = (
 					setOpenDrawer(true);
 				}}
 			/>
+			{/* TODO: Deprecated "BackdropProps" */} 
 			<Drawer
 				open={openDrawer}
 				onClose={() => setOpenDrawer(false)}
@@ -131,7 +134,7 @@ const ImageManipulationControls: React.FC<IImageManipulationControlsProps> = (
 
 	return (
 		<Box className={classes.container}>
-			<Text variant={'h4'}>{heading}</Text>
+			<EditableText variant={'h4'}>{heading}</EditableText>
 			<ColorChannelFilter id={100} channels={channels} />
 			<img
 				className={classes.img}
@@ -169,7 +172,7 @@ const ImageManipulationControls: React.FC<IImageManipulationControlsProps> = (
 			<Box className={classes.optionsContainer}>
 				{options.map((option, index) => (
 					<Box key={index} className={classes.optionContainer}>
-						<Text fontWeight='bold'>{option.name}</Text>
+						<EditableText fontWeight='bold'>{option.name}</EditableText>
 						<Slider
 							className={classes.slider}
 							size='small'

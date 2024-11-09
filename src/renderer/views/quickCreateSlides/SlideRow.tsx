@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Box } from '../../smpUI';
+import { Box } from '@mui/material';
 import { Slide } from '../../shared/presentation.interface';
 import SlideRowMediaHolder from './SlideRowMediaHolder';
 import { createStyles, makeStyles } from '@mui/styles';

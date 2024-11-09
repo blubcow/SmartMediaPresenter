@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '../../smpUI';
+import { Box } from '@mui/material';
 import { PresentationSyncStatus } from '../../shared/presentaitonSycncing.interface';
 import { CloudUpload, CloudDone, CloudDownload } from '@mui/icons-material';
 import { createStyles, makeStyles } from '@mui/styles';
