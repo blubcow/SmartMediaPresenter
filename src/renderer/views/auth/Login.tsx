@@ -10,7 +10,7 @@ import CreateAccount from './CreateAccount';
 import ForgotPassword from './ForgotPassword';
 import { createStyles, makeStyles } from '@mui/styles';
 import { TextField, Theme } from '@mui/material';
-import ProgressButton from '../../smpUI/ProgressButton';
+import { ProgressButton } from '../../smpUI/ProgressButton';
 
 export const useLoginContainerStyles = makeStyles((theme: Theme) =>
 	createStyles({

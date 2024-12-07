@@ -5,7 +5,7 @@ interface ProgressButtonProps extends ButtonProps {
     isLoading: boolean;
 }
 
-const ProgressButton: React.FC<PropsWithChildren<ProgressButtonProps>> = ({children, ...props}) => {
+export const ProgressButton: React.FC<PropsWithChildren<ProgressButtonProps>> = ({children, ...props}) => {
 	const { isLoading = false, ...buttonProps } = props;
 
 	return (
@@ -21,5 +21,3 @@ const ProgressButton: React.FC<PropsWithChildren<ProgressButtonProps>> = ({child
 		</Button>
 	);
 };
-
-export default ProgressButton;

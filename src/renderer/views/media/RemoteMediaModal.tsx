@@ -19,7 +19,7 @@ import RemoteFile from './RemoteFile';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 import { Box } from '@mui/material';
-import ProgressButton from '../../smpUI/ProgressButton';
+import { ProgressButton } from '../../smpUI/ProgressButton';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

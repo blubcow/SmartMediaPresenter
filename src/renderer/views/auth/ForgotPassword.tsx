@@ -6,7 +6,7 @@ import { auth } from '../../models/firebase';
 import { useLoginContainerStyles, useTextFieldContainerStyles } from './Login';
 import { TextField } from '@mui/material';
 import { Box } from '@mui/material';
-import ProgressButton from '../../smpUI/ProgressButton';
+import { ProgressButton } from '../../smpUI/ProgressButton';
 
 interface IForgotPasswordProps {
 	onForgotPwd: () => void;
