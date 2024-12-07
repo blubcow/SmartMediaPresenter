@@ -10,7 +10,7 @@ import { RemoteUser } from '../shared/remote.interface';
 
 export const RemoteUserContext = createContext({});
 
-const RemoteUserProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
+export const RemoteUserProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
 	const [currentUser, setCurrentUser] = useState<RemoteUser | undefined>(
 		auth.currentUser
 			? { uid: auth.currentUser.uid, email: auth.currentUser.email ?? '' }
@@ -49,5 +49,3 @@ const RemoteUserProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
 		</RemoteUserContext.Provider>
 	);
 };
-
-export default RemoteUserProvider;

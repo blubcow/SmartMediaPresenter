@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { PresentationCacheContext } from '../providers/PresentationCacheProvider';
+import { PresentationCacheContext } from '../providers';
 import { SinglePresentation } from '../shared/presentation.interface';
 
 export const usePresentationCacheContext = () => {

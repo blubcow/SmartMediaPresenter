@@ -1,17 +1,18 @@
-import React, { useEffect } from 'react';
-import ThemeProvider from './providers/ThemeProvider';
-import NavigationProvider from './providers/NavigationProvider';
-import I18NProvider from './providers/I18NProvider';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import 'react-image-crop/dist/ReactCrop.css';
-import UserSettingsProvider from './providers/UserSettingsProvider';
-import RemoteUserProvider from './providers/RemoteUserProvider';
-import PresentationSyncProvider from './providers/PresentationSyncProvider';
-import PresentationCacheProvider from './providers/PresentationCacheProvider';
-import ConnectivityProvider from './providers/ConnectivityProvider';
-import { ElectronHandler } from '../main/preload';
 import './App.css';
+import { usePreferredTheme } from './hooks';
+import {
+	ConnectivityProvider,
+	I18NProvider,
+	NavigationProvider,
+	PresentationCacheProvider, PresentationSyncProvider,
+	RemoteUserProvider, UserSettingsProvider
+} from './providers';
 
 function App() {
+
+	const { preferredTheme } = usePreferredTheme();
 	/*
 	useEffect(() =>{
 		test();
@@ -28,14 +29,16 @@ function App() {
 		<RemoteUserProvider>
 			<UserSettingsProvider>
 				<I18NProvider>
-					<ThemeProvider>
-						<ConnectivityProvider>
-							<PresentationCacheProvider>
-								<PresentationSyncProvider>
-									<NavigationProvider />
-								</PresentationSyncProvider>
-							</PresentationCacheProvider>
-						</ConnectivityProvider>
+					<ThemeProvider theme={preferredTheme}>
+						<CssBaseline>
+							<ConnectivityProvider>
+								<PresentationCacheProvider>
+									<PresentationSyncProvider>
+										<NavigationProvider />
+									</PresentationSyncProvider>
+								</PresentationCacheProvider>
+							</ConnectivityProvider>
+						</CssBaseline>
 					</ThemeProvider>
 				</I18NProvider>
 			</UserSettingsProvider>

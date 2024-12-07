@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
 import { Box } from '@mui/material';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { usePresentationEditingContext } from '../hooks';
+import { i18nNamespace } from '../i18n/i18n';
+import { MediaSettingsProvider } from '../providers';
 import { PresentationEditingActionIdentifiers } from '../shared/identifiers.enum';
 import TopBarDisplayingFilename, {
 	ITopBarDisplayingFilenameProps,
 } from './components/TopBarDisplayingFilename';
+import ActionConfirmationModal from './modals/ActionConfirmationModal';
 import MediaSettings from './slideEditing/MediaSettings';
 import SlideSettings from './slideEditing/SlideSettings';
-import ActionConfirmationModal from './modals/ActionConfirmationModal';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../i18n/i18n';
 import TextSettings from './slideEditing/TextSettings';
-import { MediaSettingsProvider } from '../providers/MediaSettingsProvider';
-import { usePresentationEditingContext } from '../hooks';
 
 interface IEditTopBarProps extends ITopBarDisplayingFilenameProps { }
 

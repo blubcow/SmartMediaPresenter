@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, createContext, useReducer } from 'react';
+import React, { createContext, PropsWithChildren, useReducer } from 'react';
 import presentationEditingReducer, {
 	getInitialState,
 } from '../reducers/PresentationEditingReducer';
@@ -14,7 +14,7 @@ interface IPresentationEditingProviderProps {
 	initialPresentation: SinglePresentation;
 }
 
-const PresentationEditingProvider: React.FC<
+export const PresentationEditingProvider: React.FC<
 	PropsWithChildren<IPresentationEditingProviderProps>
 > = ({ presentationId, initialPresentation, children }) => {
 	if (!initialPresentation.slides.length)
@@ -33,5 +33,3 @@ const PresentationEditingProvider: React.FC<
 		</PresentationEditingContext.Provider>
 	);
 };
-
-export default PresentationEditingProvider;

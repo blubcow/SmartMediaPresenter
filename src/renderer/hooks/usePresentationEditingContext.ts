@@ -1,10 +1,10 @@
-import { useContext, Dispatch } from 'react';
-import { PresentationEditingContext } from '../providers/PresentationEditingProvider';
-import { MediaRessource } from '../shared/presentation.interface';
+import { Dispatch, useContext } from 'react';
+import { PresentationEditingContext } from '../providers';
 import { PresentationEditingActionIdentifiers } from '../shared/identifiers.enum';
+import { MediaRessource } from '../shared/presentation.interface';
 import {
-	PresentationEditingSettings,
 	PresentationEditingAction,
+	PresentationEditingSettings,
 } from '../shared/state.interface';
 
 export const usePresentationEditingContext = () => {

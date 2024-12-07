@@ -3,7 +3,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { usePresentationCacheContext, usePresentationSyncContext, useSinglePresentation } from '../hooks';
-import PresentationEditingProvider from '../providers/PresentationEditingProvider';
+import { PresentationEditingProvider } from '../providers';
 import { Page } from '../smpUI';
 import LoadingIndicatorPaper from './components/LoadingIndicatorPaper';
 import EditTopBar from './EditTopBar';

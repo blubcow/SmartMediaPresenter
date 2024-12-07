@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
-import { useMediaSettingsContext } from '../../providers/MediaSettingsProvider';
+import { useMediaSettingsContext } from '../../providers';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import { MediaLocation, SinglePresentation, Slide } from '../../shared/presentation.interface';
 import ColorTransferPopover from './ColorTransferPopover';

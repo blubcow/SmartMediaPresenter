@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { PresentationSyncContext } from '../providers/PresentationSyncProvider';
+import { PresentationSyncContext } from '../providers';
 import { IPresentationSyncContext } from '../shared/presentaitonSycncing.interface';
 
 export const usePresentationSyncContext = () => {

@@ -12,7 +12,7 @@ import { EditableText } from '../smpUI';
 
 export const ConnectivityContext = createContext({});
 
-const ConnectivityProvider: React.FC<PropsWithChildren<{}>> = ({
+export const ConnectivityProvider: React.FC<PropsWithChildren<{}>> = ({
 	children,
 }) => {
 	const { t } = useTranslation([i18nNamespace.Alert]);
@@ -74,5 +74,3 @@ const ConnectivityProvider: React.FC<PropsWithChildren<{}>> = ({
 		</ConnectivityContext.Provider>
 	);
 };
-
-export default ConnectivityProvider;

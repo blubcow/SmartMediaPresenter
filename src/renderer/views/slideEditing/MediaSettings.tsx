@@ -1,6 +1,9 @@
-import React, { useContext } from 'react';
 import { Box } from '@mui/material';
+import React from 'react';
+import { useMediaSettingsContext } from '../../providers';
 import AlignMediaButton from './AlignMediaButton';
+import AutoAlignmentButton from './AutoAlignmentButton';
+import ColorTransferButton from './ColorTransferButton';
 import CropButton from './CropButton';
 import ImageManipulationButton from './ImageManipulationButton';
 import MoveButton from './MoveButton';
@@ -8,9 +11,6 @@ import RemoveMediaButton from './RemoveMediaButton';
 import RotateButton from './RotateButton';
 import ScaleButton from './ScaleButton';
 import { useSettingsContainerStyles } from './styles';
-import ColorTransferButton from './ColorTransferButton';
-import { MediaSettingsProvider, useMediaSettingsContext } from '../../providers/MediaSettingsProvider';
-import AutoAlignmentButton from './AutoAlignmentButton';
 
 interface IMediaSettingsProps { }
 

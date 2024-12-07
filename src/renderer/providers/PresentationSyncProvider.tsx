@@ -16,7 +16,7 @@ import { EditableText } from '../smpUI';
 import ImportLocalPresentationsModal from '../views/modals/ImportLocalPresentationsModal';
 export const PresentationSyncContext = createContext({});
 
-const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
+export const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({
 	children,
 }) => {
 	const { remoteUser, userLoggedIn } = useRemoteUserContext();
@@ -299,5 +299,3 @@ const SyncingInfoToast: React.FC<ISyncingInfoToastProps> = (props) => {
 		</Box>
 	);
 };
-
-export default PresentationSyncProvider;

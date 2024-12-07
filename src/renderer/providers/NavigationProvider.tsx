@@ -1,14 +1,14 @@
 import React from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { SMPRoutes } from '../shared/routes.enum';
-import Login from '../views/Login';
-import LoadingPage from '../views/LoadingPage';
-import Home from '../views/Home';
 import Edit from '../views/Edit';
-import QuickCreate from '../views/QuickCreate';
+import Home from '../views/Home';
+import LoadingPage from '../views/LoadingPage';
+import Login from '../views/Login';
 import Presentation from '../views/Presentation';
+import QuickCreate from '../views/QuickCreate';
 
-const NavigationProvider: React.FC<{}> = (props) => {
+export const NavigationProvider: React.FC<{}> = (props) => {
 	return (
 		<HashRouter>
 			<Routes>
@@ -22,5 +22,3 @@ const NavigationProvider: React.FC<{}> = (props) => {
 		</HashRouter>
 	);
 };
-
-export default NavigationProvider;

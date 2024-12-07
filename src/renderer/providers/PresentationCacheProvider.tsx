@@ -1,12 +1,12 @@
 import React, {
 	createContext,
 	PropsWithChildren,
-	useState,
 	useCallback,
 	useEffect,
+	useState,
 } from 'react';
-import { SinglePresentation } from '../shared/presentation.interface';
 import { useRemoteUserContext } from '../hooks';
+import { SinglePresentation } from '../shared/presentation.interface';
 
 export const PresentationCacheContext = createContext({});
 
@@ -18,7 +18,7 @@ interface PresentationCacheValue {
 	failed?: number;
 }
 
-const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
+export const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 	children,
 }) => {
 	const { remoteUser } = useRemoteUserContext();
@@ -217,5 +217,3 @@ const PresentationCacheProvider: React.FC<PropsWithChildren<{}>> = ({
 		</PresentationCacheContext.Provider>
 	);
 };
-
-export default PresentationCacheProvider;

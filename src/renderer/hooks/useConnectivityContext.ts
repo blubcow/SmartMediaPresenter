@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ConnectivityContext } from '../providers/ConnectivityProvider';
+import { ConnectivityContext } from '../providers';
 
 // TODO: Component unused????
 

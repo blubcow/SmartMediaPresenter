@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { RemoteUserContext } from '../providers/RemoteUserProvider';
+import { RemoteUserContext } from '../providers';
 import { RemoteUser } from '../shared/remote.interface';
 
 export const useRemoteUserContext = () => {

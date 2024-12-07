@@ -1,9 +1,9 @@
-import React, { PropsWithChildren, createContext, useState } from 'react';
+import React, { PropsWithChildren, createContext } from 'react';
 import { useUserSettings } from '../hooks';
 
 export const UserSettingsContext = createContext({});
 
-const UserSettingsProvider: React.FC<PropsWithChildren<{}>> = ({
+export const UserSettingsProvider: React.FC<PropsWithChildren<{}>> = ({
 	children,
 }) => {
 	const { userSettings, saveUserSettings, reloadUserSettings } =
@@ -16,5 +16,3 @@ const UserSettingsProvider: React.FC<PropsWithChildren<{}>> = ({
 		</UserSettingsContext.Provider>
 	);
 };
-
-export default UserSettingsProvider;
