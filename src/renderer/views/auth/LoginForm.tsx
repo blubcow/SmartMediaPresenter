@@ -6,9 +6,9 @@ import { useThemedLogo } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
 import { auth } from '../../models/firebase';
 import { EditableText, ProgressButton } from '../../smpUI';
-import CreateAccount from './CreateAccount';
-import ForgotPassword from './ForgotPassword';
-import PopUpModal from './PopUpModal';
+import { CreateAccount } from './CreateAccount';
+import { ForgotPassword } from './ForgotPassword';
+import { PopUpModal } from './PopUpModal';
 
 export const useLoginContainerStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -55,11 +55,11 @@ const useAuthButtonContainerStyles = makeStyles((theme: Theme) =>
 );
 
 
-interface ILoginProps {
+interface ILoginFormProps {
 	onLogin: () => void;
 }
 
-const Login: React.FC<ILoginProps> = (props) => {
+export const LoginForm: React.FC<ILoginFormProps> = (props) => {
 	const logo = useThemedLogo();
 	const classes = useLoginContainerStyles();
 	const { t } = useTranslation([i18nNamespace.Auth]);
@@ -199,5 +199,3 @@ const AuthButtonContainer: React.FC<IAuthButtonContainerProps> = (props) => {
 		</Box>
 	);
 };
-
-export default Login;

@@ -6,7 +6,7 @@ import { useRemoteUserContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
 import { auth } from '../../models/firebase';
 import { BoxedDialog, EditableText } from '../../smpUI';
-import AuthViews from '../auth/AuthViews';
+import { LoginForm } from '../auth/LoginForm';
 
 const RemoteUser: React.FC<{}> = () => {
 	const { remoteUser } = useRemoteUserContext();
@@ -46,7 +46,7 @@ const RemoteUser: React.FC<{}> = () => {
 				</Box>
 			</Box>
 			<BoxedDialog open={openLoginModal} onClose={() => setOpenLoginModal(false)}>
-				<AuthViews onLogin={() => setOpenLoginModal(false)} />
+				<LoginForm onLogin={() => setOpenLoginModal(false)} />
 			</BoxedDialog>
 		</Box>
 	);

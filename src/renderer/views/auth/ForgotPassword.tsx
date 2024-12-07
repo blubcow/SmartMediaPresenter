@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { auth } from '../../models/firebase';
 import { EditableText, ProgressButton } from '../../smpUI';
-import { useLoginContainerStyles, useTextFieldContainerStyles } from './Login';
+import { useLoginContainerStyles, useTextFieldContainerStyles } from './LoginForm';
 
 interface IForgotPasswordProps {
 	onForgotPwd: () => void;
 }
 
-const ForgotPassword: React.FC<IForgotPasswordProps> = (props) => {
+export const ForgotPassword: React.FC<IForgotPasswordProps> = (props) => {
 	const { onForgotPwd } = props;
 
 	const classes = useLoginContainerStyles();
@@ -81,5 +81,3 @@ const FormContainer: React.FC<IFormContainerProps> = (props) => {
 		</Box>
 	);
 };
-
-export default ForgotPassword;

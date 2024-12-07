@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { auth } from '../../models/firebase';
 import { EditableText, ProgressButton } from '../../smpUI';
-import { useLoginContainerStyles, useTextFieldContainerStyles } from './Login';
+import { useLoginContainerStyles, useTextFieldContainerStyles } from './LoginForm';
 
 interface ICreateAccountProps {
 	onAccountCreated: () => void;
 }
 
-const CreateAccount: React.FC<ICreateAccountProps> = (props) => {
+export const CreateAccount: React.FC<ICreateAccountProps> = (props) => {
 	const { onAccountCreated } = props;
 
 	const classes = useLoginContainerStyles();
@@ -96,5 +96,3 @@ const FormContainer: React.FC<IFormContainerProps> = (props) => {
 		</Box>
 	);
 };
-
-export default CreateAccount;

@@ -7,7 +7,7 @@ interface IPopUpModalProps extends IBoxedDialogProps {
 	goBack: () => void;
 }
 
-const PopUpModal: React.FC<IPopUpModalProps> = (props) => {
+export const PopUpModal: React.FC<IPopUpModalProps> = (props) => {
 	const { goBack, ...modalProps } = props;
 	return (
 		<BoxedDialog {...modalProps}>
@@ -16,5 +16,3 @@ const PopUpModal: React.FC<IPopUpModalProps> = (props) => {
 		</BoxedDialog>
 	);
 };
-
-export default PopUpModal;

@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { i18nNamespace } from '../i18n/i18n';
 import { SMPRoutes } from '../shared/routes.enum';
 import { Page } from '../smpUI';
-import AuthViews from './auth/AuthViews';
+import { LoginForm } from './auth/LoginForm';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -36,7 +36,7 @@ const Login: React.FC<{}> = () => {
 		<Page centeredContent>
 			<Box className={classes.container}>
 				<Paper variant='modal'>
-					<AuthViews onLogin={() => navigate(SMPRoutes.Home, {replace: true})} />
+					<LoginForm onLogin={() => navigate(SMPRoutes.Home, {replace: true})} />
 				</Paper>
 
 				<Box className={classes.skipLoginButtonContainer}>
