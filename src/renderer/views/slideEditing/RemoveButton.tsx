@@ -1,9 +1,9 @@
-import React from 'react';
-import EditingButton, { IEditingButtonProps } from './EditingButton';
 import { Close } from '@mui/icons-material';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import EditButtonLabel from './EditButtonLabel';
+import { EditableCaptionText } from './EditableCaptionText';
+import EditingButton, { IEditingButtonProps } from './EditingButton';
 
 interface IRemoveButtonProps
 	extends Omit<IEditingButtonProps, 'icon' | 'secondaryNode'> {}
@@ -15,7 +15,7 @@ const RemoveButton: React.FC<IRemoveButtonProps> = (props) => {
 			icon={
 				<Close sx={{ color: 'text.primary', height: '100%', width: '100%' }} />
 			}
-			secondaryNode={<EditButtonLabel>{t('remove')}</EditButtonLabel>}
+			secondaryNode={<EditableCaptionText>{t('remove')}</EditableCaptionText>}
 			{...props}
 		/>
 	);

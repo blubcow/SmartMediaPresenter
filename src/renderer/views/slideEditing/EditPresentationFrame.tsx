@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
-import EditButtonLabel from './EditButtonLabel';
+import { EditableCaptionText } from './EditableCaptionText';
 import EditingButton from './EditingButton';
 
 interface IEditPresentationFrameProps {}
@@ -26,7 +26,7 @@ const EditPresentationFrame: React.FC<IEditPresentationFrameProps> = (
 			icon={
 				<Crop54 sx={{ color: 'text.primary', height: '100%', width: '100%' }} />
 			}
-			secondaryNode={<EditButtonLabel>{t('editPresFrame')}</EditButtonLabel>}
+			secondaryNode={<EditableCaptionText>{t('editPresFrame')}</EditableCaptionText>}
 			{...props}
 		/>
 	);

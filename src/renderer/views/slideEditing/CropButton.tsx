@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import EditingButton, { IEditingButtonProps } from './EditingButton';
 import { Crop } from '@mui/icons-material';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import EditButtonLabel from './EditButtonLabel';
+import { EditableCaptionText } from './EditableCaptionText';
+import EditingButton from './EditingButton';
 import ImageCroppingModal from './ImageCroppingModal';
 
 interface ICropButtonProps {}
@@ -18,7 +18,7 @@ const CropButton: React.FC<ICropButtonProps> = (props) => {
 				icon={
 					<Crop sx={{ color: 'text.primary', height: '100%', width: '100%' }} />
 				}
-				secondaryNode={<EditButtonLabel>{t('crop')}</EditButtonLabel>}
+				secondaryNode={<EditableCaptionText>{t('crop')}</EditableCaptionText>}
 				selected={open}
 				onClick={() => setOpen(true)}
 				{...props}

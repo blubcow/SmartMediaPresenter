@@ -12,7 +12,7 @@ import {
 } from '../../shared/presentation.interface';
 import { EditableText } from '../../smpUI';
 import ColorChannelFilter from '../media/ColorChannelFilter';
-import EditButtonLabel from './EditButtonLabel';
+import { EditableCaptionText } from './EditableCaptionText';
 import EditingButton from './EditingButton';
 import RgbChannelsImageManipulationRow from './RgbChannelsImageManipulationRow';
 import RgbChannelsPopover from './RgbChannelsPopover';
@@ -40,7 +40,7 @@ const ImageManipulationButton: React.FC<IImageManipulationButtonProps> = (
 					<Tune sx={{ color: 'text.primary', height: '100%', width: '100%' }} />
 				}
 				secondaryNode={
-					<EditButtonLabel>{t('imgManipulation')}</EditButtonLabel>
+					<EditableCaptionText>{t('imgManipulation')}</EditableCaptionText>
 				}
 				{...props}
 				onClick={() => {

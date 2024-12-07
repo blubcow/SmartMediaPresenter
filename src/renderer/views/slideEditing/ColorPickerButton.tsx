@@ -1,9 +1,9 @@
+import _ from 'lodash';
 import React, { useState } from 'react';
-import EditingButton from './EditingButton';
-import EditButtonLabel from './EditButtonLabel';
 import ColorPicker from '../components/ColorPicker';
 import ColorPickerIcon from './ColorPickerIcon';
-import _ from 'lodash';
+import { EditableCaptionText } from './EditableCaptionText';
+import EditingButton from './EditingButton';
 
 interface IColorPickerButtonProps {
 	label: string;
@@ -22,7 +22,7 @@ const ColorPickerButton: React.FC<IColorPickerButtonProps> = (props) => {
 			<EditingButton
 				selected={colorPickerOpen}
 				icon={<ColorPickerIcon color={color} />}
-				secondaryNode={<EditButtonLabel>{label}</EditButtonLabel>}
+				secondaryNode={<EditableCaptionText>{label}</EditableCaptionText>}
 				onClick={() => {
 					setColorPickerOpen(true);
 				}}

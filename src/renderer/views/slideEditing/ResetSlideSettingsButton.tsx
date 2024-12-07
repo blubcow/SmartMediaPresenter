@@ -9,7 +9,7 @@ import {
 	MediaRessource,
 } from '../../shared/presentation.interface';
 import ActionConfirmationModal from '../modals/ActionConfirmationModal';
-import EditButtonLabel from './EditButtonLabel';
+import { EditableCaptionText } from './EditableCaptionText';
 import EditingButton from './EditingButton';
 
 interface IResetSettingsButtonProps {}
@@ -30,7 +30,7 @@ const ResetSettingsButton: React.FC<IResetSettingsButtonProps> = (props) => {
 						sx={{ color: 'text.primary', height: '100%', width: '100%' }}
 					/>
 				}
-				secondaryNode={<EditButtonLabel>{t('reset')}</EditButtonLabel>}
+				secondaryNode={<EditableCaptionText>{t('reset')}</EditableCaptionText>}
 				onClick={() => {
 					setOpenModal(true);
 				}}

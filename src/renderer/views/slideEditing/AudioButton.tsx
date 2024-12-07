@@ -9,7 +9,7 @@ import RemoteFileExplorer from '../media/RemoteFileExplorer';
 import AudioPlaybackContent from './audio/AudioPlaybackContent';
 import OptionContent from './audio/OptionContent';
 import RecordAudioContent from './audio/RecordAudioContent';
-import EditButtonLabel from './EditButtonLabel';
+import { EditableCaptionText } from './EditableCaptionText';
 import EditingButton from './EditingButton';
 import { useAudioButtonStyles } from './styles';
 
@@ -51,7 +51,7 @@ const AudioButton: React.FC<IAudioButtonProps> = (props) => {
 					/>
 				}
 				highlighted={presentation.slides[currentSlide].audio !== undefined}
-				secondaryNode={<EditButtonLabel>{t('addAudio')}</EditButtonLabel>}
+				secondaryNode={<EditableCaptionText>{t('addAudio')}</EditableCaptionText>}
 				selected={!!anchorElement}
 				onClick={handleClick}
 				{...props}

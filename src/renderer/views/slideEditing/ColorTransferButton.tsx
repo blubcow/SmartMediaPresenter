@@ -7,7 +7,7 @@ import { useMediaSettingsContext } from '../../providers/MediaSettingsProvider';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import { MediaLocation, SinglePresentation, Slide } from '../../shared/presentation.interface';
 import ColorTransferPopover from './ColorTransferPopover';
-import EditButtonLabel from './EditButtonLabel';
+import { EditableCaptionText } from './EditableCaptionText';
 import EditingButton from './EditingButton';
 
 interface IColorTransferButtonProps { }
@@ -163,7 +163,7 @@ const ColorTransferButton: React.FC<IColorTransferButtonProps> = (props) => {
 					<SwitchAccessShortcut sx={{ color: 'text.primary', height: '100%', width: '100%' }} />
 				}
 				secondaryNode={
-					<EditButtonLabel>{t('colorTransfer.editButtonLabel')}</EditButtonLabel>
+					<EditableCaptionText>{t('colorTransfer.editButtonLabel')}</EditableCaptionText>
 				}
 				selected={isActive.current}
 				onClick={(e) => isActive.current ? deActivate() : activate()}

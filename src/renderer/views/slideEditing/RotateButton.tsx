@@ -6,7 +6,7 @@ import { usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import { MediaRessource } from '../../shared/presentation.interface';
-import EditButtonLabel from './EditButtonLabel';
+import { EditableCaptionText } from './EditableCaptionText';
 import EditingButton from './EditingButton';
 import MediaEditingModal from './MediaEditingModal';
 
@@ -29,7 +29,7 @@ const RotateButton: React.FC<IRotateButtonProps> = (props) => {
 						sx={{ color: 'text.primary', height: '100%', width: '100%' }}
 					/>
 				}
-				secondaryNode={<EditButtonLabel>{t('rotate')}</EditButtonLabel>}
+				secondaryNode={<EditableCaptionText>{t('rotate')}</EditableCaptionText>}
 				onClick={() => {
 					setOpenModal(true);
 					setRotationValue('');

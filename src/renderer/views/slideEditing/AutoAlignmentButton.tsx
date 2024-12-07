@@ -6,7 +6,7 @@ import { i18nNamespace } from '../../i18n/i18n';
 import { useMediaSettingsContext } from '../../providers/MediaSettingsProvider';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import AutoAlignmentPopover from './AutoAlignmentPopover';
-import EditButtonLabel from './EditButtonLabel';
+import { EditableCaptionText } from './EditableCaptionText';
 import EditingButton from './EditingButton';
 
 interface IAutoAlignmentButtonProps { }
@@ -62,7 +62,7 @@ const AutoAlignmentButton: React.FC<IAutoAlignmentButtonProps> = (props) => {
 					<VerticalAlignCenter sx={{ color: 'text.primary', height: '100%', width: '100%' }} />
 				}
 				secondaryNode={
-					<EditButtonLabel>{t('autoAlignment.editButtonLabel')}</EditButtonLabel>
+					<EditableCaptionText>{t('autoAlignment.editButtonLabel')}</EditableCaptionText>
 				}
 				selected={isActive.current}
 				onClick={(e) => isActive.current ? deActivate() : activate()}

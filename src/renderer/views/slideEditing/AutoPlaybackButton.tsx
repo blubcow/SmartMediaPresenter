@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
-import EditButtonLabel from './EditButtonLabel';
+import { EditableCaptionText } from './EditableCaptionText';
 import EditingButton from './EditingButton';
 import ChoosePlaybackTimeContent from './playback/ChoosePlaybackTimeContent';
 import MatchAudioTimeContent from './playback/MatchAudioTimeContent';
@@ -40,7 +40,7 @@ const AutoPlaybackButton: React.FC<IAutoPlaybackButtonProps> = (props) => {
 						sx={{ color: 'text.primary', height: '100%', width: '100%' }}
 					/>
 				}
-				secondaryNode={<EditButtonLabel>{t('autoPlayback')}</EditButtonLabel>}
+				secondaryNode={<EditableCaptionText>{t('autoPlayback')}</EditableCaptionText>}
 				selected={!!anchorElement}
 				onClick={(e) => {
 					setAnchorElement(e.currentTarget);

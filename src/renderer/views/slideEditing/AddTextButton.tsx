@@ -8,7 +8,7 @@ import {
 	SinglePresentation,
 	TextElement,
 } from '../../shared/presentation.interface';
-import EditButtonLabel from './EditButtonLabel';
+import { EditableCaptionText } from './EditableCaptionText';
 import EditingButton, { IEditingButtonProps } from './EditingButton';
 
 interface IAddTextButtonProps
@@ -26,7 +26,7 @@ const AddTextButton: React.FC<IAddTextButtonProps> = (props) => {
 					sx={{ color: 'text.primary', height: '100%', width: '100%' }}
 				/>
 			}
-			secondaryNode={<EditButtonLabel>{t('addTxt')}</EditButtonLabel>}
+			secondaryNode={<EditableCaptionText>{t('addTxt')}</EditableCaptionText>}
 			onClick={() => {
 				const elementId =
 					presentation.slides[currentSlide].elements?.length ?? 0;

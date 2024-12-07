@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
 import { MediaRessource } from '../../shared/presentation.interface';
-import EditButtonLabel from './EditButtonLabel';
+import { EditableCaptionText } from './EditableCaptionText';
 import EditingButton from './EditingButton';
 import MediaEditingModal from './MediaEditingModal';
 
@@ -33,7 +33,7 @@ const MoveButton: React.FC<IMoveButtonProps> = (props) => {
 						sx={{ color: 'text.primary', height: '100%', width: '100%' }}
 					/>
 				}
-				secondaryNode={<EditButtonLabel>{t('move')}</EditButtonLabel>}
+				secondaryNode={<EditableCaptionText>{t('move')}</EditableCaptionText>}
 				onClick={() => {
 					setMoveValue({ x: '', y: '' });
 					setOpenModal(true);

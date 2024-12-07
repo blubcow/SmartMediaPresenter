@@ -6,7 +6,7 @@ import { i18nNamespace } from '../../i18n/i18n';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import { TextElement } from '../../shared/presentation.interface';
 import { EditableText } from '../../smpUI';
-import EditButtonLabel from './EditButtonLabel';
+import { EditableCaptionText } from './EditableCaptionText';
 import EditingButton from './EditingButton';
 
 interface IFontSizeSelectorProps {}
@@ -37,7 +37,7 @@ const FontSizeSelector: React.FC<IFontSizeSelectorProps> = () => {
 						(editingBoxDimensions.width / textSize.rel) * textSize.font
 					)}px`}</EditableText>
 				}
-				secondaryNode={<EditButtonLabel>{t('fontSize')}</EditButtonLabel>}
+				secondaryNode={<EditableCaptionText>{t('fontSize')}</EditableCaptionText>}
 				onClick={(e) => setAnchorElement(e.currentTarget)}
 			/>
 			<Popover

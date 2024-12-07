@@ -7,7 +7,7 @@ import { i18nNamespace } from '../../i18n/i18n';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import { MediaRessource } from '../../shared/presentation.interface';
 import { EditableText } from '../../smpUI';
-import EditButtonLabel from './EditButtonLabel';
+import { EditableCaptionText } from './EditableCaptionText';
 import EditingButton from './EditingButton';
 
 interface ISlideFormatButtonProps {}
@@ -39,7 +39,7 @@ const SlideFormatButton: React.FC<ISlideFormatButtonProps> = (props) => {
 						sx={{ color: 'text.primary', height: '100%', width: '100%' }}
 					/>
 				}
-				secondaryNode={<EditButtonLabel>{t('changeFormat')}</EditButtonLabel>}
+				secondaryNode={<EditableCaptionText>{t('changeFormat')}</EditableCaptionText>}
 				selected={!!anchorElement}
 				onClick={(e) => setAnchorElement(e.currentTarget)}
 				{...props}

@@ -6,7 +6,7 @@ import { usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import { EditableText } from '../../smpUI';
-import EditButtonLabel from './EditButtonLabel';
+import { EditableCaptionText } from './EditableCaptionText';
 import EditingButton from './EditingButton';
 
 interface ITakeNotesButtonProps {}
@@ -29,7 +29,7 @@ const TakeNotesButton: React.FC<ITakeNotesButtonProps> = (props) => {
 						sx={{ color: 'text.primary', height: '100%', width: '100%' }}
 					/>
 				}
-				secondaryNode={<EditButtonLabel>{t('addNotes')}</EditButtonLabel>}
+				secondaryNode={<EditableCaptionText>{t('addNotes')}</EditableCaptionText>}
 				{...props}
 				onClick={() => setOpenDrawer(true)}
 			/>
