@@ -1,5 +1,5 @@
 import React from 'react';
-import EditableText from '../../smpUI/EditableText';
+import { EditableText } from '../../smpUI/EditableText';
 import { Box} from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';

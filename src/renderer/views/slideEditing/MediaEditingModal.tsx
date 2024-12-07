@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, ReactNode, useEffect } from 'react';
-import EditableText from '../../smpUI/EditableText';
+import { EditableText } from '../../smpUI/EditableText';
 import { Box, Button} from '@mui/material';
 import Modal, { IModalProps } from '../../smpUI/Modal';
 import { useMediaEditingModalStyles } from './styles';

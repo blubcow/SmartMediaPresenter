@@ -8,7 +8,7 @@ import { WifiOff } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../i18n/i18n';
 import { Box } from '@mui/material';
-import EditableText from '../smpUI/EditableText';
+import { EditableText } from '../smpUI/EditableText';
 
 export const ConnectivityContext = createContext({});
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MediaRGBChannels } from '../../shared/presentation.interface';
-import EditableText from '../../smpUI/EditableText';
+import { EditableText } from '../../smpUI/EditableText';
 import { Box, Button} from '@mui/material';
 import { RestartAlt } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';

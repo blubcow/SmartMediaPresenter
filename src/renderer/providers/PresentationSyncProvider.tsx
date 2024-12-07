@@ -11,7 +11,7 @@ import useRemoteUserContext from '../hooks/useRemoteUserContext';
 import { i18nNamespace } from '../i18n/i18n';
 import { database } from '../models/firebase';
 import { SinglePresentation } from '../shared/presentation.interface';
-import EditableText from '../smpUI/EditableText';
+import { EditableText } from '../smpUI/EditableText';
 import { SyncableStoredPresentation } from '../shared/presentaitonSycncing.interface';
 import { useStoredPresentations } from '../hooks/useMainProcessMethods';
 import { useWorkspace } from '../hooks/useMainProcessMethods';

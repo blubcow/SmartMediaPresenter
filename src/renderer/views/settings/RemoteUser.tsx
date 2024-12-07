@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useRemoteUserContext from '../../hooks/useRemoteUserContext';
-import EditableText from '../../smpUI/EditableText';
+import { EditableText } from '../../smpUI/EditableText';
 import Modal from '../../smpUI/Modal';
 import { Box, Button} from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';

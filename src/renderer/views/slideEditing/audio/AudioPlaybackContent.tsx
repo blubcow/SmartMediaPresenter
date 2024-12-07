@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import EditableText from '../../../smpUI/EditableText';
+import { EditableText } from '../../../smpUI/EditableText';
 import { Box, Button, IconButton} from '@mui/material';
 import AudioIcon from '../../icons/AudioIcon';
 import { PauseCircle, PlayCircle } from '@mui/icons-material';

@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { DataTransferIdentifiers } from '../../shared/identifiers.enum';
-import EditableText from '../../smpUI/EditableText';
+import { EditableText } from '../../smpUI/EditableText';
 import { Box} from '@mui/material';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { createStyles, makeStyles } from '@mui/styles';

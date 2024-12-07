@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import EditableText from '../../smpUI/EditableText';
+import { EditableText } from '../../smpUI/EditableText';
 import {
 	RemoteStorageMedia,
 	RemoteStorageMediaType,

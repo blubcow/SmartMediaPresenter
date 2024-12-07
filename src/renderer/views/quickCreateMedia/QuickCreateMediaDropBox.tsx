@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { QuickCreateMediaResource } from '../../shared/quickCreateMedia.interface';
-import EditableText from '../../smpUI/EditableText';
+import { EditableText } from '../../smpUI/EditableText';
 import useStyles from './styles';
 import { useLocalFileSystem } from '../../hooks/useMainProcessMethods';
 import * as path from 'path';

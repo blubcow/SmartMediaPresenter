@@ -4,7 +4,7 @@ import { GridView } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
-import EditableText from '../../smpUI/EditableText';
+import { EditableText } from '../../smpUI/EditableText';
 import { Box, Button} from '@mui/material';
 import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { MediaRessource } from '../../shared/presentation.interface';

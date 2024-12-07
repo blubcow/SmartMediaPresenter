@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { usePresentationMode } from '../hooks/useMainProcessMethods';
-import EditableText from '../smpUI/EditableText';
+import { EditableText } from '../smpUI/EditableText';
 import { FullScreen, FullScreenHandle } from 'react-full-screen';
 import { SinglePresentation } from '../shared/presentation.interface';
 import SlideBox from './slide/SlideEditingBox';

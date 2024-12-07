@@ -1,8 +1,8 @@
 import React from 'react';
-import EditableText from './EditableText';
 import { createStyles, makeStyles } from '@mui/styles';
 import { BoxProps, Theme } from '@mui/material';
 import { Box } from '@mui/material';
+import { EditableText } from './EditableText';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

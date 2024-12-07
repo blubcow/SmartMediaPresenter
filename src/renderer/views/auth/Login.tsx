@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import EditableText from '../../smpUI/EditableText';
+import { EditableText } from '../../smpUI/EditableText';
 import { Box, Button} from '@mui/material';
 import useThemedLogo from '../../hooks/useThemedLogo';
 import { useTranslation } from 'react-i18next';

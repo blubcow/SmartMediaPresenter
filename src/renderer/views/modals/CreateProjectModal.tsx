@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '../../smpUI/Modal';
-import EditableText from '../../smpUI/EditableText';
+import { EditableText } from '../../smpUI/EditableText';
 import { Box} from '@mui/material';
 import { IModalProps } from '../../smpUI/Modal';
 import {

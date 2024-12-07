@@ -1,6 +1,6 @@
 import React from 'react';
 import TopBar from '../../smpUI/TopBar';
-import EditableText from '../../smpUI/EditableText';
+import { EditableText } from '../../smpUI/EditableText';
 import { Box} from '@mui/material';
 import { ITopBarProps } from '../../smpUI/TopBar';
 import _ from 'lodash';

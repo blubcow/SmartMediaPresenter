@@ -1,5 +1,5 @@
 import React from 'react';
-import EditableText from './EditableText';
+import { EditableText } from './EditableText';
 import { Snackbar, Alert, AlertProps, SnackbarProps, AlertTitle } from '@mui/material';
 
 export type AlertSnackbarProps = SnackbarProps & Pick<AlertProps, 'severity'>;

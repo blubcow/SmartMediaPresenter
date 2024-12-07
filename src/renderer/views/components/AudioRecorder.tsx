@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAudioStore } from '../../hooks/useMainProcessMethods';
-import EditableText from '../../smpUI/EditableText';
+import { EditableText } from '../../smpUI/EditableText';
 import { Box, BoxProps, Button} from '@mui/material';
 import AudioRecordingIcon from '../icons/AudioRecordingIcon';
 import { useTranslation } from 'react-i18next';

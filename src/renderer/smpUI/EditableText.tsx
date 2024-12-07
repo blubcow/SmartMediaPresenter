@@ -40,7 +40,7 @@ export interface ITextProps extends TypographyProps {
 	placeholder?: string;
 }
 
-const EditableText: React.FC<ITextProps> = (props) => {
+export const EditableText: React.FC<ITextProps> = (props) => {
 	const {
 		editable = false,
 		multiLineEditable = false,
@@ -130,5 +130,3 @@ const EditableText: React.FC<ITextProps> = (props) => {
 		</Typography>
 	);
 };
-
-export default EditableText;

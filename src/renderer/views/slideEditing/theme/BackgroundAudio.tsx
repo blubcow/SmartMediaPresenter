@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import SettingsRow from '../../settings/SettingsRow';
-import EditableText from '../../../smpUI/EditableText';
+import { EditableText } from '../../../smpUI/EditableText';
 import { Box, Button, IconButton} from '@mui/material';
 import { Audiotrack } from '@mui/icons-material';
 import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
