@@ -2,13 +2,13 @@ import { Box, Drawer, DrawerProps, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import config from '../../config/firebase.config';
+import { firebaseConfig } from '../../config/firebase.config';
+import { usePresentationSyncContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
 import ChangeLanguage from './ChangeLanguage';
 import ChangeTheme from './ChangeTheme';
 import ManageRemoteMedia from './ManageRemoteMedia';
 import RemoteUser from './RemoteUser';
-import { usePresentationSyncContext } from '../../hooks';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -30,7 +30,7 @@ const UserSettingsDrawer: React.FC<DrawerProps> = (props) => {
 	return (
 		<Drawer {...props}>
 			<Box className={classes.container}>
-				{config.apiKey !== '' && <RemoteUser />}
+				{firebaseConfig.apiKey !== '' && <RemoteUser />}
 				{syncingAvailable && <ManageRemoteMedia />}
 				<ChangeLanguage />
 				<ChangeTheme />

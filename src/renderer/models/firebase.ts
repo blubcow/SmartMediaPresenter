@@ -1,33 +1,33 @@
 import { initializeApp } from 'firebase/app';
-import config, { defaultDBURL } from '../config/firebase.config';
 import {
-	getAuth,
-	signInWithEmailAndPassword,
-	signOut as fireSignOut,
 	createUserWithEmailAndPassword,
+	signOut as fireSignOut,
+	getAuth,
 	onAuthStateChanged,
-	User,
 	sendPasswordResetEmail,
+	signInWithEmailAndPassword,
+	User,
 } from 'firebase/auth';
 import {
+	ref as dbRef,
+	get,
+	getDatabase,
+	push,
+	set,
+	update,
+} from 'firebase/database';
+import {
+	deleteObject,
+	getDownloadURL,
 	getStorage,
+	listAll,
 	ref,
 	uploadBytesResumable,
 	UploadMetadata,
-	UploadTask,
-	getDownloadURL,
-	listAll,
 	uploadString,
-	deleteObject,
+	UploadTask,
 } from 'firebase/storage';
-import {
-	getDatabase,
-	ref as dbRef,
-	set,
-	get,
-	update,
-	push,
-} from 'firebase/database';
+import { defaultDBURL, firebaseConfig } from '../config/firebase.config';
 import { SinglePresentation } from '../shared/presentation.interface';
 import { dbCollection } from '../shared/remoteCollections.enum';
 
@@ -35,8 +35,8 @@ let fireAuth: any = {};
 let fireStorage: any = {};
 let fireDatabase: any = {};
 
-if (config.apiKey !== '') {
-	initializeApp(config);
+if (firebaseConfig.apiKey !== '') {
+	initializeApp(firebaseConfig);
 	fireAuth = getAuth();
 	fireStorage = getStorage();
 	fireDatabase = getDatabase(undefined, defaultDBURL);
@@ -216,4 +216,5 @@ const firebaseDatabase = () => {
 
 const database = firebaseDatabase();
 
-export { auth, storage, database };
+export { auth, database, storage };
+

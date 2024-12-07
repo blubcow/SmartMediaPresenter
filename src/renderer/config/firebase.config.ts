@@ -12,7 +12,7 @@ export default {
 */
 // TODO: Fix this! Environment variables are now loaded differently with WebPack and ERB, .env module doesn't work out of the box
 
-export default {
+export const firebaseConfig = {
   apiKey: '',
   authDomain: '',
   projectId: '',

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import config from '../config/firebase.config';
+import { firebaseConfig } from '../config/firebase.config';
 import { useRemoteUserContext } from '../hooks';
 import { SMPRoutes } from '../shared/routes.enum';
 import { Page } from '../smpUI';
@@ -13,7 +13,7 @@ const LoadingPage: React.FC<{}> = () => {
 	useEffect(() => {
 		if (userLoggedIn === undefined) return;
 
-		if (!userLoggedIn && config.apiKey !== '') {
+		if (!userLoggedIn && firebaseConfig.apiKey !== '') {
 			navigate(SMPRoutes.Login);
 			return;
 		} else {

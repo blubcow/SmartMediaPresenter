@@ -1,12 +1,12 @@
 import React, {
+	createContext,
 	PropsWithChildren,
 	useEffect,
 	useState,
-	createContext,
 } from 'react';
+import { firebaseConfig } from '../config/firebase.config';
 import { auth } from '../models/firebase';
 import { RemoteUser } from '../shared/remote.interface';
-import config from '../config/firebase.config';
 
 export const RemoteUserContext = createContext({});
 
@@ -20,7 +20,7 @@ const RemoteUserProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
 	const [userLoggedIn, setUserLoggedIn] = useState<boolean | undefined>();
 
 	useEffect(() => {
-		if (config.apiKey === '') {
+		if (firebaseConfig.apiKey === '') {
 			setIsLoading(false);
 			setUserLoggedIn(false);
 			setCurrentUser(undefined);

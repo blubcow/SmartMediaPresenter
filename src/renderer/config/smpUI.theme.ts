@@ -1,5 +1,6 @@
-import { Components, createTheme, CssVarsTheme, Theme, ThemeOptions } from '@mui/material';
+import { Components, createTheme, CssVarsTheme, Theme } from '@mui/material';
 
+// Custom variant (Extending MUI Paper API)
 declare module '@mui/material/Paper' {
 	interface PaperPropsVariantOverrides {
 		modal: true;
