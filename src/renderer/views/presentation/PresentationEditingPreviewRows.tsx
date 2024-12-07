@@ -3,9 +3,10 @@ import usePresentationEditingContext from '../../hooks/usePresentationEditingCon
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import { getEmptySlide, Slide } from '../../shared/presentation.interface';
 import { Box } from '@mui/material';
-import { SlidePreviewRow, SlidesHeaderRow } from '../rows';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
+import SlidesHeaderRow from '../rows/SlidesHeaderRow';
+import SlidePreviewRow from '../rows/SlidePreviewRow';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

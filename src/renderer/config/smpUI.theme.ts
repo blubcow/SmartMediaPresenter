@@ -67,6 +67,7 @@ const components: Components<Omit<Theme, 'components' | 'palette'> & CssVarsThem
 		styleOverrides: {
 			root: ({ theme }) => ({
 				variants: [{
+					// Custom variant (Extending MUI Paper API)
 					props: { variant: 'modal' },
 					style: {
 						padding: theme.spacing(3),

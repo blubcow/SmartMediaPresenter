@@ -4,9 +4,9 @@ import useRemoteUserContext from '../../hooks/useRemoteUserContext';
 import { i18nNamespace } from '../../i18n/i18n';
 import EditableText from '../../smpUI/EditableText';
 import { useHeaderRowStyles } from './styles';
-import SelectionPicker, { SelectionPickerOption } from '../../smpUI/SelectionPicker';
-import { Switch, TextField } from '@mui/material';
+import { MenuItem, Switch, TextField } from '@mui/material';
 import { Box } from '@mui/material';
+import { SelectionFormControl } from '../../smpUI/SelectionFormControl';
 
 interface IHeaderRowProps {
 	addFilesAction: () => void;
@@ -92,7 +92,7 @@ const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
 					/>
 
 					<Box className={classes.orderingContainer}>
-						<SelectionPicker
+						<SelectionFormControl
 							label={t('ordering:orderBy')}
 							value={orderByValue}
 							onChange={(e) => {
@@ -100,13 +100,13 @@ const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
 							}}
 						>
 							{orderByOptions.map((option) => (
-								<SelectionPickerOption key={option} value={option}>
-									{option}
-								</SelectionPickerOption>
+								<MenuItem key={option} value={option}>{option}</MenuItem>
 							))}
-						</SelectionPicker>
+						</SelectionFormControl>
+
 						<Box className={classes.spacer} />
-						<SelectionPicker
+
+						<SelectionFormControl
 							label="TODO: THIS LABEL WAS NOT SET??" // TODO: Label was not set
 							value={orderValue}
 							onChange={(e) => {
@@ -114,11 +114,9 @@ const HeaderRow: React.FC<IHeaderRowProps> = (props) => {
 							}}
 						>
 							{orderOptions.map((option) => (
-								<SelectionPickerOption key={option} value={option}>
-									{option}
-								</SelectionPickerOption>
+								<MenuItem key={option} value={option}>{option}</MenuItem>
 							))}
-						</SelectionPicker>
+						</SelectionFormControl>
 					</Box>
 				</>
 			)}

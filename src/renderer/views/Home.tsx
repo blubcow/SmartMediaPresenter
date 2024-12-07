@@ -3,7 +3,6 @@ import Page from '../smpUI/Page';
 import HomeTopBar from './HomeTopBar';
 import Row from '../smpUI/Row';
 import EditableText from '../smpUI/EditableText';
-import { ProjectsHeaderRow } from './rows';
 import { CircularProgress, Divider } from '@mui/material';
 import { useLocalFileSystem } from '../hooks/useMainProcessMethods';
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +18,7 @@ import PresentationSyncingButton from './components/PresentationSyncingButton';
 import { Box } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
+import ProjectsHeaderRow from './rows/ProjectsHeaderRow';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

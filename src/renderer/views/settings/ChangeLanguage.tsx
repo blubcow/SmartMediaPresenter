@@ -7,7 +7,8 @@ import {
 } from '../../i18n/i18n';
 import useUserSettingsContext from '../../hooks/useUserSettingsContext';
 import { useTranslation } from 'react-i18next';
-import SelectionPicker, { SelectionPickerOption } from '../../smpUI/SelectionPicker';
+import { SelectionFormControl } from '../../smpUI/SelectionFormControl';
+import { MenuItem } from '@mui/material';
 
 const ChangeLanguage: React.FC<{}> = (props) => {
 	const { userSettings, saveUserSettings } = useUserSettingsContext();
@@ -16,7 +17,7 @@ const ChangeLanguage: React.FC<{}> = (props) => {
 		<SettingsRow
 			label={t('language')}
 			node={
-				<SelectionPicker
+				<SelectionFormControl
 					sx={{ minWidth: '90px' }}
 					label={t('language')}
 					value={userSettings.language}
@@ -27,9 +28,9 @@ const ChangeLanguage: React.FC<{}> = (props) => {
 					}}
 				>
 					{AvailableLanguages.map((lng, i) => (
-						<SelectionPickerOption key={i} value={lng}>{t(lng)}</SelectionPickerOption>
+						<MenuItem key={i} value={lng}>{t(lng)}</MenuItem>
 					))}
-				</SelectionPicker>
+				</SelectionFormControl>
 			}
 		/>
 	);
