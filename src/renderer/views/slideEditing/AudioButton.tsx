@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
-import EditingButton from './EditingButton';
 import { Audiotrack } from '@mui/icons-material';
+import { Popover } from '@mui/material';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocalFileSystem, usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
-import EditButtonLabel from './EditButtonLabel';
-import { useAudioButtonStyles } from './styles';
-import OptionContent from './audio/OptionContent';
-import RecordAudioContent from './audio/RecordAudioContent';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
-import AudioPlaybackContent from './audio/AudioPlaybackContent';
-import { useLocalFileSystem } from '../../hooks/useMainProcessMethods';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import RemoteFileExplorer from '../media/RemoteFileExplorer';
-import { Popover } from '@mui/material';
+import AudioPlaybackContent from './audio/AudioPlaybackContent';
+import OptionContent from './audio/OptionContent';
+import RecordAudioContent from './audio/RecordAudioContent';
+import EditButtonLabel from './EditButtonLabel';
+import EditingButton from './EditingButton';
+import { useAudioButtonStyles } from './styles';
 
 interface IAudioButtonProps {}
 

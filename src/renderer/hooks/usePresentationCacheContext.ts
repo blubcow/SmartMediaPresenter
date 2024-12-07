@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { PresentationCacheContext } from '../providers/PresentationCacheProvider';
 import { SinglePresentation } from '../shared/presentation.interface';
 
-const usePresentationCacheContext = () => {
+export const usePresentationCacheContext = () => {
 	const context = useContext(PresentationCacheContext) as {
 		currentPresentationId: number | undefined;
 		currentRemotePresentationId: string | undefined;
@@ -35,5 +35,3 @@ const usePresentationCacheContext = () => {
 
 	return { ...context };
 };
-
-export default usePresentationCacheContext;

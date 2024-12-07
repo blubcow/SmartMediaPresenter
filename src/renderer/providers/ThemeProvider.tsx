@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { CssBaseline, ThemeProvider as MUIThemeProvider } from '@mui/material';
-import usePreferredTheme from '../hooks/usePreferredTheme';
+import { usePreferredTheme } from '../hooks';
 
 const ThemeProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
 	const { preferredTheme } = usePreferredTheme();

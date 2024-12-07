@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Page } from '../smpUI/Page';
 import { Box } from '@mui/material';
 import { useLocation } from 'react-router-dom';
-import { useSinglePresentation } from '../hooks/useMainProcessMethods';
 import EditTopBar from './EditTopBar';
 import { Divider } from '@mui/material';
 import SlideEditingBox from './slideEditing/SlideEditingBox';
@@ -10,10 +9,9 @@ import PresentationEditingProvider from '../providers/PresentationEditingProvide
 import PresentationEditingFloatingButtons from './presentation/PresentationEditingFloatingButtons';
 import PresentationEditingPreviewRows from './presentation/PresentationEditingPreviewRows';
 import LoadingIndicatorPaper from './components/LoadingIndicatorPaper';
-import usePresentationCacheContext from '../hooks/usePresentationCacheContext';
-import usePresentationSyncContext from '../hooks/usePresentationSyncContext';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
+import { usePresentationCacheContext, usePresentationSyncContext, useSinglePresentation } from '../hooks';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

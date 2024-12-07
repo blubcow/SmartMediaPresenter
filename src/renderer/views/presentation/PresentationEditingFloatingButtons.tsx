@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Check, Close, Save } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { i18nNamespace } from '../../i18n/i18n';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import { SinglePresentation } from '../../shared/presentation.interface';
 import PresentationFloatingButton from './PresentationFloatingButton';
 import { FloatingButton, FloatingButtonContainer } from '../../smpUI/FloatingButton';
 import { AlertSnackbar } from '../../smpUI/AlertSnackbar';
+import { usePresentationEditingContext } from '../../hooks';
 
 interface IPresentationEditingFloatingButtons {
 	onSave: (presentation: SinglePresentation) => void;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { darkTheme } from '../config/smpUI.theme';
-import usePreferredTheme from './usePreferredTheme';
+import { usePreferredTheme } from './usePreferredTheme';
 import toolBarLogoLight from '../../../assets/resources/toolbar-logo-light.png';
 import toolBarLogoDark from '../../../assets/resources/toolbar-logo-dark.png';
 import logoLight from '../../../assets/resources/logo-light.png';
@@ -13,7 +13,7 @@ const logoRefs = {
 	logoDark: logoDark,
 };
 
-const useThemedLogo = () => {
+export const useThemedLogo = () => {
 	const { preferredTheme } = usePreferredTheme();
 	const [toolbarLogo, setToolbarLogo] = useState(
 		preferredTheme === darkTheme ? logoRefs.toolbarDark : logoRefs.toolbarLight
@@ -35,5 +35,3 @@ const useThemedLogo = () => {
 
 	return { toolbarLogo, logo };
 };
-
-export default useThemedLogo;

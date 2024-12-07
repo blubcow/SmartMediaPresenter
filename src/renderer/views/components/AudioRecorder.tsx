@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useAudioStore } from '../../hooks/useMainProcessMethods';
 import { EditableText } from '../../smpUI/EditableText';
 import { Box, BoxProps, Button} from '@mui/material';
 import AudioRecordingIcon from '../icons/AudioRecordingIcon';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import useMediaStreamRecorder from '../../hooks/useMediaStreamRecorder';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 import { formatTimer } from '../../shared/format.utils';
+import { useAudioStore, useMediaStreamRecorder } from '../../hooks';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

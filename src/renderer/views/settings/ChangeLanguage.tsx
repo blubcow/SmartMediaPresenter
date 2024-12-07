@@ -1,14 +1,14 @@
+import { MenuItem } from '@mui/material';
 import React from 'react';
-import SettingsRow from './SettingsRow';
+import { useTranslation } from 'react-i18next';
 import {
 	AvailableLanguage,
 	AvailableLanguages,
 	i18nNamespace,
 } from '../../i18n/i18n';
-import useUserSettingsContext from '../../hooks/useUserSettingsContext';
-import { useTranslation } from 'react-i18next';
 import { SelectionFormControl } from '../../smpUI/SelectionFormControl';
-import { MenuItem } from '@mui/material';
+import SettingsRow from './SettingsRow';
+import { useUserSettingsContext } from '../../hooks';
 
 const ChangeLanguage: React.FC<{}> = (props) => {
 	const { userSettings, saveUserSettings } = useUserSettingsContext();

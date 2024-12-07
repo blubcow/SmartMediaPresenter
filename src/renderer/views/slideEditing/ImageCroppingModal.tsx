@@ -1,13 +1,12 @@
+import { Box, Button } from '@mui/material';
 import React, { useState } from 'react';
-import { Modal } from '../../smpUI/Modal';
-import { Box, Button} from '@mui/material';
-import { IModalProps } from '../../smpUI/Modal';
-import CroppableImage from './CroppableImage';
 import { useTranslation } from 'react-i18next';
+import { usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
-import { MediaCrop } from '../../shared/presentation.interface';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
+import { MediaCrop } from '../../shared/presentation.interface';
+import { IModalProps, Modal } from '../../smpUI/Modal';
+import CroppableImage from './CroppableImage';
 
 interface IIMageCroppingModalProps extends IModalProps {
 	close: () => void;

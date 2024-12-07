@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import EditingButton from './EditingButton';
-import { AspectRatio } from '@mui/icons-material';
+import { AspectRatio, Link, LinkOff } from '@mui/icons-material';
+import { Box, Card, TextField } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
-import EditButtonLabel from './EditButtonLabel';
-import { Box } from '@mui/material';
-import MediaEditingModal from './MediaEditingModal';
-import { MediaRessource } from '../../shared/presentation.interface';
-import { Link, LinkOff } from '@mui/icons-material';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
-import { Card, TextField } from '@mui/material';
+import { MediaRessource } from '../../shared/presentation.interface';
+import EditButtonLabel from './EditButtonLabel';
+import EditingButton from './EditingButton';
+import MediaEditingModal from './MediaEditingModal';
 
 interface IScaleButtonProps {}
 

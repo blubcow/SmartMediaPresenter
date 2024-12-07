@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import useRemoteUserContext from '../../hooks/useRemoteUserContext';
-import { EditableText } from '../../smpUI/EditableText';
-import { Modal } from '../../smpUI/Modal';
-import { Box, Button} from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
+import { Box, Button } from '@mui/material';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { auth } from '../../models/firebase';
+import { EditableText } from '../../smpUI/EditableText';
+import { Modal } from '../../smpUI/Modal';
 import AuthViews from '../auth/AuthViews';
+import { useRemoteUserContext } from '../../hooks';
 
 const RemoteUser: React.FC<{}> = () => {
 	const { remoteUser } = useRemoteUserContext();

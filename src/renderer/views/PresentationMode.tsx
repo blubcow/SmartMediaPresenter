@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { usePresentationMode } from '../hooks/useMainProcessMethods';
 import { EditableText } from '../smpUI/EditableText';
 import { FullScreen, FullScreenHandle } from 'react-full-screen';
 import { SinglePresentation } from '../shared/presentation.interface';
@@ -12,6 +11,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 import { formatTimer } from '../shared/format.utils';
 import { Box } from '@mui/material';
+import { usePresentationMode } from '../hooks';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

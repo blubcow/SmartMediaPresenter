@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDisplays } from '../../hooks/useMainProcessMethods';
 import { Slideshow } from '@mui/icons-material';
 import { i18nNamespace } from '../../i18n/i18n';
 import PresentationDispalaySelectionModal from './PresentationDisplaySelectionModal';
@@ -10,6 +9,7 @@ import { SinglePresentation } from '../../shared/presentation.interface';
 import PresentationFullScreen from '../components/PresentationFullScreen';
 import { useNavigate } from 'react-router-dom';
 import { FloatingButton } from '../../smpUI/FloatingButton';
+import { useDisplays } from '../../hooks';
 
 interface IPresentationFloatingButtonProps {
 	presentationId?: number;

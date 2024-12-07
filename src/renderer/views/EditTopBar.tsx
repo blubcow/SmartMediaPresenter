@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import usePresentationEditingContext from '../hooks/usePresentationEditingContext';
 import { Box } from '@mui/material';
 import { PresentationEditingActionIdentifiers } from '../shared/identifiers.enum';
 import TopBarDisplayingFilename, {
@@ -13,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../i18n/i18n';
 import TextSettings from './slideEditing/TextSettings';
 import { MediaSettingsProvider } from '../providers/MediaSettingsProvider';
+import { usePresentationEditingContext } from '../hooks';
 
 interface IEditTopBarProps extends ITopBarDisplayingFilenameProps { }
 

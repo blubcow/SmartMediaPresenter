@@ -1,17 +1,14 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import SettingsRow from '../../settings/SettingsRow';
-import { EditableText } from '../../../smpUI/EditableText';
-import { Box, Button, IconButton} from '@mui/material';
-import { Audiotrack } from '@mui/icons-material';
-import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { useLocalFileSystem } from '../../../hooks/useMainProcessMethods';
-import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
+import { Audiotrack, PauseCircle, PlayCircle } from '@mui/icons-material';
+import { Box, Button, IconButton } from '@mui/material';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
-import { PauseCircle, PlayCircle } from '@mui/icons-material';
-import useRemoteUserContext from '../../../hooks/useRemoteUserContext';
-import LocalOrRemoteModal from '../../modals/LocalOrRemoteModal';
+import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
+import { EditableText } from '../../../smpUI/EditableText';
 import RemoteFileExplorer from '../../media/RemoteFileExplorer';
+import LocalOrRemoteModal from '../../modals/LocalOrRemoteModal';
+import SettingsRow from '../../settings/SettingsRow';
+import { usePresentationEditingContext, useRemoteUserContext, useLocalFileSystem } from '../../../hooks';
 
 const BackgroundAudio: React.FC<{}> = () => {
 	const { state, dispatch } = usePresentationEditingContext();

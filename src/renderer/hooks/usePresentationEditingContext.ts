@@ -7,7 +7,7 @@ import {
 	PresentationEditingAction,
 } from '../shared/state.interface';
 
-const usePresentationEditingContext = () => {
+export const usePresentationEditingContext = () => {
 	const context = useContext(PresentationEditingContext) as {
 		state: PresentationEditingSettings;
 		dispatch: Dispatch<PresentationEditingAction>;
@@ -71,5 +71,3 @@ const usePresentationEditingContext = () => {
 
 	return { ...context, dispatchMediaTranslationTransformation };
 };
-
-export default usePresentationEditingContext;

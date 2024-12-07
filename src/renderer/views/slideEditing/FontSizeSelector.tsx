@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
-import { TextElement } from '../../shared/presentation.interface';
-import { EditableText } from '../../smpUI/EditableText';
-import { Box, Button} from '@mui/material';
-import EditButtonLabel from './EditButtonLabel';
-import EditingButton from './EditingButton';
+import { Box, Button, Popover } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
-import { Popover } from '@mui/material';
+import { TextElement } from '../../shared/presentation.interface';
+import { EditableText } from '../../smpUI/EditableText';
+import EditButtonLabel from './EditButtonLabel';
+import EditingButton from './EditingButton';
 
 interface IFontSizeSelectorProps {}
 

@@ -18,13 +18,11 @@ import { useNavigate } from 'react-router-dom';
 import { SMPRoutes } from '../../shared/routes.enum';
 import PresentationFloatingButton from './PresentationFloatingButton';
 import ActionConfirmationModal from '../modals/ActionConfirmationModal';
-import { useLocalFileSystem } from '../../hooks/useMainProcessMethods';
-import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
-import usePresentationCacheContext from '../../hooks/usePresentationCacheContext';
 import PreviewSlide from './PreviewSlide';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Box, Theme } from '@mui/material';
 import { FloatingButton, FloatingButtonContainer } from '../../smpUI/FloatingButton';
+import { useLocalFileSystem, usePresentationCacheContext, usePresentationSyncContext } from '../../hooks';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

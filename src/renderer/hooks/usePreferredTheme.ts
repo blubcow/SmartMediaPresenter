@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { Theme } from '@mui/material';
 import { preferredTheme } from '../shared/userSettings.interface';
 import { darkTheme, lightTheme } from '../config/smpUI.theme';
-import useUserSettingsContext from './useUserSettingsContext';
+import { useUserSettingsContext } from './useUserSettingsContext';
 
-const usePreferredTheme = () => {
+export const usePreferredTheme = () => {
 	const [preferredTheme, setPreferredTheme] = useState<Theme>(
 		window.matchMedia('(prefers-color-scheme: dark)').matches
 			? darkTheme
@@ -46,5 +46,3 @@ const usePreferredTheme = () => {
 
 	return { preferredTheme };
 };
-
-export default usePreferredTheme;

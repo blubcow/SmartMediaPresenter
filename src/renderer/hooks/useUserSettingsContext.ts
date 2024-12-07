@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { UserSettingsContext } from '../providers/UserSettingsProvider';
 import { UserSettings } from '../shared/userSettings.interface';
 
-const useUserSettingsContext = () => {
+export const useUserSettingsContext = () => {
 	const context = useContext(UserSettingsContext) as {
 		userSettings: UserSettings;
 		saveUserSettings: (settings: UserSettings) => void;
@@ -16,5 +16,3 @@ const useUserSettingsContext = () => {
 
 	return context;
 };
-
-export default useUserSettingsContext;

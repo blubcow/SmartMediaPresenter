@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react';
-import useRemoteUserContext from '../../hooks/useRemoteUserContext';
 import {
 	Dimensions,
 	MediaAlignment,
@@ -9,12 +8,12 @@ import { Box } from '@mui/material';
 import MediaDropBoxIndicator from '../components/MediaDropBoxIndicator';
 import ActiveMediaIdenticator from './ActiveMediaIdenticator';
 import ColorChannelFilter from './ColorChannelFilter';
-import { useLocalFileSystem } from '../../hooks/useMainProcessMethods';
 import LocalOrRemoteModal from '../modals/LocalOrRemoteModal';
 import RemoteFileExplorer from './RemoteFileExplorer';
 import iconImg from '../../../../../assets/icon.png';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
+import { useLocalFileSystem, useRemoteUserContext } from '../../hooks';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

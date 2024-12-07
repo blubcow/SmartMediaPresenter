@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import { Box, BoxProps } from '@mui/material';
+import * as path from 'path';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useHeldKeys, useLocalFileSystem } from '../../hooks';
+import { i18nNamespace } from '../../i18n/i18n';
+import { DataTransferIdentifiers } from '../../shared/identifiers.enum';
+import { allowedFiles } from '../../shared/mediaResource.utils';
 import { QuickCreateMediaResource } from '../../shared/quickCreateMedia.interface';
 import { EditableText } from '../../smpUI/EditableText';
-import useStyles from './styles';
-import { useLocalFileSystem } from '../../hooks/useMainProcessMethods';
-import * as path from 'path';
+import MediaDropBoxIndicator from '../components/MediaDropBoxIndicator';
 import HeaderRow from './HeaderRow';
 import MediaRow from './MediaRow';
-import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../i18n/i18n';
-import { useHeldKeys } from '../../hooks/useHeldKeys';
-import { DataTransferIdentifiers } from '../../shared/identifiers.enum';
 import RemoteFileExplorer from './RemoteFileExplorer';
-import { allowedFiles } from '../../shared/mediaResource.utils';
-import MediaDropBoxIndicator from '../components/MediaDropBoxIndicator';
-import { Box, BoxProps } from '@mui/material';
+import useStyles from './styles';
 
 interface IQuickCreateMediaDropBoxProps extends BoxProps {
 	selectedRows: number[];

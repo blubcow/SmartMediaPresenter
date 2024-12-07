@@ -15,7 +15,7 @@ import { MainProcessMethodIdentifiers } from '../shared/identifiers.enum';
 
 const ipcRenderer = window.electron;
 
-const usePresentationSyncing = (
+export const usePresentationSyncing = (
 	connected: boolean,
 	remoteUser?: RemoteUser
 ) => {
@@ -207,5 +207,3 @@ const usePresentationSyncing = (
 		downloadingPresentations,
 	};
 };
-
-export default usePresentationSyncing;

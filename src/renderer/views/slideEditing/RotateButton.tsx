@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import EditingButton from './EditingButton';
 import { Rotate90DegreesCcw } from '@mui/icons-material';
+import { Box, TextField } from '@mui/material';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
-import EditButtonLabel from './EditButtonLabel';
-import { Box } from '@mui/material';
-import MediaEditingModal from './MediaEditingModal';
-import { MediaRessource } from '../../shared/presentation.interface';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
-import { TextField } from '@mui/material';
+import { MediaRessource } from '../../shared/presentation.interface';
+import EditButtonLabel from './EditButtonLabel';
+import EditingButton from './EditingButton';
+import MediaEditingModal from './MediaEditingModal';
 
 interface IRotateButtonProps {}
 

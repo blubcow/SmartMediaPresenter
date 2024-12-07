@@ -1,25 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import EditingButton from './EditingButton';
-import { EditableText } from '../../smpUI/EditableText';
-import { Box, Button} from '@mui/material';
-import { Tune } from '@mui/icons-material';
+import { RestartAlt, Tune } from '@mui/icons-material';
+import { Box, Button, Drawer, Slider } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useImageManipulation, usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
-import EditButtonLabel from './EditButtonLabel';
-import { useImageManipulationControlsStyles } from './styles';
+import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import {
 	ImageManipulationEntity,
 	MediaRessource,
 	MediaSettings,
 } from '../../shared/presentation.interface';
-import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
-import { RestartAlt } from '@mui/icons-material';
-import useImageManipulation from '../../hooks/useImageManipulation';
+import { EditableText } from '../../smpUI/EditableText';
+import ColorChannelFilter from '../media/ColorChannelFilter';
+import EditButtonLabel from './EditButtonLabel';
+import EditingButton from './EditingButton';
 import RgbChannelsImageManipulationRow from './RgbChannelsImageManipulationRow';
 import RgbChannelsPopover from './RgbChannelsPopover';
-import ColorChannelFilter from '../media/ColorChannelFilter';
-import { Drawer, Slider } from '@mui/material';
+import { useImageManipulationControlsStyles } from './styles';
 
 interface IImageManipulationButtonProps {}
 

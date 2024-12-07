@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
-import EditingButton from './EditingButton';
-import { EditableText } from '../../smpUI/EditableText';
-import { Box, Button} from '@mui/material';
 import { Notes } from '@mui/icons-material';
+import { Box, Button, Drawer, TextareaAutosize } from '@mui/material';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
-import EditButtonLabel from './EditButtonLabel';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
-import { Drawer, TextareaAutosize } from '@mui/material';
+import { EditableText } from '../../smpUI/EditableText';
+import EditButtonLabel from './EditButtonLabel';
+import EditingButton from './EditingButton';
 
 interface ITakeNotesButtonProps {}
 

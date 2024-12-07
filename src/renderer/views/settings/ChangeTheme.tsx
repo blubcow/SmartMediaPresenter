@@ -1,11 +1,11 @@
-import React from 'react';
+import { AutoAwesome, DarkMode, LightMode } from '@mui/icons-material';
 import { Button, ButtonGroup } from '@mui/material';
-import SettingsRow from './SettingsRow';
-import useUserSettingsContext from '../../hooks/useUserSettingsContext';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { AutoAwesome, DarkMode, LightMode } from '@mui/icons-material';
 import { preferredTheme } from '../../shared/userSettings.interface';
+import SettingsRow from './SettingsRow';
+import { useUserSettingsContext } from '../../hooks';
 
 const ChangeTheme: React.FC<{}> = (props) => {
 	const { userSettings, saveUserSettings } = useUserSettingsContext();

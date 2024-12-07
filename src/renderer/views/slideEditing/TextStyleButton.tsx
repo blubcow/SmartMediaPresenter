@@ -1,10 +1,9 @@
-import React from 'react';
-import { Button, ButtonGroup, Card } from '@mui/material';
-import { Box} from '@mui/material';
-import { FormatItalic, FormatBold } from '@mui/icons-material';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
-import { TextElement } from '../../shared/presentation.interface';
+import { FormatBold, FormatItalic } from '@mui/icons-material';
+import { Box, Button, ButtonGroup, Card } from '@mui/material';
+import React, { FC } from 'react';
+import { usePresentationEditingContext } from '../../hooks';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
+import { TextElement } from '../../shared/presentation.interface';
 
 const TextStyleButton: React.FC<{}> = () => {
 	const { state, dispatch } = usePresentationEditingContext();

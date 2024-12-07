@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
  * @returns {function} startRecording
  * @returns {function} stopRecording
  */
-const useMediaStreamRecorder = () => {
+export const useMediaStreamRecorder = () => {
 
     const [isRecording, setIsRecording] = useState<boolean>(false);
     const [recorder, setRecorder] = useState<MediaRecorder>();
@@ -129,5 +129,3 @@ const useMediaStreamRecorder = () => {
         stopRecording
 	};
 };
-
-export default useMediaStreamRecorder;

@@ -1,9 +1,9 @@
+import { CloudDownload, Download, Mic } from '@mui/icons-material';
 import React from 'react';
-import OptionRow from './OptionRow';
-import { Download, Mic, CloudDownload } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
-import useRemoteUserContext from '../../../hooks/useRemoteUserContext';
+import OptionRow from './OptionRow';
+import { useRemoteUserContext } from '../../../hooks';
 
 interface IOptionContentProps {
 	onInsertClicked: () => void;

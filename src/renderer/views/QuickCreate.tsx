@@ -8,10 +8,10 @@ import { getEmptySlide, Slide } from '../shared/presentation.interface';
 import { SMPRoutes } from '../shared/routes.enum';
 import { useNavigate } from 'react-router-dom';
 import { DataTransferIdentifiers } from '../shared/identifiers.enum';
-import usePresentationSyncContext from '../hooks/usePresentationSyncContext';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 import { Box } from '@mui/material';
+import { usePresentationSyncContext } from '../hooks';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

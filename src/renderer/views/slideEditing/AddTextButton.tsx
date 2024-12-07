@@ -1,16 +1,15 @@
-import React from 'react';
-import EditingButton, { IEditingButtonProps } from './EditingButton';
 import { TextFields } from '@mui/icons-material';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
-import EditButtonLabel from './EditButtonLabel';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import {
 	SinglePresentation,
 	TextElement,
 } from '../../shared/presentation.interface';
-import { type } from 'os';
+import EditButtonLabel from './EditButtonLabel';
+import EditingButton, { IEditingButtonProps } from './EditingButton';
 
 interface IAddTextButtonProps
 	extends Omit<IEditingButtonProps, 'icon' | 'secondaryNode'> {}

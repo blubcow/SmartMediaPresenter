@@ -7,7 +7,7 @@ import {
 	MediaSettings,
 } from '../shared/presentation.interface';
 
-const useImageManipulation = (mediaSettings?: Partial<MediaSettings>) => {
+export const useImageManipulation = (mediaSettings?: Partial<MediaSettings>) => {
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 	const [options, setOptions] = useState<ImageManipulationEntity[]>([
 		{
@@ -104,5 +104,3 @@ const useImageManipulation = (mediaSettings?: Partial<MediaSettings>) => {
 		resetChannels,
 	};
 };
-
-export default useImageManipulation;

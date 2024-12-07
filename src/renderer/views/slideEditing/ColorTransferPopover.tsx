@@ -1,9 +1,9 @@
-import { useTranslation } from "react-i18next";
-import { i18nNamespace } from "../../i18n/i18n";
-import { Box, Button, CircularProgress, Box as MUIBox, Paper, Popper, PopperProps, Stack } from '@mui/material';
-import usePresentationEditingContext from "../../hooks/usePresentationEditingContext";
-import { forwardRef, useEffect } from "react";
 import { Download } from "@mui/icons-material";
+import { Button, CircularProgress, Box as MUIBox, Paper, Popper, PopperProps, Stack } from '@mui/material';
+import { forwardRef } from "react";
+import { useTranslation } from "react-i18next";
+import { usePresentationEditingContext } from "../../hooks";
+import { i18nNamespace } from "../../i18n/i18n";
 
 type IColorTransferPopoverProps = PopperProps & {
 	//onClose?: () => void,

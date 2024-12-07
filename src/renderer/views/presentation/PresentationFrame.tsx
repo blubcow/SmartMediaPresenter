@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import {
 	Dimensions,
@@ -7,6 +6,7 @@ import {
 } from '../../shared/presentation.interface';
 import { Box } from '@mui/material';
 import ResizingAnchor, { AnchorPosition } from './ResizingAnchor';
+import { usePresentationEditingContext } from '../../hooks';
 
 interface IPresentationFrameProps {
 	isEditing: boolean;

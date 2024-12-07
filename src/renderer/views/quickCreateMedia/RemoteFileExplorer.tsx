@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { EditableText } from '../../smpUI/EditableText';
-import { Box, IconButton} from '@mui/material';
+import { ArrowBack, Folder } from '@mui/icons-material';
+import { Box, CircularProgress, ClickAwayListener, IconButton } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useHeldKeys, usePresentationSyncContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
-import { RemoteStorageMedia } from '../../shared/presentaitonSycncing.interface';
-import { useRemoteFileExplorerStyles } from './styles';
-import { CircularProgress, ClickAwayListener } from '@mui/material';
-import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
-import { useHeldKeys } from '../../hooks/useHeldKeys';
-import { Folder, ArrowBack } from '@mui/icons-material';
 import { DataTransferIdentifiers } from '../../shared/identifiers.enum';
 import { ImageResourceExtensions } from '../../shared/mediaResource.utils';
+import { RemoteStorageMedia } from '../../shared/presentaitonSycncing.interface';
+import { EditableText } from '../../smpUI/EditableText';
+import { useRemoteFileExplorerStyles } from './styles';
 
 interface IRemoteFileExplorerProps {
 	preview: boolean;

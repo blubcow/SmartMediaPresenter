@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { EditableText } from '../../../smpUI/EditableText';
-import { Box, Button, IconButton} from '@mui/material';
-import AudioIcon from '../../icons/AudioIcon';
 import { PauseCircle, PlayCircle } from '@mui/icons-material';
-import { LinearProgress } from '@mui/material';
+import { Box, Button, IconButton, LinearProgress, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
-import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
 import { formatTimer } from '../../../shared/format.utils';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
+import { EditableText } from '../../../smpUI/EditableText';
+import AudioIcon from '../../icons/AudioIcon';
+import { usePresentationEditingContext } from '../../../hooks';
 
 export const useAudioPlaybackContentStyles = makeStyles((theme: Theme) =>
 	createStyles({

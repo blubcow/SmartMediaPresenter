@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import EditingButton from './EditingButton';
 import { OndemandVideo } from '@mui/icons-material';
+import { Popover } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
 import EditButtonLabel from './EditButtonLabel';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
+import EditingButton from './EditingButton';
 import ChoosePlaybackTimeContent from './playback/ChoosePlaybackTimeContent';
 import MatchAudioTimeContent from './playback/MatchAudioTimeContent';
-import { Popover } from '@mui/material';
 
 interface IAutoPlaybackButtonProps {}
 

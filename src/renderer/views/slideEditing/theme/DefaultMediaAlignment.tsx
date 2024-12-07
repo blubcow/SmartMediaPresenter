@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import SettingsRow from '../../settings/SettingsRow';
-import { EditableText } from '../../../smpUI/EditableText';
-import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
 import { useTranslation } from 'react-i18next';
+import { usePresentationEditingContext } from '../../../hooks';
 import { i18nNamespace } from '../../../i18n/i18n';
-import MediaAlignemntPopover from '../MediaAlignmentPopover';
+import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
 import {
 	MediaAlignment,
 	SinglePresentation,
 } from '../../../shared/presentation.interface';
+import { EditableText } from '../../../smpUI/EditableText';
+import SettingsRow from '../../settings/SettingsRow';
+import MediaAlignemntPopover from '../MediaAlignmentPopover';
 
 const DefaultMediaAlignemnt: React.FC<{}> = () => {
 	const { state, dispatch } = usePresentationEditingContext();

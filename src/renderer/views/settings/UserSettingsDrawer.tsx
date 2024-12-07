@@ -1,15 +1,14 @@
+import { Box, Drawer, DrawerProps, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import config from '../../config/firebase.config';
+import { i18nNamespace } from '../../i18n/i18n';
 import ChangeLanguage from './ChangeLanguage';
 import ChangeTheme from './ChangeTheme';
-import RemoteUser from './RemoteUser';
-import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../i18n/i18n';
 import ManageRemoteMedia from './ManageRemoteMedia';
-import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
-import config from '../../config/firebase.config';
-import { Box } from '@mui/material';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Drawer, DrawerProps, Theme } from '@mui/material';
+import RemoteUser from './RemoteUser';
+import { usePresentationSyncContext } from '../../hooks';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

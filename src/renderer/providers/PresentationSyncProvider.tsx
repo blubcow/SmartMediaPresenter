@@ -7,19 +7,13 @@ import React, {
 } from 'react';
 import { Box, CircularProgress, LinearProgress } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import useRemoteUserContext from '../hooks/useRemoteUserContext';
 import { i18nNamespace } from '../i18n/i18n';
 import { database } from '../models/firebase';
 import { SinglePresentation } from '../shared/presentation.interface';
 import { EditableText } from '../smpUI/EditableText';
 import { SyncableStoredPresentation } from '../shared/presentaitonSycncing.interface';
-import { useStoredPresentations } from '../hooks/useMainProcessMethods';
-import { useWorkspace } from '../hooks/useMainProcessMethods';
-import useUserSettingsContext from '../hooks/useUserSettingsContext';
-import useConnectivityContext from '../hooks/useConnectivityContext';
-import useRemoteMedia from '../hooks/useRemoteMedia';
-import usePresentationSyncing from '../hooks/usePresentationSyncing';
 import ImportLocalPresentationsModal from '../views/modals/ImportLocalPresentationsModal';
+import { useConnectivityContext, usePresentationSyncing, useRemoteMedia, useRemoteUserContext, useStoredPresentations, useUserSettingsContext, useWorkspace } from '../hooks';
 export const PresentationSyncContext = createContext({});
 
 const PresentationSyncProvider: React.FC<PropsWithChildren<{}>> = ({

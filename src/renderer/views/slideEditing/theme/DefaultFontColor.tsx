@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import SettingsRow from '../../settings/SettingsRow';
 import { Box } from '@mui/material';
-import ColorPickerIcon from '../ColorPickerIcon';
-import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import ColorPicker from '../../components/ColorPicker';
-import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
+import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
+import ColorPicker from '../../components/ColorPicker';
+import SettingsRow from '../../settings/SettingsRow';
+import ColorPickerIcon from '../ColorPickerIcon';
+import { usePresentationEditingContext } from '../../../hooks';
 
 const DefaultFontColor: React.FC<{}> = () => {
 	const { state, dispatch } = usePresentationEditingContext();

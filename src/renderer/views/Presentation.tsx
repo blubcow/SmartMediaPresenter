@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
-import { usePresentationMode } from '../hooks/useMainProcessMethods';
 import { useLocation } from 'react-router-dom';
-import { useSinglePresentation } from '../hooks/useMainProcessMethods';
 import SlideBox from './slide/SlideEditingBox';
-import usePresentationCacheContext from '../hooks/usePresentationCacheContext';
-import usePresentationSyncContext from '../hooks/usePresentationSyncContext';
 import { SinglePresentation } from '../shared/presentation.interface';
 import { CircularProgress } from '@mui/material';
 import LoadingIndicatorPaper from './components/LoadingIndicatorPaper';
+import { usePresentationCacheContext, usePresentationMode, usePresentationSyncContext, useSinglePresentation } from '../hooks';
 
 const PresentationMode = () => {
 	const location = useLocation();

@@ -1,16 +1,14 @@
+import { SwitchAccessShortcut } from '@mui/icons-material';
 import React, { useEffect, useRef, useState } from 'react';
-import EditingButton from './EditingButton';
-import { CropOriginal, SwitchAccessShortcut } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
+import { usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
-import EditButtonLabel from './EditButtonLabel';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
-import { MediaAlignment, MediaLocation, SinglePresentation, Slide } from '../../shared/presentation.interface';
-import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
-import MediaAlignemntPopover from './MediaAlignmentPopover';
-import ColorTransferPopover from './ColorTransferPopover';
 import { useMediaSettingsContext } from '../../providers/MediaSettingsProvider';
-import SaveSlideImagePopover from './SaveSlideImagePopover';
+import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
+import { MediaLocation, SinglePresentation, Slide } from '../../shared/presentation.interface';
+import ColorTransferPopover from './ColorTransferPopover';
+import EditButtonLabel from './EditButtonLabel';
+import EditingButton from './EditingButton';
 
 interface IColorTransferButtonProps { }
 

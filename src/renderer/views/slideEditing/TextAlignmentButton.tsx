@@ -1,14 +1,13 @@
-import React from 'react';
-import { Button, ButtonGroup, Card } from '@mui/material';
-import { Box} from '@mui/material';
 import {
 	AlignHorizontalCenter,
 	AlignHorizontalLeft,
 	AlignHorizontalRight,
 } from '@mui/icons-material';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
-import { TextAlignment, TextElement } from '../../shared/presentation.interface';
+import { Box, Button, ButtonGroup, Card } from '@mui/material';
+import React from 'react';
+import { usePresentationEditingContext } from '../../hooks';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
+import { TextAlignment, TextElement } from '../../shared/presentation.interface';
 
 const TextAliginmentButton: React.FC<{}> = () => {
 	const { state, dispatch } = usePresentationEditingContext();

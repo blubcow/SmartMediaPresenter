@@ -8,7 +8,7 @@ import { ImageResourceExtensions } from '../shared/mediaResource.utils';
 import { RemoteUser } from '../shared/remote.interface';
 import { storage } from '../models/firebase';
 
-const useRemoteMedia = (remoteUser?: RemoteUser) => {
+export const useRemoteMedia = (remoteUser?: RemoteUser) => {
 	const [remoteMedia, setRemoteMedia] = useState<RemotelyAvailableMedia[]>([]);
 
 	useEffect(() => {
@@ -188,5 +188,3 @@ const useRemoteMedia = (remoteUser?: RemoteUser) => {
 		getRemoteMedia,
 	};
 };
-
-export default useRemoteMedia;

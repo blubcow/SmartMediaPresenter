@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useEffect } from 'react';
 import { I18nextProvider } from 'react-i18next';
-import useUserSettingsContext from '../hooks/useUserSettingsContext';
 import i18n from '../i18n/i18n';
+import { useUserSettingsContext } from '../hooks';
 
 const I18NProvider: React.FC<PropsWithChildren<{}>> = (props) => {
 	const { userSettings } = useUserSettingsContext();

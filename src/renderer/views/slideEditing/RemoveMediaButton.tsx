@@ -1,6 +1,5 @@
 import React from 'react';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
-
+import { usePresentationEditingContext } from '../../hooks';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import RemoveButton from './RemoveButton';
 

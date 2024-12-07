@@ -1,8 +1,8 @@
-import React from 'react';
-import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
 import { Box } from '@mui/material';
+import React from 'react';
 import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
 import AudioRecorder from '../../components/AudioRecorder';
+import { usePresentationEditingContext } from '../../../hooks';
 
 interface IRecordAudioContentProps {}
 

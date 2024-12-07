@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { RemoteUserContext } from '../providers/RemoteUserProvider';
 import { RemoteUser } from '../shared/remote.interface';
 
-const useRemoteUserContext = () => {
+export const useRemoteUserContext = () => {
 	const context = useContext(RemoteUserContext) as {
 		remoteUser?: RemoteUser;
 		userLoggedIn?: boolean;
@@ -15,5 +15,3 @@ const useRemoteUserContext = () => {
 
 	return context;
 };
-
-export default useRemoteUserContext;

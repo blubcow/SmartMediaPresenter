@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ReactCrop, { Crop } from 'react-image-crop';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import { MediaCrop, MediaRessource } from '../../shared/presentation.interface';
 
 interface ICroppableImageProps {

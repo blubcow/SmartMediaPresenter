@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Page } from '../smpUI/Page';
 import { useNavigate } from 'react-router-dom';
 import LoadingIndicatorPaper from './components/LoadingIndicatorPaper';
-import useRemoteUserContext from '../hooks/useRemoteUserContext';
 import { SMPRoutes } from '../shared/routes.enum';
 import config from '../config/firebase.config';
+import { useRemoteUserContext } from '../hooks';
 
 const LoadingPage: React.FC<{}> = () => {
 	const navigate = useNavigate();

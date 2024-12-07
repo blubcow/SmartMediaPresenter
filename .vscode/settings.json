@@ -31,5 +31,10 @@
   "editor.tabSize": 4,
   "editor.useTabStops": false,
 
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true,
+    "source.addMissingImports": true
+  },
+
   "typescript.tsserver.experimental.enableProjectDiagnostics": true
 }

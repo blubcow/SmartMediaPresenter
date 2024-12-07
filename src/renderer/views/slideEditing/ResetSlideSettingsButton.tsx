@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import EditingButton from './EditingButton';
 import { RestartAlt } from '@mui/icons-material';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
-import EditButtonLabel from './EditButtonLabel';
+import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import {
 	getEmptySlide,
 	MediaRessource,
 } from '../../shared/presentation.interface';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
 import ActionConfirmationModal from '../modals/ActionConfirmationModal';
-import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
+import EditButtonLabel from './EditButtonLabel';
+import EditingButton from './EditingButton';
 
 interface IResetSettingsButtonProps {}
 

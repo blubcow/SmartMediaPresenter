@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { PresentationSyncContext } from '../providers/PresentationSyncProvider';
 import { IPresentationSyncContext } from '../shared/presentaitonSycncing.interface';
 
-const usePresentationSyncContext = () => {
+export const usePresentationSyncContext = () => {
 	const context = useContext(
 		PresentationSyncContext
 	) as IPresentationSyncContext;
@@ -13,5 +13,3 @@ const usePresentationSyncContext = () => {
 
 	return { ...context };
 };
-
-export default usePresentationSyncContext;

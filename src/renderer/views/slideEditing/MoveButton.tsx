@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
-import EditingButton from './EditingButton';
 import { Transform } from '@mui/icons-material';
+import { Box, TextField } from '@mui/material';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
-import EditButtonLabel from './EditButtonLabel';
-import MediaEditingModal from './MediaEditingModal';
-import { Box } from '@mui/material';
 import { MediaRessource } from '../../shared/presentation.interface';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
-import { TextField } from '@mui/material';
+import EditButtonLabel from './EditButtonLabel';
+import EditingButton from './EditingButton';
+import MediaEditingModal from './MediaEditingModal';
 
 interface IMoveButtonProps {}
 

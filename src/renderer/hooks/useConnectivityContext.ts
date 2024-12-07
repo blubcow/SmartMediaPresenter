@@ -1,7 +1,9 @@
 import { useContext } from 'react';
 import { ConnectivityContext } from '../providers/ConnectivityProvider';
 
-const useConnectivityContext = () => {
+// TODO: Component unused????
+
+export const useConnectivityContext = () => {
 	const context = useContext(ConnectivityContext) as {
 		connected: boolean;
 	};
@@ -13,5 +15,3 @@ const useConnectivityContext = () => {
 
 	return context;
 };
-
-export default useConnectivityContext;

@@ -6,20 +6,18 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { Button, CircularProgress, Divider, IconButton, LinearProgress } from '@mui/material';
 import { CreateNewFolder, UploadFile, Delete } from '@mui/icons-material';
-import usePresentationSyncContext from '../../hooks/usePresentationSyncContext';
 import {
 	RemoteStorageMedia,
 	RemoteStorageMediaType,
 } from '../../shared/presentaitonSycncing.interface';
-import { useHeldKeys } from '../../hooks/useHeldKeys';
 import { InsertDriveFile, Folder, ArrowBack } from '@mui/icons-material';
 import { ImageResourceExtensions } from '../../shared/mediaResource.utils';
-import { useLocalFileSystem } from '../../hooks/useMainProcessMethods';
 import RemoteFile from './RemoteFile';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 import { Box } from '@mui/material';
 import { ProgressButton } from '../../smpUI/ProgressButton';
+import { useHeldKeys, useLocalFileSystem, usePresentationSyncContext } from '../../hooks';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

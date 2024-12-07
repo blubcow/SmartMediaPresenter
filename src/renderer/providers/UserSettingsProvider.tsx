@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, createContext, useState } from 'react';
-import { useUserSettings } from '../hooks/useMainProcessMethods';
+import { useUserSettings } from '../hooks';
 
 export const UserSettingsContext = createContext({});
 

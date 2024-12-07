@@ -5,8 +5,8 @@ import React, {
 	useCallback,
 	useEffect,
 } from 'react';
-import useRemoteUserContext from '../hooks/useRemoteUserContext';
 import { SinglePresentation } from '../shared/presentation.interface';
+import { useRemoteUserContext } from '../hooks';
 
 export const PresentationCacheContext = createContext({});
 

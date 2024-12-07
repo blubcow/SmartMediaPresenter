@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import SettingsRow from '../../settings/SettingsRow';
-import { EditableText } from '../../../smpUI/EditableText';
-import { Box} from '@mui/material';
-import usePresentationEditingContext from '../../../hooks/usePresentationEditingContext';
-import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
-import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../../i18n/i18n';
+import { Box, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { usePresentationEditingContext } from '../../../hooks';
+import { i18nNamespace } from '../../../i18n/i18n';
+import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
+import { EditableText } from '../../../smpUI/EditableText';
+import SettingsRow from '../../settings/SettingsRow';
 
 export const useDefaultFormatStyles = makeStyles((theme: Theme) =>
 	createStyles({

@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import EditingButton from './EditingButton';
 import { GridView } from '@mui/icons-material';
+import { Box, Button, Popover } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
-import EditButtonLabel from './EditButtonLabel';
-import { EditableText } from '../../smpUI/EditableText';
-import { Box, Button} from '@mui/material';
-import usePresentationEditingContext from '../../hooks/usePresentationEditingContext';
-import { MediaRessource } from '../../shared/presentation.interface';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
-import { Popover } from '@mui/material';
+import { MediaRessource } from '../../shared/presentation.interface';
+import { EditableText } from '../../smpUI/EditableText';
+import EditButtonLabel from './EditButtonLabel';
+import EditingButton from './EditingButton';
 
 interface ISlideFormatButtonProps {}
 
