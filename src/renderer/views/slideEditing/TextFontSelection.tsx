@@ -8,7 +8,7 @@ import {
 	SinglePresentation,
 	TextElement,
 } from '../../shared/presentation.interface';
-import { AutoCompleteSelection } from '../../smpUI/AutoCompleteSelection';
+import { AutoCompleteSelection } from '../../smpUI';
 import TextFontSelectionOption from './TextFontSelectionOption';
 
 interface ITextFontSelectionProps {

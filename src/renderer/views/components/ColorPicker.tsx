@@ -1,9 +1,8 @@
+import { Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import React, { useState } from 'react';
 import { PhotoshopPicker } from 'react-color';
-import { Modal } from '../../smpUI/Modal';
-import { IModalProps } from '../../smpUI/Modal';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import { BoxedDialog, IBoxedDialogProps } from '../../smpUI';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -15,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-interface IColorPickerProps extends IModalProps {
+interface IColorPickerProps extends IBoxedDialogProps {
 	initialColor: string;
 	onColorPicked: (color: string) => void;
 	onCancel: () => void;
@@ -43,7 +42,7 @@ export interface PhotoshopPickerStylesProps {
    */
 
 	return (
-		<Modal {...modalProps}>
+		<BoxedDialog {...modalProps}>
 			<PhotoshopPicker
 				styles={{
 					default: {
@@ -81,7 +80,7 @@ export interface PhotoshopPickerStylesProps {
 				}}
 				onCancel={onCancel}
 			/>
-		</Modal>
+		</BoxedDialog>
 	);
 };
 

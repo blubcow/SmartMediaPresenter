@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import { MediaRGBChannels } from '../../shared/presentation.interface';
-import { EditableText } from '../../smpUI/EditableText';
-import { Box, Button} from '@mui/material';
 import { RestartAlt } from '@mui/icons-material';
+import { Box, Button, Popover, Slider } from '@mui/material';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { Popover, Slider } from '@mui/material';
+import { MediaRGBChannels } from '../../shared/presentation.interface';
+import { EditableText } from '../../smpUI';
 
 type RgbChannel = 'red' | 'green' | 'blue';
 type RgbSubChannel = 'r' | 'g' | 'b' | 'alpha';

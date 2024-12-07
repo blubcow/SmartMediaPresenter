@@ -10,7 +10,7 @@ import {
 	MediaRessource,
 	MediaSettings,
 } from '../../shared/presentation.interface';
-import { EditableText } from '../../smpUI/EditableText';
+import { EditableText } from '../../smpUI';
 import ColorChannelFilter from '../media/ColorChannelFilter';
 import EditButtonLabel from './EditButtonLabel';
 import EditingButton from './EditingButton';

@@ -7,7 +7,7 @@ import { i18nNamespace } from '../../i18n/i18n';
 import { DataTransferIdentifiers } from '../../shared/identifiers.enum';
 import { allowedFiles } from '../../shared/mediaResource.utils';
 import { QuickCreateMediaResource } from '../../shared/quickCreateMedia.interface';
-import { EditableText } from '../../smpUI/EditableText';
+import { EditableText } from '../../smpUI';
 import MediaDropBoxIndicator from '../components/MediaDropBoxIndicator';
 import HeaderRow from './HeaderRow';
 import MediaRow from './MediaRow';

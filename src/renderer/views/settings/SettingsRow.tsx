@@ -1,8 +1,7 @@
-import React from 'react';
-import { EditableText } from '../../smpUI/EditableText';
-import { Box} from '@mui/material';
+import { Box, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import React from 'react';
+import { EditableText } from '../../smpUI';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

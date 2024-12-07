@@ -1,14 +1,14 @@
+import { WifiOff } from '@mui/icons-material';
+import { Box } from '@mui/material';
 import React, {
-	useEffect,
-	useState,
 	createContext,
 	PropsWithChildren,
+	useEffect,
+	useState,
 } from 'react';
-import { WifiOff } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../i18n/i18n';
-import { Box } from '@mui/material';
-import { EditableText } from '../smpUI/EditableText';
+import { EditableText } from '../smpUI';
 
 export const ConnectivityContext = createContext({});
 

@@ -1,12 +1,11 @@
+import { Box, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import React, { useEffect, useRef, useState } from 'react';
+import { usePresentationEditingContext } from '../../hooks';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import { getEmptySlide, Slide } from '../../shared/presentation.interface';
-import { Box } from '@mui/material';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
-import SlidesHeaderRow from '../rows/SlidesHeaderRow';
 import SlidePreviewRow from '../rows/SlidePreviewRow';
-import { usePresentationEditingContext } from '../../hooks';
+import SlidesHeaderRow from '../rows/SlidesHeaderRow';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

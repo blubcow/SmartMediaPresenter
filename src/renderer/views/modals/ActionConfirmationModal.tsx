@@ -1,12 +1,9 @@
+import { Box, Button, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import React, { PropsWithChildren } from 'react';
-import { Modal } from '../../smpUI/Modal';
-import { EditableText } from '../../smpUI/EditableText';
-import { Box, Button} from '@mui/material';
-import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import { IBoxedDialogProps, BoxedDialog, EditableText } from '../../smpUI';
 
 export const useActionConfirmationModalStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -29,7 +26,7 @@ export const useActionConfirmationModalStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-interface IActionConfirmationModalProps extends IModalProps {
+interface IActionConfirmationModalProps extends IBoxedDialogProps {
 	secondaryText?: string;
 	onConfirm: () => void;
 	onCancel: () => void;
@@ -43,7 +40,7 @@ const ActionConfirmationModal: React.FC<
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 
 	return (
-		<Modal {...modalProps}>
+		<BoxedDialog {...modalProps}>
 			<Box className={classes.contentContainer}>
 				<EditableText variant='h5' fontWeight='bold' color='text.secondary'>
 					{t('actionConfirmationQuestion')}
@@ -61,7 +58,7 @@ const ActionConfirmationModal: React.FC<
 					</Button>
 				</Box>
 			</Box>
-		</Modal>
+		</BoxedDialog>
 	);
 };
 

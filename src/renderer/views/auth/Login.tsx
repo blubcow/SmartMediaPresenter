@@ -1,16 +1,14 @@
+import { Box, Button, TextField, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import React, { useState } from 'react';
-import { EditableText } from '../../smpUI/EditableText';
-import { Box, Button} from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { useThemedLogo } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
 import { auth } from '../../models/firebase';
-import PopUpModal from './PopUpModal';
+import { EditableText, ProgressButton } from '../../smpUI';
 import CreateAccount from './CreateAccount';
 import ForgotPassword from './ForgotPassword';
-import { createStyles, makeStyles } from '@mui/styles';
-import { TextField, Theme } from '@mui/material';
-import { ProgressButton } from '../../smpUI/ProgressButton';
-import { useThemedLogo } from '../../hooks';
+import PopUpModal from './PopUpModal';
 
 export const useLoginContainerStyles = makeStyles((theme: Theme) =>
 	createStyles({

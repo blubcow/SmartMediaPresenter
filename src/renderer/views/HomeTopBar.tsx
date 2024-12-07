@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import { TopBar } from '../smpUI/TopBar';
-import UserSettingsDrawer from './settings/UserSettingsDrawer';
-import { Box, IconButton } from '@mui/material';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
 import { Menu } from '@mui/icons-material';
+import { Box, IconButton, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
+import React, { useState } from 'react';
 import { useThemedLogo } from '../hooks';
+import { TopBar } from '../smpUI';
+import UserSettingsDrawer from './settings/UserSettingsDrawer';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { usePresentationEditingContext } from '../../../hooks';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
-import { EditableText } from '../../../smpUI/EditableText';
+import { EditableText } from '../../../smpUI';
 import SettingsRow from '../../settings/SettingsRow';
 
 export const useDefaultPlaybackTimeStyles = makeStyles((theme: Theme) =>

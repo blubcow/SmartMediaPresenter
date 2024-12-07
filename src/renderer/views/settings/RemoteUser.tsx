@@ -2,12 +2,11 @@ import { AccountCircle } from '@mui/icons-material';
 import { Box, Button } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useRemoteUserContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
 import { auth } from '../../models/firebase';
-import { EditableText } from '../../smpUI/EditableText';
-import { Modal } from '../../smpUI/Modal';
+import { BoxedDialog, EditableText } from '../../smpUI';
 import AuthViews from '../auth/AuthViews';
-import { useRemoteUserContext } from '../../hooks';
 
 const RemoteUser: React.FC<{}> = () => {
 	const { remoteUser } = useRemoteUserContext();
@@ -46,9 +45,9 @@ const RemoteUser: React.FC<{}> = () => {
 					</Button>
 				</Box>
 			</Box>
-			<Modal open={openLoginModal} onClose={() => setOpenLoginModal(false)}>
+			<BoxedDialog open={openLoginModal} onClose={() => setOpenLoginModal(false)}>
 				<AuthViews onLogin={() => setOpenLoginModal(false)} />
-			</Modal>
+			</BoxedDialog>
 		</Box>
 	);
 };

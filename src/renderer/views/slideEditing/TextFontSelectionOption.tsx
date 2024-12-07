@@ -1,5 +1,5 @@
 import React from 'react';
-import { EditableText } from '../../smpUI/EditableText';
+import { EditableText } from '../../smpUI';
 import { useTextFontSelectionOptionStyles } from './styles';
 
 interface ITextFontSelectionOptionProps

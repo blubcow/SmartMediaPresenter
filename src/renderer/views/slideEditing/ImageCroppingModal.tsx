@@ -5,10 +5,10 @@ import { usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import { MediaCrop } from '../../shared/presentation.interface';
-import { IModalProps, Modal } from '../../smpUI/Modal';
 import CroppableImage from './CroppableImage';
+import { IBoxedDialogProps, BoxedDialog } from '../../smpUI';
 
-interface IIMageCroppingModalProps extends IModalProps {
+interface IIMageCroppingModalProps extends IBoxedDialogProps {
 	close: () => void;
 }
 
@@ -20,7 +20,7 @@ const ImageCroppingModal: React.FC<IIMageCroppingModalProps> = (props) => {
 	const [crop, setCrop] = useState<MediaCrop>();
 
 	return (
-		<Modal {...modalProps}>
+		<BoxedDialog {...modalProps}>
 			<Box sx={{ width: '500px' }}>
 				<CroppableImage
 					mediaElement={presentation.slides[currentSlide].media[activeMedia!]}
@@ -54,7 +54,7 @@ const ImageCroppingModal: React.FC<IIMageCroppingModalProps> = (props) => {
 					{t('confirm')}
 				</Button>
 			</Box>
-		</Modal>
+		</BoxedDialog>
 	);
 };
 

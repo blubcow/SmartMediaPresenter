@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Slideshow } from '@mui/icons-material';
-import { i18nNamespace } from '../../i18n/i18n';
-import PresentationDispalaySelectionModal from './PresentationDisplaySelectionModal';
-import PresentationMode from '../PresentationMode';
+import React, { useState } from 'react';
 import { useFullScreenHandle } from 'react-full-screen';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { useDisplays } from '../../hooks';
+import { i18nNamespace } from '../../i18n/i18n';
 import { SinglePresentation } from '../../shared/presentation.interface';
 import PresentationFullScreen from '../components/PresentationFullScreen';
-import { useNavigate } from 'react-router-dom';
-import { FloatingButton } from '../../smpUI/FloatingButton';
-import { useDisplays } from '../../hooks';
+import PresentationMode from '../PresentationMode';
+import PresentationDispalaySelectionModal from './PresentationDisplaySelectionModal';
+import { FloatingButton } from '../../smpUI';
 
 interface IPresentationFloatingButtonProps {
 	presentationId?: number;

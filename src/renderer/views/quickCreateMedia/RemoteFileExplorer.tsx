@@ -7,7 +7,7 @@ import { i18nNamespace } from '../../i18n/i18n';
 import { DataTransferIdentifiers } from '../../shared/identifiers.enum';
 import { ImageResourceExtensions } from '../../shared/mediaResource.utils';
 import { RemoteStorageMedia } from '../../shared/presentaitonSycncing.interface';
-import { EditableText } from '../../smpUI/EditableText';
+import { EditableText } from '../../smpUI';
 import { useRemoteFileExplorerStyles } from './styles';
 
 interface IRemoteFileExplorerProps {

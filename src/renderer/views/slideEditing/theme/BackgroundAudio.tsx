@@ -2,13 +2,13 @@ import { Audiotrack, PauseCircle, PlayCircle } from '@mui/icons-material';
 import { Box, Button, IconButton } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocalFileSystem, usePresentationEditingContext, useRemoteUserContext } from '../../../hooks';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
-import { EditableText } from '../../../smpUI/EditableText';
+import { EditableText } from '../../../smpUI';
 import RemoteFileExplorer from '../../media/RemoteFileExplorer';
 import LocalOrRemoteModal from '../../modals/LocalOrRemoteModal';
 import SettingsRow from '../../settings/SettingsRow';
-import { usePresentationEditingContext, useRemoteUserContext, useLocalFileSystem } from '../../../hooks';
 
 const BackgroundAudio: React.FC<{}> = () => {
 	const { state, dispatch } = usePresentationEditingContext();

@@ -1,13 +1,9 @@
+import { Box, Button, CircularProgress, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import React from 'react';
-import { Modal } from '../../smpUI/Modal';
-import { EditableText } from '../../smpUI/EditableText';
-import { Box, Button} from '@mui/material';
-import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { CircularProgress } from '@mui/material';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import { BoxedDialog, EditableText, IBoxedDialogProps } from '../../smpUI';
 
 export const useImportLocalPresentationsModalStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -27,7 +23,7 @@ export const useImportLocalPresentationsModalStyles = makeStyles((theme: Theme) 
 	})
 );
 
-interface IImportLocalPresentationsModalProps extends IModalProps {
+interface IImportLocalPresentationsModalProps extends IBoxedDialogProps {
 	onChoose: (importPresentations: boolean) => void;
 	amnt: number;
 	importing: boolean;
@@ -40,7 +36,7 @@ const ImportLocalPresentationsModal: React.FC<IImportLocalPresentationsModalProp
 		const classes = useImportLocalPresentationsModalStyles();
 
 		return (
-			<Modal {...modalProps}>
+			<BoxedDialog {...modalProps}>
 				<Box className={classes.container}>
 					<EditableText variant='h6' fontWeight={800}>
 						{importing
@@ -64,7 +60,7 @@ const ImportLocalPresentationsModal: React.FC<IImportLocalPresentationsModalProp
 						</Box>
 					)}
 				</Box>
-			</Modal>
+			</BoxedDialog>
 		);
 	};
 

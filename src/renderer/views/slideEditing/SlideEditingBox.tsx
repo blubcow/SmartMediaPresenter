@@ -7,7 +7,7 @@ import {
 	SinglePresentation,
 	Slide,
 } from '../../shared/presentation.interface';
-import { EditableText } from '../../smpUI/EditableText';
+import { EditableText } from '../../smpUI';
 import SlideBox from '../slide/SlideEditingBox';
 
 interface ISlideEditingBoxProps { }

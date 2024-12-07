@@ -1,23 +1,15 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { Modal } from '../../smpUI/Modal';
-import { EditableText } from '../../smpUI/EditableText';
-import { IModalProps } from '../../smpUI/Modal';
-import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../../i18n/i18n';
-import { Button, CircularProgress, Divider, IconButton, LinearProgress } from '@mui/material';
-import { CreateNewFolder, UploadFile, Delete } from '@mui/icons-material';
-import {
-	RemoteStorageMedia,
-	RemoteStorageMediaType,
-} from '../../shared/presentaitonSycncing.interface';
-import { InsertDriveFile, Folder, ArrowBack } from '@mui/icons-material';
-import { ImageResourceExtensions } from '../../shared/mediaResource.utils';
-import RemoteFile from './RemoteFile';
+import { ArrowBack, CreateNewFolder, Delete, UploadFile } from '@mui/icons-material';
+import { Box, Button, CircularProgress, Divider, IconButton, LinearProgress, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
-import { Box } from '@mui/material';
-import { ProgressButton } from '../../smpUI/ProgressButton';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHeldKeys, useLocalFileSystem, usePresentationSyncContext } from '../../hooks';
+import { i18nNamespace } from '../../i18n/i18n';
+import {
+	RemoteStorageMedia
+} from '../../shared/presentaitonSycncing.interface';
+import RemoteFile from './RemoteFile';
+import { IBoxedDialogProps, BoxedDialog, EditableText, ProgressButton } from '../../smpUI';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -96,7 +88,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-interface IRemoteMediaModalProps extends IModalProps {}
+interface IRemoteMediaModalProps extends IBoxedDialogProps {}
 
 const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 	const { t } = useTranslation([i18nNamespace.Remote]);
@@ -144,7 +136,7 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 	}, [openNewFolderModal]);
 
 	return (
-		<Modal {...props} maxWidth={false}>
+		<BoxedDialog {...props} maxWidth={false}>
 			<Box className={classes.container} onClick={clearSelection}>
 				<Box className={classes.header}>
 					<EditableText fontWeight='bold' variant='h5'>
@@ -308,7 +300,7 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 				</Box>
 			</Box>
 			{openNewFolderModal && (
-				<Modal
+				<BoxedDialog
 					open={openNewFolderModal}
 					onClose={() => {
 						if (!creatingFolder) setOpenNewFolderModal(false);
@@ -349,20 +341,20 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 							</ProgressButton>
 						</Box>
 					</Box>
-				</Modal>
+				</BoxedDialog>
 			)}
 			{deletingMedia && (
-				<Modal open={true}>
+				<BoxedDialog open={true}>
 					<Box className={classes.activityModal}>
 						<EditableText variant='h6' fontWeight={800}>
 							{t('deletingMedia')}
 						</EditableText>
 						<CircularProgress />
 					</Box>
-				</Modal>
+				</BoxedDialog>
 			)}
 			{uploadingMedia && (
-				<Modal open={true}>
+				<BoxedDialog open={true}>
 					<Box className={classes.activityModal}>
 						<EditableText variant='h6' fontWeight={800}>
 							{t('uploadingMedia')}
@@ -375,9 +367,9 @@ const RemoteMediaModal: React.FC<IRemoteMediaModalProps> = (props) => {
 							/>
 						</Box>
 					</Box>
-				</Modal>
+				</BoxedDialog>
 			)}
-		</Modal>
+		</BoxedDialog>
 	);
 };
 

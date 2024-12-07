@@ -1,14 +1,12 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { EditableText } from '../../smpUI/EditableText';
-import {
-	RemoteStorageMedia,
-	RemoteStorageMediaType,
-} from '../../shared/presentaitonSycncing.interface';
-import { InsertDriveFile, Folder, ArrowBack } from '@mui/icons-material';
-import { ImageResourceExtensions } from '../../shared/mediaResource.utils';
+import { Folder, InsertDriveFile } from '@mui/icons-material';
+import { Box, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
-import { Box } from '@mui/material';
+import React, { useState } from 'react';
+import { ImageResourceExtensions } from '../../shared/mediaResource.utils';
+import {
+	RemoteStorageMediaType
+} from '../../shared/presentaitonSycncing.interface';
+import { EditableText } from '../../smpUI';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

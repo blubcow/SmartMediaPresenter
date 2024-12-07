@@ -2,10 +2,10 @@ import { Box, Button, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePresentationEditingContext } from '../../../hooks';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
-import { EditableText } from '../../../smpUI/EditableText';
-import { usePresentationEditingContext } from '../../../hooks';
+import { EditableText } from '../../../smpUI';
 
 export const useChoosePlaybackTimeContentStyles = makeStyles((theme: Theme) =>
 	createStyles({

@@ -3,9 +3,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRemoteUserContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
-import { EditableText } from '../../smpUI/EditableText';
-import { SelectionFormControl } from '../../smpUI/SelectionFormControl';
+import { EditableText, SelectionFormControl } from '../../smpUI';
 import { useHeaderRowStyles } from './styles';
+import { t } from 'i18next';
 
 interface IHeaderRowProps {
 	addFilesAction: () => void;

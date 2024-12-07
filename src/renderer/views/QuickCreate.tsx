@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Page } from '../smpUI/Page';
-import QuickCreateTopBar from './QuickCreateTopBar';
-import { Divider } from '@mui/material';
-import QuickCreateMediaDropBox from './quickCreateMedia/QuickCreateMediaDropBox';
-import QuickCreateSlidesBox from './quickCreateSlides/QuickCreateSlidesBox';
+import { Box, Divider, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { usePresentationSyncContext } from '../hooks';
+import { DataTransferIdentifiers } from '../shared/identifiers.enum';
 import { getEmptySlide, Slide } from '../shared/presentation.interface';
 import { SMPRoutes } from '../shared/routes.enum';
-import { useNavigate } from 'react-router-dom';
-import { DataTransferIdentifiers } from '../shared/identifiers.enum';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
-import { Box } from '@mui/material';
-import { usePresentationSyncContext } from '../hooks';
+import { Page } from '../smpUI';
+import QuickCreateMediaDropBox from './quickCreateMedia/QuickCreateMediaDropBox';
+import QuickCreateSlidesBox from './quickCreateSlides/QuickCreateSlidesBox';
+import QuickCreateTopBar from './QuickCreateTopBar';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

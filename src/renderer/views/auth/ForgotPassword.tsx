@@ -1,12 +1,10 @@
+import { Box, TextField } from '@mui/material';
 import React, { useState } from 'react';
-import { EditableText } from '../../smpUI/EditableText';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { auth } from '../../models/firebase';
+import { EditableText, ProgressButton } from '../../smpUI';
 import { useLoginContainerStyles, useTextFieldContainerStyles } from './Login';
-import { TextField } from '@mui/material';
-import { Box } from '@mui/material';
-import { ProgressButton } from '../../smpUI/ProgressButton';
 
 interface IForgotPasswordProps {
 	onForgotPwd: () => void;

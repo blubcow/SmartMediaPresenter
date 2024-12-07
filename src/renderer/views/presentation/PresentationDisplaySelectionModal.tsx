@@ -1,12 +1,10 @@
+import { Box } from '@mui/material';
 import React from 'react';
-import { Modal } from '../../smpUI/Modal';
-import { EditableText } from '../../smpUI/EditableText';
-import { Box} from '@mui/material';
-import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
+import { IBoxedDialogProps, BoxedDialog, EditableText } from '../../smpUI';
 
-interface IPresentationDispalaySelectionModalProps extends IModalProps {
+interface IPresentationDispalaySelectionModalProps extends IBoxedDialogProps {
 	onDisplaySelected: (display: number) => void;
 	displaysAmount: number;
 }
@@ -17,7 +15,7 @@ const PresentationDispalaySelectionModal: React.FC<IPresentationDispalaySelectio
 		const { t } = useTranslation([i18nNamespace.Presentation]);
 
 		return (
-			<Modal {...modalProps}>
+			<BoxedDialog {...modalProps}>
 				<Box
 					sx={{
 						display: 'flex',
@@ -61,7 +59,7 @@ const PresentationDispalaySelectionModal: React.FC<IPresentationDispalaySelectio
 							))}
 					</Box>
 				</Box>
-			</Modal>
+			</BoxedDialog>
 		);
 	};
 

@@ -1,28 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import {
+	ArrowLeft,
+	ArrowRight,
+	Cloud,
+	Delete,
+	DesktopWindows,
+	Edit,
+	SaveAlt,
+} from '@mui/icons-material';
+import { Box, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { useLocalFileSystem, usePresentationCacheContext, usePresentationSyncContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
 import {
 	SinglePresentation,
 } from '../../shared/presentation.interface';
-import { EditableText } from '../../smpUI/EditableText';
-import {
-	Edit,
-	Delete,
-	ArrowLeft,
-	ArrowRight,
-	SaveAlt,
-	DesktopWindows,
-	Cloud,
-} from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
 import { SMPRoutes } from '../../shared/routes.enum';
-import PresentationFloatingButton from './PresentationFloatingButton';
 import ActionConfirmationModal from '../modals/ActionConfirmationModal';
+import PresentationFloatingButton from './PresentationFloatingButton';
 import PreviewSlide from './PreviewSlide';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Box, Theme } from '@mui/material';
-import { FloatingButton, FloatingButtonContainer } from '../../smpUI/FloatingButton';
-import { useLocalFileSystem, usePresentationCacheContext, usePresentationSyncContext } from '../../hooks';
+import { FloatingButtonContainer, FloatingButton, EditableText } from '../../smpUI';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

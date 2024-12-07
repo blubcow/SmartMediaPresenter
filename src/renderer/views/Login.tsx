@@ -1,13 +1,12 @@
+import { Box, Button, Paper, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import React from 'react';
-import { Page } from '../smpUI/Page';
-import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Link, useNavigate } from 'react-router-dom';
 import { i18nNamespace } from '../i18n/i18n';
 import { SMPRoutes } from '../shared/routes.enum';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Button, Paper, Theme } from '@mui/material';
+import { Page } from '../smpUI';
 import AuthViews from './auth/AuthViews';
-import { Box } from '@mui/material';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

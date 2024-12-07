@@ -1,10 +1,9 @@
+import { Box, Button, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import React from 'react';
-import { EditableText } from '../../../smpUI/EditableText';
-import { Box, Button} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../../i18n/i18n';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import { EditableText } from '../../../smpUI';
 
 export const useMatchAudioTimeContentStyles = makeStyles((theme: Theme) =>
 	createStyles({

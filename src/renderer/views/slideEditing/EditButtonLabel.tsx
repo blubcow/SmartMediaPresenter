@@ -1,6 +1,7 @@
 import React from 'react';
-import { EditableText } from '../../smpUI/EditableText';
-import { ITextProps } from '../../smpUI/EditableText';
+import { EditableText, ITextProps } from '../../smpUI';
+
+// TODO: Empty component?
 
 interface IEditButtonLabelProps extends ITextProps {}
 

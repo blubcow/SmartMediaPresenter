@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { EditableText } from '../smpUI/EditableText';
-import { FullScreen, FullScreenHandle } from 'react-full-screen';
-import { SinglePresentation } from '../shared/presentation.interface';
-import SlideBox from './slide/SlideEditingBox';
-import { Button, Divider } from '@mui/material';
-import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../i18n/i18n';
-import AutoPlaybackBar from './components/AutoPlaybackBar';
+import { Box, Button, Divider, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
-import { formatTimer } from '../shared/format.utils';
-import { Box } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { FullScreen, FullScreenHandle } from 'react-full-screen';
+import { useTranslation } from 'react-i18next';
 import { usePresentationMode } from '../hooks';
+import { i18nNamespace } from '../i18n/i18n';
+import { formatTimer } from '../shared/format.utils';
+import { SinglePresentation } from '../shared/presentation.interface';
+import { EditableText } from '../smpUI';
+import AutoPlaybackBar from './components/AutoPlaybackBar';
+import SlideBox from './slide/SlideEditingBox';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

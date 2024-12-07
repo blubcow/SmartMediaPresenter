@@ -1,13 +1,12 @@
-import React, { PropsWithChildren, ReactNode, useEffect } from 'react';
-import { EditableText } from '../../smpUI/EditableText';
-import { Box, Button} from '@mui/material';
-import { Modal, IModalProps } from '../../smpUI/Modal';
-import { useMediaEditingModalStyles } from './styles';
+import { Box, Button } from '@mui/material';
+import React, { PropsWithChildren, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
+import { BoxedDialog, EditableText, IBoxedDialogProps } from '../../smpUI';
+import { useMediaEditingModalStyles } from './styles';
 
 // TODO: Incorrectly extended type (use child references instead of "content")
-interface IMediaEditingModalProps extends IModalProps {
+interface IMediaEditingModalProps extends IBoxedDialogProps {
 	title: string;
 	onEditingFinished: () => void;
 	onCancel: () => void;
@@ -42,7 +41,7 @@ const MediaEditingModal: React.FC<PropsWithChildren<IMediaEditingModalProps>> = 
 	}, [onEditingFinished, props.open]);
 
 	return (
-		<Modal {...modalProps}>
+		<BoxedDialog {...modalProps}>
 			<Box className={classes.container}>
 				<EditableText variant='h3'>{title}</EditableText>
 				<Box className={classes.contentContainer}>
@@ -57,7 +56,7 @@ const MediaEditingModal: React.FC<PropsWithChildren<IMediaEditingModalProps>> = 
 					</Button>
 				</Box>
 			</Box>
-		</Modal>
+		</BoxedDialog>
 	);
 };
 

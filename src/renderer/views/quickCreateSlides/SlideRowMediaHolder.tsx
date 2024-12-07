@@ -1,12 +1,11 @@
+import { Box, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { i18nNamespace } from '../../i18n/i18n';
 import { DataTransferIdentifiers } from '../../shared/identifiers.enum';
-import { EditableText } from '../../smpUI/EditableText';
-import { Box} from '@mui/material';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import { EditableText } from '../../smpUI';
 
 const useSlideRowMediaHolderStyles = makeStyles((theme: Theme) =>
 	createStyles({

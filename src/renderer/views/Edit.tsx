@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Page } from '../smpUI/Page';
-import { Box } from '@mui/material';
+import { Box, Divider, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import EditTopBar from './EditTopBar';
-import { Divider } from '@mui/material';
-import SlideEditingBox from './slideEditing/SlideEditingBox';
+import { usePresentationCacheContext, usePresentationSyncContext, useSinglePresentation } from '../hooks';
 import PresentationEditingProvider from '../providers/PresentationEditingProvider';
+import { Page } from '../smpUI';
+import LoadingIndicatorPaper from './components/LoadingIndicatorPaper';
+import EditTopBar from './EditTopBar';
 import PresentationEditingFloatingButtons from './presentation/PresentationEditingFloatingButtons';
 import PresentationEditingPreviewRows from './presentation/PresentationEditingPreviewRows';
-import LoadingIndicatorPaper from './components/LoadingIndicatorPaper';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
-import { usePresentationCacheContext, usePresentationSyncContext, useSinglePresentation } from '../hooks';
+import SlideEditingBox from './slideEditing/SlideEditingBox';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

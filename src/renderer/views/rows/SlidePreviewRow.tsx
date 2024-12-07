@@ -1,16 +1,14 @@
-import { CircularProgress } from '@mui/material';
-import React, { useRef, useEffect, useState } from 'react';
+import { Box, CircularProgress } from '@mui/material';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { i18nNamespace } from '../../i18n/i18n';
 import {
 	MediaLocation,
 	MediaRessource,
 	Slide,
 } from '../../shared/presentation.interface';
-import { Box} from '@mui/material';
-import { Row, IRowProps } from '../../smpUI/Row';
-import { EditableText } from '../../smpUI/EditableText';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { EditableText, IRowProps, Row } from '../../smpUI';
 
 interface ISlidePreviewRowProps extends IRowProps {
 	slide: Slide;

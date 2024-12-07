@@ -1,9 +1,7 @@
-import React from 'react';
-import { EditableText } from '../../../smpUI/EditableText';
-import { Box} from '@mui/material';
-import { ButtonBase } from '@mui/material';
+import { Box, ButtonBase, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import React from 'react';
+import { EditableText } from '../../../smpUI';
 
 export const useOptionRowStyles = makeStyles((theme: Theme) =>
 	createStyles({

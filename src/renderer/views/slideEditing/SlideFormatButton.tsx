@@ -6,7 +6,7 @@ import { usePresentationEditingContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import { MediaRessource } from '../../shared/presentation.interface';
-import { EditableText } from '../../smpUI/EditableText';
+import { EditableText } from '../../smpUI';
 import EditButtonLabel from './EditButtonLabel';
 import EditingButton from './EditingButton';
 

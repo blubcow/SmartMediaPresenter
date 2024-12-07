@@ -1,22 +1,18 @@
-import React from 'react';
-import { Page } from '../smpUI/Page';
-import HomeTopBar from './HomeTopBar';
-import { Row } from '../smpUI/Row';
-import { EditableText } from '../smpUI/EditableText';
-import { CircularProgress, Divider } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { SMPRoutes } from '../shared/routes.enum';
-import { useTranslation } from 'react-i18next';
-import { i18nNamespace } from '../i18n/i18n';
-import { SinglePresentation } from '../shared/presentation.interface';
-import PresentationPreview from './presentation/PresentationPreview';
-import { getFormattedDate } from '../models/DateFormatter';
-import PresentationSyncingButton from './components/PresentationSyncingButton';
-import { Box } from '@mui/material';
+import { Box, CircularProgress, Divider, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
-import ProjectsHeaderRow from './rows/ProjectsHeaderRow';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { useLocalFileSystem, usePresentationCacheContext, usePresentationSyncContext } from '../hooks';
+import { i18nNamespace } from '../i18n/i18n';
+import { getFormattedDate } from '../models/DateFormatter';
+import { SinglePresentation } from '../shared/presentation.interface';
+import { SMPRoutes } from '../shared/routes.enum';
+import { EditableText, Page, Row } from '../smpUI';
+import PresentationSyncingButton from './components/PresentationSyncingButton';
+import HomeTopBar from './HomeTopBar';
+import PresentationPreview from './presentation/PresentationPreview';
+import ProjectsHeaderRow from './rows/ProjectsHeaderRow';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

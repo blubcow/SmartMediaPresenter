@@ -1,11 +1,10 @@
+import { Error } from '@mui/icons-material';
+import { Box, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import React from 'react';
-import { EditableText } from '../../smpUI/EditableText';
-import { Box} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { Error } from '@mui/icons-material';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import { EditableText } from '../../smpUI';
 
 const useFailedToLoadMediaBadgeStyles = makeStyles((theme: Theme) =>
 	createStyles({

@@ -1,19 +1,15 @@
-import React from 'react';
-import { Modal } from '../../smpUI/Modal';
-import { EditableText } from '../../smpUI/EditableText';
-import { Box} from '@mui/material';
-import { IModalProps } from '../../smpUI/Modal';
 import {
-	Download,
 	Create,
-	ViewColumn,
+	Download,
 	SvgIconComponent,
+	ViewColumn,
 } from '@mui/icons-material';
+import { Box, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
-import { IconBadge } from '../../smpUI/IconBadge';
+import { IBoxedDialogProps, BoxedDialog, EditableText, IconBadge } from '../../smpUI';
 
 const useCreateProjectModalStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -47,7 +43,7 @@ const useCreateProjectOptionStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-interface ICreateProjectModalProps extends IModalProps {
+interface ICreateProjectModalProps extends IBoxedDialogProps {
 	createPresentationAction: () => void;
 	importPresentationAction: () => void;
 	enterQuickCreateAction: () => void;
@@ -64,7 +60,7 @@ const CreateProjectModal: React.FC<ICreateProjectModalProps> = (props) => {
 	const { t } = useTranslation([i18nNamespace.Presentation]);
 
 	return (
-		<Modal {...modalProps}>
+		<BoxedDialog {...modalProps}>
 			<Box className={classes.containter}>
 				<EditableText variant='h4' fontWeight={700}>
 					{t('createNewPresentation')}
@@ -90,7 +86,7 @@ const CreateProjectModal: React.FC<ICreateProjectModalProps> = (props) => {
 					/>
 				</Box>
 			</Box>
-		</Modal>
+		</BoxedDialog>
 	);
 };
 

@@ -1,19 +1,17 @@
-import React, { useRef, useState, useEffect } from 'react';
+import { Box, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
+import React, { useEffect, useRef, useState } from 'react';
+import { useLocalFileSystem, useRemoteUserContext } from '../../hooks';
 import {
 	Dimensions,
 	MediaAlignment,
 	MediaRessource,
 } from '../../shared/presentation.interface';
-import { Box } from '@mui/material';
 import MediaDropBoxIndicator from '../components/MediaDropBoxIndicator';
+import LocalOrRemoteModal from '../modals/LocalOrRemoteModal';
 import ActiveMediaIdenticator from './ActiveMediaIdenticator';
 import ColorChannelFilter from './ColorChannelFilter';
-import LocalOrRemoteModal from '../modals/LocalOrRemoteModal';
 import RemoteFileExplorer from './RemoteFileExplorer';
-import iconImg from '../../../../../assets/icon.png';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
-import { useLocalFileSystem, useRemoteUserContext } from '../../hooks';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

@@ -7,7 +7,7 @@ import {
 	MediaAlignment,
 	SinglePresentation,
 } from '../../../shared/presentation.interface';
-import { EditableText } from '../../../smpUI/EditableText';
+import { EditableText } from '../../../smpUI';
 import SettingsRow from '../../settings/SettingsRow';
 import MediaAlignemntPopover from '../MediaAlignmentPopover';
 

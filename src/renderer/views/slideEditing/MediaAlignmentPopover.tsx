@@ -1,13 +1,11 @@
+import { Box, Button, ButtonGroup, Popover, PopoverProps } from '@mui/material';
 import React from 'react';
-import { EditableText } from '../../smpUI/EditableText';
-import { Box, Button} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { ButtonGroup, Popover, PopoverProps } from '@mui/material';
 import {
-	MediaAlignment,
-	SinglePresentation,
+	MediaAlignment
 } from '../../shared/presentation.interface';
+import { EditableText } from '../../smpUI';
 
 interface IMediaAlignmentPopoverProps extends PopoverProps {
 	alignment?: MediaAlignment;

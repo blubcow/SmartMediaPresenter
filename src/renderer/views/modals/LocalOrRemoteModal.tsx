@@ -1,13 +1,10 @@
+import { Cloud, DesktopWindows } from '@mui/icons-material';
+import { Box, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import React from 'react';
-import { Modal } from '../../smpUI/Modal';
-import { EditableText } from '../../smpUI/EditableText';
-import { Box} from '@mui/material';
-import { IModalProps } from '../../smpUI/Modal';
-import { DesktopWindows, Cloud } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import { IBoxedDialogProps, BoxedDialog, EditableText } from '../../smpUI';
 
 const useLocalOrRemoteModalStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -44,7 +41,7 @@ const useLocalOrRemoteModalStyles = makeStyles((theme: Theme) =>
 
 type localOrRemoteSelection = 'local' | 'remote';
 
-interface ILocalOrRemoteModalProps extends IModalProps {
+interface ILocalOrRemoteModalProps extends IBoxedDialogProps {
 	onSelection: (selection: localOrRemoteSelection) => void;
 }
 
@@ -59,7 +56,7 @@ const LocalOrRemoteModal: React.FC<ILocalOrRemoteModalProps> = (props) => {
 	};
 
 	return (
-		<Modal {...modalProps}>
+		<BoxedDialog {...modalProps}>
 			<Box className={classes.container}>
 				<EditableText variant='h6' fontWeight={800}>
 					{t('chooseLocalOrRemote')}
@@ -78,7 +75,7 @@ const LocalOrRemoteModal: React.FC<ILocalOrRemoteModalProps> = (props) => {
 					</Box>
 				</Box>
 			</Box>
-		</Modal>
+		</BoxedDialog>
 	);
 };
 

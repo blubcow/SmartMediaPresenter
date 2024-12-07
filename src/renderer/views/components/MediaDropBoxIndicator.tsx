@@ -1,10 +1,9 @@
+import { Box, BoxProps, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
-import { EditableText } from '../../smpUI/EditableText';
-import { Box, BoxProps} from '@mui/material';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import { EditableText } from '../../smpUI';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

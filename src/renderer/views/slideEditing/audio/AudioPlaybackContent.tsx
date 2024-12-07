@@ -3,12 +3,12 @@ import { Box, Button, IconButton, LinearProgress, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePresentationEditingContext } from '../../../hooks';
 import { i18nNamespace } from '../../../i18n/i18n';
 import { formatTimer } from '../../../shared/format.utils';
 import { PresentationEditingActionIdentifiers } from '../../../shared/identifiers.enum';
-import { EditableText } from '../../../smpUI/EditableText';
+import { EditableText } from '../../../smpUI';
 import AudioIcon from '../../icons/AudioIcon';
-import { usePresentationEditingContext } from '../../../hooks';
 
 export const useAudioPlaybackContentStyles = makeStyles((theme: Theme) =>
 	createStyles({

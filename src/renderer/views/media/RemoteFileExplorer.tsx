@@ -1,21 +1,17 @@
+import { ArrowBack } from '@mui/icons-material';
+import { Box, Button, CircularProgress, Divider, IconButton, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import React, { useEffect, useState } from 'react';
-import { Button, CircularProgress, Divider, IconButton } from '@mui/material';
-import { Modal } from '../../smpUI/Modal';
-import { EditableText } from '../../smpUI/EditableText';
-import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';
+import { usePresentationSyncContext } from '../../hooks';
 import { i18nNamespace } from '../../i18n/i18n';
-import { RemoteStorageMedia } from '../../shared/presentaitonSycncing.interface';
 import {
 	AudioResourceExtensions,
 	ImageResourceExtensions,
 } from '../../shared/mediaResource.utils';
-import { ArrowBack } from '@mui/icons-material';
+import { RemoteStorageMedia } from '../../shared/presentaitonSycncing.interface';
+import { BoxedDialog, EditableText, IBoxedDialogProps } from '../../smpUI';
 import RemoteFile from './RemoteFile';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
-import { Box } from '@mui/material';
-import { usePresentationSyncContext } from '../../hooks';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -53,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-interface IRemoteFileExplorerPorps extends IModalProps {
+interface IRemoteFileExplorerPorps extends IBoxedDialogProps {
 	filterItems?: 'audio' | 'image';
 	onMediaChoosen: (remoteLocation: string) => void;
 }
@@ -98,7 +94,7 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerPorps> = (props) => {
 	}, [currentPath]);
 
 	return (
-		<Modal
+		<BoxedDialog
 			{...modalProps}
 			maxWidth={false}
 			PaperProps={{ onClick: () => setCurrentSelection(undefined) }}
@@ -159,7 +155,7 @@ const RemoteFileExplorer: React.FC<IRemoteFileExplorerPorps> = (props) => {
 					)}
 				</Box>
 			</Box>
-		</Modal>
+		</BoxedDialog>
 	);
 };
 
