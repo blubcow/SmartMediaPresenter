@@ -1,7 +1,7 @@
 import React from 'react';
-import Page from '../smpUI/Page';
+import { Page } from '../smpUI/Page';
 import HomeTopBar from './HomeTopBar';
-import Row from '../smpUI/Row';
+import { Row } from '../smpUI/Row';
 import { EditableText } from '../smpUI/EditableText';
 import { CircularProgress, Divider } from '@mui/material';
 import { useLocalFileSystem } from '../hooks/useMainProcessMethods';

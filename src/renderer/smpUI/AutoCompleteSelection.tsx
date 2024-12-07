@@ -13,7 +13,7 @@ interface IAutoCompleteSelectionProps {
 	) => React.ReactNode;
 }
 
-const AutoCompleteSelection: React.FC<IAutoCompleteSelectionProps> = (
+export const AutoCompleteSelection: React.FC<IAutoCompleteSelectionProps> = (
 	props
 ) => {
 	const { value, onValueChanged, options, style, renderOption, renderInput } =
@@ -33,5 +33,3 @@ const AutoCompleteSelection: React.FC<IAutoCompleteSelectionProps> = (
 		/>
 	);
 };
-
-export default AutoCompleteSelection;

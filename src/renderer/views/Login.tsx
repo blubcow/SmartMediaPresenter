@@ -1,5 +1,5 @@
 import React from 'react';
-import Page from '../smpUI/Page';
+import { Page } from '../smpUI/Page';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../i18n/i18n';

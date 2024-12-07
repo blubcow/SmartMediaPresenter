@@ -53,7 +53,7 @@ export interface IRowProps extends BoxProps {
 	selected?: boolean;
 }
 
-const Row: React.FC<IRowProps> = (props) => {
+export const Row: React.FC<IRowProps> = (props) => {
 	const {
 		title,
 		info,
@@ -104,5 +104,3 @@ const Row: React.FC<IRowProps> = (props) => {
 		</Box>
 	);
 };
-
-export default Row;

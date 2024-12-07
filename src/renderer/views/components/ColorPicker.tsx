@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PhotoshopPicker } from 'react-color';
-import Modal from '../../smpUI/Modal';
+import { Modal } from '../../smpUI/Modal';
 import { IModalProps } from '../../smpUI/Modal';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';

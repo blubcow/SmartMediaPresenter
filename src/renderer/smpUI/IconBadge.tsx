@@ -27,7 +27,7 @@ interface IIconBadgeProps extends BoxProps {
 	clickable?: boolean;
 }
 
-const IconBadge: React.FC<IIconBadgeProps> = (props) => {
+export const IconBadge: React.FC<IIconBadgeProps> = (props) => {
 	const { icon: Icon, iconSize = '55px', clickable = false, ...boxProps } = props;
 	const classes = useStyles();
 
@@ -48,5 +48,3 @@ const IconBadge: React.FC<IIconBadgeProps> = (props) => {
 		</Box>
 	);
 };
-
-export default IconBadge;

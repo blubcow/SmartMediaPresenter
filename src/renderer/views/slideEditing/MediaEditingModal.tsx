@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, ReactNode, useEffect } from 'react';
 import { EditableText } from '../../smpUI/EditableText';
 import { Box, Button} from '@mui/material';
-import Modal, { IModalProps } from '../../smpUI/Modal';
+import { Modal, IModalProps } from '../../smpUI/Modal';
 import { useMediaEditingModalStyles } from './styles';
 import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';

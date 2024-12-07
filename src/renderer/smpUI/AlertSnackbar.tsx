@@ -4,7 +4,7 @@ import { Snackbar, Alert, AlertProps, SnackbarProps, AlertTitle } from '@mui/mat
 
 export type AlertSnackbarProps = SnackbarProps & Pick<AlertProps, 'severity'>;
 
-const AlertSnackbar: React.FC<AlertSnackbarProps> = (props) => {
+export const AlertSnackbar: React.FC<AlertSnackbarProps> = (props) => {
 	const { severity = 'info', message, title, ...snackbarProps } = props;
 
 	return (
@@ -16,5 +16,3 @@ const AlertSnackbar: React.FC<AlertSnackbarProps> = (props) => {
 		</Snackbar>
 	);
 };
-
-export default AlertSnackbar;

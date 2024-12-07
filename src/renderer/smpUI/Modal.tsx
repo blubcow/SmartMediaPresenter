@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 
 export interface IModalProps extends DialogProps {}
 
-const Modal: React.FC<IModalProps> = (props) => {
+export const Modal: React.FC<IModalProps> = (props) => {
 	return (
 		<Dialog {...props}>
 			<Box
@@ -18,5 +18,3 @@ const Modal: React.FC<IModalProps> = (props) => {
 		</Dialog>
 	);
 };
-
-export default Modal;

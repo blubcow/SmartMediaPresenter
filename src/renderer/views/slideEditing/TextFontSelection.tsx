@@ -9,7 +9,7 @@ import {
 } from '../../shared/presentation.interface';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import TextFontSelectionOption from './TextFontSelectionOption';
-import AutoCompleteSelection from '../../smpUI/AutoCompleteSelection';
+import { AutoCompleteSelection } from '../../smpUI/AutoCompleteSelection';
 import { TextField } from '@mui/material';
 import { Box } from '@mui/material';
 

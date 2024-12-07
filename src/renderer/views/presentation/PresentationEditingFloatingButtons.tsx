@@ -6,8 +6,8 @@ import { i18nNamespace } from '../../i18n/i18n';
 import { PresentationEditingActionIdentifiers } from '../../shared/identifiers.enum';
 import { SinglePresentation } from '../../shared/presentation.interface';
 import PresentationFloatingButton from './PresentationFloatingButton';
-import FloatingButton, { FloatingButtonContainer } from '../../smpUI/FloatingButton';
-import AlertSnackbar from '../../smpUI/AlertSnackbar';
+import { FloatingButton, FloatingButtonContainer } from '../../smpUI/FloatingButton';
+import { AlertSnackbar } from '../../smpUI/AlertSnackbar';
 
 interface IPresentationEditingFloatingButtons {
 	onSave: (presentation: SinglePresentation) => void;

@@ -10,7 +10,7 @@ export interface ITopBarProps extends AppBarProps {
 	onGoBack?: () => void;
 }
 
-const TopBar: React.FC<ITopBarProps> = (props) => {
+export const TopBar: React.FC<ITopBarProps> = (props) => {
 	const { withFixedHeight = '75px', canGoBack = false, onGoBack } = props;
 	const navigate = useNavigate();
 
@@ -41,5 +41,3 @@ const TopBar: React.FC<ITopBarProps> = (props) => {
 		</AppBar>
 	);
 };
-
-export default TopBar;

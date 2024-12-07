@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import Modal from '../../smpUI/Modal';
+import { Modal } from '../../smpUI/Modal';
 import { EditableText } from '../../smpUI/EditableText';
 import { IModalProps } from '../../smpUI/Modal';
 import { useTranslation } from 'react-i18next';

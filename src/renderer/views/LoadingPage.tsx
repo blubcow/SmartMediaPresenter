@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Page from '../smpUI/Page';
+import { Page } from '../smpUI/Page';
 import { useNavigate } from 'react-router-dom';
 import LoadingIndicatorPaper from './components/LoadingIndicatorPaper';
 import useRemoteUserContext from '../hooks/useRemoteUserContext';

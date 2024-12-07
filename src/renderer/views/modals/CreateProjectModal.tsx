@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from '../../smpUI/Modal';
+import { Modal } from '../../smpUI/Modal';
 import { EditableText } from '../../smpUI/EditableText';
 import { Box} from '@mui/material';
 import { IModalProps } from '../../smpUI/Modal';
@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { i18nNamespace } from '../../i18n/i18n';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
-import IconBadge from '../../smpUI/IconBadge';
+import { IconBadge } from '../../smpUI/IconBadge';
 
 const useCreateProjectModalStyles = makeStyles((theme: Theme) =>
 	createStyles({

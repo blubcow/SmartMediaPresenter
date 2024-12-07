@@ -38,7 +38,7 @@ interface IPageProps {
 	TopBar?: React.ReactNode;
 }
 
-const Page: React.FC<PropsWithChildren<IPageProps>> = ({
+export const Page: React.FC<PropsWithChildren<IPageProps>> = ({
 	centeredContent = false,
 	TopBar,
 	children,
@@ -58,5 +58,3 @@ const Page: React.FC<PropsWithChildren<IPageProps>> = ({
 		</Box>
 	);
 };
-
-export default Page;

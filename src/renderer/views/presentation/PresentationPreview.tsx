@@ -24,7 +24,7 @@ import usePresentationCacheContext from '../../hooks/usePresentationCacheContext
 import PreviewSlide from './PreviewSlide';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Box, Theme } from '@mui/material';
-import FloatingButton, { FloatingButtonContainer } from '../../smpUI/FloatingButton';
+import { FloatingButton, FloatingButtonContainer } from '../../smpUI/FloatingButton';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

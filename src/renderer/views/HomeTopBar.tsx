@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import TopBar from '../smpUI/TopBar';
+import { TopBar } from '../smpUI/TopBar';
 import useThemedLogo from '../hooks/useThemedLogo';
 import UserSettingsDrawer from './settings/UserSettingsDrawer';
 import { Box, IconButton } from '@mui/material';

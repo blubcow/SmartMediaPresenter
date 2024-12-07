@@ -9,7 +9,7 @@ import { useFullScreenHandle } from 'react-full-screen';
 import { SinglePresentation } from '../../shared/presentation.interface';
 import PresentationFullScreen from '../components/PresentationFullScreen';
 import { useNavigate } from 'react-router-dom';
-import FloatingButton from '../../smpUI/FloatingButton';
+import { FloatingButton } from '../../smpUI/FloatingButton';
 
 interface IPresentationFloatingButtonProps {
 	presentationId?: number;

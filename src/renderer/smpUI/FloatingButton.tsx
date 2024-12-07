@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IFloatingButtonProps extends FabProps {}
 
-const FloatingButton: React.FC<IFloatingButtonProps> = (props) => {
+export const FloatingButton: React.FC<IFloatingButtonProps> = (props) => {
 	return (
 		<Fab
 			{...props}
@@ -36,5 +36,3 @@ export const FloatingButtonContainer: React.FC<PropsWithChildren<{}>> = (
 
 	return <Box className={classes.container}>{children}</Box>;
 };
-
-export default FloatingButton;

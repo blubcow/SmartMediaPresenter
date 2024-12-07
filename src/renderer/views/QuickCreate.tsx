@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Page from '../smpUI/Page';
+import { Page } from '../smpUI/Page';
 import QuickCreateTopBar from './QuickCreateTopBar';
 import { Divider } from '@mui/material';
 import QuickCreateMediaDropBox from './quickCreateMedia/QuickCreateMediaDropBox';
